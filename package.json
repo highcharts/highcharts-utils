@@ -9,9 +9,11 @@
   "author": "Torstein Honsi",
   "license": "ISC",
   "dependencies": {
+    "current-git-branch": "^1.0.1",
     "express": "^4.16.2"
   },
   "devDependencies": {
+    "browser-detect": "^0.2.22",
     "js-yaml": "^3.10.0",
     "nodemon": "^1.14.3"
   }
