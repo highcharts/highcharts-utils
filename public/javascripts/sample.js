@@ -166,7 +166,7 @@ controller.Sample = function (options, index) {
         anchor.href = isUnitTest() ?
             'compare-view.html?path=' + options.path +
                 '&dummy=' + Date.now() :
-            'view.php?path=' + options.path;
+            'view?path=' + options.path;
         if (!(options.details && options.details.requiresManualTesting)) {
             anchor.className = 'batch';
         }
