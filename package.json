@@ -1,20 +1,22 @@
 {
   "name": "highcharts-utils",
-  "version": "0.0.1",
-  "description": "Utilities for testing Highcharts",
-  "main": "index.js",
+  "version": "0.0.0",
+  "private": true,
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "nodemon ./bin/www"
   },
-  "author": "Torstein Honsi",
-  "license": "ISC",
   "dependencies": {
-    "current-git-branch": "^1.0.1",
-    "express": "^4.16.2"
-  },
-  "devDependencies": {
+    "body-parser": "~1.17.1",
     "browser-detect": "^0.2.22",
+    "cookie-parser": "~1.4.3",
+    "current-git-branch": "^1.0.1",
+    "debug": "~2.6.3",
+    "express": "~4.15.2",
+    "hbs": "~4.0.1",
     "js-yaml": "^3.10.0",
-    "nodemon": "^1.14.3"
+    "less-middleware": "~2.2.0",
+    "morgan": "~1.8.1",
+    "nodemon": "^1.14.3",
+    "serve-favicon": "~2.4.2"
   }
 }
