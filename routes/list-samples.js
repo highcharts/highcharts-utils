@@ -6,38 +6,39 @@ const branchName = require('current-git-branch');
 const fs = require('fs');
 const yaml = require('js-yaml');
 
-const highchartsDir = './../highcharts/';
+const highchartsDir = require('./../config.json').highchartsDir;
 const samplesDir = `${highchartsDir}samples/`;
 
 
-const getSample = (group, subgroup, name) => {
+const getSample = (path) => {
 	let sample = {
-		group: group,
-		subgroup: subgroup,
-		path: `${group}/${subgroup}/${name}`,
-		details: {}
+		path: path,
+		details: {},
+		files: {}
 	};
 
 	// Get demo.details
-	let detailsFile = samplesDir + sample.path + '/demo.details';
+	let detailsFile = samplesDir + path + '/demo.details';
 	if (fs.existsSync(detailsFile)) {
 		let details = fs.readFileSync(detailsFile, 'utf8');
 		if (details) {
 			sample.details = yaml.load(details);
 		}
 	}
-
-	// isUnitTest
-	if (
-		sample.details.resources &&
-		sample.details.resources.toString().indexOf('qunit') !== -1
-	) {
-		sample.isUnitTest = true;	
-	}
-	if (fs.existsSync(samplesDir + sample.path + '/unit-tests.js')) {
-		sample.isUnitTest = true;
-	}
 	
+	// Get extra files
+	[
+		'demo.css',
+		'unit-tests.js',
+		'test.js',
+		'test-notes.html'
+
+	].forEach(extraFile => {
+		let filePath = `${samplesDir}/${path}/${extraFile}`;
+		if (fs.existsSync(filePath)) {
+			sample.files[extraFile] = true;
+		}
+	});
 
 	return sample;
 };
@@ -55,10 +56,11 @@ const getSamples = () => {
 					fs.readdirSync(
 						samplesDir + group + '/' + subgroup
 					).forEach(sample => {
+						let path = `${group}/${subgroup}/${sample}`;
 						if (fs.lstatSync(
-							samplesDir + group + '/' + subgroup + '/' + sample
+							samplesDir + path
 						).isDirectory()) {
-							samples.push(getSample(group, subgroup, sample));
+							samples.push(getSample(path));
 						}
 					});
 				}

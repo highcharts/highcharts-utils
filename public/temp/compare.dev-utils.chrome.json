@@ -1,0 +1,62 @@
+{
+    "highcharts\/global\/gettimezoneoffset": {
+        "diff": "0"
+    },
+    "highcharts\/chart\/animation-duration": {
+        "diff": "0"
+    },
+    "highcharts\/3d\/column-colored-frame": {
+        "diff": "0"
+    },
+    "highcharts\/3d\/column": {
+        "diff": "0"
+    },
+    "highcharts\/3d\/column-deep": {
+        "diff": "0.36785988562091504"
+    },
+    "highcharts\/3d\/column-drilldown": {
+        "diff": "0"
+    },
+    "highcharts\/3d\/column-frame": {
+        "diff": "0"
+    },
+    "highcharts\/3d\/column-grouping": {
+        "diff": "0.599157679738562",
+        "comment": {
+            "symbol": "check",
+            "diff": "0.6",
+            "title": "Approved due to testing",
+            "submit-actual": "Approve 0.6"
+        }
+    },
+    "highcharts\/3d\/column-inverted": {
+        "diff": "0"
+    },
+    "highcharts\/3d\/column-negative-values": {
+        "diff": "0"
+    },
+    "highcharts\/chart\/animation-none": {
+        "diff": "0"
+    },
+    "highcharts\/3d\/column-opposite": {
+        "diff": "0"
+    },
+    "highcharts\/3d\/column-stacking": {
+        "diff": "0"
+    },
+    "highcharts\/3d\/column-stacking-multiple": {
+        "diff": "0"
+    },
+    "highcharts\/3d\/column-zpadding": {
+        "diff": "0.4503329248366013",
+        "comment": {
+            "symbol": "check",
+            "diff": "0.45",
+            "title": "",
+            "submit": "Approve"
+        }
+    },
+    "highcharts\/3d\/columnrange": {
+        "diff": "0"
+    }
+}
