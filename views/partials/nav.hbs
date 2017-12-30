@@ -1,3 +1,60 @@
-<ul>
-	<li>This is navigation in a partial</li>
-</ul>
+<div class="top-bar">
+
+	<div id="version" style="float:right; color: white"></div>
+
+	<h2 style="margin: 0">{{path}}</h2>
+
+	<div style="text-align: center">
+		<form method="post" action="" style="display:inline">
+			<select name="theme" onchange="this.form.submit()">
+			{{#each themes}}
+				<option value="{{key}}" >
+					{{this}}
+				</option>
+			{{/each}}
+			</select>
+		</form>
+		<button id="next" disabled="disabled" title="Next (Arrow Right)">
+			Next</button>
+
+		<button id="reload" onclick="location.reload()"
+			title="Reload (Ctrl + Enter)">Reload</button>
+		
+		{{#if styled}}
+		<a class="button active" title="View this sample with CSS and no inline styling"
+			href="view?path={{path}}&amp;styled=false">Styled</a>
+		{{else}}
+		<a class="button" title="View this sample with CSS and no inline styling"
+			href="view?path={{path}}&amp;styled=true">Styled</a>
+		{{/if}}
+		
+		<a class="button"
+			style="border-bottom-right-radius: 0; border-top-right-radius: 0; margin-right: 0"
+			href="compare-view?path={{path}}">Compare
+		</a><a class="button" id="bisect" 
+			style="border-bottom-left-radius: 0; border-top-left-radius: 0; margin-left: 0; border-left: 1px solid gray">Bisect</a>
+		
+
+		<a class="button"
+			href="view?path={{profile}}&amp;profile=1"
+			style="border-bottom-right-radius: 0; border-top-right-radius: 0; margin-right: 0">Profile
+		</a><a class="button"
+			style="border-bottom-left-radius: 0; border-top-left-radius: 0; margin-left: 0; border-left: 1px solid gray"
+			href="view?path={{path}}&amp;time=1">Time</a>
+		
+
+		<a id="view-source" class="button" href="javascript:;"
+			style="border-bottom-right-radius: 0; border-top-right-radius: 0; margin-right: 0">View source
+		</a><a class="button"
+			href="http://jsfiddle.net/gh/get/library/pure/highcharts/highcharts/tree/master/samples/{{path}}/"
+			style="border-bottom-left-radius: 0; border-top-left-radius: 0; margin-left: 0; border-left: 1px solid gray"
+			target="_blank">jsFiddle</a>
+
+
+		<!--		
+		<input id="record" type="checkbox" />
+		<label for="record" title="Record calls to Pointer mouse events that can be added to test.js for automatic testing of tooltip and other mouse operations">Record mouse</label>
+		-->
+		
+	</div>
+</div>

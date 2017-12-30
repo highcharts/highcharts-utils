@@ -1,2 +1,46 @@
-This is the view file
+
 {{> nav }}
+
+<style type="text/css">
+	{{{css}}}
+</style>
+
+<div id="source-box"></div>
+<div id="main-content">
+	<div style="margin: 1em">
+
+	{{{html}}}
+	</div>
+
+	
+	<div class="description" id="description"></div>
+	<!--
+	TODO: Do this in JavaScript
+	<script src="https://cdn.rawgit.com/showdownjs/showdown/1.8.5/dist/showdown.min.js"></script>
+	<script>
+		var converter = new showdown.Converter(),
+			md = `<?php echo str_replace('`', '\`', $md) ?>`,
+			html = converter.makeHtml(md);
+		document.getElementById('description').innerHTML = html;
+	</script>
+	-->
+
+	<script>
+	setUp();
+	{{{js}}}
+	</script>
+	{{#if testNotes}}
+	<section class="test-notes">
+		<header>Test notes</header>
+		<div class="test-notes-content">
+			{{testNotes}}
+		</div>
+	</section>
+	{{else}}
+	<hr/>
+	{{/if}}
+	<!--ul>
+		<li>Mobile testing: <a href="http://<?php echo $_SERVER['SERVER_NAME'] ?>/draft">http://<?php echo $_SERVER['SERVER_NAME'] ?>/draft</a></li>
+	</ul-->
+	<!--pre id="recording" style="padding: 1em"></pre-->
+</div>
