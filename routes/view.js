@@ -11,28 +11,29 @@ const getHTML = (path) => {
 		.toString()
 		.replace(
 			/https:\/\/code\.highcharts\.com\//g,
-			'http://code.highcharts.local/'
+			'/code/'
 		);
 
-	if (html.indexOf('/code.highcharts.local/mapdata') !== -1) {
+	if (html.indexOf('/code/mapdata') !== -1) {
 		html = html.replace(
-			/\/code\.highcharts\.local\/mapdata/g, 
-			'/code.highcharts.com/mapdata'
+			/\/code\/mapdata/g, 
+			'https://code.highcharts.com/mapdata'
 		);
 	}
 
 	// Old IE
 	html += `
 	<!--[if lt IE 9]>
-	<script src='http://code.highcharts.local/modules/oldie.js'></script>
+	<script src='/code/modules/oldie.js'></script>
 	<![endif]-->
 	`;
 
 	// Fore no-cache
+	/*
 	html = html
 		.replace(/\.js"/g, '.js?' + Date.now() + '"')
 		.replace(/\.css"/g, '.css?' + Date.now() + '"');
-
+	*/
 	return html;
 }
 
@@ -46,7 +47,7 @@ const getCSS = (path) => {
 			.toString()
 			.replace(
 				/https:\/\/code\.highcharts\.com\//g,
-				'http://code.highcharts.local/'
+				'/code/'
 			);
 	}
 	return css;

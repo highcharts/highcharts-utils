@@ -24,6 +24,7 @@ app.use(lessMiddleware(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', require('./routes/index'));
+app.use('/code', require('./routes/code'));
 app.use('/view', require('./routes/view'));
 app.use('/list-samples', require('./routes/list-samples'));
 app.use('/server-env', require('./routes/server-env'));
