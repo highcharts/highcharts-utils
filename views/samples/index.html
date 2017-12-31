@@ -39,7 +39,7 @@
 				// Test
 				match = hash.match(/^#test\//);
 				if (match) {
-					main = '/samples/compare-view.html?path=' + hash.replace(match[0], '');
+					main = '/samples/compare-view?path=' + hash.replace(match[0], '');
 				}
 				
 				// Batch test
@@ -47,7 +47,7 @@
 				if (match) {
 					document.getElementById('contents').contentWindow
 						.batchMode();
-					main = '/samples/compare-view.html?path=' +
+					main = '/samples/compare-view?path=' +
 						hash.replace(match[0], '');
 				}
 				

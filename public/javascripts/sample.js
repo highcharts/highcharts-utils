@@ -56,7 +56,7 @@ controller.Sample = function (options, index) {
         } else {
             testAnchor = contentsDoc.createElement('a');
             testAnchor.className = 'dissimilarity-index';
-            testAnchor.href = '/samples/compare-view.html?path=' + options.path;
+            testAnchor.href = '/samples/compare-view?path=' + options.path;
             testAnchor.target = 'main';
             testAnchor.innerHTML = '<i class="' +
                 (isUnitTest() ? 'icon-puzzle-piece' : 'icon-columns') +
@@ -164,7 +164,7 @@ controller.Sample = function (options, index) {
         anchor.id = 'i' + index;
         anchor.target = 'main';
         anchor.href = isUnitTest() ?
-            '/samples/compare-view.html?path=' + options.path +
+            '/samples/compare-view?path=' + options.path +
                 '&dummy=' + Date.now() :
             '/samples/view?path=' + options.path;
         if (!(options.details && options.details.requiresManualTesting)) {
