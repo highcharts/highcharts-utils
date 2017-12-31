@@ -5,11 +5,11 @@
 	<h2 style="margin: 0">{{path}}</h2>
 
 	<div style="text-align: center">
-		<form method="post" action="" style="display:inline">
+		<form method="post" action="/set-theme" style="display:inline">
 			<select name="theme" onchange="this.form.submit()">
 			{{#each themes}}
-				<option value="{{key}}" >
-					{{this}}
+				<option value="{{@key}}" {{selected}}>
+					{{name}}
 				</option>
 			{{/each}}
 			</select>
@@ -36,7 +36,7 @@
 		
 
 		<a class="button"
-			href="view?path={{profile}}&amp;profile=1"
+			href="view?path={{path}}&amp;profile=1"
 			style="border-bottom-right-radius: 0; border-top-right-radius: 0; margin-right: 0">Profile
 		</a><a class="button"
 			style="border-bottom-left-radius: 0; border-top-left-radius: 0; margin-left: 0; border-left: 1px solid gray"

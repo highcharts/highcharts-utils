@@ -6,6 +6,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var lessMiddleware = require('less-middleware');
 var hbs = require('hbs');
+var session = require('express-session');
 
 var app = express();
 
@@ -22,12 +23,18 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(lessMiddleware(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(session({
+  secret: 'keyboard cat',
+  resave: false,
+  saveUninitialized: true
+}));
 
 app.use('/', require('./routes/index'));
 app.use('/code', require('./routes/code'));
 app.use('/view', require('./routes/view'));
 app.use('/list-samples', require('./routes/list-samples'));
 app.use('/server-env', require('./routes/server-env'));
+app.use('/set-theme', require('./routes/set-theme'));
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

@@ -12,6 +12,7 @@
     "current-git-branch": "^1.0.1",
     "debug": "~2.6.3",
     "express": "~4.15.2",
+    "express-session": "^1.15.6",
     "hbs": "~4.0.1",
     "js-yaml": "^3.10.0",
     "less-middleware": "~2.2.0",

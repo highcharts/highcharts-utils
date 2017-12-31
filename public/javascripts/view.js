@@ -185,13 +185,13 @@ function setUp() {
 
 			// Start profile
 			if (window.console && console.profileEnd) {
-				console.profile('<?php echo $path ?>');
+				console.profile(sample.path);
 			}
 			
 			chart = proceed.apply(this, Array.prototype.slice.call(arguments, 1));
 
 			if (window.console && console.profileEnd) {
-		 		console.profileEnd();
+		 		console.profileEnd(sample.path);
 		 	}
 
 		 	return chart;
@@ -205,7 +205,7 @@ function setUp() {
 
 			// Start profile
 			if (window.console && console.time) {
-				console.time('<?php echo $path ?>');
+				console.time(sample.path);
 			} else {
 				start = +new Date();
 			}
@@ -214,9 +214,9 @@ function setUp() {
 			chart = proceed.apply(this, Array.prototype.slice.call(arguments, 1));
 
 			if (window.console && console.time) {
-				console.timeEnd('<?php echo $path ?>');
+				console.timeEnd(sample.path);
 			} else if (window.console) {
-				console.log('<?php echo $path ?>: ' + (new Date() - start) + 'ms');
+				console.log(sample.path + ': ' + (new Date() - start) + 'ms');
 			}
 			
 		 	return chart;

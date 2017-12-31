@@ -3,7 +3,9 @@ const fs = require('fs');
 const router = express.Router();
 const cfg = require('../config.json');
 
-const getHTML = (path) => {
+const getHTML = (req) => {
+	let theme = req.session.theme;
+	let path = req.query.path;
 	let html =
 		fs.readFileSync(
 			`${cfg.highchartsDir}samples/${path}/demo.html`
@@ -28,12 +30,12 @@ const getHTML = (path) => {
 	<![endif]-->
 	`;
 
-	// Fore no-cache
-	/*
-	html = html
-		.replace(/\.js"/g, '.js?' + Date.now() + '"')
-		.replace(/\.css"/g, '.css?' + Date.now() + '"');
-	*/
+	// Theme
+	if (theme) {
+		html += `
+		<script src='/code/themes/${theme}.js'></script>
+		`;
+	}
 	return html;
 }
 
@@ -62,23 +64,36 @@ const getJS = (path) => {
 }
 
 router.get('/', function(req, res, next) {
-	res.render('view', {
+	let tpl = {
 		title: 'Sample viewer - Highcharts',
 		path: req.query.path,
-		html: getHTML(req.query.path),
+		html: getHTML(req),
 		css: getCSS(req.query.path),
 		js: getJS(req.query.path),
 		scripts: [
 			'/javascripts/view.js'
 		],
 		themes: {
-			'': 'Default theme',
-			'sand-signika': 'Sand Signika',
-			'dark-unica': 'Dark Unica',
-			'grid-light': 'Grid Light'
+			'': {
+				name: 'Default theme'
+			},
+			'sand-signika': {
+				name: 'Sand Signika',
+				selected: req.session.theme === 'sand-signika' && 'selected'
+			},
+			'dark-unica': {
+				name: 'Dark Unica',
+				selected: req.session.theme === 'dark-unica' && 'selected'
+			},
+			'grid-light': {
+				name: 'Grid Light',
+				selected: req.session.theme === 'grid-light' && 'selected'
+			}
 		},
 		styled: false // @todo: implement
-	});
+	};
+
+	res.render('view', tpl);
 });
 
 module.exports = router;
