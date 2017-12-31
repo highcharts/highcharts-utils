@@ -5,7 +5,7 @@
 	<h2 style="margin: 0">{{path}}</h2>
 
 	<div style="text-align: center">
-		<form method="post" action="/set-theme" style="display:inline">
+		<form method="post" action="/samples/set-theme" style="display:inline">
 			<select name="theme" onchange="this.form.submit()">
 			{{#each themes}}
 				<option value="{{@key}}" {{selected}}>

@@ -31,10 +31,11 @@ app.use(session({
 
 app.use('/', require('./routes/index'));
 app.use('/code', require('./routes/code'));
-app.use('/view', require('./routes/view'));
-app.use('/list-samples', require('./routes/list-samples'));
-app.use('/server-env', require('./routes/server-env'));
-app.use('/set-theme', require('./routes/set-theme'));
+app.use('/samples/', require('./routes/samples/index'));
+app.use('/samples/view', require('./routes/samples/view'));
+app.use('/samples/list-samples', require('./routes/samples/list-samples'));
+app.use('/samples/server-env', require('./routes/samples/server-env'));
+app.use('/samples/set-theme', require('./routes/samples/set-theme'));
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -51,7 +52,9 @@ app.use(function(err, req, res, next) {
 
   // render the error page
   res.status(err.status || 500);
-  res.render('error');
+  res.render('error', {
+  	url: req.url
+  });
 });
 
 module.exports = app;

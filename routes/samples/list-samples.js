@@ -6,7 +6,7 @@ const branchName = require('current-git-branch');
 const fs = require('fs');
 const yaml = require('js-yaml');
 
-const highchartsDir = require('./../config.json').highchartsDir;
+const highchartsDir = require('./../../config.json').highchartsDir;
 const samplesDir = `${highchartsDir}samples/`;
 
 

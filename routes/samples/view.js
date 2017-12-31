@@ -1,7 +1,7 @@
 const express = require('express');
 const fs = require('fs');
 const router = express.Router();
-const cfg = require('../config.json');
+const cfg = require('../../config.json');
 
 const getHTML = (req) => {
 	let theme = req.session.theme;
@@ -93,7 +93,7 @@ router.get('/', function(req, res, next) {
 		styled: false // @todo: implement
 	};
 
-	res.render('view', tpl);
+	res.render('samples/view', tpl);
 });
 
 module.exports = router;

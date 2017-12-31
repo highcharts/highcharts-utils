@@ -6,7 +6,7 @@ router.get('/', function(req, res, next) {
 
 	res.setHeader('Content-Type', 'application/json');
     res.send({
-    	branch: branchName(require('./../config.json').highchartsDir)
+    	branch: branchName(require('./../../config.json').highchartsDir)
     });
 });
 

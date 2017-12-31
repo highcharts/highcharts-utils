@@ -25,7 +25,7 @@ var controller = { // eslint-disable-line no-unused-vars
     },
 
     loadSamples: function () {
-        $.getJSON('./list-samples', function (samples) {
+        $.getJSON('/samples/list-samples', function (samples) {
 
             // Create Sample instances
             controller.samples = samples.map(function (options, i) {
