@@ -3,8 +3,8 @@ const express = require('express');
 const router = express.Router();
 const browser = require('browser-detect');
 const branchName = require('current-git-branch');
+const f = require('./../../lib/functions.js');
 const fs = require('fs');
-const yaml = require('js-yaml');
 
 const highchartsDir = require('./../../config.json').highchartsDir;
 const samplesDir = `${highchartsDir}samples/`;
@@ -13,18 +13,9 @@ const samplesDir = `${highchartsDir}samples/`;
 const getSample = (path) => {
 	let sample = {
 		path: path,
-		details: {},
+		details: f.getDetails(path),
 		files: {}
 	};
-
-	// Get demo.details
-	let detailsFile = samplesDir + path + '/demo.details';
-	if (fs.existsSync(detailsFile)) {
-		let details = fs.readFileSync(detailsFile, 'utf8');
-		if (details) {
-			sample.details = yaml.load(details);
-		}
-	}
 	
 	// Get extra files
 	[

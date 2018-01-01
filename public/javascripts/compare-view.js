@@ -63,13 +63,13 @@ function setUpElements() {
 	} else {
 		if (!isUnitTest && !isManual) {
 			var leftIframe = document.createElement('iframe');
-			leftIframe.src = "compare-iframe.php?which=left&" +
+			leftIframe.src = "compare-iframe?which=left&" +
 				querystring + "&dummy=" + Date.now();
 			document.getElementById('frame-row')
 				.appendChild(leftIframe);
 		}
 		var rightIFrame = document.createElement('iframe');
-		rightIFrame.src = "compare-iframe.php?which=right&" +
+		rightIFrame.src = "compare-iframe?which=right&" +
 				querystring + "&dummy=" + Date.now();
 		document.getElementById('frame-row')
 			.appendChild(rightIFrame);

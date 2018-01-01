@@ -1,78 +1,31 @@
+/**
+ * View a single sample.
+ *
+ * @todo
+ * - Include test-notes.html
+ * - Include readme.md
+ * - View standalone, without frameset
+ * - Styled mode
+ */
+
 const express = require('express');
 const fs = require('fs');
 const router = express.Router();
 const cfg = require('../../config.json');
-
-const getHTML = (req) => {
-	let theme = req.session.theme;
-	let path = req.query.path;
-	let html =
-		fs.readFileSync(
-			`${cfg.highchartsDir}samples/${path}/demo.html`
-		)
-		.toString()
-		.replace(
-			/https:\/\/code\.highcharts\.com\//g,
-			'/code/'
-		);
-
-	if (html.indexOf('/code/mapdata') !== -1) {
-		html = html.replace(
-			/\/code\/mapdata/g, 
-			'https://code.highcharts.com/mapdata'
-		);
-	}
-
-	// Old IE
-	html += `
-	<!--[if lt IE 9]>
-	<script src='/code/modules/oldie.js'></script>
-	<![endif]-->
-	`;
-
-	// Theme
-	if (theme) {
-		html += `
-		<script src='/code/themes/${theme}.js'></script>
-		`;
-	}
-	return html;
-}
-
-const getCSS = (path) => {
-	const cssFile = `${cfg.highchartsDir}samples/${path}/demo.css`;
-	let css = '';
-
-	if (fs.existsSync(cssFile)) {
-		css =
-			fs.readFileSync(cssFile)
-			.toString()
-			.replace(
-				/https:\/\/code\.highcharts\.com\//g,
-				'/code/'
-			);
-	}
-	return css;
-}
-
-const getJS = (path) => {
-	let js = fs.readFileSync(
-		`${cfg.highchartsDir}samples/${path}/demo.js`
-	)
-
-	return js;
-}
+const f = require('./../../lib/functions.js');
 
 router.get('/', function(req, res, next) {
+	let resources = f.getResources(req.query.path);
 	let tpl = {
 		title: 'Sample viewer - Highcharts',
 		path: req.query.path,
-		html: getHTML(req),
-		css: getCSS(req.query.path),
-		js: getJS(req.query.path),
+		html: f.getHTML(req),
+		css: f.getCSS(req.query.path),
+		js: f.getJS(req.query.path),
 		scripts: [
 			'/javascripts/view.js'
-		],
+		].concat(resources.scripts),
+		styles: resources.styles,
 		themes: {
 			'': {
 				name: 'Default theme'
