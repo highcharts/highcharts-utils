@@ -1,62 +1,35 @@
+<style type="text/css">
+	{{{css}}}
+</style>
 
-<html>
-	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<title>Highcharts demo</title>
-		<?php echo getFramework($_GET['which'] === 'left' ? $leftFramework : $rightFramework); ?>
-		<?php echo getResources(); ?>
+<script type="text/javascript">		
 
-		<?php if (is_file("$fsPath/unit-tests.js")) : ?>
-		<script src="cache.php?file=http://code.jquery.com/qunit/qunit-<?php echo Settings::$QUnitVersion; ?>.js"></script>
-		<link rel="stylesheet" type="text/css" href="cache.php?file=http://code.jquery.com/qunit/qunit-<?php echo Settings::$QUnitVersion; ?>.css" />
-   		<?php endif; ?>
-   		<script src="test-controller.js?<?php echo uniqid(); ?>"></script>
+$(function () {
+	{{{unitTestsFile}}}
 
-		<link rel="stylesheet" type="text/css" href="style.css"/>
-		<style type="text/css">
-			{{{css}}}
-		</style>
+	{{{testFile}}}
+});
+</script>
 
 
+{{#if unitTestsFile}}
+<div id="qunit"></div>
+<div id="qunit-fixture"></div>
+{{/if}}
 
-		<script type="text/javascript">
+{{{html}}}
 
-		// Make sure deferred errors are captured by the test runner.
-		if (jQuery) {
-			jQuery.readyException = error;
-		}
-		
+<script>
+// Set options, overrides etc.
+setUpHighcharts();
+</script>
+<script>
+try {
 
-		$(function () {
-		<?php
-			@include("$fsPath/unit-tests.js");
-		?>
-		});
-		</script>
+{{{js}}}
 
-	</head>
-	<body>
-
-		<?php if (is_file("$fsPath/unit-tests.js")) { ?>
-		<div id="qunit"></div>
-		<div id="qunit-fixture"></div>
-		<?php } ?>
-		{{{html}}}
-
-		<script>
-		// Set options, overrides etc.
-		setUpHighcharts();
-		</script>
-		<script>
-		try {
-
-		{{{js}}}
-
-		} catch (e) {
-			console.error(e.message);
-			parent.window.onDifferent('Error');
-		}
-		</script>
-	</body>
-</html>
+} catch (e) {
+	console.error(e.message);
+	parent.window.onDifferent('Error');
+}
+</script>
