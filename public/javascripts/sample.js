@@ -223,7 +223,7 @@ controller.Sample = function (options, index) {
     function setOptions(newOptions) {
         $.extend(true, options, newOptions);
         renderList();
-        save();
+        save()
     }
 
 

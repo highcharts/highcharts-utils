@@ -64,12 +64,14 @@ function setUpElements() {
 	} else {
 		if (!isUnitTest && !isManual) {
 			var leftIframe = document.createElement('iframe');
+			leftIframe.id = 'iframe-left';
 			leftIframe.src = "compare-iframe?which=left&" +
 				querystring + "&dummy=" + Date.now();
 			document.getElementById('frame-row')
 				.appendChild(leftIframe);
 		}
 		var rightIFrame = document.createElement('iframe');
+		rightIFrame.id = 'iframe-right';
 		rightIFrame.src = "compare-iframe?which=right&" +
 				querystring + "&dummy=" + Date.now();
 		document.getElementById('frame-row')
@@ -143,7 +145,7 @@ function pad(s, length, left) {
 
 function proceed() {
 	updateHash(); // Batch may be stopped
-	if (window.parent.frames[0] && sample.index !== -1 && window.parent.frames[0].continueBatch) {
+	if (controller.continueBatch) {
 		var contentDoc = window.parent.frames[0].document,
 			href,
 			next,
@@ -158,7 +160,7 @@ function proceed() {
 			if (next) {
 				href = next.href;
 			} else {
-				window.location.href = 'view.php';
+				window.location.href = 'view';
 				return;
 			}
 
@@ -167,13 +169,12 @@ function proceed() {
 			}
 		}
 
-		href = href.replace("/view.php", "/compare-view.html");
+		href = href.replace("/view?", "/compare-view?");
 
-
-		window.parent.batchRuns++;
+		controller.batchRuns++;
 		// Clear memory build-up from time to time by reloading the
 		// whole thing. Firefox has problems redirecting.
-		if (window.parent.batchRuns > 90 &&
+		if (controller.batchRuns > 90 &&
 				navigator.userAgent.indexOf('WebKit') !== -1) {
 			window.parent.location.href = '/samples/#batch/' +
 				window.parent.frames[0].samples[nextIndex];

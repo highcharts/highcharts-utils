@@ -15,29 +15,6 @@
 			/* eslint-disable */
 			var controller = parent.window.controller;
 			var diffThreshold = 0;
-			window.continueBatch = false;
-
-			function batchMode() {
-				window.continueBatch = true;
-				$('#batch-compare').hide();
-				$('#batch-stop').show();
-			}
-			function runBatch() {
-				var currentLi = document.currentLi || $('#li1')[0];
-				if (currentLi) {
-					var href = currentLi.getElementsByTagName("a")[0].href;
-				
-					href = href.replace("/view.php", "/compare-view");
-					window.parent.frames[1].location.href = href;
-				}
-				batchMode();
-			}
-
-			function stopBatch() {
-				window.continueBatch = false;
-				$('#batch-stop').hide();
-				$('#batch-compare').show();
-			}
 
 			function countFails() {
 				$('#count-fails').html('(' + ($('#main-nav li').length - 
@@ -50,7 +27,7 @@
 
 				$(window).bind('click', function (e) {
 					if (e.target !== $('#batch-compare')[0]) {
-						stopBatch();
+						controller.stopBatch();
 					}
 				});
 
@@ -69,8 +46,8 @@
 				});
 
 				
-				$("#batch-compare").click(runBatch);
-				$("#batch-stop").click(stopBatch);
+				$("#batch-compare").click(controller.runBatch);
+				$("#batch-stop").click(controller.stopBatch);
 
 				$('#reset').click(function () {
 					if (confirm("Do you want to reset the compare history? Results from all browsers will be lost.")) {
@@ -251,7 +228,7 @@
 	<body>
 		
 	<div id="top-nav">
-		<a class="button" href="index.php" target="main">
+		<a class="button" href="/samples/main" target="main">
 			<i class="icon-home"></i>
 		</a>
 		<a class="button" id="batch-compare" title="Batch compare all samples">
@@ -268,10 +245,10 @@
 			<i class="icon-refresh"></i>
 			Reload
 		</a>
-		<a class="button" id="settings" title="Settings" href="settings.php" target="main">
+		<!--a class="button" id="settings" title="Settings" href="settings.php" target="main">
 			<i class="icon-cog"></i>
 			Settings
-		</a>
+		</a-->
 
 		<div class="text" id="test-status"></div>
 

@@ -25,7 +25,7 @@
 		controller.onLoad.push(function () {
 			var hash = window.location.hash,
 				match
-				main = 'view.php';
+				main = 'view';
 
 			window.onkeydown = keyDown;
 
@@ -45,8 +45,7 @@
 				// Batch test
 				match = hash.match(/^#batch\//);
 				if (match) {
-					document.getElementById('contents').contentWindow
-						.batchMode();
+					controller.batchMode();
 					main = '/samples/compare-view?path=' +
 						hash.replace(match[0], '');
 				}
@@ -57,7 +56,6 @@
 			}
 		});
 
-		var batchRuns = 0;
 		var commits = [];
 
 

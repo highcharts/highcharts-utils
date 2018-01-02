@@ -9,6 +9,8 @@ var controller = { // eslint-disable-line no-unused-vars
     // Set from index.html
     server: null,
 
+    batchRuns: 0,
+
     onLoad: [function () {
         controller.samples.forEach(function (sample) {
             sample.options.compare = controller.compare[sample.path];
@@ -45,22 +47,28 @@ var controller = { // eslint-disable-line no-unused-vars
     },
 
     loadCompare: function () {
-        $.getJSON(
-            './temp/compare.' + controller.server.branch + '.' +
+        $.ajax({
+            dataType: 'json',
+            url: './temp/compare.' + controller.server.branch + '.' +
                 controller.getBrowser().toLowerCase() +
                 '.json',
-            function (compare) {
+            success: function (compare) {
                 controller.compare = compare;
                 controller.runLoad();
+            },
+            error: function () {
+                controller.compare = {};
+                controller.runLoad();
             }
-        );
+        });
     },
 
     frames: function () {
         return {
             frameset: window.parent.document.querySelector('frameset'),
             contents: window.parent.document.getElementById('contents'),
-            commits: window.parent.document.getElementById('commits-frame')
+            commits: window.parent.document.getElementById('commits-frame'),
+            main: window.parent.document.getElementById('main')
         };
     },
 
@@ -224,7 +232,30 @@ var controller = { // eslint-disable-line no-unused-vars
                 doc.head.appendChild(elem);
             });
         }
-    }
+    },
 
+
+    batchMode: function() {
+        var contentsDoc = controller.frames().contents.contentDocument;
+        controller.continueBatch = true;
+        $('#batch-compare', contentsDoc).hide();
+        $('#batch-stop', contentsDoc).show();
+    },
+
+    runBatch: function() {
+        var contentsDoc = controller.frames().contents.contentDocument;
+
+        controller.frames().main.contentWindow.location.href = 
+            '/samples/compare-view?path=' +
+            (controller.currentSample || controller.samples[i]).path;
+        controller.batchMode();
+    },
+
+    stopBatch: function() {
+        var contentsDoc = controller.frames().contents.contentDocument;
+        controller.continueBatch = false;
+        $('#batch-stop', contentsDoc).hide();
+        $('#batch-compare', contentsDoc).show();
+    }
 
 };
