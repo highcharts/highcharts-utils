@@ -1,0 +1,67 @@
+<style type="text/css">
+	body {
+		margin: 0;
+	}
+	h4 {
+		border-bottom: 1px solid silver;
+		margin: 0;
+		padding: 0 5px;
+		font-family: Arial, Verdana;
+		font-size: 12px;
+		color: white;
+		background: #34343e;
+	}
+	.html .CodeMirror {
+		height: 120px;
+	}
+	.css .CodeMirror {
+		height: 120px;
+	}
+
+</style>
+
+<script>
+
+	function jsSize() {
+		var el = document.querySelector('.js .CodeMirror');
+		el.style.height = (document.body.offsetHeight - el.offsetTop - 20) + 'px';
+	}
+	window.onload = function () {
+			CodeMirror.fromTextArea(document.getElementById('html'), {
+			mode: "htmlmixed",
+			readOnly: true
+			});
+			if (document.getElementById('css')) {
+			CodeMirror.fromTextArea(document.getElementById('css'), {
+    			mode: "css",
+    			readOnly: true
+  			});
+		}
+		CodeMirror.fromTextArea(document.getElementById('js'), {
+			mode: "javascript",
+			readOnly: true
+			});
+
+			jsSize();
+	}
+	window.resize = jsSize;
+
+</script>
+
+<h4>HTML</h4>
+<div class="html">
+	<textarea id="html">{{{html}}}</textarea>
+</div>
+
+{{#if css}}
+<h4>CSS</h4>
+<div class="css">
+	<textarea id="css">{{{css}}}</textarea>
+</div>
+{{/if}}
+
+
+<h4>JavaScript</h4>
+<div class="js">
+	<textarea id="js">{{{js}}}</textarea>
+</div>

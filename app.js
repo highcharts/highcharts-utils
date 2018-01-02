@@ -37,6 +37,7 @@ app.use('/samples/server-env', require('./routes/samples/server-env'));
 app.use('/samples/readme', require('./routes/samples/readme'));
 app.use('/samples/set-theme', require('./routes/samples/set-theme'));
 app.use('/samples/view', require('./routes/samples/view'));
+app.use('/samples/view-source', require('./routes/samples/view-source'));
 app.use(
   '/samples/compare-comment',
   require('./routes/samples/compare-comment')
