@@ -36,8 +36,12 @@ app.use('/samples/list-samples', require('./routes/samples/list-samples'));
 app.use('/samples/server-env', require('./routes/samples/server-env'));
 app.use('/samples/set-theme', require('./routes/samples/set-theme'));
 app.use('/samples/view', require('./routes/samples/view'));
-app.use('/samples/compare-view', require('./routes/samples/compare-view'));
 app.use('/samples/compare-iframe', require('./routes/samples/compare-iframe'));
+app.use(
+  '/samples/compare-update-report',
+  require('./routes/samples/compare-update-report')
+);
+app.use('/samples/compare-view', require('./routes/samples/compare-view'));
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

@@ -65,10 +65,7 @@
 						$li.removeClass('identical').addClass('different');
 					}
 
-					$.get('compare-update-report.php', {
-						path: path,
-						diff: diff
-					});
+					controller.samples[path].setDiff(diff);
 				});
 
 				

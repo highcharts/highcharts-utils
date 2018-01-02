@@ -196,10 +196,7 @@ controller.Sample = function (options, index) {
      */
     function setDiff(newDiff) {
         if (newDiff.toString !== diff) {
-            $.get('compare-update-report.php', {
-                path: options.path,
-                diff: newDiff
-            });
+            
 
             diff = newDiff.toString();
             $.extend(true, options, {
@@ -207,8 +204,20 @@ controller.Sample = function (options, index) {
                     diff: diff
                 }
             });
+            save();
             renderList();
         }
+    }
+
+    /**
+     * Save the current compare diff and comment to file.
+     */
+    function save() {
+        $.get('/samples/compare-update-report', {
+            path: options.path,
+            browser: controller.getBrowser().toLowerCase(),
+            compare: options.compare
+        });
     }
 
     function setOptions(newOptions) {
@@ -241,6 +250,7 @@ controller.Sample = function (options, index) {
         options: options,
         path: options.path,
         renderList: renderList,
+        save: save,
         setClassName: setClassName,
         setCurrent: setCurrent,
         setOptions: setOptions,
