@@ -13,22 +13,16 @@
 	</div>
 
 	
-	<div class="description" id="description"></div>
-	<!--
-	TODO: Do this in JavaScript
-	<script src="https://cdn.rawgit.com/showdownjs/showdown/1.8.5/dist/showdown.min.js"></script>
-	<script>
-		var converter = new showdown.Converter(),
-			md = `<?php echo str_replace('`', '\`', $md) ?>`,
-			html = converter.makeHtml(md);
-		document.getElementById('description').innerHTML = html;
-	</script>
-	-->
+	{{#if readme}}
+	<div class="description" id="description">{{{readme}}}</div>
+	{{/if}}
 
 	<script>
 	setUp();
 	{{{js}}}
 	</script>
+
+
 	{{#if testNotes}}
 	<section class="test-notes">
 		<header>Test notes</header>
@@ -39,8 +33,6 @@
 	{{else}}
 	<hr/>
 	{{/if}}
-	<!--ul>
-		<li>Mobile testing: <a href="http://<?php echo $_SERVER['SERVER_NAME'] ?>/draft">http://<?php echo $_SERVER['SERVER_NAME'] ?>/draft</a></li>
-	</ul-->
-	<!--pre id="recording" style="padding: 1em"></pre-->
+
+
 </div>

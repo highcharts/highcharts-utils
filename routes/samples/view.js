@@ -2,8 +2,6 @@
  * View a single sample.
  *
  * @todo
- * - Include test-notes.html
- * - Include readme.md
  * - View standalone, without frameset
  * - Styled mode
  */
@@ -16,6 +14,7 @@ const f = require('./../../lib/functions.js');
 
 router.get('/', function(req, res, next) {
 	let resources = f.getResources(req.query.path);
+
 	let tpl = {
 		title: 'Sample viewer - Highcharts',
 		path: req.query.path,
@@ -26,6 +25,8 @@ router.get('/', function(req, res, next) {
 			'/javascripts/view.js'
 		].concat(resources.scripts),
 		styles: resources.styles,
+		readme: f.getReadme(req.query.path),
+		testNotes: f.getTestNotes(req.query.path),
 		themes: {
 			'': {
 				name: 'Default theme'

@@ -16,6 +16,7 @@
     "hbs": "~4.0.1",
     "js-yaml": "^3.10.0",
     "less-middleware": "~2.2.0",
+    "marked": "^0.3.9",
     "morgan": "~1.8.1",
     "nodemon": "^1.14.3",
     "serve-favicon": "~2.4.2"
