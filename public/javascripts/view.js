@@ -85,16 +85,22 @@ var controller = window.parent && window.parent.controller,
 			$('#main-content').css({
 				width: checked ? '50%' : '100%'
 			});
-			if (typeof Highcharts !== 'undefined') {
-				$.each(Highcharts.charts, function () {
-					this.reflow();
-				});
-			}
+
+			var interval = setInterval(function () {
+				if (typeof Highcharts !== 'undefined') {
+					$.each(Highcharts.charts, function () {
+						this.reflow();
+					});
+				}
+			}, 25);
+			setTimeout(function () {
+				clearInterval(interval);
+			}, 500);
 
 			if (checked) {
 				$('<iframe>').appendTo('#source-box')
 					.attr({
-						src: 'view-source.php?path=' + path
+						src: 'view-source?path=' + path
 					})
 					.css({
 						width: '100%',
