@@ -95,8 +95,8 @@ controller.Sample = function (options, index) {
         var commentAnchor = contentsDoc.createElement('a');
         commentAnchor.className = 'comment';
         commentAnchor.target = 'main';
-        commentAnchor.href = 'compare-comment.php?path=' + options.path +
-            '&diff=' + diff;
+        commentAnchor.href = '/samples/compare-comment?path=' + options.path +
+            '&diff=' + diff + '&browser=' + controller.getBrowser().toLowerCase();
         commentAnchor.innerHTML =
             commentIcon;
         li.appendChild(commentAnchor);
@@ -223,6 +223,7 @@ controller.Sample = function (options, index) {
     function setOptions(newOptions) {
         $.extend(true, options, newOptions);
         renderList();
+        save();
     }
 
 
