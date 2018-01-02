@@ -6,9 +6,10 @@
 
 $(function () {
 	{{{unitTestsFile}}}
-
-	{{{testFile}}}
 });
+
+window.test = undefined; // QUnit adds a deprecated global function
+{{{testFile}}}
 </script>
 
 

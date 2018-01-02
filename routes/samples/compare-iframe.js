@@ -29,7 +29,7 @@ router.get('/', function(req, res, next) {
 	let resources = f.getResources(req.query.path);
 
 	let tpl = {
-		html: getHTML(req, which === 'right'),
+		html: getHTML(req, which !== 'right'),
 		css: f.getCSS(path),
 		js: f.getJS(path),
 		scripts: [
