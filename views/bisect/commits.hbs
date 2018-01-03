@@ -1,0 +1,186 @@
+<pre id="gitlog" style="display: none">
+{{{gitlog}}};
+</pre>
+
+<style type="text/css">
+	* {
+		font-size: 0.95em;
+		font-family: Arial, sans-serif;
+	}
+	h3 {
+		font-size: 16pt;
+		background: white;
+	}
+	ul {
+		margin: 150px 1em 1em 1em;
+		padding-left: 10px;
+		
+	}
+	
+	a {
+		text-decoration: none;
+	}
+
+	li.visited a {
+		color: silver;
+	}
+	li.active {
+		background: linear-gradient(to right, rgba(255,255,255,0), rgb(124,181,236));
+	}
+	
+	body {
+		margin: 0;
+	}
+
+	ul {
+		list-style-type: none;
+		position: relative;
+
+	}
+
+	ul li {
+		padding: 0.5em 0;
+		border-bottom: 1px solid silver;
+		margin: 0;
+	}
+	.date {
+		color: gray;
+		display: block;
+	}
+	.parents {
+		position: absolute;
+	}
+	.parents .disc {
+		width: 6px;
+		height: 6px;
+		border-radius: 5px;
+		border-width: 2px;
+		border-color: black;
+	}
+	input:disabled {
+		color: silver;
+	}
+	.message {
+		display: block;
+	}
+	.status {
+		float: right;
+		cursor: pointer;
+		color: silver;
+		width: 100px;
+		padding: 3px;
+		border-radius: 3px;
+		text-align: center;
+	}
+	.status.status-good {
+		background: #a4edba;
+		color: white;
+	}
+	.status.status-bad {
+		background: rgb(241, 92, 128);
+		color: white;
+	}
+
+	#topnav {
+		position: fixed;
+		z-index: 2;
+		top: 0;
+		box-shadow: 5px 5px 5px #888;
+		background: white;
+		width: 100%; 
+		padding-top: 1em;
+	}
+	#topnav a, input[type="submit"] {
+		background: white;
+		color: black;
+		cursor: pointer;
+		border: 1px solid silver;
+		border-radius: 5px;
+		margin: 0.5em;
+		padding: 0.5em;
+	}
+	#topnav span {
+		padding-left: 5px;
+	}
+	#topnav div {
+		padding: 1em;
+		line-height: 1.5em;
+	}
+	#graph {
+		position: absolute;
+		width: 100%;
+		left: 20px;
+		top: 0;
+	}
+	#compare-header {
+		display: none;
+	}
+
+	.compare #setdata {
+		display: none;
+	}
+	.compare #compare-header {
+		display: block;
+		color: silver;
+		font-style: italic;
+		padding: 1em 1em 0 1em;
+	}
+
+	#close {
+		display: none;
+	}
+	.compare #close {
+		display: inline-block;
+		float: right;
+		margin: 2em 0.5em;
+		border-radius: 0;
+		color: white;
+		background: #34343e;
+		border: none;
+	}
+
+	.intro {
+		padding: 0 10px;
+		color: silver;
+		font-style: italic;
+		font-size: 0.9em;
+	}
+</style>
+
+<div id="topnav">
+
+	<button id="close">&times;</button>
+	
+	<form method="post" action="/bisect/commits-post">
+	<p class="intro">
+	Tip: from and to inputs can be dates (YYYY-mm-dd), tags or commits.
+	Use tags to bisect between two known releases, like from <code>v4.2.6</code>
+	to <code>v4.2.7</code>.</p>
+	<div>
+	Branch
+
+	<select name="branch" disabled>
+	{{#each branches}}
+	<option value='{{name}}' {{selected}}>{{name}}</option>
+	{{/each}}
+	</select>
+	from
+	<input type="text" name="after" value="{{after}}" />
+	to
+	<input type="text" name="before" value="{{before}}" />
+
+	<input type="checkbox" name="alltags" id="alltags" {{alltagsChecked}} />
+	<label title="Loads all releases, use this for course filtering" 
+		for="alltags">Releases only</label>
+	
+	<input type="submit" value="Submit" />
+	<a id="setdata" href="main" target="main">Change test data</a>
+	</div>
+
+	</form>
+</div>
+<div id="compare-header">
+Click commit messages to compare the left side (usually the latest stable version) on the left, with the actual commit on the right.
+</div>
+<div id="graph"></div>
+<ul id="ul"></ul>

@@ -19,6 +19,7 @@
     "marked": "^0.3.9",
     "morgan": "~1.8.1",
     "nodemon": "^1.14.3",
-    "serve-favicon": "~2.4.2"
+    "serve-favicon": "~2.4.2",
+    "simple-git": "^1.85.0"
   }
 }

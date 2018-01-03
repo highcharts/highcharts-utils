@@ -29,8 +29,19 @@ app.use(session({
   saveUninitialized: true
 }));
 
+
+// Routes
 app.use('/', require('./routes/index'));
 app.use('/code', require('./routes/code'));
+
+// Bisect
+app.use('/bisect/', require('./routes/bisect/index'));
+app.use('/bisect/commits', require('./routes/bisect/commits'));
+app.use('/bisect/commits-post', require('./routes/bisect/commits-post'));
+app.use('/bisect/main', require('./routes/bisect/main'));
+
+
+// Samples
 app.use('/samples/', require('./routes/samples/index'));
 app.use('/samples/list-samples', require('./routes/samples/list-samples'));
 app.use('/samples/server-env', require('./routes/samples/server-env'));
