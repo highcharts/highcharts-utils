@@ -355,28 +355,27 @@ $(function() {
 				'status-bad': 'Bad'
 			},
 			status = window.parent.commits[commit] || 'status-none';
-			$('<div class="status"></div>')
+			$(
+				'<div class="status">' + 
+					'<input name="status-' + commit + '" value="status-none" ' +
+					(status === 'status-none' ? 'checked' : '') + ' type="radio"/>' +
+					'<label value="status-none">N/A</label>' +
+					'<input name="status-' + commit + '" value="status-good" ' +
+					(status === 'status-good' ? 'checked' : '') + ' type="radio"/>' +
+					'<label value="status-good">Good</label>' +
+					'<input name="status-' + commit + '" value="status-bad" ' +
+					(status === 'status-bad' ? 'checked' : '') + ' type="radio"/>' +
+					'<label value="status-bad">Bad</label>' +
+					
+				'</div>'
+				)
 				.addClass(status) // get from parent
-				.html(statusTexts[status])
-				.click(function () {
+				//.html(statusTexts[status])
+				.click(function (e) {
 					var $this = $(this),
-						newClass;
+						newClass = e.target.value;
 
-					if ($this.hasClass('status-none')) {
-						newClass = 'status-good';
-						$this.removeClass('status-none');
-					} else if ($this.hasClass('status-good')) {
-						newClass = 'status-bad';
-						$this.removeClass('status-good');
-					} else if ($this.hasClass('status-bad')) {
-						newClass = 'status-none';
-						$this.removeClass('status-bad');
-					}
-
-					if (newClass) {
-						$this.addClass(newClass)
-							.html(statusTexts[newClass]);
-					}
+					this.className = 'status ' + e.target.value;
 
 					// Store for refresh
 					window.parent.commits[$this.parent().data('commit')] = newClass;
