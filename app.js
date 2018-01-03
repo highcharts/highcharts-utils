@@ -1,3 +1,7 @@
+/**
+ * This is the main express app for utils.highcharts.local
+ */
+
 var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
