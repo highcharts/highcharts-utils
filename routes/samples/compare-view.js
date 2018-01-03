@@ -12,7 +12,8 @@ router.get('/', function(req, res, next) {
 			'http://ejohn.org/files/jsdiff.js',
 			'https://rawgit.com/gabelerner/canvg/v1.4/rgbcolor.js',
 			'https://rawgit.com/gabelerner/canvg/v1.4/canvg.js',
-			'/javascripts/compare-view.js'
+			'/javascripts/compare-view.js',
+			'/javascripts/nav.js'
 		]
 	});
 });

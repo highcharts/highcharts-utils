@@ -94,10 +94,6 @@ $(function() {
 		location.href = commentHref;
 	});
 
-	if (controller) {
-		$('#bisect').click(controller.toggleBisect);
-	}
-
 	$(window).bind('keydown', parent.keyDown);
 
 	$('#svg').click(function () {

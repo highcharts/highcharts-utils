@@ -72,14 +72,23 @@ var controller = { // eslint-disable-line no-unused-vars
         };
     },
 
-    toggleBisect: function () {
-        var frames = this.frames(),
+    toggleBisect: function (active) {
+        var frames = controller.frames(),
             frame = frames.commits,
             frameset = frames.frameset,
-            checked;
+            checked,
+            $button = $('#bisect', frames.main.contentDocument);
 
-        $(this).toggleClass('active');
-        checked = $(this).hasClass('active');
+        if (active === false) {
+            $button.removeClass('active');
+            checked = false;
+        } else if (active === true) {
+            $button.addClass('active');
+            checked = true;
+        } else {
+            $button.toggleClass('active');
+            checked = $button.hasClass('active');
+        }
 
         if (checked) {
             window.parent.commits = {};
@@ -87,7 +96,7 @@ var controller = { // eslint-disable-line no-unused-vars
             if (!frame) {
                 frame = window.parent.document.createElement('frame');
                 frame.setAttribute('id', 'commits-frame');
-                frame.setAttribute('src', '/issue-by-commit/commits.php');
+                frame.setAttribute('src', '/bisect/commits');
             } else {
                 frame.contentWindow.location.reload();
             }
@@ -95,6 +104,8 @@ var controller = { // eslint-disable-line no-unused-vars
             frameset.setAttribute('cols', '400, *, 400');
             frameset.appendChild(frame);
         } else {
+
+            frameset.removeChild(window.parent.document.getElementById('commits-frame'));
             frameset.setAttribute('cols', '400, *');
         }
     },

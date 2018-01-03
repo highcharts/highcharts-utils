@@ -29,6 +29,7 @@
 					if (e.target !== $('#batch-compare')[0]) {
 						controller.stopBatch();
 					}
+					controller.toggleBisect(false);
 				});
 
 				$('.manual-checkbox').click(function () {

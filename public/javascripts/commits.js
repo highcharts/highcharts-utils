@@ -223,8 +223,7 @@ $(function() {
 		document.body.className = 'compare';
 
 		$('#close').click(function () {
-			window.parent.parent.document.querySelector('frameset')
-				.setAttribute('cols', '400, *');
+			window.parent.parent.controller.toggleBisect();
 		});
 	}
 

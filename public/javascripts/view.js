@@ -38,10 +38,6 @@ var controller = window.parent && window.parent.controller,
 			return;
 		}
 
-		if (controller) {
-			$('#bisect').click(controller.toggleBisect);
-		}
-
 		if (typeof Highcharts !== 'undefined') {
 			$('#version').html('Version: ' + Highcharts.product + ' ' +
 				Highcharts.version +

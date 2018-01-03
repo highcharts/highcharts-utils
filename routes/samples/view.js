@@ -15,14 +15,19 @@ const f = require('./../../lib/functions.js');
 router.get('/', function(req, res, next) {
 	let resources = f.getResources(req.query.path);
 
+	let codePath = req.query.rightcommit ?
+		'https://github.highcharts.com/' + req.query.rightcommit :
+		'/code';
+
 	let tpl = {
 		title: 'Sample viewer - Highcharts',
 		path: req.query.path,
-		html: f.getHTML(req),
+		html: f.getHTML(req, codePath),
 		css: f.getCSS(req.query.path),
 		js: f.getJS(req.query.path),
 		scripts: [
-			'/javascripts/view.js'
+			'/javascripts/view.js',
+			'/javascripts/nav.js'
 		].concat(resources.scripts),
 		styles: resources.styles,
 		readme: f.getReadme(req.query.path),
