@@ -1,5 +1,6 @@
 var http = require('http');
 var httpProxy = require('http-proxy');
+var colors = require('colors');
 
 var proxy = httpProxy.createProxy();
 var options = {  
@@ -18,3 +19,11 @@ http.createServer(function(req, res) {
     	target: options[host]
   	});
 }).listen(80);
+
+console.log(`
+- Started utils server on http://localhost:3000.
+- Started code server on http://localhost:3001.
+- For your convenience, you may add the locations to the hosts file. Make
+utils.highcharts.local and code.highcharts.local (or any top domain) point to
+127.0.0.1. They will be picked up by the proxy server.
+`.green);
