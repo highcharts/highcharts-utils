@@ -1,27 +1,30 @@
 
 {{> nav }}
 
-<div style="margin: 1em">
+<div id="source-box"></div>
+<div id="main-content">
+	<div style="margin: 1em">
 
-	<div class="test-report" id="skip-test-info"
-			style="background: #a4edba; color: black; display: none">
-		<p>This sample has been marked <code>skipTest: true</code> in the demo.details file.</p>
-		<p>It means that the sample exists only for demonstration in the docs or
-		the API, and that the feature we are testing is either covered by a unit
-		test or	another visual sample.</p>
+		<div class="test-report" id="skip-test-info"
+				style="background: #a4edba; color: black; display: none">
+			<p>This sample has been marked <code>skipTest: true</code> in the demo.details file.</p>
+			<p>It means that the sample exists only for demonstration in the docs or
+			the API, and that the feature we are testing is either covered by a unit
+			test or	another visual sample.</p>
+		</div>
+
+
+		<div id="report" class="test-report"></div>
+
+		<div id="comment-placeholder"></div>
+		<div id="frame-row"></div>
+		<pre id="svg"></pre>
+
+		<div id="preview">
+			<canvas id="cnvLeft" style="display:none"></canvas>
+			<canvas id="cnvRight" style="display:none"></canvas>
+		</div>
+		<button id="overlay-compare" style="display:none">Compare overlaid</button>
+
 	</div>
-
-
-	<div id="report" class="test-report"></div>
-
-	<div id="comment-placeholder"></div>
-	<div id="frame-row"></div>
-	<pre id="svg"></pre>
-
-	<div id="preview">
-		<canvas id="cnvLeft" style="display:none"></canvas>
-		<canvas id="cnvRight" style="display:none"></canvas>
-	</div>
-	<button id="overlay-compare" style="display:none">Compare overlaid</button>
-
 </div>
