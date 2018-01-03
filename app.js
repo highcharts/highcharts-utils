@@ -39,6 +39,8 @@ app.use('/bisect/', require('./routes/bisect/index'));
 app.use('/bisect/commits', require('./routes/bisect/commits'));
 app.use('/bisect/commits-post', require('./routes/bisect/commits-post'));
 app.use('/bisect/main', require('./routes/bisect/main'));
+app.use('/bisect/main-post', require('./routes/bisect/main-post'));
+app.use('/bisect/view', require('./routes/bisect/view'));
 
 
 // Samples

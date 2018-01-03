@@ -1,0 +1,49 @@
+
+
+<style type="text/css">
+body {
+	font-family: Arial;
+}
+a, p, div, li {
+	font-size: 10pt;
+}
+textarea, code {
+	font-family: monospace;
+	color: green;
+}
+
+</style>
+{{#if branch}}
+<script>
+	window.onload = function () {
+		var commitsKey = "<?php echo $commitsKey ?>";
+
+		// If we have loaded a new branch or new dates, update commits frame
+		//if (window.parent.commitsKey) {
+			window.parent.frames[0].location.reload();
+		//}
+
+		window.parent.commitsKey = commitsKey;
+	}
+</script>
+{{/if}}
+
+<div style="padding: 10px">
+	<form method="post" action="main-post">
+		<b>Paste HTML</b> here:<br/>
+		<textarea name="html" rows="6" style="width: 100%">{{{html}}}</textarea>
+
+		<br/>
+		<b>Paste CSS</b> here:<br/>
+		<textarea name="css" rows="6" style="width: 100%">{{{css}}}</textarea>
+
+		<br/>
+		<b>Paste JS</b> here:<br/>
+		<textarea name="js" rows="30" style="width: 100%">{{{js}}}</textarea><br/>
+
+		<input type="submit" value="Submit"/>
+
+		<br/>
+		<br/>
+	</form>
+</div>

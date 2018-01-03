@@ -334,7 +334,7 @@ $(function() {
 				.attr({
 					href: isComparing ? 
 						mainLocation + '&rightcommit=' + commit :
-						'main?commit='+ commit,
+						'view?hash='+ commit,
 					target: 'main',
 					'class': 'message'
 				})
