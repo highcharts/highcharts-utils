@@ -4,6 +4,7 @@ const colors = require('colors');
 const hostile = require('hostile');
 const exitHook = require('async-exit-hook');
 const argv = require('yargs').argv;
+const cfg = require('./config.json');
 
 const topDomain = argv.topdomain || 'local';
 
@@ -18,8 +19,8 @@ require('./app-code');
 // Set up the proxy server
 const proxy = httpProxy.createProxy();
 const redirects = {
-  'utils.highcharts.*': 'http://localhost:3000',
-  'code.highcharts.*': 'http://localhost:3001'
+  'utils.highcharts.*': `http://localhost:${cfg.utilsPort}`,
+  'code.highcharts.*': `http://localhost:${cfg.codePort}`
 }
 http.createServer((req, res) => {
 	host = req.headers.host.replace(/\.[a-z]+$/, '.*');
@@ -48,8 +49,8 @@ exitHook(callback => {
 
 console.log(`
 Servers:
-- Utils server: ${domains[0]} or http://localhost:3000.
-- Code server: ${domains[1]} or http://localhost:3001.
+- Utils server: ${domains[0]} or http://localhost:${cfg.utilsPort}.
+- Code server: ${domains[1]} or http://localhost:${cfg.codePort}.
 
 Parameters:
 --topdomain

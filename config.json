@@ -1,3 +1,5 @@
 {
-	"highchartsDir": "./../highcharts/"
+	"highchartsDir": "./../highcharts/",
+	"utilsPort": 3030,
+	"codePort": 3031
 }

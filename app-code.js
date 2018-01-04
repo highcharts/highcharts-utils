@@ -4,18 +4,16 @@
 
 const fs = require('fs');
 const http = require('http');
-const highchartsDir = require('./config.json').highchartsDir;
+const cfg = require('./config.json');
 const path = require('path');
 
 http.createServer(function(req, res) {
 	let file = path.join(
 		__dirname,
-		highchartsDir,
+		cfg.highchartsDir,
 		'code',
 		req.url.split('?')[0]
 	);
-
-	console.log('file', file);
 
 	// Always load source
 	file = file
@@ -37,4 +35,4 @@ http.createServer(function(req, res) {
 
 	res.end(fs.readFileSync(file));
     
-}).listen(3001);
+}).listen(cfg.codePort);
