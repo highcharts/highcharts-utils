@@ -1,19 +1,15 @@
 const express = require('express');
 const router = express.Router();
-const path = require('path');
-const cfg = require('./../config.json');
-const fs = require('fs');
+const f = require('../lib/functions');
 
 router.get(/[a-z\/\-\.]+\.(js|css)/, function(req, res, next) {
-	let file = (cfg.highchartsDir + 'code' + req.path)
-		.replace(/\.src\.js$/, '.js')
-		.replace(/\.js$/, '.src.js');
+	let file = f.getCodeFile(req.path);
 
-	file = path.join(__dirname, '../', file);
-
-	if (fs.existsSync(file)) {
-		res.sendFile(file);
+	if (file.error) {
+		res.end(file.error);
 	}
+
+	res.sendFile(file.success);
 });
 
 module.exports = router;

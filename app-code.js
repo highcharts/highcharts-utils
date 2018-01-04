@@ -2,37 +2,17 @@
  * This is the app for code.highcharts.local
  */
 
-const fs = require('fs');
 const http = require('http');
+const f = require('./lib/functions');
 const cfg = require('./config.json');
-const path = require('path');
 
 http.createServer(function(req, res) {
-	let file = path.join(
-		__dirname,
-		cfg.highchartsDir,
-		'code',
-		req.url.split('?')[0]
-	);
+	let file = f.getCodeFile(req.url);
 
-	// Always load source
-	file = file
-		.replace(/\.src\.js$/, '.js')
-		.replace(/\.js$/, '.src.js');
+	if (file.error) {
+		res.end(file.error);
+	}
 
-	if (!fs.existsSync(file)) {
-		res.end(
-    		`console.error('File doesn't exist', '${file}');`
-    	);
-    	return;
-    }
-    if (!/\.js$/.test(file)) {
-    	res.end(
-    		`console.error('File type not allowed', '${file}');`
-    	);	
-    	return;
-    }
-
-	res.end(fs.readFileSync(file));
+	res.end(fs.readFileSync(file.success));
     
 }).listen(cfg.codePort);

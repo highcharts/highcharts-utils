@@ -54,6 +54,12 @@ router.get('/', function(req, res, next) {
 	  			git.log(cmd)
 					.then(gitlog => {
 						tpl.gitlog = gitlog.all[0].hash;
+						if (
+							gitlog.all[0].date &&
+							gitlog.all[0].date.indexOf('<br>') !== -1
+						) {
+							tpl.gitlog += gitlog.all[0].date;
+						}
 						resolve();
 					});
 			}
