@@ -1,5 +1,7 @@
 # Highcharts Utilities
 
+Visual testing and debugging tools for Highcharts.
+
 ### Usage
 `sudo node server`
 
