@@ -18,7 +18,9 @@
 	{{/if}}
 
 	<script>
-	setUp();
+	if (controller) {
+		setUp();
+	}
 	{{{js}}}
 	</script>
 

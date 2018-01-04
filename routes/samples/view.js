@@ -2,7 +2,6 @@
  * View a single sample.
  *
  * @todo
- * - View standalone, without frameset
  * - Styled mode
  */
 

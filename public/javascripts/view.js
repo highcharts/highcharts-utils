@@ -4,12 +4,15 @@ if (window.console) {
 
 var controller = window.parent && window.parent.controller,
 	sampleIndex,
-	query = controller.getQueryParameters(window),
-	path = query.path,
-	sample = controller.samples[path],
-	browser = controller.getBrowser();
+	query = controller && controller.getQueryParameters(window),
+	path = query && query.path,
+	sample = controller && controller.samples[path],
+	browser = controller && controller.getBrowser();
 
 (function () {
+	if (!controller) {
+		return;
+	}
 
 	controller.addResources(document, sample.options.details.resources);
 	if (sample.isUnitTest()) { 
