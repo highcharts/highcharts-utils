@@ -15,15 +15,26 @@ http.createServer(function(req, res) {
 		req.url.split('?')[0]
 	);
 
+	console.log('file', file);
+
 	// Always load source
 	file = file
 		.replace(/\.src\.js$/, '.js')
 		.replace(/\.js$/, '.src.js');
 
-	if (fs.existsSync(file)) {
-		res.end(fs.readFileSync(file));
-	}
-    res.end(
-    	`console.error('Could not read file', '${file}');`
-    );
+	if (!fs.existsSync(file)) {
+		res.end(
+    		`console.error('File doesn't exist', '${file}');`
+    	);
+    	return;
+    }
+    if (!/\.js$/.test(file)) {
+    	res.end(
+    		`console.error('File type not allowed', '${file}');`
+    	);	
+    	return;
+    }
+
+	res.end(fs.readFileSync(file));
+    
 }).listen(3001);
