@@ -6,12 +6,10 @@
  */
 
 const express = require('express');
-const fs = require('fs');
 const router = express.Router();
-const cfg = require('../../config.json');
 const f = require('./../../lib/functions.js');
 
-router.get('/', function(req, res, next) {
+router.get('/', function(req, res) {
 	let resources = f.getResources(req.query.path);
 
 	let codePath = req.query.rightcommit ?
@@ -19,7 +17,7 @@ router.get('/', function(req, res, next) {
 		'/code';
 
 	let tpl = {
-		title: 'Sample viewer - Highcharts',
+		title: req.query.path,
 		path: req.query.path,
 		html: f.getHTML(req, codePath),
 		css: f.getCSS(req.query.path),
