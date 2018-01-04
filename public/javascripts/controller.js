@@ -77,7 +77,8 @@ var controller = { // eslint-disable-line no-unused-vars
             frame = frames.commits,
             frameset = frames.frameset,
             checked,
-            $button = $('#bisect', frames.main.contentDocument);
+            $button = $('#bisect', frames.main.contentDocument),
+            commitsFrame;
 
         if (active === false) {
             $button.removeClass('active');
@@ -104,9 +105,12 @@ var controller = { // eslint-disable-line no-unused-vars
             frameset.setAttribute('cols', '400, *, 400');
             frameset.appendChild(frame);
         } else {
-
-            frameset.removeChild(window.parent.document.getElementById('commits-frame'));
-            frameset.setAttribute('cols', '400, *');
+            commitsFrame = window.parent.document
+                .getElementById('commits-frame');
+            if (commitsFrame) {
+                frameset.removeChild(commitsFrame);
+                frameset.setAttribute('cols', '400, *');
+            }
         }
     },
 

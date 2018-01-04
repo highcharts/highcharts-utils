@@ -266,6 +266,19 @@ $(function() {
 		
 		} else {
 			line = line.split('<br>');
+
+			if (line.length < 5) {
+				$('<div><b>Truncated log, try a shorter time interval.</b><br>'+
+					'To do: ' +
+					'find out why the log is truncated. It comes from ' +
+					'<code>routes/bisect/commits.js</code>.</div>')
+					.css({
+						color: 'red',
+						margin: '10px'
+					})
+					.insertAfter('#ul');
+				return;
+			}
 			
 			var graph = line[0],
 				commit = line[1],
