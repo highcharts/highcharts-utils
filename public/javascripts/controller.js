@@ -1,4 +1,4 @@
-/* global $, controller, window */
+/* global $, window */
 /* eslint new-cap: 0 */
 var controller = { // eslint-disable-line no-unused-vars
 
@@ -258,11 +258,9 @@ var controller = { // eslint-disable-line no-unused-vars
     },
 
     runBatch: function() {
-        var contentsDoc = controller.frames().contents.contentDocument;
-
         controller.frames().main.contentWindow.location.href = 
             '/samples/compare-view?path=' +
-            (controller.currentSample || controller.samples[i]).path;
+            (controller.currentSample || controller.samples[0]).path;
         controller.batchMode();
     },
 

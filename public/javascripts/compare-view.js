@@ -173,7 +173,7 @@ function proceed() {
 		if (controller.batchRuns > 90 &&
 				navigator.userAgent.indexOf('WebKit') !== -1) {
 			window.parent.location.href = '/samples/#batch/' +
-				window.parent.frames[0].samples[nextIndex];
+				controller.samples[nextIndex].path;
 		} else {
 			window.location.href = href;
 		}
