@@ -3,6 +3,7 @@
  */
 
 const http = require('http');
+const fs = require('fs');
 const f = require('./lib/functions');
 const cfg = require('./config.json');
 
@@ -11,6 +12,7 @@ http.createServer(function(req, res) {
 
 	if (file.error) {
 		res.end(file.error);
+		return;
 	}
 
 	res.end(fs.readFileSync(file.success));
