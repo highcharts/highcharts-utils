@@ -278,6 +278,37 @@ var controller = { // eslint-disable-line no-unused-vars
         controller.continueBatch = false;
         $('#batch-stop', contentsDoc).hide();
         $('#batch-compare', contentsDoc).show();
+    },
+
+    /**
+     * Pick up calls to www.highcharts.com/samples/data and redirect to the
+     * local /samples/data
+     */
+    getJSON: function (url, callback) {
+        var match = url.match(
+            /https:\/\/www\.highcharts\.com\/samples\/data\/jsonp\.php\?filename=([^\&]+)/
+        )
+        if (match) {
+            url = '/samples/data/' + match[1];
+        }
+        $.ajax({
+            dataType: 'json',
+            url: url,
+
+            // Strip comments
+            dataFilter: function (data) {
+                var filtered = data.replace(
+                    /\/\*.+?\*\/|\/\/.*(?=[\n\r])/g,
+                    ''
+                );
+                return filtered;
+            },
+            success: callback,
+            error: function (xhr, status, e) {
+                console.error('$.ajax error: ', e);
+            }
+        });
+
     }
 
 };

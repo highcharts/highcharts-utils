@@ -20,6 +20,9 @@
 	<script>
 	if (controller) {
 		setUp();
+
+		// Override and point to local resources
+		$.getJSON = controller.getJSON;
 	}
 	{{{js}}}
 	</script>
