@@ -1,13 +1,12 @@
+/* global $, Highcharts */
 if (window.console) {
 	console.clear();
 }
 
 var controller = window.parent && window.parent.controller,
-	sampleIndex,
 	query = controller && controller.getQueryParameters(window),
 	path = query && query.path,
-	sample = controller && controller.samples[path],
-	browser = controller && controller.getBrowser();
+	sample = controller && controller.samples[path];
 
 (function () {
 	if (!controller) {
@@ -52,51 +51,21 @@ var controller = window.parent && window.parent.controller,
 			if (window.parent.history.pushState) {
 				window.parent.history.pushState(null, null, '#view/' + path);
 			}
-			
-			var contentDoc = window.parent.frames[0].document;
 
 			sample.setCurrent();
-			sampleIndex = sample.index;
-
-			
-
-			// add the next button
-			if (contentDoc.getElementById('i' + (sampleIndex + 1))) {
-				
-				$('#next').click(function() {
-					next();
-				});
-				$('#next')[0].disabled = false;
-			}
 		}
-
-		
-		contentDoc = null;
 
 	});
 }());
 
-function next() {
-	var a = window.parent.frames[0].document.getElementById('i' + (sampleIndex + 1));
-	if (a) {
-		window.location.href = a.href;
-	}
-}
-function previous() {
-	var a = window.parent.frames[0].document.getElementById('i' + (sampleIndex - 1));
-	if (a) {
-		window.location.href = a.href;
-	}
-}
-
-if (jQuery) {
-	jQuery.readyException = function (error) {
+if ($) {
+	$.readyException = function (error) {
 		throw error;
 	};
 }
 // Wrappers for recording mouse events in order to write automatic tests 
 
-function setUp() {
+window.setUp = function () {
 
 	$(window).bind('keydown', parent.keyDown);
 	
@@ -146,8 +115,7 @@ function setUp() {
 
 	if (query.profile && typeof Highcharts !== 'undefined') {
 		Highcharts.wrap(Highcharts.Chart.prototype, 'init', function (proceed) {
-			var chart,
-				start;
+			var chart;
 
 			// Start profile
 			if (window.console && console.profileEnd) {
@@ -221,7 +189,7 @@ function setUp() {
 	*/
 
 	if (/\/css\//.test(path)) {
-		Highcharts.Chart.prototype.callbacks.push(function (chart) {
+		Highcharts.Chart.prototype.callbacks.push(function () {
 			var svg = Highcharts.charts[0].container.innerHTML;
 			var match = svg.match(/ (style|fill|stroke|stroke-width|fill-opacity)="/);
 			if (match) {

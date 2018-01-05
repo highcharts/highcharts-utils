@@ -1,3 +1,4 @@
+/* global $, canvg, diffString */
 var controller = window.parent && window.parent.controller,
 	query = controller.getQueryParameters(window),
 	diff,
@@ -17,7 +18,6 @@ var controller = window.parent && window.parent.controller,
 	skipTest = sample.options.details.skipTest,
 	isManual = sample.options.details.requiresManualTesting,
 	rightcommit = query.rightcommit || false,
-	commit = query.commit,
 	isUnitTest = sample.isUnitTest(),
 	previewSVG;
 
@@ -201,7 +201,7 @@ function onDifferent(diff) {
 	proceed();
 }
 
-function onLoadTest(which, svg) {
+function onLoadTest(which, svg) { // eslint-disable-line no-unused-vars
 
 	chartWidth = parseInt(svg.match(/width=\"([0-9]+)\"/)[1]);
 	chartHeight = parseInt(svg.match(/height=\"([0-9]+)\"/)[1]);
@@ -289,9 +289,7 @@ function activateOverlayCompare(isCanvas) {
 	$rightImage.click(toggle);
 }
 
-var report = "",
-	startLocalServer = '<pre>$ cd GitHub/highcharts.com/exporting-server/java/highcharts-export/highcharts-export-web\n' +
-		'$ mvn jetty:run</pre>';
+var report = '';
 function onBothLoad() {
 
 	var out,
@@ -345,9 +343,8 @@ function onBothLoad() {
 			/***
 				CANVAS BASED COMPARISON
 			***/
-			function canvasCompare(source1, canvas1, source2, canvas2, width, height) {
+			function canvasCompare(source1, canvas1, source2, canvas2) {
 				var converted = [],
-					diff = 0,
 					canvasWidth = chartWidth || 400,
 					canvasHeight = chartHeight || 300;
 
@@ -382,7 +379,7 @@ function onBothLoad() {
 						}
 						callback(data);
 					}
-					image.onerror = function (e) {
+					image.onerror = function () {
 						var side = source === source1 ? 'left' : 'right';
 						report += '<div>Failed painting SVG to canvas on ' + side + ' side.</div>';
 						$('#report').html(report).css('background', '#f15c80');

@@ -249,6 +249,15 @@ var controller = { // eslint-disable-line no-unused-vars
         }
     },
 
+    next: function () {
+        // No + 1 because .index is 1-based
+        var nextSample = controller.samples[controller.currentSample.index];
+        if (nextSample) {
+            controller.frames().main.contentWindow.location.href = 
+                controller.frames().main.contentWindow.location.href
+                    .replace(controller.currentSample.path, nextSample.path);
+        }
+    },
 
     batchMode: function() {
         var contentsDoc = controller.frames().contents.contentDocument;

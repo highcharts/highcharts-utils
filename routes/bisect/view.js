@@ -1,5 +1,4 @@
 const express = require('express');
-const path = require('path');
 const router = express.Router();
 
 const replaceHTML = (html, hash) => {
@@ -14,7 +13,7 @@ const replaceHTML = (html, hash) => {
 		);
 }
 
-router.get('/', function(req, res, next) {
+router.get('/', function(req, res) {
   	res.render('bisect/view', {
   		html: replaceHTML(req.session.html || '', req.query.hash),
   		css: req.session.css,

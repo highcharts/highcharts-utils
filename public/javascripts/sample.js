@@ -247,6 +247,7 @@ controller.Sample = function (options, index) {
     return {
         index: index,
         isUnitTest: isUnitTest,
+        li: li,
         options: options,
         path: options.path,
         renderList: renderList,
