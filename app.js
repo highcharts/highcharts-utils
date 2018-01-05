@@ -66,6 +66,7 @@ app.use(
   require('./routes/samples/compare-update-report')
 );
 app.use('/samples/compare-view', require('./routes/samples/compare-view'));
+app.use('/samples/compare-reset', require('./routes/samples/compare-reset'));
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

@@ -64,7 +64,7 @@ controller.Sample = function (options, index) {
 
             if (diff !== '') {
                 if (
-                    (/^[0-9\.\/]+$/.test(diff) || diff > 0) && diff !== '0'
+                    (/^[0-9\.\/]+$/.test(diff) || diff > 0 || diff === 'Err') && diff !== '0'
                 ) {
                     if (diff.indexOf('.') > -1) {
                         diff = (Math.round(diff * 100) / 100).toString();
@@ -110,7 +110,7 @@ controller.Sample = function (options, index) {
             className = 'manual';
         }
         if (diff !== '') {
-            if ((/^[0-9\.\/]+$/.test(diff) || diff > 0) && diff !== '0') {
+            if ((/^[0-9\.\/]+$/.test(diff) || diff > 0 || diff === 'Err') && diff !== '0') {
                 className = 'different';
             } else {
                 className = 'identical';

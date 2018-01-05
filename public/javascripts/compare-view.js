@@ -1,4 +1,4 @@
-/* global $, canvg, diffString */
+/* global $ */
 var controller = window.parent && window.parent.controller,
 	query = controller.getQueryParameters(window),
 	diff,
@@ -19,7 +19,9 @@ var controller = window.parent && window.parent.controller,
 	isManual = sample.options.details.requiresManualTesting,
 	rightcommit = query.rightcommit || false,
 	isUnitTest = sample.isUnitTest(),
-	previewSVG;
+	previewSVG,
+	diffString = window.parent.diffString,
+	canvg = window.parent.canvg;
 
 function showCommentBox() {
 	commentHref = commentHref.replace('diff=', 'diff=' + (typeof diff !== 'function' ? diff : '') + '&focus=false');
@@ -126,6 +128,7 @@ $(function() {
  * @param {String} s
  * @param {Number} length
  */
+/*
 function pad(s, length, left) {
 	var padding;
 
@@ -137,6 +140,7 @@ function pad(s, length, left) {
 
 	return left ? padding + s : s + padding;
 }
+*/
 
 
 function proceed() {
@@ -183,11 +187,13 @@ function proceed() {
 		if (typeof diff === 'function') { // leaks from jsDiff
 			diff = 0;
 		}
+		/*
 		console.log([
 			'@proceed',
 			pad(path, 60, false),
 			diff ? pad(String(diff), 5, true) : '    .' // Only a dot when success
 		].join(' '));
+		*/
 	}
 }
 
@@ -299,7 +305,7 @@ function onBothLoad() {
 		report += "<br/>" + error;
 		$('#report').html(report)
 			.css('background', '#f15c80');
-		onDifferent('Error');
+		onDifferent('Err');
 		return;
 	}
 
@@ -324,7 +330,7 @@ function onBothLoad() {
 			report += "<div>The generated SVG contains NaN</div>";
 			$('#report').html(report)
 				.css('background', '#f15c80');
-			onDifferent('Error');
+			onDifferent('Err');
 			previewSVG = rightSVG
 					.replace(/</g, '&lt;')
 					.replace(/>/g, '&gt;\n');
@@ -383,7 +389,7 @@ function onBothLoad() {
 						var side = source === source1 ? 'left' : 'right';
 						report += '<div>Failed painting SVG to canvas on ' + side + ' side.</div>';
 						$('#report').html(report).css('background', '#f15c80');
-						onDifferent('Error');
+						onDifferent('Err');
 					}
 					image.src = useBlob ?
 						svgurl :
@@ -422,7 +428,7 @@ function onBothLoad() {
 							onIdentical();
 						} else if (diff === undefined) {
 							report += '<div>Canvas Comparison Failed</div>';
-							onDifferent('Error');
+							onDifferent('Err');
 						} else {
 							report += '<div>The exported images are different (dissimilarity index: '+ diff.toFixed(2) +')</div>';
 							onDifferent(diff);
@@ -461,7 +467,7 @@ function onBothLoad() {
 						});
 						startCompare(document.getElementById(canvas2).getContext('2d').getImageData(0, 0, canvasWidth, canvasHeight).data);
 					} catch (e) {
-						onDifferent('Error');
+						onDifferent('Err');
 						report += '<div>Error in canvg, try Chrome or Safari.</div>';
 						$('#report').html(report).css('background', '#f15c80');
 					}

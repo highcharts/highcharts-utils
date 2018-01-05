@@ -1,3 +1,4 @@
+/* global $, jQuery, Highcharts */
 var controller = window.parent && window.parent.controller,
 	query = controller.getQueryParameters(window),
 	path = query.path,
@@ -117,16 +118,16 @@ function compareHTML() {
 
 }
 
-function compareSVG() {
+window.compareSVG = function () { 
 	window.parent.onLoadTest(which, (chart.getSVGForExport || chart.getSVG).call(chart));
 }
 
 function error(e) {
 	if (which === 'right') {
 		e = 'ERROR (' + which + ' frame): ' + (e.message || e);
-		console.error(e);
+		console.error(e, sample.path);
 		parent.window.error = e;
-		parent.window.onDifferent('Error');
+		parent.window.onDifferent('Err');
 	}
 }
 
@@ -148,7 +149,7 @@ function tryToRun(proceed) {
  * Do the required overrides and options for the charts to compare 
  * nicely.
  */
-function setUpHighcharts() {
+window.setUpHighcharts = function () {
 	if (!window.Highcharts) {
 		console.warn('Highcharts is undefined');
 		window.parent.proceed();
@@ -175,7 +176,7 @@ function setUpHighcharts() {
 
 		if (window.demoError) {
 			parent.window.error = window.demoError;
-			parent.window.onDifferent('Error');
+			parent.window.onDifferent('Err');
 		}
 
 		Highcharts.setOptions({
@@ -211,8 +212,7 @@ function setUpHighcharts() {
 			Highcharts.Chart.prototype.callbacks.push(function (chart) {
 				var x = 2,
 					series = chart.series,
-					hoverPoint = series[0] && series[0].points[x],
-					pointOrPoints;
+					hoverPoint = series[0] && series[0].points[x];
 				if (hoverPoint) {
 					/*
 					if  (chart.tooltip.options.shared) {
@@ -236,15 +236,15 @@ function setUpHighcharts() {
 			});
 		}
 
-		if (typeof test === 'function') {
+		if (typeof window.test === 'function') {
 			Highcharts.Chart.prototype.callbacks.push(function (chart) {
 				try {
-					test(chart);
+					window.test(chart);
 				} catch (e) {
 					e = 'ERROR in test.js (' + which + ' frame): ' + e.message;
 					console.error(e);
 					parent.window.error = e;
-					parent.window.onDifferent('Error');
+					parent.window.onDifferent('Err');
 				}
 
 			});

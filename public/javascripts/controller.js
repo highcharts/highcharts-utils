@@ -305,7 +305,11 @@ var controller = { // eslint-disable-line no-unused-vars
             },
             success: callback,
             error: function (xhr, status, e) {
-                console.error('$.ajax error: ', e);
+                console.error(
+                    '$.ajax error:',
+                    controller.currentSample.path,
+                    e
+                );
             }
         });
 
