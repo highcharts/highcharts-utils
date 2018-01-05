@@ -20,7 +20,7 @@ router.get('/', function(req, res) {
 		title: req.query.path,
 		path: req.query.path,
 		html: f.getHTML(req, codePath),
-		css: f.getCSS(req.query.path),
+		css: f.getCSS(req.query.path, codePath),
 		js: f.getJS(req.query.path),
 		scripts: [
 			'/javascripts/view.js',
