@@ -1,3 +1,6 @@
 {
-	"ignore": ["public/temp/**.*"]
+	"ignore": [
+		"public/temp/**.*",
+		"node_modules"
+	]
 }

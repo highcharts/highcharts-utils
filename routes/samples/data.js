@@ -20,6 +20,7 @@ router.get(/[a-z\/\-\.]+\.(js|json|csv)$/, function(req, res) {
     if (/json$/.test(req.path)) {
     	res.setHeader('Content-Type', 'application/json');
     }
+    res.setHeader('Cache-Control', 'public, max-age=60');
 	res.sendFile(file);
 });
 

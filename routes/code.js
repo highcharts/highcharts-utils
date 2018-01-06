@@ -6,7 +6,8 @@ router.get(/[a-z\/\-\.]+\.(js|css)/, function(req, res) {
 	let file = f.getCodeFile(req.path);
 
 	if (file.error) {
-		res.end(file.error);
+		res.status(404).end(file.error);
+		return;
 	}
 
 	res.setHeader('Cache-Control', 'public, max-age=60');
