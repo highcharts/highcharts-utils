@@ -1,39 +1,39 @@
 /* global $, controller, Highcharts */
-$(function () {
+$(window).bind('load', function () {
 	if (controller) {
-		$('#bisect').click(function () {
+		$('#bisect', document).click(function () {
 			controller.toggleBisect()
 		});
 
 		if (controller.frames().commits) {
-			$('#bisect').addClass('active');
+			$('#bisect', document).addClass('active');
 		}
 
 		// Add the next button
 		var contentsDoc = controller.frames().contents.contentDocument;
 		if (contentsDoc.getElementById('i' + (controller.currentSample.index + 1))) {
 			
-			$('#next').click(function() {
+			$('#next', document).click(function() {
 				controller.next();
 			});
-			$('#next')[0].disabled = false;
+			$('#next', document)[0].disabled = false;
 		}
 		
 	}
 
 	// Activate view source button
-	$('#view-source').bind('click', function () {
-		var checked;
+	$('#view-source', document).bind('click', function () {
+		var checked,
+			$sourceBox = $('#source-box', document)	;
 
 		$(this).toggleClass('active');
 
 		checked = $(this).hasClass('active')
 		
-		$('#source-box').css({
-			width: checked ? '50%' : 0,
-			'overflow-y': 'hidden'
+		$sourceBox.css({
+			width: checked ? '50%' : 0
 		});
-		$('#main-content').css({
+		$('#main-content', document).css({
 			width: checked ? '50%' : '100%'
 		});
 
@@ -49,7 +49,8 @@ $(function () {
 		}, 500);
 
 		if (checked) {
-			$('<iframe>').appendTo('#source-box')
+
+			$('<iframe>', document).appendTo($sourceBox)
 				.attr({
 					id: 'view-source-iframe',
 					src: 'view-source?path=' + controller.currentSample.path
@@ -60,7 +61,7 @@ $(function () {
 					borderRight: '1px solid gray'
 				});
 		} else {
-			$('#source-box').html('');
+			$('#source-box', document).html('');
 		}
 	});
 });

@@ -1,25 +1,24 @@
 const express = require('express');
 const fs = require('fs');
 const router = express.Router();
-const cfg = require('../../config.json');
 const f = require('../../lib/functions.js');
 const path = require('path');
 
 const getSavedCompare = (req) => {
 	let fileName = path.join(__dirname, '../../public/temp/compare.' +
 			f.getBranch() + '.' + req.query.browser + '.json');
-	let compare = {};
+	let compare;
 	
 	if (fs.existsSync(fileName)) {
-		json = require(fileName);
+		let json = require(fileName);
 		compare = json[req.query.path];
 	}
 
-	return compare;
+	return compare || {};
 }
 
 
-router.get('/', function(req, res, next) {
+router.get('/', function(req, res) {
 
 	let compare = getSavedCompare(req);
 	let comment = compare.comment;

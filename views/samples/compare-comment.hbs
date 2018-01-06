@@ -42,17 +42,16 @@
 
 var controller = window.parent && window.parent.controller;
 var path = controller.getQueryParameters(document).path;
-$(function () {
-	$('#submit-actual').click(function () {
-		$('#diff').attr(
+var $ = window.parent.$;
+$(window).load(function () {
+	$('#submit-actual', document).click(function () {
+		$('#diff', document).attr(
 			'value',
 			$(this).data('diff')
 		);
 	});
-});
 
-$(function () {
-	$('#title')[0].focus();
+	$('#title', document)[0].focus();
 
 	document.getElementsByTagName('form')[0].onsubmit = function submit() {
 		var sample = controller.samples[path];

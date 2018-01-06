@@ -1,5 +1,6 @@
-/* global $, jQuery, Highcharts */
+/* global Highcharts */
 var controller = window.parent && window.parent.controller,
+	$ = window.parent && window.parent.$,
 	query = controller.getQueryParameters(window),
 	path = query.path,
 	sample = controller.samples[path];
@@ -86,7 +87,7 @@ function compareHTML() {
 				
 				// Automatically click buttons with classname "autocompare"
 				tryToRun(function () {
-					$('.autocompare').click();
+					$('.autocompare', document).click();
 				});
 				window.parent.onLoadTest(which, $(chart.container).html());
 
@@ -96,7 +97,7 @@ function compareHTML() {
 
 				// Automatically click buttons with classname "autocompare"
 				tryToRun(function () {
-					$('.autocompare').click();
+					$('.autocompare', document).click();
 				});
 
 				// Create a mock chart object with a getSVG method
@@ -266,9 +267,7 @@ window.setUpHighcharts = function () {
 }
 
 // Make sure deferred errors are captured by the test runner.
-if (jQuery) {
-	jQuery.readyException = error;
-}
+$.readyException = error;
 
 
 window.isComparing = true;

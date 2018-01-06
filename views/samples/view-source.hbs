@@ -11,6 +11,9 @@
 		color: white;
 		background: #34343e;
 	}
+	.CodeMirror {
+		background: #efefef;
+	}
 	.html .CodeMirror {
 		height: 120px;
 	}
@@ -21,6 +24,7 @@
 </style>
 
 <script>
+	var $ = parent.window.$;
 
 	function jsSize() {
 		var parentDoc = window.parent.document;
@@ -34,11 +38,11 @@
 		jsBox.style.height = (iframeHeight - jsBox.offsetTop - 20) + 'px';
 	}
 	window.onload = function () {
-			CodeMirror.fromTextArea(document.getElementById('html'), {
+		CodeMirror.fromTextArea(document.getElementById('html'), {
 			mode: "htmlmixed",
 			readOnly: true
-			});
-			if (document.getElementById('css')) {
+		});
+		if (document.getElementById('css')) {
 			CodeMirror.fromTextArea(document.getElementById('css'), {
     			mode: "css",
     			readOnly: true
@@ -47,9 +51,9 @@
 		CodeMirror.fromTextArea(document.getElementById('js'), {
 			mode: "javascript",
 			readOnly: true
-			});
+		});
 
-			jsSize();
+		jsSize();
 	}
 
 	window.resize = jsSize;

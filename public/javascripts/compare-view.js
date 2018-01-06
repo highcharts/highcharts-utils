@@ -1,5 +1,5 @@
-/* global $ */
 var controller = window.parent && window.parent.controller,
+	$ = window.parent && window.parent.$,
 	query = controller.getQueryParameters(window),
 	diff,
 	path = query.path,
@@ -26,7 +26,7 @@ var controller = window.parent && window.parent.controller,
 function showCommentBox() {
 	commentHref = commentHref.replace('diff=', 'diff=' + (typeof diff !== 'function' ? diff : '') + '&focus=false');
 	if (!commentFrame) {
-		commentFrame = $('<iframe>')
+		commentFrame = $('<iframe>', document)
 			.attr({
 				id: 'comment-iframe',
 				src: commentHref
@@ -81,24 +81,22 @@ function setUpElements() {
 	}
 }
 
-
-$(function() {
-
+window.addEventListener('load', function () {
 	updateHash();
 	setUpElements();
 
 	// the reload button
-	$('#reload').click(function() {
+	$('#reload', document).click(function() {
 		location.reload();
 	});
 
-	$('#comment').click(function () {
+	$('#comment', document).click(function () {
 		location.href = commentHref;
 	});
 
 	$(window).bind('keydown', parent.keyDown);
 
-	$('#svg').click(function () {
+	$('#svg', document).click(function () {
 		$(this).css({
 			height: 'auto',
 			cursor: 'default'
@@ -239,17 +237,17 @@ function wash(svg) {
 function activateOverlayCompare(isCanvas) {
 
 	var isCanvas = isCanvas || false,
-		$button = $('button#overlay-compare'),
-		$leftImage = isCanvas ? $('#cnvLeft') : $('#left-image'),
-		$rightImage = isCanvas ? $('#cnvRight') : $('#right-image'),
+		$button = $('button#overlay-compare', document),
+		$leftImage = isCanvas ? $('#cnvLeft', document) : $('#left-image', document),
+		$rightImage = isCanvas ? $('#cnvRight', document) : $('#right-image', document),
 		showingRight,
 		toggle = function () {
 
 			// Initiate
 			if (showingRight === undefined) {
 
-				$('#preview').css({
-					height: $('#preview').height()
+				$('#preview', document).css({
+					height: $('#preview', document).height()
 				});
 
 				$rightImage
@@ -284,7 +282,7 @@ function activateOverlayCompare(isCanvas) {
 				showingRight = true;
 			}
 		};
-	$('#preview').css({
+	$('#preview', document).css({
 		width: 2 * chartWidth + 20
 	});
 
@@ -303,7 +301,7 @@ function onBothLoad() {
 
 	if (error) {
 		report += "<br/>" + error;
-		$('#report').html(report)
+		$('#report', document).html(report)
 			.css('background', '#f15c80');
 		onDifferent('Err');
 		return;
@@ -328,7 +326,7 @@ function onBothLoad() {
 	if (mode === 'images') {
 		if (/[^a-zA-Z]NaN[^a-zA-Z]/.test(rightSVG)) {
 			report += "<div>The generated SVG contains NaN</div>";
-			$('#report').html(report)
+			$('#report', document).html(report)
 				.css('background', '#f15c80');
 			onDifferent('Err');
 			previewSVG = rightSVG
@@ -337,13 +335,13 @@ function onBothLoad() {
 
 		} else if (identical) {
 			report += "<br/>The generated SVG is identical";
-			$('#report').html(report)
+			$('#report', document).html(report)
 				.css('background', "#a4edba");
 
 		} else {
 			report += "<div>The generated SVG is different, checking exported images...</div>";
 
-			$('#report').html(report)
+			$('#report', document).html(report)
 				.css('background', 'gray');
 
 			/***
@@ -388,7 +386,7 @@ function onBothLoad() {
 					image.onerror = function () {
 						var side = source === source1 ? 'left' : 'right';
 						report += '<div>Failed painting SVG to canvas on ' + side + ' side.</div>';
-						$('#report').html(report).css('background', '#f15c80');
+						$('#report', document).html(report).css('background', '#f15c80');
 						onDifferent('Err');
 					}
 					image.src = useBlob ?
@@ -437,12 +435,12 @@ function onBothLoad() {
 						// lower section to overlay images to visually compare the differences
 						activateOverlayCompare(true);
 
-						$('#report').html(report).css('background', identical ? "#a4edba" : '#f15c80');
+						$('#report', document).html(report).css('background', identical ? "#a4edba" : '#f15c80');
 					}
 				}
 
 
-				$('#preview canvas')
+				$('#preview canvas', document)
 					.attr({
 						width: chartWidth,
 						height: chartHeight
@@ -469,7 +467,7 @@ function onBothLoad() {
 					} catch (e) {
 						onDifferent('Err');
 						report += '<div>Error in canvg, try Chrome or Safari.</div>';
-						$('#report').html(report).css('background', '#f15c80');
+						$('#report', document).html(report).css('background', '#f15c80');
 					}
 
 				} else {
@@ -497,15 +495,15 @@ function onBothLoad() {
 			report += '<div>The innerHTML is different, testing generated SVG...</div>';
 		}
 
-		$('#report').html(report)
+		$('#report', document).html(report)
 			.css('background', identical ? "#a4edba" : '#f15c80');
 
 		if (!identical) {
 			// switch to image mode
 			leftSVG = rightSVG = undefined;
 			mode = 'images';
-			$("#iframe-left")[0].contentWindow.compareSVG();
-			$("#iframe-right")[0].contentWindow.compareSVG();
+			$("#iframe-left", document)[0].contentWindow.compareSVG();
+			$("#iframe-right", document)[0].contentWindow.compareSVG();
 		}
 	}
 
@@ -517,9 +515,9 @@ function onBothLoad() {
 				leftSVG.replace(/>/g, '>\n'),
 				rightSVG.replace(/>/g, '>\n')
 			);
-			$("#svg").html('<h4 style="margin:0 auto 1em 0">Generated SVG (click to view)</h4>' + wash(out));
+			$("#svg", document).html('<h4 style="margin:0 auto 1em 0">Generated SVG (click to view)</h4>' + wash(out));
 		} catch (e) {
-			$("#svg").html(previewSVG || 'Error diffing SVG');
+			$("#svg", document).html(previewSVG || 'Error diffing SVG');
 		}
 	}
 
