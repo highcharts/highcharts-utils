@@ -59,7 +59,7 @@ controller.Sample = function (options, index) {
             testAnchor.href = '/samples/compare-view?path=' + options.path;
             testAnchor.target = 'main';
             testAnchor.innerHTML = '<i class="' +
-                (isUnitTest() ? 'icon-puzzle-piece' : 'icon-columns') +
+                (isUnitTest() ? 'fa fa-puzzle-piece' : 'fa fa-columns') +
                 '"></i>';
 
             if (diff !== '') {
@@ -80,13 +80,13 @@ controller.Sample = function (options, index) {
 
 
     function addCommentAnchor() {
-        var commentIcon = '<i class="icon-pencil" title="Add comment"></i>',
+        var commentIcon = '<i class="fa fa-pencil" title="Add comment"></i>',
             comment = options.compare && options.compare.comment;
 
         if (comment) {
             // Make it string
             commentIcon =
-                '<i class="icon-' + comment.symbol + '" title="' +
+                '<i class="fa fa-' + comment.symbol + '" title="' +
                 comment.title + '"></i>' +
                 '<span class="comment-title">' + comment.title +
                 '<br>(Approved diff: ' + comment.diff + '</span>';
@@ -229,7 +229,7 @@ controller.Sample = function (options, index) {
     /**
      * Set the current sample and highlight it in the left
      */
-    function setCurrent() {
+    function setCurrent(animation) {
 
         var lastCurrentSample = controller.currentSample;
 
@@ -240,7 +240,7 @@ controller.Sample = function (options, index) {
         this.setClassName();
         $('html,body', contentsDoc).animate({
             scrollTop: $(li).offset().top - 300
-        }, 'slow');
+        }, animation);
 
     }
 

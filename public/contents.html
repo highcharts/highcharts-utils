@@ -12,7 +12,7 @@
   		-->
   		<link rel="stylesheet" type="text/css" href="stylesheets/style.css"/>
 
-		<link href="http://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
+		<link href="/stylesheets/vendor/font-awesome-4.7.0/css/font-awesome.css" rel="stylesheet">
 		
 		<script>
 			/* eslint-disable */
@@ -239,38 +239,41 @@
 		
 	<div id="top-nav">
 		<a class="button" href="/samples/readme" target="main">
-			<i class="icon-home"></i>
+			<i class="fa fa-home"></i>
 		</a>
 		<a class="button" id="batch-compare" title="Batch compare all samples">
-			<i class="icon-play"></i>
+			<i class="fa fa-play"></i>
 			Run tests
 		</a>
 		<a class="button" id="batch-stop" title="Stop comparing">
-			<i class="icon-stop"></i>
+			<i class="fa fa-stop"></i>
 			Stop
 		</a>
 		<a class="button" href="compare-report.php" title="View compare history for all browsers" target="main">Report</a>
 		<a class="button" id="reset" title="Reset compare history for all browsers">Reset</a>
 		<a class="button" id="reload" title="Reload frame">
-			<i class="icon-refresh"></i>
+			<i class="fa fa-refresh"></i>
 			Reload
 		</a>
 		<!--a class="button" id="settings" title="Settings" href="settings.php" target="main">
-			<i class="icon-cog"></i>
+			<i class="fa fa-cog"></i>
 			Settings
 		</a-->
 
 		<div class="text" id="test-status"></div>
 
+		<!--
 		<div class="text">
 			View results for <a href="?"><?php echo $browser['name'] ?></a>, <a href="?browserKey=Safari">Safari</a>, <a href="?browserKey=PhantomJS">PhantomJS</a>
 		</div>
+		-->
 
+		<!--
 		<div style="margin-top: 1em">
 			<div style="width: 45%; float:left">Diff limit: <span id="slider-value">0</span></div>
 			<div id="slider" style="width: 45%; float:left"></div>
 		</div>
-
+		-->
 	</div>
 
 

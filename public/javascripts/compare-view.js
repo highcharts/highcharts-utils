@@ -103,7 +103,7 @@ window.addEventListener('load', function () {
 		});
 	});
 
-	controller.samples[path].setCurrent();
+	controller.samples[path].setCurrent(0);
 
 
 	if (isManual) {
