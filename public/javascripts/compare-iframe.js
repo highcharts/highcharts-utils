@@ -1,6 +1,5 @@
-/* global Highcharts */
+/* global Highcharts, $ */
 var controller = window.parent && window.parent.controller,
-	$ = window.parent && window.parent.$,
 	query = controller.getQueryParameters(window),
 	path = query.path,
 	sample = controller.samples[path];

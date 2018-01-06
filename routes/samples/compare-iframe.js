@@ -23,7 +23,7 @@ const getHTML = (req, codePath) => {
 	return html;
 }
 
-router.get('/', function(req, res, next) {
+router.get('/', function(req, res) {
 	let path = req.query.path;
 	let which = req.query.which;
 	let resources = f.getResources(req.query.path);
@@ -38,6 +38,7 @@ router.get('/', function(req, res, next) {
 		css: f.getCSS(path, codePath),
 		js: f.getJS(path),
 		scripts: [
+			'/javascripts/vendor/jquery-1.9.1.js',
 			'/javascripts/compare-iframe.js',
 			'/javascripts/test-controller.js'
 		].concat(resources.scripts),
@@ -51,10 +52,10 @@ router.get('/', function(req, res, next) {
 		cfg.highchartsDir + 'samples/' + path + '/unit-tests.js';
 	if (fs.existsSync(unitTestsFile)) {
 		tpl.scripts.push(
-			'http://code.jquery.com/qunit/qunit-2.0.1.js'
+			'/javascripts/vendor/qunit-2.0.1.js'
 		);
 		tpl.styles.push(
-			'http://code.jquery.com/qunit/qunit-2.0.1.css'
+			'/stylesheets/vendor/qunit-2.0.1.css'
 		);
 		tpl.unitTestsFile = fs.readFileSync(unitTestsFile);
 	}
