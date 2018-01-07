@@ -16,6 +16,9 @@ var controller = { // eslint-disable-line no-unused-vars
             sample.options.compare = controller.compare[sample.path];
             sample.renderList();
         });
+
+        controller.loaded = true;
+        controller.updateStatus()
     }],
 
     runLoad: function () {
@@ -117,8 +120,7 @@ var controller = { // eslint-disable-line no-unused-vars
     testStatus: {
         success: [],
         skipped: [],
-        error: [],
-        total: 0
+        error: []
     },
 
     updateStatus: function (path, status) {
@@ -141,13 +143,15 @@ var controller = { // eslint-disable-line no-unused-vars
             }
         }
 
-        this.frames().contents.contentDocument.getElementById('test-status')
-            .innerHTML =
-            'Success: ' + testStatus.success.length + ', ' +
-            '<a href="javascript:controller&&controller.filter(\'error\')">Error: ' +
-                testStatus.error.length + '</a> of ' +
-            '<a href="javascript:controller&&controller.filter()">' +
-                testStatus.total + '</a>';
+        if (controller.loaded) {
+            this.frames().contents.contentDocument.getElementById('test-status')
+                .innerHTML =
+                'Success: ' + testStatus.success.length + ', ' +
+                '<a href="javascript:controller&&controller.filter(\'error\')">' +
+                'Error: ' + testStatus.error.length + '</a> of ' +
+                '<a href="javascript:controller&&controller.filter()">' +
+                    controller.samples.length + '</a>';
+        }
     },
 
     getBrowser: function () {
@@ -190,15 +194,11 @@ var controller = { // eslint-disable-line no-unused-vars
         var contentFrame = this.frames().contents,
             error = this.testStatus.error;
 
-        contentFrame.contentWindow.samples.forEach(function (path, i) {
-            var li = contentFrame.contentDocument.querySelector('li#li' + i);
-            if (li) {
-
-                if (status === 'error' && error.indexOf(path) === -1) {
-                    li.style.display = 'none';
-                } else {
-                    li.style.display = '';
-                }
+        controller.samples.forEach(function (sample) {
+            if (status === 'error' && error.indexOf(sample.path) === -1) {
+                sample.getLi().style.display = 'none';
+            } else {
+                sample.getLi().style.display = '';
             }
         });
 

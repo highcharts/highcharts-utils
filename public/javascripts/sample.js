@@ -8,7 +8,8 @@ controller.Sample = function (options, index) {
         dirs = options.path.split('/'),
         ulId = ('ul-' + dirs[0] + '-' + dirs[1]).replace(/\./g, '-'),
         li = mainNav.querySelector('li#li' + index),
-        diff;
+        diff,
+        status;
 
     /**
      * Add headers the first time samples are listed
@@ -112,8 +113,10 @@ controller.Sample = function (options, index) {
         if (diff !== '') {
             if ((/^[0-9\.\/]+$/.test(diff) || diff > 0 || diff === 'Err') && diff !== '0') {
                 className = 'different';
+                status = 'error';
             } else {
                 className = 'identical';
+                status = 'success';
             }
         }
 
@@ -124,8 +127,10 @@ controller.Sample = function (options, index) {
                 comment.diff == diff // eslint-disable-line eqeqeq
             ) {
                 className = 'approved';
+                status = 'success';
             } else if (comment.symbol === 'exclamation-sign') {
                 className = 'different';
+                status = 'error';
             }
         }
 
@@ -187,8 +192,13 @@ controller.Sample = function (options, index) {
         // Add comment anchor
         addCommentAnchor();
 
-        // Finally add the class name
+        // Add the class name
         setClassName();
+
+        controller.updateStatus(
+            options.path,
+            status
+        );
     }
 
     /**
@@ -247,7 +257,6 @@ controller.Sample = function (options, index) {
     return {
         index: index,
         isUnitTest: isUnitTest,
-        li: li,
         options: options,
         path: options.path,
         renderList: renderList,
@@ -255,6 +264,8 @@ controller.Sample = function (options, index) {
         setClassName: setClassName,
         setCurrent: setCurrent,
         setOptions: setOptions,
-        setDiff: setDiff
+        setDiff: setDiff,
+
+        getLi: function () { return li; }
     };
 };
