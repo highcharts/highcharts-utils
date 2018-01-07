@@ -144,13 +144,45 @@ var controller = { // eslint-disable-line no-unused-vars
         }
 
         if (controller.loaded) {
+
+            var totalWidth = 95;
+            var remaining = (
+                controller.samples.length -
+                testStatus.success.length -
+                testStatus.error.length
+            );
+            var successWidth = (
+                (testStatus.success.length / controller.samples.length) *
+                totalWidth
+            );
+            var errorWidth = (
+                (testStatus.error.length / controller.samples.length) *
+                totalWidth
+            );
+            var remainingWidth =
+                (remaining / controller.samples.length) * totalWidth;
+            var table = '<div class="progress">' +
+                '<div class="success" style="width:' + successWidth + '%"></div>' +
+                '<div class="error" style="width:' + errorWidth + '%"></div>' +
+                '<div class="remaining" style="width:' + remainingWidth +'%"></div>' +
+                '</div>';
+
             this.frames().contents.contentDocument.getElementById('test-status')
                 .innerHTML =
-                'Success: ' + testStatus.success.length + ', ' +
-                '<a href="javascript:controller&&controller.filter(\'error\')">' +
-                'Error: ' + testStatus.error.length + '</a> of ' +
+                '<span class="success">Success: ' + testStatus.success.length + '</span>, ' +
+                '<a class="' + (testStatus.error.length ? 'error' : '') +
+                '" href="javascript:controller&&controller.filter(\'error\')">' +
+                'Error: ' + testStatus.error.length + '</a>, ' +
+                '<a class="remaining" href="javascript:controller&&controller.filter(\'remaining\')">' +
+                'Remaining: ' + remaining + '</a> of ' +
                 '<a href="javascript:controller&&controller.filter()">' +
-                    controller.samples.length + '</a>';
+                    controller.samples.length + '</a>' +
+
+                table;
+
+            
+
+
         }
     },
 
@@ -192,20 +224,32 @@ var controller = { // eslint-disable-line no-unused-vars
      */
     filter: function (status) {
         var contentFrame = this.frames().contents,
-            error = this.testStatus.error;
+            error = this.testStatus.error,
+            success = this.testStatus.success;
 
         controller.samples.forEach(function (sample) {
             if (status === 'error' && error.indexOf(sample.path) === -1) {
                 sample.getLi().style.display = 'none';
+
+            } else if (
+                status === 'remaining' &&
+                (
+                    error.indexOf(sample.path) !== -1 ||
+                    success.indexOf(sample.path) !== -1
+                )
+            ) {
+                sample.getLi().style.display = 'none';
+            
             } else {
                 sample.getLi().style.display = '';
             }
         });
 
+        // Headers
         [].forEach.call(
             contentFrame.contentDocument.querySelectorAll('h2, h4'),
             function (h) {
-                if (status === 'error') {
+                if (status === 'error' || status === 'remaining') {
                     h.style.display = 'none';
                 } else {
                     h.style.display = '';
@@ -301,6 +345,10 @@ var controller = { // eslint-disable-line no-unused-vars
                     /\/\*.+?\*\/|\/\/.*(?=[\n\r])/g,
                     ''
                 );
+                if (filtered.indexOf('Date.UTC') !== -1) {
+                    filtered = eval(filtered);
+                    filtered = JSON.stringify(filtered);
+                }
                 return filtered;
             },
             success: callback,
@@ -308,7 +356,8 @@ var controller = { // eslint-disable-line no-unused-vars
                 console.error(
                     '$.ajax error:',
                     controller.currentSample.path,
-                    e
+                    e,
+                    xhr
                 );
             }
         });

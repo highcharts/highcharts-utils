@@ -134,7 +134,10 @@ controller.Sample = function (options, index) {
             }
         }
 
-        if (this === controller.currentSample) {
+        if (
+            options.path ===
+            (controller.currentSample && controller.currentSample.path)
+        ) {
             className += ' hilighted';
         }
         li.className = className;
