@@ -27,7 +27,7 @@ router.get('/', function(req, res) {
 	let path = req.query.path;
 	let which = req.query.which;
 	let resources = f.getResources(req.query.path);
-	let codePath = which === 'right' && '/code';
+	let codePath = which === 'right' ? '/code' : '/reference';
 
 	if (req.query.rightcommit && which === 'right') {
 		codePath = 'https://github.highcharts.com/' + req.query.rightcommit;

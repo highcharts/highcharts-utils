@@ -26,9 +26,21 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(lessMiddleware(path.join(__dirname, 'public')));
-app.use(express.static(path.join(__dirname, 'public'), {
-  maxAge: 60000
-}));
+
+// Static
+app.use(express.static(
+  path.join(__dirname, 'public'),
+  { maxAge: 60000 }
+));
+app.use('/reference', express.static(
+  path.join(__dirname, 'node_modules/highcharts'),
+  { maxAge: '10m' }
+));
+app.use('/mapdata', express.static(
+  path.join(__dirname, 'node_modules/map-collection/Export/1.1.2'),
+  { maxAge: '10m' }
+));
+
 app.use(session({
   secret: 'keyboard cat',
   resave: false,
