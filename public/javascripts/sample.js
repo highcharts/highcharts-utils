@@ -242,7 +242,7 @@ controller.Sample = function (options, index) {
     /**
      * Set the current sample and highlight it in the left
      */
-    function setCurrent(animation) {
+    function setCurrent() {
 
         var lastCurrentSample = controller.currentSample;
 
@@ -253,7 +253,7 @@ controller.Sample = function (options, index) {
         this.setClassName();
         $('html,body', contentsDoc).animate({
             scrollTop: $(li).offset().top - 300
-        }, animation);
+        }, controller.continueBatch ? 0 : 'slow');
 
     }
 

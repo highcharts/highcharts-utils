@@ -52,7 +52,7 @@ var controller = window.parent && window.parent.controller,
 				window.parent.history.pushState(null, null, '#view/' + path);
 			}
 
-			sample.setCurrent('slow');
+			sample.setCurrent();
 		}
 
 	});

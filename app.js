@@ -64,6 +64,7 @@ app.use('/bisect/view', require('./routes/bisect/view'));
 // Samples
 app.use('/samples/', require('./routes/samples/index'));
 app.use('/samples/data', require('./routes/samples/data'));
+app.use('/samples/contents', require('./routes/samples/contents'));
 app.use('/samples/list-samples', require('./routes/samples/list-samples'));
 app.use('/samples/server-env', require('./routes/samples/server-env'));
 app.use('/samples/readme', require('./routes/samples/readme'));
