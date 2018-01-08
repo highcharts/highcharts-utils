@@ -15,13 +15,9 @@
 
 		$(window).bind('keydown', parent.keyDown);
 
+		// On clicking anywhere but the batch-compare button
 		$(window).bind('click', function (e) {
-			if (
-				e.target !== $('#batch-compare', document)[0] && 
-				e.target !== $('#batch-compare *', document)[0]
-			) {
-				controller.stopBatch();
-			}
+			controller.stopBatch();
 			controller.toggleBisect(false);
 		});
 
@@ -40,7 +36,10 @@
 		});
 
 		
-		$("#batch-compare", document).click(controller.runBatch);
+		$("#batch-compare", document).click(function (e) {
+			e.stopPropagation();
+			controller.runBatch();
+		});
 		$("#batch-stop", document).click(controller.stopBatch);
 
 		$('#reset', document).click(function () {

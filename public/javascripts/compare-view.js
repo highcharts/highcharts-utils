@@ -143,7 +143,6 @@ function pad(s, length, left) {
 
 function proceed() {
 	updateHash(); // Batch may be stopped
-	console.log('@proceed', controller.continueBatch)
 	if (controller.continueBatch) {
 		var contentDoc = window.parent.frames[0].document,
 			href,
