@@ -69,6 +69,7 @@ var controller = { // eslint-disable-line no-unused-vars
     frames: function () {
         return {
             frameset: window.parent.document.querySelector('frameset'),
+            index: window,
             contents: window.parent.document.getElementById('contents'),
             commits: window.parent.document.getElementById('commits-frame'),
             main: window.parent.document.getElementById('main')
@@ -181,8 +182,19 @@ var controller = { // eslint-disable-line no-unused-vars
                 table;
 
             
+            controller.docTitle();
 
+        }
+    },
 
+    docTitle: function () {
+        if (controller.continueBatch) {
+            document.title =
+                '\u2713 ' + controller.testStatus.success.length + ' - ' + 
+                '\u2716 ' + controller.testStatus.error.length + ' - ' +
+                controller.samples.length;
+        } else {
+            document.title = 'Sample viewer - Highcharts'
         }
     },
 
@@ -308,6 +320,7 @@ var controller = { // eslint-disable-line no-unused-vars
         controller.continueBatch = true;
         $('#batch-compare', contentsDoc).hide();
         $('#batch-stop', contentsDoc).show();
+        controller.docTitle();
     },
 
     runBatch: function() {
@@ -320,6 +333,7 @@ var controller = { // eslint-disable-line no-unused-vars
     stopBatch: function() {
         var contentsDoc = controller.frames().contents.contentDocument;
         controller.continueBatch = false;
+        controller.docTitle();
         $('#batch-stop', contentsDoc).hide();
         $('#batch-compare', contentsDoc).show();
     },

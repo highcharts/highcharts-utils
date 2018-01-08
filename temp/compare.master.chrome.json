@@ -3139,5 +3139,2648 @@
 	},
 	"stock/xaxis/plotbands-label": {
 		"diff": "0"
+	},
+	"stock/xaxis/plotbands-multipane": {
+		"diff": "0"
+	},
+	"stock/xaxis/plotlines": {
+		"diff": "0"
+	},
+	"stock/xaxis/range": {
+		"diff": "0"
+	},
+	"stock/xaxis/reversed": {
+		"diff": "0"
+	},
+	"stock/xaxis/showfirstlabel": {
+		"diff": "0"
+	},
+	"stock/xaxis/startofweek-0": {
+		"diff": "0"
+	},
+	"stock/xaxis/startofweek-1": {
+		"diff": "0"
+	},
+	"stock/xaxis/tickinterval": {
+		"diff": "0"
+	},
+	"stock/xaxis/tickpixelinterval": {
+		"diff": "0"
+	},
+	"stock/xaxis/ticks": {
+		"diff": "0"
+	},
+	"stock/xaxis/title-align": {
+		"diff": "0"
+	},
+	"stock/xaxis/title-text": {
+		"diff": "0"
+	},
+	"stock/yaxis/heatmap-scrollbars": {
+		"diff": "0"
+	},
+	"stock/yaxis/inverted-bar-scrollbar": {
+		"diff": "0"
+	},
+	"stock/yaxis/min-max": {
+		"diff": "0"
+	},
+	"stock/yaxis/multiple-resizers": {
+		"diff": "0"
+	},
+	"stock/yaxis/resize-min-max-length": {
+		"diff": "0"
+	},
+	"stock/yaxis/resize-multiple-axes": {
+		"diff": "0"
+	},
+	"stock/yaxis/scrollbar": {
+		"diff": "0"
+	},
+	"stock/yaxis/styled-resizer": {
+		"diff": "0"
+	},
+	"maps/accessibility/accessible-map": {
+		"diff": "0"
+	},
+	"maps/axis/min-max": {
+		"diff": "0"
+	},
+	"maps/axis/minrange": {
+		"diff": "0"
+	},
+	"maps/chart/animation-duration": {
+		"diff": "0"
+	},
+	"maps/chart/animation-none": {
+		"diff": "0"
+	},
+	"maps/chart/backgroundcolor-color": {
+		"diff": "0"
+	},
+	"maps/chart/backgroundcolor-gradient": {
+		"diff": "0"
+	},
+	"maps/chart/border": {
+		"diff": "0"
+	},
+	"maps/chart/events-click": {
+		"diff": "0"
+	},
+	"maps/chart/events-click-getcoordinates": {
+		"diff": "0"
+	},
+	"maps/chart/events-load": {
+		"diff": "0"
+	},
+	"maps/chart/events-redraw": {
+		"diff": "0"
+	},
+	"maps/chart/margin": {
+		"diff": "0"
+	},
+	"maps/chart/plotbackgroundcolor-color": {
+		"diff": "0"
+	},
+	"maps/chart/plotbackgroundcolor-gradient": {
+		"diff": "0"
+	},
+	"maps/chart/plotborder": {
+		"diff": "0"
+	},
+	"maps/chart/reflow-false": {
+		"diff": "0"
+	},
+	"maps/chart/reflow-true": {
+		"diff": "0"
+	},
+	"maps/chart/simple-config": {
+		"diff": "0"
+	},
+	"maps/chart/size": {
+		"diff": "0"
+	},
+	"maps/chart/spacing": {
+		"diff": "0"
+	},
+	"maps/chart/style-serif-font": {
+		"diff": "0"
+	},
+	"maps/chart/transform-on-chart": {
+		"diff": "0"
+	},
+	"maps/chart/type-mapline": {
+		"diff": "0"
+	},
+	"maps/coloraxis/dataclasscolor": {
+		"diff": "0"
+	},
+	"maps/coloraxis/dataclasses-labelformatter": {
+		"diff": "0"
+	},
+	"maps/coloraxis/dataclasses-name": {
+		"diff": "0"
+	},
+	"maps/coloraxis/gridlines": {
+		"diff": "0"
+	},
+	"maps/coloraxis/marker": {
+		"diff": "0"
+	},
+	"maps/coloraxis/mincolor-maxcolor": {
+		"diff": "0"
+	},
+	"maps/coloraxis/mincolor-maxcolor-dataclasses": {
+		"diff": "0"
+	},
+	"maps/credits/customized": {
+		"diff": "0"
+	},
+	"maps/credits/enabled-false": {
+		"diff": "0"
+	},
+	"maps/demo/all-areas-as-null": {
+		"diff": "0"
+	},
+	"maps/demo/base": {
+		"diff": "0"
+	},
+	"maps/demo/category-map": {
+		"diff": "0"
+	},
+	"maps/demo/circlemap-africa": {
+		"diff": "0"
+	},
+	"maps/demo/color-axis": {
+		"diff": "0"
+	},
+	"maps/demo/data-class-ranges": {
+		"diff": "0"
+	},
+	"maps/demo/data-class-two-ranges": {
+		"diff": "0"
+	},
+	"maps/demo/diamondmap": {
+		"diff": "0"
+	},
+	"maps/demo/distribution": {
+		"diff": "0"
+	},
+	"maps/demo/geojson": {
+		"diff": "0"
+	},
+	"maps/demo/geojson-multiple-types": {
+		"diff": "0"
+	},
+	"maps/demo/heatmap": {
+		"diff": "0"
+	},
+	"maps/demo/honeycomb-usa": {
+		"diff": "0"
+	},
+	"maps/demo/latlon-advanced": {
+		"diff": "0"
+	},
+	"maps/demo/map-bubble": {
+		"diff": "0"
+	},
+	"maps/demo/map-pies": {
+		"diff": "0"
+	},
+	"maps/demo/mapline-mappoint": {
+		"diff": "0"
+	},
+	"maps/demo/mappoint-latlon": {
+		"diff": "0"
+	},
+	"maps/demo/us-counties": {
+		"diff": "0"
+	},
+	"maps/demo/us-data-labels": {
+		"diff": "0"
+	},
+	"maps/exporting/scale": {
+		"diff": "0"
+	},
+	"maps/exporting/sourcewidth": {
+		"diff": "0"
+	},
+	"maps/legend/alignment": {
+		"diff": "0"
+	},
+	"maps/legend/border-background": {
+		"diff": "0"
+	},
+	"maps/legend/enabled-false": {
+		"diff": "0"
+	},
+	"maps/legend/itemstyle": {
+		"diff": "0"
+	},
+	"maps/legend/labelformatter": {
+		"diff": "0"
+	},
+	"maps/legend/layout-vertical": {
+		"diff": "0"
+	},
+	"maps/legend/layout-vertical-sized": {
+		"diff": "0"
+	},
+	"maps/legend/padding-itemmargin": {
+		"diff": "0"
+	},
+	"maps/mapnavigation/button-theme": {
+		"diff": "0"
+	},
+	"maps/mapnavigation/doubleclickzoomto": {
+		"diff": "0"
+	},
+	"maps/mapnavigation/mousewheelsensitivity": {
+		"diff": "0"
+	},
+	"maps/members/axis-getextremes": {
+		"diff": "0"
+	},
+	"maps/members/axis-setextremes": {
+		"diff": "0"
+	},
+	"maps/members/axis-update": {
+		"diff": "0"
+	},
+	"maps/members/chart-addseries": {
+		"diff": "0"
+	},
+	"maps/members/chart-destroy": {
+		"diff": "0"
+	},
+	"maps/members/point-remove": {
+		"diff": "0"
+	},
+	"maps/members/point-update": {
+		"diff": "0"
+	},
+	"maps/members/series-addpoint": {
+		"diff": "0"
+	},
+	"maps/members/series-setdata": {
+		"diff": "0"
+	},
+	"maps/members/series-update": {
+		"diff": "0"
+	},
+	"maps/members/setoptions": {
+		"diff": "0"
+	},
+	"maps/plotoptions/honeycomb-brazil": {
+		"diff": "0"
+	},
+	"maps/plotoptions/honeycomb-china": {
+		"diff": "0"
+	},
+	"maps/plotoptions/honeycomb-europe": {
+		"diff": "0"
+	},
+	"maps/plotoptions/mapbubble-allowpointselect": {
+		"diff": "0"
+	},
+	"maps/plotoptions/mapbubble-animation-false": {
+		"diff": "0"
+	},
+	"maps/plotoptions/mapbubble-color": {
+		"diff": "0"
+	},
+	"maps/plotoptions/mapbubble-negativecolor": {
+		"diff": "0"
+	},
+	"maps/plotoptions/series-allareas-false": {
+		"diff": "0"
+	},
+	"maps/plotoptions/series-allowpointselect": {
+		"diff": "0"
+	},
+	"maps/plotoptions/series-animation-true": {
+		"diff": "0"
+	},
+	"maps/plotoptions/series-border": {
+		"diff": "0"
+	},
+	"maps/plotoptions/series-dashstyle": {
+		"diff": "0"
+	},
+	"maps/plotoptions/series-datalabels-box": {
+		"diff": "0"
+	},
+	"maps/plotoptions/series-datalabels-format": {
+		"diff": "0"
+	},
+	"maps/plotoptions/series-datalabels-formatter": {
+		"diff": "0"
+	},
+	"maps/plotoptions/series-events-click": {
+		"diff": "0"
+	},
+	"maps/plotoptions/series-point-events-click": {
+		"diff": "0"
+	},
+	"maps/plotoptions/series-states-animation-false": {
+		"diff": "0"
+	},
+	"maps/plotoptions/series-states-hover": {
+		"diff": "0"
+	},
+	"maps/plotoptions/series-states-hover-default": {
+		"diff": "0"
+	},
+	"maps/plotoptions/tilemap-pointpadding": {
+		"diff": "0"
+	},
+	"maps/series/data-datalabels": {
+		"diff": "0"
+	},
+	"maps/series/data-empty": {
+		"diff": "0"
+	},
+	"maps/series/data-id": {
+		"diff": "0"
+	},
+	"maps/series/data-path": {
+		"diff": "0"
+	},
+	"maps/series/joinby-double": {
+		"diff": "0"
+	},
+	"maps/series/joinby-null": {
+		"diff": "0"
+	},
+	"maps/series/joinby-single": {
+		"diff": "0"
+	},
+	"maps/series/latlon-to-point": {
+		"diff": "0"
+	},
+	"maps/series/latlon-transform": {
+		"diff": "0"
+	},
+	"maps/series/tilemap-gridoffset": {
+		"diff": "0"
+	},
+	"maps/title/subtitle": {
+		"diff": "0"
+	},
+	"maps/title/title": {
+		"diff": "0"
+	},
+	"maps/tooltip/background-border": {
+		"diff": "0"
+	},
+	"maps/tooltip/format": {
+		"diff": "0"
+	},
+	"maps/tooltip/formatter": {
+		"diff": "0"
+	},
+	"maps/tooltip/positioner": {
+		"diff": "0"
+	},
+	"maps/tooltip/valuedecimals": {
+		"diff": "0"
+	},
+	"unit-tests/3d/column-crop": {
+		"diff": "0"
+	},
+	"unit-tests/3d/column-group": {
+		"diff": "0"
+	},
+	"unit-tests/3d/column-stacked-labels": {
+		"diff": "0"
+	},
+	"unit-tests/3d/column-z-stacking-update": {
+		"diff": "0"
+	},
+	"unit-tests/3d/column-zindex": {
+		"diff": "0"
+	},
+	"unit-tests/3d/series-line": {
+		"diff": "0"
+	},
+	"unit-tests/3d/series-pie": {
+		"diff": "0"
+	},
+	"unit-tests/3d/zaxis-update": {
+		"diff": "0"
+	},
+	"unit-tests/accessibility/accessibility-options": {
+		"diff": "0"
+	},
+	"unit-tests/accessibility/accessible-highmaps": {
+		"diff": "0"
+	},
+	"unit-tests/accessibility/accessible-highstock": {
+		"diff": "0"
+	},
+	"unit-tests/accessibility/datatable": {
+		"diff": "0"
+	},
+	"unit-tests/accessibility/descriptions-added": {
+		"diff": "0"
+	},
+	"unit-tests/annotations/annotations-cropthreshold": {
+		"diff": "0"
+	},
+	"unit-tests/annotations/annotations-labels-mock-point": {
+		"diff": "0"
+	},
+	"unit-tests/annotations/annotations-labels-options": {
+		"diff": "0"
+	},
+	"unit-tests/annotations/annotations-labels-positioning": {
+		"diff": "0"
+	},
+	"unit-tests/annotations/annotations-shapes": {
+		"diff": "0"
+	},
+	"unit-tests/axis/alignticks": {
+		"diff": "0"
+	},
+	"unit-tests/axis/breaks": {
+		"diff": "0"
+	},
+	"unit-tests/axis/category": {
+		"diff": "0"
+	},
+	"unit-tests/axis/crosshairs": {
+		"diff": "0"
+	},
+	"unit-tests/axis/datetime-ticks": {
+		"diff": "0"
+	},
+	"unit-tests/axis/events": {
+		"diff": "0"
+	},
+	"unit-tests/axis/extremes": {
+		"diff": "0"
+	},
+	"unit-tests/axis/flat-data": {
+		"diff": "0"
+	},
+	"unit-tests/axis/getclosest": {
+		"diff": "0"
+	},
+	"unit-tests/axis/gettitleposition": {
+		"diff": "0"
+	},
+	"unit-tests/axis/labels": {
+		"diff": "0"
+	},
+	"unit-tests/axis/minorgridlines": {
+		"diff": "0"
+	},
+	"unit-tests/axis/minortickinterval": {
+		"diff": "0"
+	},
+	"unit-tests/axis/minrange": {
+		"diff": "0"
+	},
+	"unit-tests/axis/opposite": {
+		"diff": "0"
+	},
+	"unit-tests/axis/ordinal": {
+		"diff": "0"
+	},
+	"unit-tests/axis/overscroll": {
+		"diff": "0"
+	},
+	"unit-tests/axis/plotlines-and-plotbands": {
+		"diff": "0"
+	},
+	"unit-tests/axis/range": {
+		"diff": "0"
+	},
+	"unit-tests/axis/showempty": {
+		"diff": "0"
+	},
+	"unit-tests/axis/softmin-softmax": {
+		"diff": "0"
+	},
+	"unit-tests/axis/static-scale": {
+		"diff": "0"
+	},
+	"unit-tests/axis/stock-labels": {
+		"diff": "0"
+	},
+	"unit-tests/axis/ticks": {
+		"diff": "0"
+	},
+	"unit-tests/axis/title": {
+		"diff": "0"
+	},
+	"unit-tests/axis/type-logarithmic": {
+		"diff": "0"
+	},
+	"unit-tests/axis/update": {
+		"diff": "0"
+	},
+	"unit-tests/boost/enter-exit": {
+		"diff": "0"
+	},
+	"unit-tests/boost/general": {
+		"diff": "0"
+	},
+	"unit-tests/boost/heatmap-styled-mode": {
+		"diff": "0"
+	},
+	"unit-tests/boost/setvisible": {
+		"diff": "0"
+	},
+	"unit-tests/boost/stacking": {
+		"diff": "0"
+	},
+	"unit-tests/chart/chart-get": {
+		"diff": "0"
+	},
+	"unit-tests/chart/chart-update": {
+		"diff": "0"
+	},
+	"unit-tests/chart/chart-update-chart-1": {
+		"diff": "0"
+	},
+	"unit-tests/chart/chart-update-chart-2": {
+		"diff": "0"
+	},
+	"unit-tests/chart/chart-update-chart-3": {
+		"diff": "0"
+	},
+	"unit-tests/chart/chart-update-chart-polar": {
+		"diff": "0"
+	},
+	"unit-tests/chart/chart-update-coloraxis": {
+		"diff": "0"
+	},
+	"unit-tests/chart/chart-update-mapnavigation": {
+		"diff": "0"
+	},
+	"unit-tests/chart/chart-update-onetoone": {
+		"diff": "0"
+	},
+	"unit-tests/chart/chart-update-series": {
+		"diff": "0"
+	},
+	"unit-tests/chart/container-size": {
+		"diff": "0"
+	},
+	"unit-tests/chart/events-load": {
+		"diff": "0"
+	},
+	"unit-tests/chart/events-selection": {
+		"diff": "0"
+	},
+	"unit-tests/chart/options3d": {
+		"diff": "0"
+	},
+	"unit-tests/chart/panning": {
+		"diff": "0"
+	},
+	"unit-tests/chart/parallel-coordinates-updates": {
+		"diff": "0"
+	},
+	"unit-tests/chart/plotborder": {
+		"diff": "0"
+	},
+	"unit-tests/chart/polar": {
+		"diff": "0"
+	},
+	"unit-tests/chart/polar-highstock": {
+		"diff": "0"
+	},
+	"unit-tests/chart/reflow": {
+		"diff": "0"
+	},
+	"unit-tests/chart/renderto": {
+		"diff": "0"
+	},
+	"unit-tests/chart/setsize": {
+		"diff": "0"
+	},
+	"unit-tests/chart/stockchart-update": {
+		"diff": "0"
+	},
+	"unit-tests/chart/zoomtype": {
+		"diff": "0"
+	},
+	"unit-tests/color/color": {
+		"diff": "0"
+	},
+	"unit-tests/coloraxis/coloraxis-update": {
+		"diff": "0"
+	},
+	"unit-tests/coloraxis/dataclasses": {
+		"diff": "0"
+	},
+	"unit-tests/coloraxis/extremes": {
+		"diff": "0"
+	},
+	"unit-tests/coloraxis/remove": {
+		"diff": "0"
+	},
+	"unit-tests/coloraxis/setoptions": {
+		"diff": "0"
+	},
+	"unit-tests/coloraxis/showinlegend": {
+		"diff": "0"
+	},
+	"unit-tests/coloraxis/styled-mode": {
+		"diff": "0"
+	},
+	"unit-tests/data/csv": {
+		"diff": "0"
+	},
+	"unit-tests/datalabels/anchor": {
+		"diff": "0"
+	},
+	"unit-tests/datalabels/contrast": {
+		"diff": "0"
+	},
+	"unit-tests/datalabels/members": {
+		"diff": "0"
+	},
+	"unit-tests/datalabels/usehtml": {
+		"diff": "0"
+	},
+	"unit-tests/drilldown/drilldown-datalabels": {
+		"diff": "0"
+	},
+	"unit-tests/drilldown/drilldown-general": {
+		"diff": "0"
+	},
+	"unit-tests/drilldown/highstock": {
+		"diff": "0"
+	},
+	"unit-tests/drilldown/null-points": {
+		"diff": "0"
+	},
+	"unit-tests/drilldown/pie-3d-after-resize": {
+		"diff": "0"
+	},
+	"unit-tests/drilldown/pie-hidden-labels": {
+		"diff": "0"
+	},
+	"unit-tests/drilldown/resetzoom": {
+		"diff": "0"
+	},
+	"unit-tests/export-data/basics": {
+		"diff": "0"
+	},
+	"unit-tests/export-data/multilevel-table": {
+		"diff": "0"
+	},
+	"unit-tests/exporting/exporting": {
+		"diff": "0"
+	},
+	"unit-tests/exporting/exporting-after-update": {
+		"diff": "0"
+	},
+	"unit-tests/exporting/getsvg-additionaloptions": {
+		"diff": "0"
+	},
+	"unit-tests/exporting/url": {
+		"diff": "0"
+	},
+	"unit-tests/global/timezone": {
+		"diff": "0"
+	},
+	"unit-tests/highcharts/color": {
+		"diff": "0"
+	},
+	"unit-tests/highcharts/constructors": {
+		"diff": "0"
+	},
+	"unit-tests/highcharts/setoptions": {
+		"diff": "0"
+	},
+	"unit-tests/indicator-accumulation-distribution/recalculations": {
+		"diff": "0"
+	},
+	"unit-tests/indicator-atr/recalculations": {
+		"diff": "0"
+	},
+	"unit-tests/indicator-bb/recalculations": {
+		"diff": "0"
+	},
+	"unit-tests/indicator-cci/recalculations": {
+		"diff": "0"
+	},
+	"unit-tests/indicator-cmf/recalculations": {
+		"diff": "0"
+	},
+	"unit-tests/indicator-ema/recalculations": {
+		"diff": "0"
+	},
+	"unit-tests/indicator-ichimoku-kinko-hyo/recalculations": {
+		"diff": "0"
+	},
+	"unit-tests/indicator-macd/recalculations": {
+		"diff": "0"
+	},
+	"unit-tests/indicator-mfi/recalculations": {
+		"diff": "0"
+	},
+	"unit-tests/indicator-momentum/recalculations": {
+		"diff": "0"
+	},
+	"unit-tests/indicator-pivotpoints/recalculations": {
+		"diff": "0"
+	},
+	"unit-tests/indicator-priceenvelopes/recalculations": {
+		"diff": "0"
+	},
+	"unit-tests/indicator-psar/recalculations": {
+		"diff": "0"
+	},
+	"unit-tests/indicator-roc/recalculations": {
+		"diff": "0"
+	},
+	"unit-tests/indicator-rsi/recalculations": {
+		"diff": "0"
+	},
+	"unit-tests/indicator-sma/recalculations": {
+		"diff": "0"
+	},
+	"unit-tests/indicator-stochastic/recalculations": {
+		"diff": "0"
+	},
+	"unit-tests/indicator-volume-by-price/recalculations": {
+		"diff": "0"
+	},
+	"unit-tests/indicator-vwap/recalculations": {
+		"diff": "0"
+	},
+	"unit-tests/indicator-wma/recalculations": {
+		"diff": "0"
+	},
+	"unit-tests/indicator-zigzag/recalculations": {
+		"diff": "0"
+	},
+	"unit-tests/interaction/panning-reversed": {
+		"diff": "0"
+	},
+	"unit-tests/interaction/pinchtype": {
+		"diff": "0"
+	},
+	"unit-tests/interaction/setstate": {
+		"diff": "0"
+	},
+	"unit-tests/legend/checkbox": {
+		"diff": "0"
+	},
+	"unit-tests/legend/legend-general": {
+		"diff": "0"
+	},
+	"unit-tests/legend/legend-height": {
+		"diff": "0"
+	},
+	"unit-tests/legend/legend-items-height": {
+		"diff": "0"
+	},
+	"unit-tests/legend/legend-itemwidth": {
+		"diff": "0"
+	},
+	"unit-tests/legend/members": {
+		"diff": "0"
+	},
+	"unit-tests/legend/symbolheight": {
+		"diff": "0"
+	},
+	"unit-tests/maps/credits-maptext": {
+		"diff": "0"
+	},
+	"unit-tests/maps/globalmap": {
+		"diff": "0"
+	},
+	"unit-tests/maps/interaction": {
+		"diff": "0"
+	},
+	"unit-tests/maps/map-navigation": {
+		"diff": "0"
+	},
+	"unit-tests/maps/map-tuples": {
+		"diff": "0"
+	},
+	"unit-tests/maps/mapbubble-linewidth": {
+		"diff": "0"
+	},
+	"unit-tests/maps/mappoint-linewidth": {
+		"diff": "0"
+	},
+	"unit-tests/maps/series-map": {
+		"diff": "0"
+	},
+	"unit-tests/pane/pane-update": {
+		"diff": "0"
+	},
+	"unit-tests/plotbandslines/plotbandslines": {
+		"diff": "0"
+	},
+	"unit-tests/point/point": {
+		"diff": "0"
+	},
+	"unit-tests/point/point-update": {
+		"diff": "0"
+	},
+	"unit-tests/pointer/members": {
+		"diff": "0"
+	},
+	"unit-tests/pointer/touch": {
+		"diff": "0"
+	},
+	"unit-tests/rangeselector/buttons-datagrouping": {
+		"diff": "0"
+	},
+	"unit-tests/rangeselector/floating": {
+		"diff": "0"
+	},
+	"unit-tests/rangeselector/input-range": {
+		"diff": "0"
+	},
+	"unit-tests/rangeselector/members": {
+		"diff": "0"
+	},
+	"unit-tests/rangeselector/position-antycollision": {
+		"diff": "0"
+	},
+	"unit-tests/rangeselector/selected": {
+		"diff": "0"
+	},
+	"unit-tests/responsive/responsive": {
+		"diff": "0"
+	},
+	"unit-tests/scrollbar/events": {
+		"diff": "0"
+	},
+	"unit-tests/scrollbar/extremes": {
+		"diff": "0"
+	},
+	"unit-tests/scrollbar/positions": {
+		"diff": "0"
+	},
+	"unit-tests/scrollbar/update": {
+		"diff": "0"
+	},
+	"unit-tests/scroller/extremes": {
+		"diff": "0"
+	},
+	"unit-tests/scroller/multinav-dynamic": {
+		"diff": "0"
+	},
+	"unit-tests/scroller/multinav-options": {
+		"diff": "0"
+	},
+	"unit-tests/scroller/multinav-update-data": {
+		"diff": "0"
+	},
+	"unit-tests/scroller/multiple-navigator-series": {
+		"diff": "0"
+	},
+	"unit-tests/series/compare": {
+		"diff": "0"
+	},
+	"unit-tests/series/data-null": {
+		"diff": "0"
+	},
+	"unit-tests/series/datagroup": {
+		"diff": "0"
+	},
+	"unit-tests/series/datagrouping": {
+		"diff": "0"
+	},
+	"unit-tests/series/datalabels": {
+		"diff": "0"
+	},
+	"unit-tests/series/findnearestpointby": {
+		"diff": "0"
+	},
+	"unit-tests/series/gapunit": {
+		"diff": "0"
+	},
+	"unit-tests/series/getvalidpoints": {
+		"diff": "0"
+	},
+	"unit-tests/series/index": {
+		"diff": "0"
+	},
+	"unit-tests/series/linkedto": {
+		"diff": "0"
+	},
+	"unit-tests/series/marker": {
+		"diff": "0"
+	},
+	"unit-tests/series/pointattribs": {
+		"diff": "0"
+	},
+	"unit-tests/series/pointintervalunit": {
+		"diff": "0"
+	},
+	"unit-tests/series/remove": {
+		"diff": "0"
+	},
+	"unit-tests/series/setdata": {
+		"diff": "0"
+	},
+	"unit-tests/series/setvisible": {
+		"diff": "0"
+	},
+	"unit-tests/series/softthreshold": {
+		"diff": "0"
+	},
+	"unit-tests/series/stacking": {
+		"diff": "0"
+	},
+	"unit-tests/series/threshold": {
+		"diff": "0"
+	},
+	"unit-tests/series/update": {
+		"diff": "0"
+	},
+	"unit-tests/series-arearange/arearange": {
+		"diff": "0"
+	},
+	"unit-tests/series-arearange/datagrouping": {
+		"diff": "0"
+	},
+	"unit-tests/series-arearange/gapsize": {
+		"diff": "0"
+	},
+	"unit-tests/series-arearange/markers": {
+		"diff": "0"
+	},
+	"unit-tests/series-areasplinerange/polar": {
+		"diff": "0.014531590413943356"
+	},
+	"unit-tests/series-bellcurve/bellcurve": {
+		"diff": "0"
+	},
+	"unit-tests/series-boxplot/boxplot": {
+		"diff": "0"
+	},
+	"unit-tests/series-bubble/marker": {
+		"diff": "0"
+	},
+	"unit-tests/series-bubble/marker-highstock": {
+		"diff": "0"
+	},
+	"unit-tests/series-bubble/members": {
+		"diff": "0"
+	},
+	"unit-tests/series-bubble/minmaxsize": {
+		"diff": "0"
+	},
+	"unit-tests/series-bubble/options": {
+		"diff": "0"
+	},
+	"unit-tests/series-bubble/sizebyabsolutevalue": {
+		"diff": "0"
+	},
+	"unit-tests/series-bullet/bullet": {
+		"diff": "0"
+	},
+	"unit-tests/series-candlestick/members": {
+		"diff": "0"
+	},
+	"unit-tests/series-candlestick/options": {
+		"diff": "0"
+	},
+	"unit-tests/series-column/bordercolor": {
+		"diff": "0"
+	},
+	"unit-tests/series-column/column-width": {
+		"diff": "0"
+	},
+	"unit-tests/series-column/logarithmic-datalabels": {
+		"diff": "0"
+	},
+	"unit-tests/series-column/minpointlength": {
+		"diff": "0"
+	},
+	"unit-tests/series-column/point-update-color": {
+		"diff": "0"
+	},
+	"unit-tests/series-column/stacking": {
+		"diff": "0"
+	},
+	"unit-tests/series-columnrange/columnrange": {
+		"diff": "0"
+	},
+	"unit-tests/series-errorbar/datalabels": {
+		"diff": "0"
+	},
+	"unit-tests/series-flags/color": {
+		"diff": "0"
+	},
+	"unit-tests/series-flags/general": {
+		"diff": "0"
+	},
+	"unit-tests/series-flags/onkey": {
+		"diff": "0"
+	},
+	"unit-tests/series-flags/position": {
+		"diff": "0"
+	},
+	"unit-tests/series-flags/showinnavigator": {
+		"diff": "0"
+	},
+	"unit-tests/series-flags/tooltip": {
+		"diff": "0"
+	},
+	"unit-tests/series-funnel/broken-axis-compatibility": {
+		"diff": "0"
+	},
+	"unit-tests/series-funnel/funnel": {
+		"diff": "0"
+	},
+	"unit-tests/series-gauge/tooltip": {
+		"diff": "0"
+	},
+	"unit-tests/series-heatmap/members": {
+		"diff": "0"
+	},
+	"unit-tests/series-histogram/histogram": {
+		"diff": "0"
+	},
+	"unit-tests/series-map/members": {
+		"diff": "0"
+	},
+	"unit-tests/series-map/nullinteraction": {
+		"diff": "0"
+	},
+	"unit-tests/series-ohlc/crosshairs": {
+		"diff": "0"
+	},
+	"unit-tests/series-ohlc/members": {
+		"diff": "0"
+	},
+	"unit-tests/series-ohlc/options": {
+		"diff": "0"
+	},
+	"unit-tests/series-pareto/pareto": {
+		"diff": "0"
+	},
+	"unit-tests/series-pie/pie": {
+		"diff": "0"
+	},
+	"unit-tests/series-pie/point-datalabel-distance": {
+		"diff": "0"
+	},
+	"unit-tests/series-pie/pointattribs": {
+		"diff": "0"
+	},
+	"unit-tests/series-pie/resize": {
+		"diff": "0"
+	},
+	"unit-tests/series-pie/slice": {
+		"diff": "0"
+	},
+	"unit-tests/series-pie/styled-mode": {
+		"diff": "0"
+	},
+	"unit-tests/series-polygon/stacking": {
+		"diff": "0"
+	},
+	"unit-tests/series-pyramid/height-center": {
+		"diff": "0"
+	},
+	"unit-tests/series-solidgauge/solidgauge": {
+		"diff": "0"
+	},
+	"unit-tests/series-solidgauge/solidgauge-styled-series": {
+		"diff": "0"
+	},
+	"unit-tests/series-sunburst/animation": {
+		"diff": "0"
+	},
+	"unit-tests/series-sunburst/animationlimit": {
+		"diff": "0"
+	},
+	"unit-tests/series-sunburst/api-dynamics": {
+		"diff": "0"
+	},
+	"unit-tests/series-sunburst/bordercolor": {
+		"diff": "0"
+	},
+	"unit-tests/series-sunburst/borderwidth": {
+		"diff": "0"
+	},
+	"unit-tests/series-sunburst/color": {
+		"diff": "0"
+	},
+	"unit-tests/series-sunburst/colorbypoint": {
+		"diff": "0"
+	},
+	"unit-tests/series-sunburst/colors": {
+		"diff": "0"
+	},
+	"unit-tests/series-sunburst/cursor": {
+		"diff": "0"
+	},
+	"unit-tests/series-sunburst/data-color": {
+		"diff": "0"
+	},
+	"unit-tests/series-sunburst/data-id": {
+		"diff": "0"
+	},
+	"unit-tests/series-sunburst/data-name": {
+		"diff": "0"
+	},
+	"unit-tests/series-sunburst/data-parent": {
+		"diff": "0"
+	},
+	"unit-tests/series-sunburst/data-value": {
+		"diff": "0"
+	},
+	"unit-tests/series-sunburst/innersize": {
+		"diff": "0"
+	},
+	"unit-tests/series-sunburst/members": {
+		"diff": "0"
+	},
+	"unit-tests/series-sunburst/name": {
+		"diff": "0"
+	},
+	"unit-tests/series-sunburst/options": {
+		"diff": "0"
+	},
+	"unit-tests/series-sunburst/size": {
+		"diff": "0"
+	},
+	"unit-tests/series-treemap/ignorehiddenpoint": {
+		"diff": "0"
+	},
+	"unit-tests/series-treemap/legend": {
+		"diff": "0"
+	},
+	"unit-tests/series-treemap/members": {
+		"diff": "0"
+	},
+	"unit-tests/series-treemap/no-data-treemap": {
+		"diff": "0"
+	},
+	"unit-tests/series-treemap/nulls-zeroes": {
+		"diff": "0"
+	},
+	"unit-tests/series-treemap/point": {
+		"diff": "0"
+	},
+	"unit-tests/series-treemap/tooltip": {
+		"diff": "0"
+	},
+	"unit-tests/series-variable-pie/variable-pie": {
+		"diff": "0"
+	},
+	"unit-tests/series-variwide/variwide": {
+		"diff": "0"
+	},
+	"unit-tests/series-vector/vector": {
+		"diff": "0"
+	},
+	"unit-tests/series-waterfall/inverted": {
+		"diff": "0"
+	},
+	"unit-tests/series-waterfall/logarithmic": {
+		"diff": "0"
+	},
+	"unit-tests/series-waterfall/minpointlength": {
+		"diff": "0"
+	},
+	"unit-tests/series-windbarb/windbarb": {
+		"diff": "0"
+	},
+	"unit-tests/series-wordcloud/api-dynamics": {
+		"diff": "0"
+	},
+	"unit-tests/series-wordcloud/members": {
+		"diff": "0"
+	},
+	"unit-tests/series-xrange/xrange": {
+		"diff": "0"
+	},
+	"unit-tests/svgrenderer/addclass-hasclass-removeclass": {
+		"diff": "0"
+	},
+	"unit-tests/svgrenderer/animate": {
+		"diff": "0"
+	},
+	"unit-tests/svgrenderer/animate-initpath": {
+		"diff": "0"
+	},
+	"unit-tests/svgrenderer/clip-paths": {
+		"diff": "0"
+	},
+	"unit-tests/svgrenderer/label": {
+		"diff": "0"
+	},
+	"unit-tests/svgrenderer/styled-mode": {
+		"diff": "0"
+	},
+	"unit-tests/svgrenderer/symbol": {
+		"diff": "0"
+	},
+	"unit-tests/svgrenderer/text": {
+		"diff": "0"
+	},
+	"unit-tests/themes/dark-blue": {
+		"diff": "0"
+	},
+	"unit-tests/themes/dark-green": {
+		"diff": "0"
+	},
+	"unit-tests/themes/dark-unica": {
+		"diff": "0"
+	},
+	"unit-tests/themes/gray": {
+		"diff": "0"
+	},
+	"unit-tests/themes/grid": {
+		"diff": "0"
+	},
+	"unit-tests/themes/grid-light": {
+		"diff": "0"
+	},
+	"unit-tests/themes/sand-signika": {
+		"diff": "0"
+	},
+	"unit-tests/themes/skies": {
+		"diff": "0"
+	},
+	"unit-tests/time/timezone": {
+		"diff": "0"
+	},
+	"unit-tests/time/update": {
+		"diff": "0"
+	},
+	"unit-tests/title/subtitle-verticalalign": {
+		"diff": "0"
+	},
+	"unit-tests/title/title": {
+		"diff": "0"
+	},
+	"unit-tests/tooltip/formatter": {
+		"diff": "0"
+	},
+	"unit-tests/tooltip/options-order": {
+		"diff": "0"
+	},
+	"unit-tests/tooltip/position": {
+		"diff": "0"
+	},
+	"unit-tests/tooltip/shared": {
+		"diff": "0"
+	},
+	"unit-tests/tooltip/split": {
+		"diff": "0"
+	},
+	"unit-tests/tooltip/split-bordercolor": {
+		"diff": "0"
+	},
+	"unit-tests/utilities/events": {
+		"diff": "0"
+	},
+	"unit-tests/utilities/getstyle": {
+		"diff": "0"
+	},
+	"unit-tests/utilities/polyfills": {
+		"diff": "0"
+	},
+	"unit-tests/utilities/utilities": {
+		"diff": "0"
+	},
+	"unit-tests/utils/distribute": {
+		"diff": "0"
+	},
+	"issues/highcharts-3.0.10/2339-axis-left-inverted": {
+		"diff": "0"
+	},
+	"issues/highcharts-3.0.10/2592-single-series-stacking": {
+		"diff": "0"
+	},
+	"issues/highcharts-3.0.10/2662-single-bubble": {
+		"diff": "0"
+	},
+	"issues/highcharts-3.0.10/2786-drilldown": {
+		"diff": "0"
+	},
+	"issues/highcharts-3.0.10/2794-buildtext-fontsize": {
+		"diff": "0"
+	},
+	"issues/highcharts-3.0.10/2806-column-pointrange": {
+		"diff": "0"
+	},
+	"issues/highcharts-3.0.10/2813-stacklabels-update": {
+		"diff": "0"
+	},
+	"issues/highcharts-3.0.10/2846-single-point-padding": {
+		"diff": "0"
+	},
+	"issues/highcharts-3.0.10/2848-polar-reversed-yaxis": {
+		"diff": "0"
+	},
+	"issues/highcharts-3.0.10/2857-title-resize": {
+		"diff": "0"
+	},
+	"issues/highcharts-3.0.10/2900-pie-legend-resize": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.0.1/1991-stack-missing-values": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.0.1/2227-waterfall-isintermediatesum": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.0.1/2997-solidgauge-past-full-circle": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.0.1/3007-halo-invisible-point": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.0.1/3010-gauge-neg-yaxis-background": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.0.1/3016-halo-sliced-pie": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.0.1/3017-columnrange-align-datalabels": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.0.1/3027-axis-title-offset": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.0.1/3028-linked-series-update": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.0.1/3040-scrolling-outside-range-1": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.0.1/3040-scrolling-outside-range-2": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.0.1/3075-touch-pan-categories": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.0.1/3080-negative-height-error": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.0.1/3094-series-update-zindex": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.0.1/3098-plot-area-update": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.0.1/3104-touch-pan-axis-extremes": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.0.1/3132-svg-text-wrap": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.0.1/3151-waterfall-small-columns": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.0.1/3158-text-word-wrap": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.0.1/3163-pie-labels-outside-plot": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.0.1/3195-no-ticks-on-short-axis": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.0.3/3202-tickinterval-categories": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.0.3/3353-update-to-log-axis": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.0.3/3359-negative-timezoneoffset-higher-ranks": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.0.3/3363-decimals-in-years": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.0.3/424-panes-column-tooltip": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.0.4/2361-plotbands-clip": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.0.4/3197-drilldown-hidden": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.0.4/3329-tooltip-xdateformat": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.0.4/3390-heatmap-single-point": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.0.4/3418-tooltip-xdateformat": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.0.4/3419-polar-arearange": {
+		"diff": "0.007883986928104575"
+	},
+	"issues/highcharts-4.0.4/3437-data-module-numeric-x": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.0.4/3499-legend-in-corner": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.0.4/3500-timezoneoffset-xaxis-ticks": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.0.4/3501-drilldown-text-wrap": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.0.4/3507-tooltip-overflow": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.0.4/3544-drilldown": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.0.4/3579-drilldown": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.0.4/3600-destroy-in-callback-new": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.0.4/3608-gauge-reversed-yaxis": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.0.4/3648-datalabel-panes": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.0.4/3728-point-update-name": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.0.4/areastack-missing-points": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.0.4/areastack-null-connect-false": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.0.4/areastack-null-connect-false-reversed-false": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.0.4/areastack-null-connect-true": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.1.1/3793-huge-numbers": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.1.1/3830-update-axis-names": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.1.1/3841-3d-column-zindex": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.1.1/3842-firefox-text-shadow-bbox": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.1.1/3844-treemap-colorbypoint": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.1.1/3852-gauge-log-axis": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.1.1/3856-polar-shared-tooltip": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.1.1/3866-datalabels-overlap-hidden-series": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.1.1/3875-chromecrash": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.1.1/3886-waterfall-yaxis-min": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.1.1/3898-zones-outofrange": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.1.10/4667-drillup-opacity": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.1.10/4774-disabled-animation-3d": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.1.10/4799-grouped-column-pos": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.1.10/4801-series-update-visibility": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.1.10/4811-checkbox-position": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.1.3/3890-stacked-errorbars": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.1.3/3891-labels-rotation-270": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.1.3/3952-waterfall-negative-sum": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.1.4/3355-bar-threshold": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.1.4/3758-heatmap-setdata": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.1.4/3938-axis-labels-ellipsis": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.1.4/3976-legend-item-height": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.1.4/3983-plotband-label-outside": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.1.4/4035-linewidthplus": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.1.4/4068-null-color": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.1.4/4070-ellipsis": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.1.4/4094-waterfall-array-points": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.1.5/1457-ranges-reversed-axis": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.1.5/3975-overflow-ellipsis": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.1.5/4104-pie-update": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.1.5/4221-zones-logarithmic": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.1.5/4223-sub-millisec-tooltip": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.1.5/4247-zoom-in-break": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.1.5/4256-waterfall-y-min": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.1.5/4264-stacked-columns": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.1.6/3318-gauge-background": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.1.6/3709-linked-series-setdata": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.1.6/3941-disable-ellipsis": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.1.6/4275-nulls-in-breaks": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.1.6/4284-column-update": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.1.6/4291-axis-label-formatting": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.1.7/1655-invalid-date-after-zoom": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.1.7/3372-columnrange-tooltip-position": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.1.7/3636-negativecolor-hover": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.1.7/3801-pie-gradient-update": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.1.7/3879-linkedto-visibility": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.1.7/3909-hide-show-label": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.1.7/4246-pie-nulls": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.1.7/4267-negativecolor-after-update": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.1.7/4313-bubble-axis-extremes": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.1.7/4320-stack-leak": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.1.7/4338-waterfall-minpointlength": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.1.7/4351-setsize-standalone-adapter": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.1.7/4356-pointbreak-below-threshold": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.1.7/4360-log-float-error": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.1.7/4365-hide-connector": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.1.7/4369-reversedstacks-3d-column": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.1.7/4371-axis-offset": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.1.7/4396-bubble-series-min-max-size": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.1.7/4401-pointname-categories": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.1.7/4411-axis-step-1": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.1.7/4421-range-datalabels-overlapping": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.1.7/4430-point-color-zones": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.1.7/4434-solidgauge-reversed": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.1.7/4443-autorotation": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.1.7/4448-double-mouseover-column": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.1.7/4449-legend-rtl": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.1.7/4477-too-dense-ticks": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.1.8/2248-alternategrids-polar-categories": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.1.8/2711-datalabels-inside": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.1.8/2801-boxplot-whisker-length": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.1.8/3323-3d-pie-zindex": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.1.8/3632-pie-innersize-limit": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.1.8/3971-axis-label-rotation-step": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.1.8/4204-waterfall-hover": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.1.8/4298-update-axis-extremes-on-series-translate": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.1.8/4431-tooltip-update-from-column": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.1.8/4442-alignticks-one-axis-with-series": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.1.8/4485-ticks-in-axis-break": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.1.8/4504-bar-reversed-yaxis": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.1.8/4511-tooltip-column-max-yaxis": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.1.8/4530-heatmap-single-colsize": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.1.8/4532-3d-stack-name-string": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.1.8/4533-axis-break-line-and-xaxis": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.1.8/4536-zoom-in-left-category": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.1.8/4543-null-bubble": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.1.8/4562-3d-zaxis-logarithmic": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.1.8/4584-3d-pie-nulls": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.1.8/4586-marker-hover-moved": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.1.8/4594-errors-on-stacked-log": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.1.8/4599-getextremesfromall-cropthreshold": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.1.8/4615-coloraxis-labels-usehtml": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.1.9/1828-pie-bordercolor-null": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.1.9/2822-pointrange": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.1.9/2908-navigator-handles-wrong-zindex": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.1.9/2995-gradient-in-format": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.1.9/3140-rotated-labels-vertical-axis": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.1.9/3745-3d-pie-startangle": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.1.9/4184-tickinterval-pointrange": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.1.9/4391-area-fills-below-point-stacks": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.1.9/4415-label-step-wrap": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.1.9/4605-columnrange-datalabels": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.1.9/4641-pie-null-values": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.1.9/4652-label-align-in-pies": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.1.9/4660-alternategrids-categories": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.1.9/4670-zones-markers-fill": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.1.9/4678-label-ellipsis": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.1.9/4681-cache-leak": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.1.9/4689-halo-centering": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.1.9/4691-opposite-axis-title": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.1.9/4694-opposite-axis-staggerlines": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.1.9/4704-pie-update-slice-colors": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.1.9/4721-animate-stroke-width": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.1.9/4737-crosshair-categories-resize": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.1.9/4738-funnel-size": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.1.9/4749-data-decimalpoint-negative": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.1.9/4759-point-update-marker": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.1.9/4778-waterfall-y-max": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.1.9/4789-gauge-addpoint": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.2.0/4857-3d-loading": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.2.0/4888-fillopacity-zero": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.2.1/1977-bubble-series-shadow": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.2.1/3477-rangeselector-ie-onchange": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.2.1/4077-panning-inverted": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.2.1/4086-tickpositions-axis-extremes": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.2.1/4622-legenditem-color": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.2.1/4645-shared-tooltip-wrong-points": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.2.1/4779-datalabels-rotation-crop": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.2.1/4779-datalabels-rotation-crop-visual": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.2.1/4868-axis-break-columnrange": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.2.1/4870-log-xaxis-pointwidth": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.2.1/4889-3d-zindex-plotline": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.2.1/4891-3d-pie-hidden-slices": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.2.1/4905-pie-datalabels-resize": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.2.1/4906-pointer-hoverchartindex-mouseisdown": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.2.1/4911-datalabels-overlap-panes": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.2.1/4912-data-labels-export": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.2.1/4918-getpointspline": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.2.1/4920-radial-labels": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.2.1/4921-ignorehiddenseries-columnwidth": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.2.1/4927-crosshair-multi-axes": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.2.1/4928-html-reset-width": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.2.1/4938-text-usehtml-hide": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.2.1/4954-waterfall-isintermediatesum-issum": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.2.2/4998-mouseisdown-undefined": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.2.2/5015-spline-connectnulls": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.2.2/5016-spline-equal-x": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.2.2/5226-polar-nodata": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.2.3/4679-tooltip-zindex": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.2.3/4700-treemap-levels-opacity": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.2.3/4751-treemap-inconsistent-behaviour-after-resize": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.2.3/4812-treemap-invisible-point-still-visible-datalabel": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.2.3/4856-treemap-zooming": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.2.3/5010-stacking-with-date-object-x": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.2.3/5075-data-labels-usehtml-defer": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.2.3/5082-plot-band-export": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.2.3/5086-label-ellipsis": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.2.3/5099-single-point-nulls": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.2.3/5101-click-pie-after-update": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.2.3/5146-zero-column-visible": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.2.3/5156-funnel-select": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.2.3/5167-bubble-setextremes": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.2.4/5236-last-point-clipped": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.2.4/5254-heatmap-data-label-align": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.2.4/5261-label-trim-lines": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.2.5/4507-scatter-3d-without-z-value": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.2.5/5205-coloraxis-legend-disabled": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.2.5/5280-stacked-area-threshold": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.2.5/5283-polar-plotbands-offset": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.2.5/5332-showlastlabel-redraw-sequence": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.2.5/5339-ellipsis": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.2.5/5348-arearange-trackbyarea-false": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.2.5/5416-connectends-null": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.2.6/1041-stacked-areaspline-gaps": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.2.6/4979-one-negative-stack": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.2.6/5186-areasplinerange-fill-gap": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.2.6/5618-update-master-series-with-linked-series": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.2.6/5622-point-click-shared-tooltip": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.2.6/5665-add-point-animation": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.2.6/5689-polar-datalabel-wrapping": {
+		"diff": "0"
+	},
+	"issues/highcharts-4.2.7/5721-non-shared-tooltip-closest-point": {
+		"diff": "0"
+	},
+	"issues/highcharts-5.0.0/5766-shared-markers-state": {
+		"diff": "0"
+	},
+	"issues/highcharts-5.0.0/5862-shared-tooltip-column-hover-by-proximity": {
+		"diff": "0"
+	},
+	"issues/highcharts-5.0.2/3949-scatter-3d-point-zindex": {
+		"diff": "0"
+	},
+	"issues/highcharts-5.0.2/5889-point-placement-range": {
+		"diff": "0"
+	},
+	"issues/highcharts-5.0.4/5947-usehtml-datalabels-events": {
+		"diff": "0"
+	},
+	"issues/highcharts-5.0.4/6020-waterfall-simple-stacking": {
+		"diff": "0"
+	},
+	"issues/highcharts-5.0.7/233-pie-label-ellipsis": {
+		"diff": "0"
+	},
+	"issues/highcharts-6.0.2/arearange-animation": {
+		"diff": "0"
+	},
+	"issues/highmaps-1.0.4/3190-reversed-coloraxis": {
+		"diff": "0"
+	},
+	"issues/highmaps-1.0.4/3314-negative-coordinates": {
+		"diff": "0"
+	},
+	"issues/highmaps-1.1.3/3917-maps-and-3d": {
+		"diff": "0"
+	},
+	"issues/highmaps-1.1.4/3894-mapseries-setdata": {
+		"diff": "0"
+	},
+	"issues/highmaps-1.1.5/3207-update-coloraxis": {
+		"diff": "0"
+	},
+	"issues/highmaps-1.1.7/3379-coloraxis-padding": {
+		"diff": "0"
+	},
+	"issues/highmaps-1.1.7/4397-coloraxis-point-color": {
+		"diff": "0"
+	},
+	"issues/highmaps-1.1.8/3529-select-style-after-update": {
+		"diff": "0"
+	},
+	"issues/highmaps-1.1.9/4784-allareas-disabled-centers-map": {
+		"diff": "0"
+	},
+	"issues/highmaps-4.2.1/4964-missing-plotband-small-range": {
+		"diff": "0"
+	},
+	"issues/highmaps-4.2.4/5050-setdata-svg-error": {
+		"diff": "0"
+	},
+	"issues/highmaps-4.2.4/5201-mapline-linewidth": {
+		"diff": "0"
+	},
+	"issues/highmaps-4.2.5/5295-empty-first-series": {
+		"diff": "0"
+	},
+	"issues/highstock-1.3.10/2754-pane-clipping": {
+		"diff": "0"
+	},
+	"issues/highstock-1.3.10/2796-addaxis-gridlines": {
+		"diff": "0"
+	},
+	"issues/highstock-2.0.1/2975-plotarea-clipping-resize": {
+		"diff": "0"
+	},
+	"issues/highstock-2.0.1/3150-error-datagrouping-flags": {
+		"diff": "0"
+	},
+	"issues/highstock-2.0.3/3299-axis-labels-panes": {
+		"diff": "0"
+	},
+	"issues/highstock-2.0.4/3451-pane-clipping-update": {
+		"diff": "0"
+	},
+	"issues/highstock-2.0.4/3487-empty-chart": {
+		"diff": "0"
+	},
+	"issues/highstock-2.0.4/3519-panes-marker-overflow": {
+		"diff": "0"
+	},
+	"issues/highstock-2.0.4/3706-point-color-upcolor": {
+		"diff": "0"
+	},
+	"issues/highstock-2.1.1/3882-plotbands-on-edge": {
+		"diff": "0"
+	},
+	"issues/highstock-2.1.4/4053-navigator-min": {
+		"diff": "0"
+	},
+	"issues/highstock-2.1.5/1417-linked-ordinal-axis": {
+		"diff": "0"
+	},
+	"issues/highstock-2.1.5/4196-update-to-non-ordinal": {
+		"diff": "0"
+	},
+	"issues/highstock-2.1.5/4202-scrollbar-empty-data": {
+		"diff": "0"
+	},
+	"issues/highstock-2.1.6/4226-candlestick-linecolor-up": {
+		"diff": "0"
+	},
+	"issues/highstock-2.1.6/4285-flags": {
+		"diff": "0"
+	},
+	"issues/highstock-2.1.6/4317-axis-update-ranges": {
+		"diff": "0"
+	},
+	"issues/highstock-2.1.7/3119-flag-on-first-point": {
+		"diff": "0"
+	},
+	"issues/highstock-2.1.7/4222-update-flag": {
+		"diff": "0"
+	},
+	"issues/highstock-2.1.7/4324-flag-hover": {
+		"diff": "0"
+	},
+	"issues/highstock-2.1.7/4452-range-selector-setdata": {
+		"diff": "0"
+	},
+	"issues/highstock-2.1.8/4501-range-overshoot": {
+		"diff": "0"
+	},
+	"issues/highstock-2.1.8/4526-clip-path-update-axis": {
+		"diff": "0"
+	},
+	"issues/highstock-2.1.9/3238-tooltip-header-format": {
+		"diff": "0"
+	},
+	"issues/highstock-2.1.9/3375-range-buttons-state": {
+		"diff": "0"
+	},
+	"issues/highstock-2.1.9/4661-compare-negative": {
+		"diff": "0"
+	},
+	"issues/highstock-5.x-visuals/5706-compare-arearange": {
+		"diff": "0"
+	},
+	"issues/highstock-5.x-visuals/5800-outline-linewidth": {
+		"diff": "0"
+	},
+	"issues/highstock-5.x-visuals/5924-setextremes-exporting": {
+		"diff": "0"
+	},
+	"issues/older/1109": {
+		"diff": "0"
+	},
+	"issues/older/1282": {
+		"diff": "0"
+	},
+	"issues/older/1314": {
+		"diff": "0"
+	},
+	"issues/older/1480,1687": {
+		"diff": "0"
+	},
+	"issues/older/1619": {
+		"diff": "0"
+	},
+	"issues/older/1734": {
+		"diff": "0"
+	},
+	"issues/older/1784": {
+		"diff": "0"
+	},
+	"issues/older/1910": {
+		"diff": "0"
+	},
+	"issues/older/1930": {
+		"diff": "0"
+	},
+	"issues/older/2103": {
+		"diff": "0"
+	},
+	"issues/older/2104,2181": {
+		"diff": "0"
+	},
+	"issues/older/2117": {
+		"diff": "0"
+	},
+	"issues/older/2197,2375": {
+		"diff": "0"
+	},
+	"issues/older/2205": {
+		"diff": "0"
+	},
+	"issues/older/2219": {
+		"diff": "0"
+	},
+	"issues/older/2282": {
+		"diff": "0"
+	},
+	"issues/older/2336": {
+		"diff": "0"
+	},
+	"issues/older/2357": {
+		"diff": "0"
+	},
+	"issues/older/2399": {
+		"diff": "0"
+	},
+	"issues/older/2440": {
+		"diff": "0"
+	},
+	"issues/older/2444": {
+		"diff": "0"
+	},
+	"issues/older/2456": {
+		"diff": "0"
+	},
+	"issues/older/2469": {
+		"diff": "0"
+	},
+	"issues/older/2546": {
+		"diff": "0"
+	},
+	"issues/older/2568": {
+		"diff": "0"
+	},
+	"issues/older/2570": {
+		"diff": "0"
+	},
+	"issues/older/2574": {
+		"diff": "0"
+	},
+	"issues/older/2576": {
+		"diff": "0"
+	},
+	"issues/older/2579": {
+		"diff": "0"
+	},
+	"issues/older/2593": {
+		"diff": "0"
+	},
+	"issues/older/2610": {
+		"diff": "0"
+	},
+	"issues/older/2617": {
+		"diff": "0"
+	},
+	"issues/older/2619": {
+		"diff": "0"
+	},
+	"issues/older/2642": {
+		"diff": "0"
+	},
+	"issues/older/2645": {
+		"diff": "0"
+	},
+	"issues/older/2649": {
+		"diff": "0"
+	},
+	"issues/older/2650": {
+		"diff": "0"
+	},
+	"issues/older/2651": {
+		"diff": "0"
+	},
+	"issues/older/2656": {
+		"diff": "0"
+	},
+	"issues/older/2665": {
+		"diff": "0"
+	},
+	"issues/older/2682": {
+		"diff": "0"
+	},
+	"issues/older/2683": {
+		"diff": "0"
+	},
+	"issues/older/2687": {
+		"diff": "0"
+	},
+	"issues/older/2700": {
+		"diff": "0"
+	},
+	"issues/older/2703": {
+		"diff": "0"
+	},
+	"issues/older/2744": {
+		"diff": "0"
+	},
+	"issues/older/2755": {
+		"diff": "0"
+	},
+	"issues/older/2760": {
+		"diff": "0"
+	},
+	"issues/older/2763": {
+		"diff": "0"
+	},
+	"issues/older/2770": {
+		"diff": "0"
+	},
+	"issues/older/915,986": {
+		"diff": "0"
+	},
+	"issues/older/978": {
+		"diff": "0"
+	},
+	"issues/older/pie-in-highstock": {
+		"diff": "0"
+	},
+	"cloud/charts/adakiq": {
+		"diff": "0"
+	},
+	"cloud/charts/adojer": {
+		"diff": "0"
+	},
+	"cloud/charts/agimuf": {
+		"diff": "0"
+	},
+	"cloud/charts/agywyv": {
+		"diff": "0"
+	},
+	"cloud/charts/aheviw": {
+		"diff": "0"
+	},
+	"cloud/charts/ajabuv": {
+		"diff": "0"
+	},
+	"cloud/charts/akiqek": {
+		"diff": "0"
+	},
+	"cloud/charts/alahyg": {
+		"diff": "0"
+	},
+	"cloud/charts/anycal": {
+		"diff": "0"
+	},
+	"cloud/charts/apiwaf": {
+		"diff": "0"
+	},
+	"cloud/charts/arixor": {
+		"diff": "0"
+	},
+	"cloud/charts/eceqog": {
+		"diff": "0"
+	},
+	"cloud/charts/ecylid": {
+		"diff": "0"
+	},
+	"cloud/charts/edakyt": {
+		"diff": "0"
+	},
+	"cloud/charts/efazor": {
+		"diff": "0"
+	},
+	"cloud/charts/efidyk": {
+		"diff": "0"
+	},
+	"cloud/charts/egepej": {
+		"diff": "0"
+	},
+	"cloud/charts/egivoh": {
+		"diff": "0"
+	},
+	"cloud/charts/ehisar": {
+		"diff": "0"
+	},
+	"cloud/charts/ehonyn": {
+		"diff": "0"
+	},
+	"cloud/charts/ekekuw": {
+		"diff": "0"
+	},
+	"cloud/charts/ekoraf": {
+		"diff": "0"
+	},
+	"cloud/charts/ememog": {
+		"diff": "0"
+	},
+	"cloud/charts/emuhil": {
+		"diff": "0"
+	},
+	"cloud/charts/emygej": {
+		"diff": "0"
+	},
+	"cloud/charts/eneted": {
+		"diff": "0"
+	},
+	"cloud/charts/eqevej": {
+		"diff": "0"
+	},
+	"cloud/charts/erohiz": {
+		"diff": "0"
+	},
+	"cloud/charts/eryboq": {
+		"diff": "0"
+	},
+	"cloud/charts/etadyq": {
+		"diff": "0"
+	},
+	"cloud/charts/etedob": {
+		"diff": "0"
+	},
+	"cloud/charts/exewyk": {
+		"diff": "0"
+	},
+	"cloud/charts/ibaguf": {
+		"diff": "0"
+	},
+	"cloud/charts/icobax": {
+		"diff": "0"
+	},
+	"cloud/charts/ifyhoz": {
+		"diff": "0"
+	},
+	"cloud/charts/ihiken": {
+		"diff": "0"
+	},
+	"cloud/charts/ijinoh": {
+		"diff": "0"
+	},
+	"cloud/charts/ijylad": {
+		"diff": "0"
+	},
+	"cloud/charts/inasoc": {
+		"diff": "0"
+	},
+	"cloud/charts/inimor": {
+		"diff": "0"
+	},
+	"cloud/charts/inuxij": {
+		"diff": "0"
+	},
+	"cloud/charts/inysaf": {
+		"diff": "0"
+	},
+	"cloud/charts/ipuzew": {
+		"diff": "0"
+	},
+	"cloud/charts/isucix": {
+		"diff": "0"
+	},
+	"cloud/charts/itukuw": {
+		"diff": "0"
+	},
+	"cloud/charts/ivibon": {
+		"diff": "0"
+	},
+	"cloud/charts/iwyhef": {
+		"diff": "0"
+	},
+	"cloud/charts/iwykur": {
+		"diff": "0"
+	},
+	"cloud/charts/ixityk": {
+		"diff": "0"
+	},
+	"cloud/charts/izekaj": {
+		"diff": "0"
+	},
+	"cloud/charts/izyfuf": {
+		"diff": "0"
+	},
+	"cloud/charts/obufeh": {
+		"diff": "0"
+	},
+	"cloud/charts/odobah": {
+		"diff": "0"
+	},
+	"cloud/charts/ogacek": {
+		"diff": "0"
+	},
+	"cloud/charts/ojojyn": {
+		"diff": "0"
+	},
+	"cloud/charts/ojutyb": {
+		"diff": "0"
+	},
+	"cloud/charts/okuxev": {
+		"diff": "0"
+	},
+	"cloud/charts/olanoj": {
+		"diff": "0"
+	},
+	"cloud/charts/omuwiw": {
+		"diff": "0"
+	},
+	"cloud/charts/osegeg": {
+		"diff": "0"
+	},
+	"cloud/charts/osojon": {
+		"diff": "0"
+	},
+	"cloud/charts/osynux": {
+		"diff": "0"
+	},
+	"cloud/charts/ototyn": {
+		"diff": "0"
+	},
+	"cloud/charts/otuzaw": {
+		"diff": "0"
+	},
+	"cloud/charts/ovaweq": {
+		"diff": "0"
+	},
+	"cloud/charts/ovegow": {
+		"diff": "0"
+	},
+	"cloud/charts/ovusiw": {
+		"diff": "0"
+	},
+	"cloud/charts/owolex": {
+		"diff": "0"
+	},
+	"cloud/charts/oxucot": {
+		"diff": "0"
+	},
+	"cloud/charts/ucefir": {
+		"diff": "0"
+	},
+	"cloud/charts/uhihef": {
+		"diff": "0"
+	},
+	"cloud/charts/uhutym": {
+		"diff": "0"
+	},
+	"cloud/charts/ujybah": {
+		"diff": "0"
+	},
+	"cloud/charts/uledic": {
+		"diff": "0"
+	},
+	"cloud/charts/upefib": {
+		"diff": "0"
+	},
+	"cloud/charts/upezuq": {
+		"diff": "0"
+	},
+	"cloud/charts/upykim": {
+		"diff": "0"
+	},
+	"cloud/charts/uqewiq": {
+		"diff": "0"
+	},
+	"cloud/charts/utikoq": {
+		"diff": "0"
+	},
+	"cloud/charts/utusen": {
+		"diff": "0"
+	},
+	"cloud/charts/uwovug": {
+		"diff": "0"
+	},
+	"cloud/charts/uxyraq": {
+		"diff": "0"
+	},
+	"cloud/charts/uzevyc": {
+		"diff": "0"
+	},
+	"cloud/charts/uzorez": {
+		"diff": "0"
+	},
+	"cloud/charts/ybocab": {
+		"diff": "0"
+	},
+	"cloud/charts/yhoruw": {
+		"diff": "0"
+	},
+	"cloud/charts/ylejev": {
+		"diff": "0"
+	},
+	"cloud/charts/yluwow": {
+		"diff": "0"
+	},
+	"cloud/charts/ylylol": {
+		"diff": "0"
+	},
+	"cloud/charts/ymivef": {
+		"diff": "0"
+	},
+	"cloud/charts/yqufok": {
+		"diff": "0"
+	},
+	"cloud/charts/yqydad": {
+		"diff": "0"
+	},
+	"cloud/charts/yroduj": {
+		"diff": "0"
+	},
+	"cloud/charts/yroris": {
+		"diff": "0"
+	},
+	"cloud/charts/ysacuv": {
+		"diff": "0"
+	},
+	"cloud/charts/ysazal": {
+		"diff": "0"
+	},
+	"cloud/charts/yvejyh": {
+		"diff": "0"
+	},
+	"cloud/charts/yvopad": {
+		"diff": "0"
+	},
+	"cloud/charts/yxuhut": {
+		"diff": "0"
+	},
+	"cloud/template/template": {
+		"diff": "0"
 	}
 }
