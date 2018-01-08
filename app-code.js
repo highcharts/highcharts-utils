@@ -8,7 +8,12 @@ const f = require('./lib/functions');
 const cfg = require('./config.json');
 
 http.createServer(function(req, res) {
-	let file = f.getCodeFile(req.url);
+
+	let url = req.url
+		.replace(/^\/stock\//g, '/')
+		.replace(/^\/maps\//g, '/');
+
+	let file = f.getCodeFile(url);
 
 	if (file.error) {
 		res.end(file.error);

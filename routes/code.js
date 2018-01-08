@@ -10,7 +10,7 @@ router.get(/[a-z\/\-\.]+\.(js|css)/, function(req, res) {
 		return;
 	}
 
-	res.setHeader('Cache-Control', 'public, max-age=60');
+	// res.setHeader('Cache-Control', 'public, max-age=60');
 	res.sendFile(file.success);
 });
 
