@@ -369,21 +369,21 @@ $(function() {
 			status = window.parent.commits[commit] || 'status-none';
 			$(
 				'<div class="status">' + 
-					'<input name="status-' + commit + '" value="status-none" ' +
+					'<input name="status-' + commit + '" id="status-' + commit + '-none" value="status-none" ' +
 					(status === 'status-none' ? 'checked' : '') + ' type="radio"/>' +
-					'<label value="status-none">N/A</label>' +
-					'<input name="status-' + commit + '" value="status-good" ' +
+					'<label for="status-' + commit + '-none" value="status-none">N/A</label>' +
+					'<input name="status-' + commit + '" id="status-' + commit + '-good" value="status-good" ' +
 					(status === 'status-good' ? 'checked' : '') + ' type="radio"/>' +
-					'<label value="status-good">Good</label>' +
-					'<input name="status-' + commit + '" value="status-bad" ' +
+					'<label for="status-' + commit + '-good" value="status-good">Good</label>' +
+					'<input name="status-' + commit + '" id="status-' + commit + '-bad" value="status-bad" ' +
 					(status === 'status-bad' ? 'checked' : '') + ' type="radio"/>' +
-					'<label value="status-bad">Bad</label>' +
+					'<label for="status-' + commit + '-bad" value="status-bad">Bad</label>' +
 					
 				'</div>'
 				)
 				.addClass(status) // get from parent
 				//.html(statusTexts[status])
-				.click(function (e) {
+				.bind('change', function (e) {
 					var $this = $(this),
 						newClass = e.target.value;
 
