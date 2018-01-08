@@ -7,7 +7,7 @@ const glob = require('glob');
 router.get('/', function(req, res) {
 	glob(path.join(
 		__dirname,
-		'../../public/temp/*.json'
+		'../../temp/*.json'
 	), null, (err, files) => {
 
 		if (err) {
@@ -16,7 +16,7 @@ router.get('/', function(req, res) {
 
 		files.forEach(file => fs.unlinkSync(file));
 		
-		res.send('window.parent.parent.location.reload()');	
+		res.send('window.parent.parent.location.href = "/samples"');	
 	})
 });
 

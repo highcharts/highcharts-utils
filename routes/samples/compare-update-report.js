@@ -4,9 +4,9 @@ const router = express.Router();
 const fs = require('fs');
 const f = require('../../lib/functions.js');
 
-router.get('/', function(req, res, next) {
+router.get('/', function(req, res) {
 	try {
-		let fileName = path.join(__dirname, '../../public/temp/compare.' +
+		let fileName = path.join(__dirname, '../../temp/compare.' +
 			f.getBranch() + '.' + req.query.browser + '.json');
 		let json = {};
 		

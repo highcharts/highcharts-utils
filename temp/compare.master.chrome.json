@@ -1,0 +1,3143 @@
+{
+	"highcharts/3d/column": {
+		"diff": "0"
+	},
+	"highcharts/3d/column-colored-frame": {
+		"diff": "0"
+	},
+	"highcharts/3d/column-deep": {
+		"diff": "0"
+	},
+	"highcharts/3d/column-drilldown": {
+		"diff": "0"
+	},
+	"highcharts/3d/column-frame": {
+		"diff": "0"
+	},
+	"highcharts/3d/column-grouping": {
+		"diff": "0"
+	},
+	"highcharts/3d/column-inverted": {
+		"diff": "0"
+	},
+	"highcharts/3d/column-negative-values": {
+		"diff": "0"
+	},
+	"highcharts/3d/column-opposite": {
+		"diff": "0"
+	},
+	"highcharts/3d/column-stacking": {
+		"diff": "0"
+	},
+	"highcharts/3d/column-stacking-multiple": {
+		"diff": "0"
+	},
+	"highcharts/3d/column-zpadding": {
+		"diff": "0"
+	},
+	"highcharts/3d/columnrange": {
+		"diff": "0"
+	},
+	"highcharts/3d/line": {
+		"diff": "0"
+	},
+	"highcharts/3d/pie-slicing": {
+		"diff": "0"
+	},
+	"highcharts/3d/scatter": {
+		"diff": "0"
+	},
+	"highcharts/3d/scatter-frame": {
+		"diff": "0"
+	},
+	"highcharts/3d/scatter-zaxis-categories": {
+		"diff": "0"
+	},
+	"highcharts/3d/scatter-zaxis-grid": {
+		"diff": "0"
+	},
+	"highcharts/3d/scatter-zaxis-plotbands-lines": {
+		"diff": "0"
+	},
+	"highcharts/3d/semi-circle": {
+		"diff": "0"
+	},
+	"highcharts/3d/skewed-labels": {
+		"diff": "0"
+	},
+	"highcharts/accessibility/accessible-datetime": {
+		"diff": "0"
+	},
+	"highcharts/accessibility/accessible-line": {
+		"diff": "0"
+	},
+	"highcharts/accessibility/accessible-no-tooltip": {
+		"diff": "0"
+	},
+	"highcharts/accessibility/accessible-pie": {
+		"diff": "0"
+	},
+	"highcharts/accessibility/accessible-polar": {
+		"diff": "0"
+	},
+	"highcharts/accessibility/advanced-accessible": {
+		"diff": "0"
+	},
+	"highcharts/accessibility/art-grants": {
+		"diff": "0"
+	},
+	"highcharts/accessibility/custom-focus": {
+		"diff": "0"
+	},
+	"highcharts/annotations/basic": {
+		"diff": "0"
+	},
+	"highcharts/annotations/custom-markers": {
+		"diff": "0"
+	},
+	"highcharts/annotations/label-crop-overflow": {
+		"diff": "0"
+	},
+	"highcharts/annotations/label-position": {
+		"diff": "0"
+	},
+	"highcharts/annotations/label-presentation": {
+		"diff": "0"
+	},
+	"highcharts/annotations/label-text": {
+		"diff": "0"
+	},
+	"highcharts/annotations/mock-point": {
+		"diff": "0"
+	},
+	"highcharts/annotations/overlapping": {
+		"diff": "0"
+	},
+	"highcharts/annotations/shape": {
+		"diff": "0"
+	},
+	"highcharts/annotations/shapes": {
+		"diff": "0"
+	},
+	"highcharts/annotations/tooltip-like": {
+		"diff": "0"
+	},
+	"highcharts/annotations/visible": {
+		"diff": "0"
+	},
+	"highcharts/axisbreak/break-combination": {
+		"diff": "0"
+	},
+	"highcharts/axisbreak/break-event": {
+		"diff": "0"
+	},
+	"highcharts/axisbreak/break-repeated": {
+		"diff": "0"
+	},
+	"highcharts/axisbreak/break-simple": {
+		"diff": "0"
+	},
+	"highcharts/axisbreak/break-visualized": {
+		"diff": "0"
+	},
+	"highcharts/axisbreak/break-yaxis": {
+		"diff": "0"
+	},
+	"highcharts/boost/heatmap": {
+		"diff": "0"
+	},
+	"highcharts/boost/scatter-smaller": {
+		"diff": "0"
+	},
+	"highcharts/boost/treemap": {
+		"diff": "0"
+	},
+	"highcharts/chart/alignticks-false": {
+		"diff": "0"
+	},
+	"highcharts/chart/alignticks-true": {
+		"diff": "0"
+	},
+	"highcharts/chart/animation-duration": {
+		"diff": "0"
+	},
+	"highcharts/chart/animation-none": {
+		"diff": "0"
+	},
+	"highcharts/chart/backgroundcolor-color": {
+		"diff": "0"
+	},
+	"highcharts/chart/backgroundcolor-gradient": {
+		"diff": "0"
+	},
+	"highcharts/chart/bordercolor": {
+		"diff": "0"
+	},
+	"highcharts/chart/borderradius": {
+		"diff": "0"
+	},
+	"highcharts/chart/borderwidth": {
+		"diff": "0"
+	},
+	"highcharts/chart/colors": {
+		"diff": "0"
+	},
+	"highcharts/chart/defaultseriestype": {
+		"diff": "0"
+	},
+	"highcharts/chart/events-addseries": {
+		"diff": "0"
+	},
+	"highcharts/chart/events-beforeprint-afterprint": {
+		"diff": "0"
+	},
+	"highcharts/chart/events-click": {
+		"diff": "0"
+	},
+	"highcharts/chart/events-container": {
+		"diff": "0"
+	},
+	"highcharts/chart/events-load": {
+		"diff": "0"
+	},
+	"highcharts/chart/events-redraw": {
+		"diff": "0"
+	},
+	"highcharts/chart/events-selection": {
+		"diff": "0"
+	},
+	"highcharts/chart/events-selection-points": {
+		"diff": "0"
+	},
+	"highcharts/chart/height": {
+		"diff": "0"
+	},
+	"highcharts/chart/height-percent": {
+		"diff": "0"
+	},
+	"highcharts/chart/highcharts-error": {
+		"diff": "0"
+	},
+	"highcharts/chart/ignorehiddenseries-false": {
+		"diff": "0"
+	},
+	"highcharts/chart/ignorehiddenseries-true": {
+		"diff": "0"
+	},
+	"highcharts/chart/ignorehiddenseries-true-stacked": {
+		"diff": "0"
+	},
+	"highcharts/chart/inverted": {
+		"diff": "0"
+	},
+	"highcharts/chart/inverted-xrange": {
+		"diff": "0"
+	},
+	"highcharts/chart/marginbottom": {
+		"diff": "0"
+	},
+	"highcharts/chart/marginleft": {
+		"diff": "0"
+	},
+	"highcharts/chart/marginright": {
+		"diff": "0"
+	},
+	"highcharts/chart/margins-zero": {
+		"diff": "0"
+	},
+	"highcharts/chart/margintop": {
+		"diff": "0"
+	},
+	"highcharts/chart/pankey": {
+		"diff": "0"
+	},
+	"highcharts/chart/plotbackgroundcolor-color": {
+		"diff": "0"
+	},
+	"highcharts/chart/plotbackgroundcolor-gradient": {
+		"diff": "0"
+	},
+	"highcharts/chart/plotbackgroundimage": {
+		"diff": "0"
+	},
+	"highcharts/chart/plotbordercolor": {
+		"diff": "0"
+	},
+	"highcharts/chart/plotborderwidth": {
+		"diff": "0"
+	},
+	"highcharts/chart/plotshadow": {
+		"diff": "0"
+	},
+	"highcharts/chart/polar-area": {
+		"diff": "0"
+	},
+	"highcharts/chart/polar-line": {
+		"diff": "0"
+	},
+	"highcharts/chart/reflow-false": {
+		"diff": "0"
+	},
+	"highcharts/chart/reflow-true": {
+		"diff": "0"
+	},
+	"highcharts/chart/renderto-jquery": {
+		"diff": "0"
+	},
+	"highcharts/chart/renderto-object": {
+		"diff": "0"
+	},
+	"highcharts/chart/resetzoombutton-position": {
+		"diff": "0"
+	},
+	"highcharts/chart/resetzoombutton-relativeto": {
+		"diff": "0"
+	},
+	"highcharts/chart/resetzoombutton-theme": {
+		"diff": "0"
+	},
+	"highcharts/chart/shadow": {
+		"diff": "0"
+	},
+	"highcharts/chart/showaxes-false": {
+		"diff": "0"
+	},
+	"highcharts/chart/showaxes-true": {
+		"diff": "0"
+	},
+	"highcharts/chart/spacingbottom": {
+		"diff": "0"
+	},
+	"highcharts/chart/spacingleft": {
+		"diff": "0"
+	},
+	"highcharts/chart/spacingright-100": {
+		"diff": "0"
+	},
+	"highcharts/chart/spacingright-legend": {
+		"diff": "0"
+	},
+	"highcharts/chart/spacingtop-10": {
+		"diff": "0"
+	},
+	"highcharts/chart/spacingtop-100": {
+		"diff": "0"
+	},
+	"highcharts/chart/style-serif-font": {
+		"diff": "0"
+	},
+	"highcharts/chart/type-bar": {
+		"diff": "0"
+	},
+	"highcharts/chart/width": {
+		"diff": "0"
+	},
+	"highcharts/chart/zoomtype-none": {
+		"diff": "0"
+	},
+	"highcharts/chart/zoomtype-x": {
+		"diff": "0"
+	},
+	"highcharts/chart/zoomtype-xy": {
+		"diff": "0"
+	},
+	"highcharts/chart/zoomtype-y": {
+		"diff": "0"
+	},
+	"highcharts/credits/credits-update": {
+		"diff": "0"
+	},
+	"highcharts/credits/enabled-false": {
+		"diff": "0"
+	},
+	"highcharts/credits/href": {
+		"diff": "0"
+	},
+	"highcharts/credits/position-left": {
+		"diff": "0"
+	},
+	"highcharts/css/axis": {
+		"diff": "0"
+	},
+	"highcharts/css/axis-grid": {
+		"diff": "0"
+	},
+	"highcharts/css/boxplot": {
+		"diff": "0"
+	},
+	"highcharts/css/bubble": {
+		"diff": "0"
+	},
+	"highcharts/css/candlestick": {
+		"diff": "0"
+	},
+	"highcharts/css/chart": {
+		"diff": "0"
+	},
+	"highcharts/css/chart-border-background": {
+		"diff": "0"
+	},
+	"highcharts/css/chart-plotarea": {
+		"diff": "0"
+	},
+	"highcharts/css/color-zones": {
+		"diff": "0"
+	},
+	"highcharts/css/colors": {
+		"diff": "0"
+	},
+	"highcharts/css/column-3d": {
+		"diff": "0"
+	},
+	"highcharts/css/credits": {
+		"diff": "0"
+	},
+	"highcharts/css/crosshair-label": {
+		"diff": "0"
+	},
+	"highcharts/css/crosshairs": {
+		"diff": "0"
+	},
+	"highcharts/css/data-label-contrast": {
+		"diff": "0"
+	},
+	"highcharts/css/em": {
+		"diff": "0"
+	},
+	"highcharts/css/error-bar": {
+		"diff": "0"
+	},
+	"highcharts/css/exporting": {
+		"diff": "0"
+	},
+	"highcharts/css/exporting-style": {
+		"diff": "0"
+	},
+	"highcharts/css/flags": {
+		"diff": "0"
+	},
+	"highcharts/css/gauge": {
+		"diff": "0"
+	},
+	"highcharts/css/gradient": {
+		"diff": "0"
+	},
+	"highcharts/css/gradient-island": {
+		"diff": "0"
+	},
+	"highcharts/css/legend": {
+		"diff": "0"
+	},
+	"highcharts/css/map-dataclasses": {
+		"diff": "0"
+	},
+	"highcharts/css/ohlc": {
+		"diff": "0"
+	},
+	"highcharts/css/pane": {
+		"diff": "0"
+	},
+	"highcharts/css/pattern": {
+		"diff": "0"
+	},
+	"highcharts/css/pie-point": {
+		"diff": "0"
+	},
+	"highcharts/css/polygon": {
+		"diff": "0"
+	},
+	"highcharts/css/sankey": {
+		"diff": "0"
+	},
+	"highcharts/css/series-dashstyle": {
+		"diff": "0"
+	},
+	"highcharts/css/series-datalabels": {
+		"diff": "0"
+	},
+	"highcharts/css/series-marker": {
+		"diff": "0"
+	},
+	"highcharts/css/series-negative-color": {
+		"diff": "0"
+	},
+	"highcharts/css/shadow": {
+		"diff": "0"
+	},
+	"highcharts/css/stock-navigator": {
+		"diff": "0"
+	},
+	"highcharts/css/sunburst": {
+		"diff": "0"
+	},
+	"highcharts/css/titles": {
+		"diff": "0"
+	},
+	"highcharts/css/tooltip-border-background": {
+		"diff": "0"
+	},
+	"highcharts/css/treemap": {
+		"diff": "0"
+	},
+	"highcharts/css/treemap-coloraxis": {
+		"diff": "0"
+	},
+	"highcharts/css/waterfall": {
+		"diff": "0"
+	},
+	"highcharts/css/x-range": {
+		"diff": "0"
+	},
+	"highcharts/data/columns": {
+		"diff": "0"
+	},
+	"highcharts/data/complete": {
+		"diff": "0"
+	},
+	"highcharts/data/csv": {
+		"diff": "0"
+	},
+	"highcharts/data/dateformat-auto": {
+		"diff": "0"
+	},
+	"highcharts/data/delimiters": {
+		"diff": "0"
+	},
+	"highcharts/data/google-spreadsheet": {
+		"diff": "0"
+	},
+	"highcharts/data/parsed": {
+		"diff": "0"
+	},
+	"highcharts/data/rows": {
+		"diff": "0"
+	},
+	"highcharts/data/seriesmapping-label": {
+		"diff": "0"
+	},
+	"highcharts/data/start-end": {
+		"diff": "0"
+	},
+	"highcharts/data/switchrowsandcolumns": {
+		"diff": "0"
+	},
+	"highcharts/demo/3d-column-interactive": {
+		"diff": "0"
+	},
+	"highcharts/demo/3d-column-null-values": {
+		"diff": "0"
+	},
+	"highcharts/demo/3d-column-stacking-grouping": {
+		"diff": "0"
+	},
+	"highcharts/demo/3d-pie": {
+		"diff": "0"
+	},
+	"highcharts/demo/3d-pie-donut": {
+		"diff": "0"
+	},
+	"highcharts/demo/3d-scatter-draggable": {
+		"diff": "0"
+	},
+	"highcharts/demo/area-basic": {
+		"diff": "0"
+	},
+	"highcharts/demo/area-inverted": {
+		"diff": "0"
+	},
+	"highcharts/demo/area-missing": {
+		"diff": "0"
+	},
+	"highcharts/demo/area-negative": {
+		"diff": "0"
+	},
+	"highcharts/demo/area-stacked": {
+		"diff": "0"
+	},
+	"highcharts/demo/area-stacked-percent": {
+		"diff": "0"
+	},
+	"highcharts/demo/arearange": {
+		"diff": "0"
+	},
+	"highcharts/demo/arearange-line": {
+		"diff": "0"
+	},
+	"highcharts/demo/areaspline": {
+		"diff": "0"
+	},
+	"highcharts/demo/bar-basic": {
+		"diff": "0"
+	},
+	"highcharts/demo/bar-negative-stack": {
+		"diff": "0"
+	},
+	"highcharts/demo/bar-stacked": {
+		"diff": "0"
+	},
+	"highcharts/demo/bellcurve": {
+		"diff": "0"
+	},
+	"highcharts/demo/box-plot": {
+		"diff": "0"
+	},
+	"highcharts/demo/bubble": {
+		"diff": "0"
+	},
+	"highcharts/demo/bubble-3d": {
+		"diff": "0"
+	},
+	"highcharts/demo/bullet-graph": {
+		"diff": "0"
+	},
+	"highcharts/demo/chart-update": {
+		"diff": "0"
+	},
+	"highcharts/demo/column-basic": {
+		"diff": "0"
+	},
+	"highcharts/demo/column-drilldown": {
+		"diff": "0"
+	},
+	"highcharts/demo/column-negative": {
+		"diff": "0"
+	},
+	"highcharts/demo/column-parsed": {
+		"diff": "0"
+	},
+	"highcharts/demo/column-placement": {
+		"diff": "0"
+	},
+	"highcharts/demo/column-rotated-labels": {
+		"diff": "0"
+	},
+	"highcharts/demo/column-stacked": {
+		"diff": "0"
+	},
+	"highcharts/demo/column-stacked-and-grouped": {
+		"diff": "0"
+	},
+	"highcharts/demo/column-stacked-percent": {
+		"diff": "0"
+	},
+	"highcharts/demo/columnrange": {
+		"diff": "0"
+	},
+	"highcharts/demo/combo": {
+		"diff": "0"
+	},
+	"highcharts/demo/combo-dual-axes": {
+		"diff": "0"
+	},
+	"highcharts/demo/combo-meteogram": {
+		"diff": "0"
+	},
+	"highcharts/demo/combo-multi-axes": {
+		"diff": "0"
+	},
+	"highcharts/demo/combo-regression": {
+		"diff": "0"
+	},
+	"highcharts/demo/combo-timeline": {
+		"diff": "0"
+	},
+	"highcharts/demo/dynamic-click-to-add": {
+		"diff": "0"
+	},
+	"highcharts/demo/error-bar": {
+		"diff": "0"
+	},
+	"highcharts/demo/funnel": {
+		"diff": "0"
+	},
+	"highcharts/demo/gauge-activity": {
+		"diff": "0"
+	},
+	"highcharts/demo/gauge-clock": {
+		"diff": "0"
+	},
+	"highcharts/demo/gauge-dual": {
+		"diff": "0"
+	},
+	"highcharts/demo/gauge-solid": {
+		"diff": "0"
+	},
+	"highcharts/demo/gauge-speedometer": {
+		"diff": "0"
+	},
+	"highcharts/demo/gauge-vu-meter": {
+		"diff": "0"
+	},
+	"highcharts/demo/heatmap": {
+		"diff": "0"
+	},
+	"highcharts/demo/histogram": {
+		"diff": "0"
+	},
+	"highcharts/demo/honeycomb-usa": {
+		"diff": "0"
+	},
+	"highcharts/demo/item-series": {
+		"diff": "0"
+	},
+	"highcharts/demo/line-basic": {
+		"diff": "0"
+	},
+	"highcharts/demo/line-labels": {
+		"diff": "0"
+	},
+	"highcharts/demo/line-log-axis": {
+		"diff": "0"
+	},
+	"highcharts/demo/line-time-series": {
+		"diff": "0"
+	},
+	"highcharts/demo/parallel-coordinates": {
+		"diff": "0"
+	},
+	"highcharts/demo/pareto": {
+		"diff": "0"
+	},
+	"highcharts/demo/pie-basic": {
+		"diff": "0"
+	},
+	"highcharts/demo/pie-donut": {
+		"diff": "0"
+	},
+	"highcharts/demo/pie-drilldown": {
+		"diff": "0"
+	},
+	"highcharts/demo/pie-gradient": {
+		"diff": "0"
+	},
+	"highcharts/demo/pie-legend": {
+		"diff": "0"
+	},
+	"highcharts/demo/pie-monochrome": {
+		"diff": "0"
+	},
+	"highcharts/demo/pie-semi-circle": {
+		"diff": "0"
+	},
+	"highcharts/demo/polar": {
+		"diff": "0"
+	},
+	"highcharts/demo/polar-spider": {
+		"diff": "0"
+	},
+	"highcharts/demo/polar-wind-rose": {
+		"diff": "0"
+	},
+	"highcharts/demo/polygon": {
+		"diff": "0"
+	},
+	"highcharts/demo/pyramid": {
+		"diff": "0"
+	},
+	"highcharts/demo/renderer": {
+		"diff": "0"
+	},
+	"highcharts/demo/responsive": {
+		"diff": "0"
+	},
+	"highcharts/demo/sankey-diagram": {
+		"diff": "0"
+	},
+	"highcharts/demo/scatter": {
+		"diff": "0"
+	},
+	"highcharts/demo/sparkline": {
+		"diff": "0"
+	},
+	"highcharts/demo/spline-inverted": {
+		"diff": "0"
+	},
+	"highcharts/demo/spline-irregular-time": {
+		"diff": "0"
+	},
+	"highcharts/demo/spline-plot-bands": {
+		"diff": "0"
+	},
+	"highcharts/demo/spline-symbols": {
+		"diff": "0"
+	},
+	"highcharts/demo/streamgraph": {
+		"diff": "0"
+	},
+	"highcharts/demo/styled-mode-column": {
+		"diff": "0"
+	},
+	"highcharts/demo/styled-mode-pie": {
+		"diff": "0"
+	},
+	"highcharts/demo/sunburst": {
+		"diff": "0"
+	},
+	"highcharts/demo/synchronized-charts": {
+		"diff": "0"
+	},
+	"highcharts/demo/treemap-coloraxis": {
+		"diff": "0"
+	},
+	"highcharts/demo/treemap-large-dataset": {
+		"diff": "0"
+	},
+	"highcharts/demo/treemap-with-levels": {
+		"diff": "0"
+	},
+	"highcharts/demo/variable-radius-pie": {
+		"diff": "0"
+	},
+	"highcharts/demo/variwide": {
+		"diff": "0"
+	},
+	"highcharts/demo/vector-plot": {
+		"diff": "0"
+	},
+	"highcharts/demo/waterfall": {
+		"diff": "0"
+	},
+	"highcharts/demo/windbarb-series": {
+		"diff": "0"
+	},
+	"highcharts/demo/wordcloud": {
+		"diff": "0"
+	},
+	"highcharts/demo/x-range": {
+		"diff": "0"
+	},
+	"highcharts/drilldown/across-types": {
+		"diff": "0"
+	},
+	"highcharts/drilldown/allowpointdrilldown-false": {
+		"diff": "0"
+	},
+	"highcharts/drilldown/async": {
+		"diff": "0"
+	},
+	"highcharts/drilldown/basic": {
+		"diff": "0"
+	},
+	"highcharts/drilldown/drillupbutton": {
+		"diff": "0"
+	},
+	"highcharts/drilldown/labels": {
+		"diff": "0"
+	},
+	"highcharts/drilldown/multi-series": {
+		"diff": "0"
+	},
+	"highcharts/export-data/categorized": {
+		"diff": "0"
+	},
+	"highcharts/export-data/multilevel-table": {
+		"diff": "0"
+	},
+	"highcharts/export-data/showtable": {
+		"diff": "0"
+	},
+	"highcharts/export-data/stock-timeaxis": {
+		"diff": "0"
+	},
+	"highcharts/export-data/viewdata": {
+		"diff": "0"
+	},
+	"highcharts/exporting/buttons-contextbutton-onclick": {
+		"diff": "0"
+	},
+	"highcharts/exporting/buttons-contextbutton-symbol": {
+		"diff": "0"
+	},
+	"highcharts/exporting/buttons-contextbutton-symbol-custom": {
+		"diff": "0"
+	},
+	"highcharts/exporting/buttons-text": {
+		"diff": "0"
+	},
+	"highcharts/exporting/buttons-text-symbol": {
+		"diff": "0"
+	},
+	"highcharts/exporting/chartoptions-data-labels": {
+		"diff": "0"
+	},
+	"highcharts/exporting/enabled-false": {
+		"diff": "0"
+	},
+	"highcharts/exporting/filename": {
+		"diff": "0"
+	},
+	"highcharts/exporting/menuitemdefinitions": {
+		"diff": "0"
+	},
+	"highcharts/exporting/offline-download-demo": {
+		"diff": "0"
+	},
+	"highcharts/exporting/scale": {
+		"diff": "0"
+	},
+	"highcharts/exporting/sourcewidth": {
+		"diff": "0"
+	},
+	"highcharts/exporting/type": {
+		"diff": "0"
+	},
+	"highcharts/exporting/width": {
+		"diff": "0"
+	},
+	"highcharts/global/dateformats": {
+		"diff": "0"
+	},
+	"highcharts/global/gettimezoneoffset": {
+		"diff": "0"
+	},
+	"highcharts/global/timezone": {
+		"diff": "0"
+	},
+	"highcharts/global/timezoneoffset": {
+		"diff": "0"
+	},
+	"highcharts/global/useutc-false": {
+		"diff": "0"
+	},
+	"highcharts/global/useutc-true": {
+		"diff": "0"
+	},
+	"highcharts/labels/general": {
+		"diff": "0"
+	},
+	"highcharts/lang/numericsymbolmagnitude": {
+		"diff": "0"
+	},
+	"highcharts/lang/numericsymbols": {
+		"diff": "0"
+	},
+	"highcharts/lang/shortweekdays": {
+		"diff": "0"
+	},
+	"highcharts/legend/align": {
+		"diff": "0"
+	},
+	"highcharts/legend/backgroundcolor": {
+		"diff": "0"
+	},
+	"highcharts/legend/bordercolor": {
+		"diff": "0"
+	},
+	"highcharts/legend/borderradius-default": {
+		"diff": "0"
+	},
+	"highcharts/legend/borderradius-round": {
+		"diff": "0"
+	},
+	"highcharts/legend/borderwidth": {
+		"diff": "0"
+	},
+	"highcharts/legend/enabled-false": {
+		"diff": "0"
+	},
+	"highcharts/legend/floating-false": {
+		"diff": "0"
+	},
+	"highcharts/legend/floating-true": {
+		"diff": "0"
+	},
+	"highcharts/legend/itemhiddenstyle": {
+		"diff": "0"
+	},
+	"highcharts/legend/itemhoverstyle": {
+		"diff": "0"
+	},
+	"highcharts/legend/itemstyle": {
+		"diff": "0"
+	},
+	"highcharts/legend/itemwidth-80": {
+		"diff": "0"
+	},
+	"highcharts/legend/itemwidth-default": {
+		"diff": "0"
+	},
+	"highcharts/legend/labelformatter": {
+		"diff": "0"
+	},
+	"highcharts/legend/layout-horizontal": {
+		"diff": "0"
+	},
+	"highcharts/legend/layout-vertical": {
+		"diff": "0"
+	},
+	"highcharts/legend/legend-update": {
+		"diff": "0"
+	},
+	"highcharts/legend/lineheight": {
+		"diff": "0"
+	},
+	"highcharts/legend/margin-30": {
+		"diff": "0"
+	},
+	"highcharts/legend/margin-default": {
+		"diff": "0"
+	},
+	"highcharts/legend/padding-itemmargin": {
+		"diff": "0"
+	},
+	"highcharts/legend/reversed": {
+		"diff": "0"
+	},
+	"highcharts/legend/rtl": {
+		"diff": "0"
+	},
+	"highcharts/legend/shadow": {
+		"diff": "0"
+	},
+	"highcharts/legend/symbolpadding": {
+		"diff": "0"
+	},
+	"highcharts/legend/symbolradius": {
+		"diff": "0"
+	},
+	"highcharts/legend/symbolwidth": {
+		"diff": "0"
+	},
+	"highcharts/legend/title": {
+		"diff": "0"
+	},
+	"highcharts/legend/verticalalign": {
+		"diff": "0"
+	},
+	"highcharts/legend/width": {
+		"diff": "0"
+	},
+	"highcharts/loading/hideduration": {
+		"diff": "0"
+	},
+	"highcharts/loading/labelstyle": {
+		"diff": "0"
+	},
+	"highcharts/loading/style": {
+		"diff": "0"
+	},
+	"highcharts/members/axis-addplotband": {
+		"diff": "0"
+	},
+	"highcharts/members/axis-addplotline": {
+		"diff": "0"
+	},
+	"highcharts/members/axis-getextremes": {
+		"diff": "0"
+	},
+	"highcharts/members/axis-removeplotband": {
+		"diff": "0"
+	},
+	"highcharts/members/axis-setcategories": {
+		"diff": "0"
+	},
+	"highcharts/members/axis-setextremes": {
+		"diff": "0"
+	},
+	"highcharts/members/axis-setextremes-datetime": {
+		"diff": "0"
+	},
+	"highcharts/members/axis-setextremes-off-ticks": {
+		"diff": "0"
+	},
+	"highcharts/members/axis-settitle": {
+		"diff": "0"
+	},
+	"highcharts/members/axis-update": {
+		"diff": "0"
+	},
+	"highcharts/members/chart-addaxis": {
+		"diff": "0"
+	},
+	"highcharts/members/chart-addseries": {
+		"diff": "0"
+	},
+	"highcharts/members/chart-callback": {
+		"diff": "0"
+	},
+	"highcharts/members/chart-destroy": {
+		"diff": "0"
+	},
+	"highcharts/members/chart-exportchart": {
+		"diff": "0"
+	},
+	"highcharts/members/chart-exportchart-custom-background": {
+		"diff": "0"
+	},
+	"highcharts/members/chart-exportchart-filename": {
+		"diff": "0"
+	},
+	"highcharts/members/chart-getselectedseries": {
+		"diff": "0"
+	},
+	"highcharts/members/chart-getsvg": {
+		"diff": "0"
+	},
+	"highcharts/members/chart-hideloading": {
+		"diff": "0"
+	},
+	"highcharts/members/chart-reflow": {
+		"diff": "0"
+	},
+	"highcharts/members/chart-settitle": {
+		"diff": "0"
+	},
+	"highcharts/members/chart-showloading": {
+		"diff": "0"
+	},
+	"highcharts/members/chart-update": {
+		"diff": "0"
+	},
+	"highcharts/members/element-on": {
+		"diff": "0"
+	},
+	"highcharts/members/element-tofront": {
+		"diff": "0"
+	},
+	"highcharts/members/element-zindex": {
+		"diff": "0"
+	},
+	"highcharts/members/highcharts-numberformat": {
+		"diff": "0"
+	},
+	"highcharts/members/point-remove": {
+		"diff": "0"
+	},
+	"highcharts/members/point-select": {
+		"diff": "0"
+	},
+	"highcharts/members/point-slice": {
+		"diff": "0"
+	},
+	"highcharts/members/point-update-column": {
+		"diff": "0"
+	},
+	"highcharts/members/point-update-pie": {
+		"diff": "0"
+	},
+	"highcharts/members/renderer-basic": {
+		"diff": "0"
+	},
+	"highcharts/members/renderer-callout": {
+		"diff": "0"
+	},
+	"highcharts/members/renderer-circle": {
+		"diff": "0"
+	},
+	"highcharts/members/renderer-g": {
+		"diff": "0"
+	},
+	"highcharts/members/renderer-image": {
+		"diff": "0"
+	},
+	"highcharts/members/renderer-image-on-chart": {
+		"diff": "0"
+	},
+	"highcharts/members/renderer-label-on-chart": {
+		"diff": "0"
+	},
+	"highcharts/members/renderer-on-chart": {
+		"diff": "0"
+	},
+	"highcharts/members/renderer-path": {
+		"diff": "0"
+	},
+	"highcharts/members/renderer-path-on-chart": {
+		"diff": "0"
+	},
+	"highcharts/members/renderer-rect": {
+		"diff": "0"
+	},
+	"highcharts/members/renderer-rect-on-chart": {
+		"diff": "0"
+	},
+	"highcharts/members/renderer-text": {
+		"diff": "0"
+	},
+	"highcharts/members/renderer-text-on-chart": {
+		"diff": "0"
+	},
+	"highcharts/members/series-addpoint-append": {
+		"diff": "0"
+	},
+	"highcharts/members/series-addpoint-append-and-shift": {
+		"diff": "0"
+	},
+	"highcharts/members/series-addpoint-pie": {
+		"diff": "0"
+	},
+	"highcharts/members/series-addpoint-x-and-y": {
+		"diff": "0"
+	},
+	"highcharts/members/series-hide": {
+		"diff": "0"
+	},
+	"highcharts/members/series-remove": {
+		"diff": "0"
+	},
+	"highcharts/members/series-removepoint": {
+		"diff": "0"
+	},
+	"highcharts/members/series-select": {
+		"diff": "0"
+	},
+	"highcharts/members/series-setdata": {
+		"diff": "0"
+	},
+	"highcharts/members/series-setdata-pie": {
+		"diff": "0"
+	},
+	"highcharts/members/series-update": {
+		"diff": "0"
+	},
+	"highcharts/members/setoptions": {
+		"diff": "0"
+	},
+	"highcharts/members/title-update": {
+		"diff": "0"
+	},
+	"highcharts/navigation/buttonoptions-align": {
+		"diff": "0"
+	},
+	"highcharts/navigation/buttonoptions-enabled": {
+		"diff": "0"
+	},
+	"highcharts/navigation/buttonoptions-height": {
+		"diff": "0"
+	},
+	"highcharts/navigation/buttonoptions-symbolfill": {
+		"diff": "0"
+	},
+	"highcharts/navigation/buttonoptions-symbolstroke": {
+		"diff": "0"
+	},
+	"highcharts/navigation/buttonoptions-verticalalign": {
+		"diff": "0"
+	},
+	"highcharts/no-data-to-display/no-data-line": {
+		"diff": "0"
+	},
+	"highcharts/no-data-to-display/no-data-pie": {
+		"diff": "0"
+	},
+	"highcharts/parallel-coordinates/inverted": {
+		"diff": "0"
+	},
+	"highcharts/parallel-coordinates/parallelaxes": {
+		"diff": "0"
+	},
+	"highcharts/parallel-coordinates/tooltipvalueformat": {
+		"diff": "0"
+	},
+	"highcharts/plotoptions/area-fillcolor-default": {
+		"diff": "0"
+	},
+	"highcharts/plotoptions/area-fillcolor-gradient": {
+		"diff": "0"
+	},
+	"highcharts/plotoptions/area-fillopacity": {
+		"diff": "0"
+	},
+	"highcharts/plotoptions/area-linecolor": {
+		"diff": "0"
+	},
+	"highcharts/plotoptions/area-step": {
+		"diff": "0"
+	},
+	"highcharts/plotoptions/area-threshold": {
+		"diff": "0"
+	},
+	"highcharts/plotoptions/arearange-datalabels": {
+		"diff": "0"
+	},
+	"highcharts/plotoptions/arearange-negativecolor": {
+		"diff": "0"
+	},
+	"highcharts/plotoptions/bar-datalabels-align-inside-bar": {
+		"diff": "0"
+	},
+	"highcharts/plotoptions/bellcurve-intervals-pointsininterval": {
+		"diff": "0"
+	},
+	"highcharts/plotoptions/box-plot-styling": {
+		"diff": "0"
+	},
+	"highcharts/plotoptions/bubble-datalabels": {
+		"diff": "0"
+	},
+	"highcharts/plotoptions/bubble-displaynegative-false": {
+		"diff": "0"
+	},
+	"highcharts/plotoptions/bubble-negative": {
+		"diff": "0"
+	},
+	"highcharts/plotoptions/bubble-radialgradient": {
+		"diff": "0"
+	},
+	"highcharts/plotoptions/bubble-size": {
+		"diff": "0"
+	},
+	"highcharts/plotoptions/bubble-sizeby": {
+		"diff": "0"
+	},
+	"highcharts/plotoptions/bubble-sizebyabsolutevalue": {
+		"diff": "0"
+	},
+	"highcharts/plotoptions/bubble-symbol": {
+		"diff": "0"
+	},
+	"highcharts/plotoptions/bubble-zmin-zmax": {
+		"diff": "0"
+	},
+	"highcharts/plotoptions/bullet-targetoptions": {
+		"diff": "0"
+	},
+	"highcharts/plotoptions/column-bordercolor": {
+		"diff": "0"
+	},
+	"highcharts/plotoptions/column-borderradius": {
+		"diff": "0"
+	},
+	"highcharts/plotoptions/column-borderwidth": {
+		"diff": "0"
+	},
+	"highcharts/plotoptions/column-colorbypoint-false": {
+		"diff": "0"
+	},
+	"highcharts/plotoptions/column-colorbypoint-true": {
+		"diff": "0"
+	},
+	"highcharts/plotoptions/column-crisp-false": {
+		"diff": "0"
+	},
+	"highcharts/plotoptions/column-grouping-false": {
+		"diff": "0"
+	},
+	"highcharts/plotoptions/column-grouppadding-default": {
+		"diff": "0"
+	},
+	"highcharts/plotoptions/column-grouppadding-none": {
+		"diff": "0"
+	},
+	"highcharts/plotoptions/column-maxpointwidth-20": {
+		"diff": "0"
+	},
+	"highcharts/plotoptions/column-minpointlength": {
+		"diff": "0"
+	},
+	"highcharts/plotoptions/column-minpointlength-pos-and-neg": {
+		"diff": "0"
+	},
+	"highcharts/plotoptions/column-pointpadding-025": {
+		"diff": "0"
+	},
+	"highcharts/plotoptions/column-pointpadding-default": {
+		"diff": "0"
+	},
+	"highcharts/plotoptions/column-pointpadding-none": {
+		"diff": "0"
+	},
+	"highcharts/plotoptions/column-pointrange": {
+		"diff": "0"
+	},
+	"highcharts/plotoptions/column-pointwidth-20": {
+		"diff": "0"
+	},
+	"highcharts/plotoptions/column-states-hover-brightness": {
+		"diff": "0"
+	},
+	"highcharts/plotoptions/error-bar-styling": {
+		"diff": "0"
+	},
+	"highcharts/plotoptions/funnel-ignorehiddenpoint": {
+		"diff": "0"
+	},
+	"highcharts/plotoptions/gauge-dial": {
+		"diff": "0"
+	},
+	"highcharts/plotoptions/gauge-overshoot": {
+		"diff": "0"
+	},
+	"highcharts/plotoptions/gauge-pivot": {
+		"diff": "0"
+	},
+	"highcharts/plotoptions/halo": {
+		"diff": "0"
+	},
+	"highcharts/plotoptions/line-connectends-false": {
+		"diff": "0"
+	},
+	"highcharts/plotoptions/line-step": {
+		"diff": "0"
+	},
+	"highcharts/plotoptions/pie-bordercolor-black": {
+		"diff": "0"
+	},
+	"highcharts/plotoptions/pie-borderwidth": {
+		"diff": "0"
+	},
+	"highcharts/plotoptions/pie-center": {
+		"diff": "0"
+	},
+	"highcharts/plotoptions/pie-datalabels-connectorcolor": {
+		"diff": "0"
+	},
+	"highcharts/plotoptions/pie-datalabels-connectorpadding": {
+		"diff": "0"
+	},
+	"highcharts/plotoptions/pie-datalabels-connectorwidth-disabled": {
+		"diff": "0"
+	},
+	"highcharts/plotoptions/pie-datalabels-softconnector-false": {
+		"diff": "0"
+	},
+	"highcharts/plotoptions/pie-datalabels-softconnector-true": {
+		"diff": "0"
+	},
+	"highcharts/plotoptions/pie-ignorehiddenpoint": {
+		"diff": "0"
+	},
+	"highcharts/plotoptions/pie-innersize-50percent": {
+		"diff": "0"
+	},
+	"highcharts/plotoptions/pie-innersize-80px": {
+		"diff": "0"
+	},
+	"highcharts/plotoptions/pie-point-events-legenditemclick": {
+		"diff": "0"
+	},
+	"highcharts/plotoptions/pie-shadow": {
+		"diff": "0"
+	},
+	"highcharts/plotoptions/pie-size": {
+		"diff": "0"
+	},
+	"highcharts/plotoptions/pie-slicedoffset-20": {
+		"diff": "0"
+	},
+	"highcharts/plotoptions/pie-startangle-90": {
+		"diff": "0"
+	},
+	"highcharts/plotoptions/pie-states-hover-brightness": {
+		"diff": "0"
+	},
+	"highcharts/plotoptions/sankey-inverted": {
+		"diff": "0"
+	},
+	"highcharts/plotoptions/sankey-node-color": {
+		"diff": "0"
+	},
+	"highcharts/plotoptions/sankey-outgoing": {
+		"diff": "0"
+	},
+	"highcharts/plotoptions/scatter-linewidth-1": {
+		"diff": "0"
+	},
+	"highcharts/plotoptions/scatter-linewidth-none": {
+		"diff": "0"
+	},
+	"highcharts/plotoptions/series-allowpointselect-column": {
+		"diff": "0"
+	},
+	"highcharts/plotoptions/series-allowpointselect-line": {
+		"diff": "0"
+	},
+	"highcharts/plotoptions/series-allowpointselect-pie": {
+		"diff": "0"
+	},
+	"highcharts/plotoptions/series-color-area": {
+		"diff": "0"
+	},
+	"highcharts/plotoptions/series-color-general": {
+		"diff": "0"
+	},
+	"highcharts/plotoptions/series-color-specific": {
+		"diff": "0"
+	},
+	"highcharts/plotoptions/series-connectnulls-false": {
+		"diff": "0"
+	},
+	"highcharts/plotoptions/series-connectnulls-true": {
+		"diff": "0"
+	},
+	"highcharts/plotoptions/series-dashstyle": {
+		"diff": "0"
+	},
+	"highcharts/plotoptions/series-dashstyle-all": {
+		"diff": "0"
+	},
+	"highcharts/plotoptions/series-datalabels-align-left": {
+		"diff": "0"
+	},
+	"highcharts/plotoptions/series-datalabels-allowoverlap-false": {
+		"diff": "0"
+	},
+	"highcharts/plotoptions/series-datalabels-box": {
+		"diff": "0"
+	},
+	"highcharts/plotoptions/series-datalabels-color": {
+		"diff": "0"
+	},
+	"highcharts/plotoptions/series-datalabels-enabled": {
+		"diff": "0"
+	},
+	"highcharts/plotoptions/series-datalabels-format": {
+		"diff": "0"
+	},
+	"highcharts/plotoptions/series-datalabels-rotation": {
+		"diff": "0"
+	},
+	"highcharts/plotoptions/series-datalabels-shape": {
+		"diff": "0"
+	},
+	"highcharts/plotoptions/series-datalabels-style": {
+		"diff": "0"
+	},
+	"highcharts/plotoptions/series-events-afteranimate": {
+		"diff": "0"
+	},
+	"highcharts/plotoptions/series-events-checkboxclick": {
+		"diff": "0"
+	},
+	"highcharts/plotoptions/series-events-hide": {
+		"diff": "0"
+	},
+	"highcharts/plotoptions/series-events-show": {
+		"diff": "0"
+	},
+	"highcharts/plotoptions/series-id": {
+		"diff": "0"
+	},
+	"highcharts/plotoptions/series-keys": {
+		"diff": "0"
+	},
+	"highcharts/plotoptions/series-linewidth-general": {
+		"diff": "0"
+	},
+	"highcharts/plotoptions/series-linewidth-specific": {
+		"diff": "0"
+	},
+	"highcharts/plotoptions/series-marker-enabled": {
+		"diff": "0"
+	},
+	"highcharts/plotoptions/series-marker-enabled-false": {
+		"diff": "0"
+	},
+	"highcharts/plotoptions/series-marker-fillcolor": {
+		"diff": "0"
+	},
+	"highcharts/plotoptions/series-marker-radius": {
+		"diff": "0"
+	},
+	"highcharts/plotoptions/series-marker-states-hover-enabled": {
+		"diff": "0"
+	},
+	"highcharts/plotoptions/series-marker-states-hover-fillcolor": {
+		"diff": "0"
+	},
+	"highcharts/plotoptions/series-marker-states-hover-linecolor": {
+		"diff": "0"
+	},
+	"highcharts/plotoptions/series-marker-states-hover-linewidth": {
+		"diff": "0"
+	},
+	"highcharts/plotoptions/series-marker-states-hover-radius": {
+		"diff": "0"
+	},
+	"highcharts/plotoptions/series-marker-states-select-enabled": {
+		"diff": "0"
+	},
+	"highcharts/plotoptions/series-marker-states-select-fillcolor": {
+		"diff": "0"
+	},
+	"highcharts/plotoptions/series-marker-states-select-linecolor": {
+		"diff": "0"
+	},
+	"highcharts/plotoptions/series-marker-states-select-linewidth": {
+		"diff": "0"
+	},
+	"highcharts/plotoptions/series-marker-states-select-radius": {
+		"diff": "0"
+	},
+	"highcharts/plotoptions/series-marker-symbol": {
+		"diff": "0"
+	},
+	"highcharts/plotoptions/series-marker-width-height": {
+		"diff": "0"
+	},
+	"highcharts/plotoptions/series-negative-color": {
+		"diff": "0"
+	},
+	"highcharts/plotoptions/series-point-events-mouseover": {
+		"diff": "0"
+	},
+	"highcharts/plotoptions/series-point-events-select": {
+		"diff": "0"
+	},
+	"highcharts/plotoptions/series-point-events-unselect": {
+		"diff": "0"
+	},
+	"highcharts/plotoptions/series-pointintervalunit": {
+		"diff": "0"
+	},
+	"highcharts/plotoptions/series-pointplacement-between": {
+		"diff": "0"
+	},
+	"highcharts/plotoptions/series-pointplacement-numeric": {
+		"diff": "0"
+	},
+	"highcharts/plotoptions/series-pointstart-datetime": {
+		"diff": "0"
+	},
+	"highcharts/plotoptions/series-pointstart-linear": {
+		"diff": "0"
+	},
+	"highcharts/plotoptions/series-selected": {
+		"diff": "0"
+	},
+	"highcharts/plotoptions/series-shadow": {
+		"diff": "0"
+	},
+	"highcharts/plotoptions/series-showcheckbox-true": {
+		"diff": "0"
+	},
+	"highcharts/plotoptions/series-showinlegend": {
+		"diff": "0"
+	},
+	"highcharts/plotoptions/series-stacking-area": {
+		"diff": "0"
+	},
+	"highcharts/plotoptions/series-stacking-bar": {
+		"diff": "0"
+	},
+	"highcharts/plotoptions/series-stacking-column": {
+		"diff": "0"
+	},
+	"highcharts/plotoptions/series-stacking-column-datalabels": {
+		"diff": "0"
+	},
+	"highcharts/plotoptions/series-stacking-line": {
+		"diff": "0"
+	},
+	"highcharts/plotoptions/series-stacking-percent-area": {
+		"diff": "0"
+	},
+	"highcharts/plotoptions/series-stacking-percent-bar": {
+		"diff": "0"
+	},
+	"highcharts/plotoptions/series-stacking-percent-column": {
+		"diff": "0"
+	},
+	"highcharts/plotoptions/series-stacking-percent-line": {
+		"diff": "0"
+	},
+	"highcharts/plotoptions/series-states-hover-enabled": {
+		"diff": "0"
+	},
+	"highcharts/plotoptions/series-states-hover-enabled-column": {
+		"diff": "0"
+	},
+	"highcharts/plotoptions/series-states-hover-enabled-pie": {
+		"diff": "0"
+	},
+	"highcharts/plotoptions/series-states-hover-linewidth": {
+		"diff": "0"
+	},
+	"highcharts/plotoptions/series-states-hover-linewidthplus": {
+		"diff": "0"
+	},
+	"highcharts/plotoptions/series-stickytracking-false": {
+		"diff": "0"
+	},
+	"highcharts/plotoptions/series-stickytracking-true": {
+		"diff": "0"
+	},
+	"highcharts/plotoptions/series-visible": {
+		"diff": "0"
+	},
+	"highcharts/plotoptions/series-zindex": {
+		"diff": "0"
+	},
+	"highcharts/plotoptions/series-zindex-default": {
+		"diff": "0"
+	},
+	"highcharts/plotoptions/solidgauge-threshold": {
+		"diff": "0"
+	},
+	"highcharts/plotoptions/sunburst-sliced": {
+		"diff": "0"
+	},
+	"highcharts/plotoptions/treemap-allowdrilltonode": {
+		"diff": "0"
+	},
+	"highcharts/plotoptions/treemap-alternatestartingdirection-true": {
+		"diff": "0"
+	},
+	"highcharts/plotoptions/treemap-interactbyleaf-false": {
+		"diff": "0"
+	},
+	"highcharts/plotoptions/treemap-interactbyleaf-true-and-allowdrilltonode": {
+		"diff": "0"
+	},
+	"highcharts/plotoptions/treemap-layoutalgorithm-sliceanddice": {
+		"diff": "0"
+	},
+	"highcharts/plotoptions/treemap-layoutalgorithm-squarified": {
+		"diff": "0"
+	},
+	"highcharts/plotoptions/treemap-layoutalgorithm-strip": {
+		"diff": "0"
+	},
+	"highcharts/plotoptions/treemap-layoutalgorithm-stripes": {
+		"diff": "0"
+	},
+	"highcharts/plotoptions/treemap-levels": {
+		"diff": "0"
+	},
+	"highcharts/plotoptions/treemap-sortindex": {
+		"diff": "0"
+	},
+	"highcharts/plotoptions/vector-rotationorigin-start": {
+		"diff": "0"
+	},
+	"highcharts/plotoptions/windbarb-onseries": {
+		"diff": "0"
+	},
+	"highcharts/plotoptions/wordcloud-rotation": {
+		"diff": "0"
+	},
+	"highcharts/point/color": {
+		"diff": "0"
+	},
+	"highcharts/point/datalabels": {
+		"diff": "0"
+	},
+	"highcharts/point/id": {
+		"diff": "0"
+	},
+	"highcharts/point/parent": {
+		"diff": "0"
+	},
+	"highcharts/point/sliced": {
+		"diff": "0"
+	},
+	"highcharts/responsive/axis": {
+		"diff": "0"
+	},
+	"highcharts/responsive/classname": {
+		"diff": "0"
+	},
+	"highcharts/responsive/legend": {
+		"diff": "0"
+	},
+	"highcharts/series/color-zones-dashstyle-dot": {
+		"diff": "0"
+	},
+	"highcharts/series/color-zones-fill": {
+		"diff": "0"
+	},
+	"highcharts/series/color-zones-simple": {
+		"diff": "0"
+	},
+	"highcharts/series/color-zones-zoneaxis-x": {
+		"diff": "0"
+	},
+	"highcharts/series/data-array-of-arrays": {
+		"diff": "0"
+	},
+	"highcharts/series/data-array-of-arrays-datetime": {
+		"diff": "0"
+	},
+	"highcharts/series/data-array-of-name-value": {
+		"diff": "0"
+	},
+	"highcharts/series/data-array-of-objects": {
+		"diff": "0"
+	},
+	"highcharts/series/data-keys": {
+		"diff": "0"
+	},
+	"highcharts/series/findnearestpointby": {
+		"diff": "0"
+	},
+	"highcharts/series/legendindex": {
+		"diff": "0"
+	},
+	"highcharts/series/name": {
+		"diff": "0"
+	},
+	"highcharts/series/stack": {
+		"diff": "0"
+	},
+	"highcharts/series/type": {
+		"diff": "0"
+	},
+	"highcharts/series/yaxis": {
+		"diff": "0"
+	},
+	"highcharts/stacking/polar-stack-false-connect-false": {
+		"diff": "0"
+	},
+	"highcharts/stacking/polar-stack-false-connect-true": {
+		"diff": "0"
+	},
+	"highcharts/stacking/polar-stack-normal-connect-false": {
+		"diff": "0"
+	},
+	"highcharts/stacking/polar-stack-normal-connect-true": {
+		"diff": "0"
+	},
+	"highcharts/stacking/polar-stack-normal-connectends-false": {
+		"diff": "0"
+	},
+	"highcharts/stacking/polar-stack-percent": {
+		"diff": "0"
+	},
+	"highcharts/stacking/stack-false-connect-false": {
+		"diff": "0"
+	},
+	"highcharts/stacking/stack-false-connect-true": {
+		"diff": "0"
+	},
+	"highcharts/stacking/stack-normal-connect-false": {
+		"diff": "0"
+	},
+	"highcharts/stacking/stack-normal-connect-true": {
+		"diff": "0"
+	},
+	"highcharts/stacking/stack-percent-connect-false": {
+		"diff": "0"
+	},
+	"highcharts/stacking/stack-percent-connect-true": {
+		"diff": "0"
+	},
+	"highcharts/stacking/stack-percent-inverted": {
+		"diff": "0"
+	},
+	"highcharts/studies/accessible": {
+		"diff": "0"
+	},
+	"highcharts/studies/alignthresholds": {
+		"diff": "0"
+	},
+	"highcharts/studies/axis-label-images": {
+		"diff": "0"
+	},
+	"highcharts/studies/axis-staticscale": {
+		"diff": "Err"
+	},
+	"highcharts/studies/axis-staticscale-dynamic": {
+		"diff": "0"
+	},
+	"highcharts/studies/axis-staticscale-y": {
+		"diff": "0"
+	},
+	"highcharts/studies/circle-relation": {
+		"diff": "0"
+	},
+	"highcharts/studies/combo-timeline-updated": {
+		"diff": "0"
+	},
+	"highcharts/studies/direction-arrows": {
+		"diff": "0"
+	},
+	"highcharts/studies/distribution-algorithm": {
+		"diff": "0"
+	},
+	"highcharts/studies/douglas-peucker": {
+		"diff": "0"
+	},
+	"highcharts/studies/exporting-table": {
+		"diff": "0"
+	},
+	"highcharts/studies/fixed-axis": {
+		"diff": "0"
+	},
+	"highcharts/studies/flight-routes": {
+		"diff": "0"
+	},
+	"highcharts/studies/function-series": {
+		"diff": "0"
+	},
+	"highcharts/studies/generic-candlestick": {
+		"diff": "0"
+	},
+	"highcharts/studies/gpx-height-profile": {
+		"diff": "0"
+	},
+	"highcharts/studies/jingle-bells": {
+		"diff": "1.1422879901960785"
+	},
+	"highcharts/studies/legend-custom-symbol": {
+		"diff": "0"
+	},
+	"highcharts/studies/linear-gauge-series": {
+		"diff": "0"
+	},
+	"highcharts/studies/linear-gauge-series-full": {
+		"diff": "0"
+	},
+	"highcharts/studies/null-stacks": {
+		"diff": "0"
+	},
+	"highcharts/studies/sociogram": {
+		"diff": "0"
+	},
+	"highcharts/studies/tilemap-generator": {
+		"diff": "0"
+	},
+	"highcharts/studies/timeline": {
+		"diff": "0"
+	},
+	"highcharts/studies/timeline-areaspline": {
+		"diff": "0"
+	},
+	"highcharts/studies/tooltip-outside-box": {
+		"diff": "0"
+	},
+	"highcharts/subtitle/align": {
+		"diff": "0"
+	},
+	"highcharts/subtitle/floating": {
+		"diff": "0"
+	},
+	"highcharts/subtitle/style": {
+		"diff": "0"
+	},
+	"highcharts/subtitle/text": {
+		"diff": "0"
+	},
+	"highcharts/subtitle/text-formatted": {
+		"diff": "0"
+	},
+	"highcharts/subtitle/verticalalign": {
+		"diff": "0"
+	},
+	"highcharts/time/gettimezoneoffset": {
+		"diff": "0.2947095588235294"
+	},
+	"highcharts/time/individual": {
+		"diff": "0.21893382352941176"
+	},
+	"highcharts/time/timezone": {
+		"diff": "0.3114877450980392"
+	},
+	"highcharts/time/timezoneoffset": {
+		"diff": "0.21487990196078433"
+	},
+	"highcharts/time/useutc-false": {
+		"diff": "0.21893382352941176"
+	},
+	"highcharts/time/useutc-true": {
+		"diff": "0"
+	},
+	"highcharts/title/align": {
+		"diff": "0"
+	},
+	"highcharts/title/margin-50": {
+		"diff": "0"
+	},
+	"highcharts/title/margin-subtitle": {
+		"diff": "0"
+	},
+	"highcharts/title/paddingright": {
+		"diff": "0"
+	},
+	"highcharts/title/style": {
+		"diff": "0"
+	},
+	"highcharts/title/text": {
+		"diff": "0"
+	},
+	"highcharts/title/verticalalign": {
+		"diff": "0"
+	},
+	"highcharts/title/widthadjust": {
+		"diff": "0"
+	},
+	"highcharts/title/y": {
+		"diff": "0"
+	},
+	"highcharts/tooltip/backgroundcolor-gradient": {
+		"diff": "0"
+	},
+	"highcharts/tooltip/backgroundcolor-solid": {
+		"diff": "0"
+	},
+	"highcharts/tooltip/bordercolor-black": {
+		"diff": "0"
+	},
+	"highcharts/tooltip/bordercolor-default": {
+		"diff": "0"
+	},
+	"highcharts/tooltip/borderradius-0": {
+		"diff": "0"
+	},
+	"highcharts/tooltip/borderwidth": {
+		"diff": "0"
+	},
+	"highcharts/tooltip/crosshairs-x": {
+		"diff": "0"
+	},
+	"highcharts/tooltip/enabled": {
+		"diff": "0"
+	},
+	"highcharts/tooltip/followpointer": {
+		"diff": "0"
+	},
+	"highcharts/tooltip/footerformat": {
+		"diff": "0"
+	},
+	"highcharts/tooltip/formatter-shared": {
+		"diff": "0"
+	},
+	"highcharts/tooltip/formatter-simple": {
+		"diff": "0"
+	},
+	"highcharts/tooltip/long-text": {
+		"diff": "0"
+	},
+	"highcharts/tooltip/pointformat": {
+		"diff": "0"
+	},
+	"highcharts/tooltip/positioner": {
+		"diff": "0"
+	},
+	"highcharts/tooltip/shadow": {
+		"diff": "0"
+	},
+	"highcharts/tooltip/shared-false": {
+		"diff": "0"
+	},
+	"highcharts/tooltip/shared-true": {
+		"diff": "0"
+	},
+	"highcharts/tooltip/shared-true-mixed-types": {
+		"diff": "0"
+	},
+	"highcharts/tooltip/shared-x-crosshair": {
+		"diff": "0"
+	},
+	"highcharts/tooltip/snap-50": {
+		"diff": "0"
+	},
+	"highcharts/tooltip/split": {
+		"diff": "0"
+	},
+	"highcharts/tooltip/style": {
+		"diff": "0"
+	},
+	"highcharts/tooltip/tooltip-update": {
+		"diff": "0"
+	},
+	"highcharts/tooltip/valuedecimals": {
+		"diff": "0"
+	},
+	"highcharts/tooltip/xdateformat": {
+		"diff": "0"
+	},
+	"highcharts/variable-radius-pie/min-max-point-size": {
+		"diff": "0"
+	},
+	"highcharts/variable-radius-pie/min-point-size-100": {
+		"diff": "0"
+	},
+	"highcharts/variable-radius-pie/sizeby": {
+		"diff": "0"
+	},
+	"highcharts/variable-radius-pie/zmin-5": {
+		"diff": "0"
+	},
+	"highcharts/variable-radius-pie/zmin-zmax": {
+		"diff": "0"
+	},
+	"highcharts/xaxis/categories": {
+		"diff": "0"
+	},
+	"highcharts/xaxis/crosshair-both": {
+		"diff": "0"
+	},
+	"highcharts/xaxis/crosshair-customized": {
+		"diff": "0"
+	},
+	"highcharts/xaxis/crosshair-dotted": {
+		"diff": "0"
+	},
+	"highcharts/xaxis/crosshair-snap-false": {
+		"diff": "0"
+	},
+	"highcharts/xaxis/datetimelabelformats": {
+		"diff": "0"
+	},
+	"highcharts/xaxis/gridzindex": {
+		"diff": "0"
+	},
+	"highcharts/xaxis/id": {
+		"diff": "0"
+	},
+	"highcharts/xaxis/labels-align-left": {
+		"diff": "0"
+	},
+	"highcharts/xaxis/labels-align-right": {
+		"diff": "0"
+	},
+	"highcharts/xaxis/labels-autorotation-0-90": {
+		"diff": "0"
+	},
+	"highcharts/xaxis/labels-autorotation-default": {
+		"diff": "0"
+	},
+	"highcharts/xaxis/labels-autorotationlimit": {
+		"diff": "0"
+	},
+	"highcharts/xaxis/labels-enabled": {
+		"diff": "0"
+	},
+	"highcharts/xaxis/labels-formatter-extended": {
+		"diff": "0"
+	},
+	"highcharts/xaxis/labels-formatter-linked": {
+		"diff": "0"
+	},
+	"highcharts/xaxis/labels-reservespace": {
+		"diff": "0"
+	},
+	"highcharts/xaxis/labels-reservespace-true": {
+		"diff": "0"
+	},
+	"highcharts/xaxis/labels-rotation": {
+		"diff": "0"
+	},
+	"highcharts/xaxis/labels-staggerlines": {
+		"diff": "0"
+	},
+	"highcharts/xaxis/labels-step": {
+		"diff": "0"
+	},
+	"highcharts/xaxis/labels-step-auto": {
+		"diff": "0"
+	},
+	"highcharts/xaxis/labels-style": {
+		"diff": "0"
+	},
+	"highcharts/xaxis/labels-x": {
+		"diff": "0"
+	},
+	"highcharts/xaxis/linkedto": {
+		"diff": "0"
+	},
+	"highcharts/xaxis/minrange": {
+		"diff": "0"
+	},
+	"highcharts/xaxis/opposite": {
+		"diff": "0"
+	},
+	"highcharts/xaxis/plotbands-color": {
+		"diff": "0"
+	},
+	"highcharts/xaxis/plotbands-from": {
+		"diff": "0"
+	},
+	"highcharts/xaxis/plotbands-gauge": {
+		"diff": "0"
+	},
+	"highcharts/xaxis/plotbands-id": {
+		"diff": "0"
+	},
+	"highcharts/xaxis/plotbands-label-align": {
+		"diff": "0"
+	},
+	"highcharts/xaxis/plotbands-label-rotation": {
+		"diff": "0"
+	},
+	"highcharts/xaxis/plotbands-label-style": {
+		"diff": "0"
+	},
+	"highcharts/xaxis/plotbands-label-verticalalign": {
+		"diff": "0"
+	},
+	"highcharts/xaxis/plotbands-label-y": {
+		"diff": "0"
+	},
+	"highcharts/xaxis/plotbands-zindex": {
+		"diff": "0"
+	},
+	"highcharts/xaxis/plotbands-zindex-above-series": {
+		"diff": "0"
+	},
+	"highcharts/xaxis/plotlines-color": {
+		"diff": "0"
+	},
+	"highcharts/xaxis/plotlines-dashstyle": {
+		"diff": "0"
+	},
+	"highcharts/xaxis/plotlines-id": {
+		"diff": "0"
+	},
+	"highcharts/xaxis/plotlines-label-align-right": {
+		"diff": "0"
+	},
+	"highcharts/xaxis/plotlines-label-style": {
+		"diff": "0"
+	},
+	"highcharts/xaxis/plotlines-label-textalign": {
+		"diff": "0"
+	},
+	"highcharts/xaxis/plotlines-label-verticalalign-middle": {
+		"diff": "0"
+	},
+	"highcharts/xaxis/plotlines-label-y": {
+		"diff": "0"
+	},
+	"highcharts/xaxis/plotlines-zindex-above": {
+		"diff": "0"
+	},
+	"highcharts/xaxis/plotlines-zindex-above-all": {
+		"diff": "0"
+	},
+	"highcharts/xaxis/plotlines-zindex-behind": {
+		"diff": "0"
+	},
+	"highcharts/xaxis/showfirstlabel-false": {
+		"diff": "0"
+	},
+	"highcharts/xaxis/showlastlabel-true": {
+		"diff": "0"
+	},
+	"highcharts/xaxis/startofweek-monday": {
+		"diff": "0"
+	},
+	"highcharts/xaxis/startontick-false": {
+		"diff": "0"
+	},
+	"highcharts/xaxis/startontick-true": {
+		"diff": "0"
+	},
+	"highcharts/xaxis/tickcolor": {
+		"diff": "0"
+	},
+	"highcharts/xaxis/tickinterval-5": {
+		"diff": "0"
+	},
+	"highcharts/xaxis/ticklength": {
+		"diff": "0"
+	},
+	"highcharts/xaxis/tickmarkplacement-between": {
+		"diff": "0"
+	},
+	"highcharts/xaxis/tickmarkplacement-on": {
+		"diff": "0"
+	},
+	"highcharts/xaxis/tickpixelinterval-50": {
+		"diff": "0"
+	},
+	"highcharts/xaxis/tickposition-inside": {
+		"diff": "0"
+	},
+	"highcharts/xaxis/tickposition-outside": {
+		"diff": "0"
+	},
+	"highcharts/xaxis/tickpositions-tickpositioner": {
+		"diff": "0"
+	},
+	"highcharts/xaxis/tickwidth": {
+		"diff": "0"
+	},
+	"highcharts/xaxis/title-align-center": {
+		"diff": "0"
+	},
+	"highcharts/xaxis/title-align-high": {
+		"diff": "0"
+	},
+	"highcharts/xaxis/title-align-low": {
+		"diff": "0"
+	},
+	"highcharts/xaxis/title-margin": {
+		"diff": "0"
+	},
+	"highcharts/xaxis/title-style": {
+		"diff": "0"
+	},
+	"highcharts/xaxis/title-text": {
+		"diff": "0"
+	},
+	"highcharts/xaxis/type-datetime": {
+		"diff": "0"
+	},
+	"highcharts/xaxis/type-datetime-irregular": {
+		"diff": "0"
+	},
+	"highcharts/xaxis/type-linear": {
+		"diff": "0"
+	},
+	"highcharts/xaxis/type-log-both": {
+		"diff": "0"
+	},
+	"highcharts/xaxis/uniquenames-false": {
+		"diff": "0"
+	},
+	"highcharts/xaxis/uniquenames-true": {
+		"diff": "0"
+	},
+	"highcharts/xaxis/visible": {
+		"diff": "0"
+	},
+	"highcharts/yaxis/allowdecimals-false": {
+		"diff": "0"
+	},
+	"highcharts/yaxis/allowdecimals-true": {
+		"diff": "0"
+	},
+	"highcharts/yaxis/alternategridcolor": {
+		"diff": "0"
+	},
+	"highcharts/yaxis/angle": {
+		"diff": "0"
+	},
+	"highcharts/yaxis/endontick": {
+		"diff": "0"
+	},
+	"highcharts/yaxis/endontick-false": {
+		"diff": "0"
+	},
+	"highcharts/yaxis/endontick-log-false": {
+		"diff": "0"
+	},
+	"highcharts/yaxis/floor-ceiling": {
+		"diff": "0"
+	},
+	"highcharts/yaxis/gridlinecolor": {
+		"diff": "0"
+	},
+	"highcharts/yaxis/gridlinedashstyle": {
+		"diff": "0"
+	},
+	"highcharts/yaxis/gridlineinterpolation": {
+		"diff": "0"
+	},
+	"highcharts/yaxis/gridlinewidth": {
+		"diff": "0"
+	},
+	"highcharts/yaxis/labels-align-left": {
+		"diff": "0"
+	},
+	"highcharts/yaxis/labels-format": {
+		"diff": "0"
+	},
+	"highcharts/yaxis/linecolor": {
+		"diff": "0"
+	},
+	"highcharts/yaxis/linkedto": {
+		"diff": "0"
+	},
+	"highcharts/yaxis/max-200": {
+		"diff": "0"
+	},
+	"highcharts/yaxis/max-logarithmic": {
+		"diff": "0"
+	},
+	"highcharts/yaxis/maxpadding": {
+		"diff": "0"
+	},
+	"highcharts/yaxis/maxpadding-02": {
+		"diff": "0"
+	},
+	"highcharts/yaxis/min-startontick-false": {
+		"diff": "0"
+	},
+	"highcharts/yaxis/min-startontick-true": {
+		"diff": "0"
+	},
+	"highcharts/yaxis/mincolor-maxcolor": {
+		"diff": "0"
+	},
+	"highcharts/yaxis/minorgridlinecolor": {
+		"diff": "0"
+	},
+	"highcharts/yaxis/minorgridlinedashstyle": {
+		"diff": "0"
+	},
+	"highcharts/yaxis/minorgridlinewidth": {
+		"diff": "0"
+	},
+	"highcharts/yaxis/minortickcolor": {
+		"diff": "0"
+	},
+	"highcharts/yaxis/minortickinterval-5": {
+		"diff": "0"
+	},
+	"highcharts/yaxis/minortickinterval-log": {
+		"diff": "0"
+	},
+	"highcharts/yaxis/minortickinterval-log-auto": {
+		"diff": "0"
+	},
+	"highcharts/yaxis/minortickinterval-null": {
+		"diff": "0"
+	},
+	"highcharts/yaxis/minorticklength": {
+		"diff": "0"
+	},
+	"highcharts/yaxis/minortickposition-inside": {
+		"diff": "0"
+	},
+	"highcharts/yaxis/minortickposition-outside": {
+		"diff": "0"
+	},
+	"highcharts/yaxis/minorticks-true": {
+		"diff": "0"
+	},
+	"highcharts/yaxis/minortickwidth": {
+		"diff": "0"
+	},
+	"highcharts/yaxis/minpadding": {
+		"diff": "0"
+	},
+	"highcharts/yaxis/offset": {
+		"diff": "0"
+	},
+	"highcharts/yaxis/offset-centered": {
+		"diff": "0"
+	},
+	"highcharts/yaxis/opposite": {
+		"diff": "0"
+	},
+	"highcharts/yaxis/reversed": {
+		"diff": "0"
+	},
+	"highcharts/yaxis/reversedstacks-false": {
+		"diff": "0"
+	},
+	"highcharts/yaxis/showempty": {
+		"diff": "0"
+	},
+	"highcharts/yaxis/softmin-softmax": {
+		"diff": "0"
+	},
+	"highcharts/yaxis/stacklabels-align-center": {
+		"diff": "0"
+	},
+	"highcharts/yaxis/stacklabels-align-left": {
+		"diff": "0"
+	},
+	"highcharts/yaxis/stacklabels-align-right": {
+		"diff": "0"
+	},
+	"highcharts/yaxis/stacklabels-allowoverlap-false": {
+		"diff": "0"
+	},
+	"highcharts/yaxis/stacklabels-enabled": {
+		"diff": "0"
+	},
+	"highcharts/yaxis/stacklabels-formatter": {
+		"diff": "0"
+	},
+	"highcharts/yaxis/stacklabels-rotation": {
+		"diff": "0"
+	},
+	"highcharts/yaxis/stacklabels-style": {
+		"diff": "0"
+	},
+	"highcharts/yaxis/stacklabels-textalign-left": {
+		"diff": "0"
+	},
+	"highcharts/yaxis/stacklabels-verticalalign-bottom": {
+		"diff": "0"
+	},
+	"highcharts/yaxis/stacklabels-verticalalign-middle": {
+		"diff": "0"
+	},
+	"highcharts/yaxis/stacklabels-verticalalign-top": {
+		"diff": "0"
+	},
+	"highcharts/yaxis/stacklabels-x": {
+		"diff": "0"
+	},
+	"highcharts/yaxis/stacklabels-y": {
+		"diff": "0"
+	},
+	"highcharts/yaxis/tickamount": {
+		"diff": "0"
+	},
+	"highcharts/yaxis/title-offset": {
+		"diff": "0"
+	},
+	"highcharts/yaxis/type-log": {
+		"diff": "0"
+	},
+	"highcharts/yaxis/type-log-minorgrid": {
+		"diff": "0"
+	},
+	"highcharts/yaxis/type-log-negative": {
+		"diff": "0"
+	},
+	"stock/accessibility/accessible-stock": {
+		"diff": "0"
+	},
+	"stock/annotations/fibonacci-retracements": {
+		"diff": "0"
+	},
+	"stock/chart/alignticks-false": {
+		"diff": "0"
+	},
+	"stock/chart/backgroundcolor-color": {
+		"diff": "0"
+	},
+	"stock/chart/backgroundcolor-gradient": {
+		"diff": "0"
+	},
+	"stock/chart/border": {
+		"diff": "0"
+	},
+	"stock/chart/events-addseries": {
+		"diff": "0"
+	},
+	"stock/chart/events-click": {
+		"diff": "0"
+	},
+	"stock/chart/events-load": {
+		"diff": "0"
+	},
+	"stock/chart/events-redraw": {
+		"diff": "0"
+	},
+	"stock/chart/events-selection": {
+		"diff": "0"
+	},
+	"stock/chart/height": {
+		"diff": "0"
+	},
+	"stock/chart/ignorehiddenseries-false": {
+		"diff": "0"
+	},
+	"stock/chart/ignorehiddenseries-true": {
+		"diff": "0"
+	},
+	"stock/chart/margin-zero": {
+		"diff": "0"
+	},
+	"stock/chart/marginbottom": {
+		"diff": "0"
+	},
+	"stock/chart/marginleft": {
+		"diff": "0"
+	},
+	"stock/chart/marginright": {
+		"diff": "0"
+	},
+	"stock/chart/margintop": {
+		"diff": "0"
+	},
+	"stock/chart/plotbackgroundcolor-color": {
+		"diff": "0"
+	},
+	"stock/chart/plotbackgroundcolor-gradient": {
+		"diff": "0"
+	},
+	"stock/chart/plotbackgroundimage": {
+		"diff": "0"
+	},
+	"stock/chart/plotborder": {
+		"diff": "0"
+	},
+	"stock/chart/plotshadow": {
+		"diff": "0"
+	},
+	"stock/chart/reflow-false": {
+		"diff": "0"
+	},
+	"stock/chart/reflow-true": {
+		"diff": "0"
+	},
+	"stock/chart/renderto-jquery": {
+		"diff": "0"
+	},
+	"stock/chart/renderto-object": {
+		"diff": "0"
+	},
+	"stock/chart/renderto-string": {
+		"diff": "0"
+	},
+	"stock/chart/shadow": {
+		"diff": "0"
+	},
+	"stock/chart/spacingbottom": {
+		"diff": "0"
+	},
+	"stock/chart/spacingleft": {
+		"diff": "0"
+	},
+	"stock/chart/spacingright": {
+		"diff": "0"
+	},
+	"stock/chart/spacingtop": {
+		"diff": "0"
+	},
+	"stock/chart/style": {
+		"diff": "0"
+	},
+	"stock/chart/subtitle-footnote": {
+		"diff": "0"
+	},
+	"stock/chart/subtitle-style": {
+		"diff": "0"
+	},
+	"stock/chart/subtitle-text": {
+		"diff": "0"
+	},
+	"stock/chart/subtitle-text-formatted": {
+		"diff": "0"
+	},
+	"stock/chart/title-align": {
+		"diff": "0"
+	},
+	"stock/chart/title-floating": {
+		"diff": "0"
+	},
+	"stock/chart/title-margin": {
+		"diff": "0"
+	},
+	"stock/chart/title-style": {
+		"diff": "0"
+	},
+	"stock/chart/title-text": {
+		"diff": "0"
+	},
+	"stock/chart/title-verticalalign": {
+		"diff": "0"
+	},
+	"stock/chart/type": {
+		"diff": "0"
+	},
+	"stock/chart/width": {
+		"diff": "0"
+	},
+	"stock/chart/zoomtype-x": {
+		"diff": "0"
+	},
+	"stock/chart/zoomtype-xy": {
+		"diff": "0"
+	},
+	"stock/chart/zoomtype-y": {
+		"diff": "0"
+	},
+	"stock/colors/base": {
+		"diff": "0"
+	},
+	"stock/credits/enabled": {
+		"diff": "0"
+	},
+	"stock/demo/area": {
+		"diff": "0"
+	},
+	"stock/demo/arearange": {
+		"diff": "0"
+	},
+	"stock/demo/areaspline": {
+		"diff": "0"
+	},
+	"stock/demo/areasplinerange": {
+		"diff": "0"
+	},
+	"stock/demo/basic-line": {
+		"diff": "0"
+	},
+	"stock/demo/candlestick-and-volume": {
+		"diff": "0"
+	},
+	"stock/demo/column": {
+		"diff": "0"
+	},
+	"stock/demo/columnrange": {
+		"diff": "0"
+	},
+	"stock/demo/compare": {
+		"diff": "0"
+	},
+	"stock/demo/data-grouping": {
+		"diff": "0.008029411764705882"
+	},
+	"stock/demo/flags-general": {
+		"diff": "0"
+	},
+	"stock/demo/flags-placement": {
+		"diff": "0"
+	},
+	"stock/demo/flags-shapes": {
+		"diff": "0"
+	},
+	"stock/demo/intraday-area": {
+		"diff": "0"
+	},
+	"stock/demo/intraday-breaks": {
+		"diff": "0"
+	},
+	"stock/demo/intraday-candlestick": {
+		"diff": "0"
+	},
+	"stock/demo/line-markers": {
+		"diff": "0"
+	},
+	"stock/demo/macd-pivot-points": {
+		"diff": "0"
+	},
+	"stock/demo/markers-only": {
+		"diff": "0"
+	},
+	"stock/demo/navigator-disabled": {
+		"diff": "0"
+	},
+	"stock/demo/ohlc": {
+		"diff": "0"
+	},
+	"stock/demo/responsive": {
+		"diff": "0"
+	},
+	"stock/demo/scrollbar-disabled": {
+		"diff": "0"
+	},
+	"stock/demo/sma-volume-by-price": {
+		"diff": "0"
+	},
+	"stock/demo/spline": {
+		"diff": "0"
+	},
+	"stock/demo/step-line": {
+		"diff": "0"
+	},
+	"stock/demo/styled-scrollbar": {
+		"diff": "0"
+	},
+	"stock/demo/yaxis-plotbands": {
+		"diff": "0"
+	},
+	"stock/demo/yaxis-plotlines": {
+		"diff": "0"
+	},
+	"stock/demo/yaxis-reversed": {
+		"diff": "0"
+	},
+	"stock/indicators/accumulation-distribution": {
+		"diff": "0"
+	},
+	"stock/indicators/atr": {
+		"diff": "0"
+	},
+	"stock/indicators/bollinger-bands": {
+		"diff": "0"
+	},
+	"stock/indicators/cci": {
+		"diff": "0"
+	},
+	"stock/indicators/cmf": {
+		"diff": "0"
+	},
+	"stock/indicators/custom-regression-aapl": {
+		"diff": "0"
+	},
+	"stock/indicators/custom-regression-column": {
+		"diff": "0"
+	},
+	"stock/indicators/custom-regression-scatter": {
+		"diff": "0"
+	},
+	"stock/indicators/ema": {
+		"diff": "0"
+	},
+	"stock/indicators/ichimoku-kinko-hyo": {
+		"diff": "0"
+	},
+	"stock/indicators/macd": {
+		"diff": "0"
+	},
+	"stock/indicators/momentum": {
+		"diff": "0"
+	},
+	"stock/indicators/pivot-points": {
+		"diff": "0"
+	},
+	"stock/indicators/price-envelopes": {
+		"diff": "0"
+	},
+	"stock/indicators/psar": {
+		"diff": "Err"
+	},
+	"stock/indicators/roc": {
+		"diff": "0"
+	},
+	"stock/indicators/rsi": {
+		"diff": "0"
+	},
+	"stock/indicators/sma": {
+		"diff": "0"
+	},
+	"stock/indicators/stochastic": {
+		"diff": "0"
+	},
+	"stock/indicators/wma": {
+		"diff": "0"
+	},
+	"stock/indicators/zigzag": {
+		"diff": "0"
+	},
+	"stock/issues/1074": {
+		"diff": "0"
+	},
+	"stock/issues/1078": {
+		"diff": "0"
+	},
+	"stock/issues/1284": {
+		"diff": "0"
+	},
+	"stock/issues/1634": {
+		"diff": "0"
+	},
+	"stock/issues/2110,2692": {
+		"diff": "0"
+	},
+	"stock/issues/2235": {
+		"diff": "0"
+	},
+	"stock/issues/2238": {
+		"diff": "0"
+	},
+	"stock/issues/2360": {
+		"diff": "0"
+	},
+	"stock/issues/2373": {
+		"diff": "0"
+	},
+	"stock/issues/2436": {
+		"diff": "0"
+	},
+	"stock/issues/2445": {
+		"diff": "0"
+	},
+	"stock/issues/2533": {
+		"diff": "0"
+	},
+	"stock/issues/2543": {
+		"diff": "0"
+	},
+	"stock/issues/2549": {
+		"diff": "0"
+	},
+	"stock/issues/2590": {
+		"diff": "0"
+	},
+	"stock/issues/2601": {
+		"diff": "0"
+	},
+	"stock/issues/2611": {
+		"diff": "0"
+	},
+	"stock/issues/2637": {
+		"diff": "0"
+	},
+	"stock/issues/2696": {
+		"diff": "0"
+	},
+	"stock/issues/622": {
+		"diff": "0"
+	},
+	"stock/issues/624": {
+		"diff": "0"
+	},
+	"stock/issues/854": {
+		"diff": "0"
+	},
+	"stock/issues/datagrouping-plotoptions-line": {
+		"diff": "0"
+	},
+	"stock/issues/datagrouping-plotoptions-series": {
+		"diff": "0"
+	},
+	"stock/issues/datagrouping-series": {
+		"diff": "0"
+	},
+	"stock/legend/align": {
+		"diff": "0"
+	},
+	"stock/legend/layout-horizontal": {
+		"diff": "0"
+	},
+	"stock/loading/general": {
+		"diff": "0"
+	},
+	"stock/members/axis-setextremes": {
+		"diff": "0"
+	},
+	"stock/members/chart-addseries": {
+		"diff": "0"
+	},
+	"stock/members/chart-destroy": {
+		"diff": "0"
+	},
+	"stock/members/chart-exportchart": {
+		"diff": "0"
+	},
+	"stock/members/chart-show-hide-loading": {
+		"diff": "0"
+	},
+	"stock/members/series-addpoint": {
+		"diff": "0"
+	},
+	"stock/members/series-addpoint-shift": {
+		"diff": "0"
+	},
+	"stock/members/series-remove": {
+		"diff": "0"
+	},
+	"stock/members/series-setdata": {
+		"diff": "0"
+	},
+	"stock/members/series-show-hide": {
+		"diff": "0"
+	},
+	"stock/members/series-update": {
+		"diff": "0"
+	},
+	"stock/navigator/enabled": {
+		"diff": "0"
+	},
+	"stock/navigator/handles": {
+		"diff": "0"
+	},
+	"stock/navigator/height": {
+		"diff": "0"
+	},
+	"stock/navigator/inverted": {
+		"diff": "0"
+	},
+	"stock/navigator/margin": {
+		"diff": "0"
+	},
+	"stock/navigator/maskfill": {
+		"diff": "0"
+	},
+	"stock/navigator/maskinside-false": {
+		"diff": "0"
+	},
+	"stock/navigator/maxrange": {
+		"diff": "0"
+	},
+	"stock/navigator/multiple-series": {
+		"diff": "0"
+	},
+	"stock/navigator/outline": {
+		"diff": "0"
+	},
+	"stock/navigator/series": {
+		"diff": "0"
+	},
+	"stock/navigator/series-data": {
+		"diff": "0"
+	},
+	"stock/navigator/styled-handles": {
+		"diff": "0"
+	},
+	"stock/plotoptions/candlestick-color": {
+		"diff": "0"
+	},
+	"stock/plotoptions/candlestick-linecolor": {
+		"diff": "0"
+	},
+	"stock/plotoptions/flags": {
+		"diff": "0"
+	},
+	"stock/plotoptions/flags-allowoverlapx": {
+		"diff": "0"
+	},
+	"stock/plotoptions/flags-onkey": {
+		"diff": "0"
+	},
+	"stock/plotoptions/flags-stackdistance": {
+		"diff": "0"
+	},
+	"stock/plotoptions/line-step": {
+		"diff": "0"
+	},
+	"stock/plotoptions/ohlc-linewidth": {
+		"diff": "0"
+	},
+	"stock/plotoptions/pointinterval-pointstart": {
+		"diff": "0"
+	},
+	"stock/plotoptions/series-compare-percent": {
+		"diff": "0"
+	},
+	"stock/plotoptions/series-compare-value": {
+		"diff": "0"
+	},
+	"stock/plotoptions/series-comparebase": {
+		"diff": "0"
+	},
+	"stock/plotoptions/series-comparestart": {
+		"diff": "0"
+	},
+	"stock/plotoptions/series-datagrouping-approximation": {
+		"diff": "0"
+	},
+	"stock/plotoptions/series-datagrouping-grouppixelwidth": {
+		"diff": "0"
+	},
+	"stock/plotoptions/series-gapsize": {
+		"diff": "0"
+	},
+	"stock/plotoptions/series-marker": {
+		"diff": "0"
+	},
+	"stock/plotoptions/series-visibility": {
+		"diff": "0"
+	},
+	"stock/plotoptions/stacking": {
+		"diff": "0"
+	},
+	"stock/rangeselector/allbuttonsenabled-true": {
+		"diff": "0"
+	},
+	"stock/rangeselector/button-click": {
+		"diff": "0"
+	},
+	"stock/rangeselector/datagrouping": {
+		"diff": "0"
+	},
+	"stock/rangeselector/enabled": {
+		"diff": "0"
+	},
+	"stock/rangeselector/floating": {
+		"diff": "0"
+	},
+	"stock/rangeselector/input-button-position": {
+		"diff": "0"
+	},
+	"stock/rangeselector/input-format": {
+		"diff": "0"
+	},
+	"stock/rangeselector/min-max-offsets": {
+		"diff": "0"
+	},
+	"stock/rangeselector/vertical-align-bottom": {
+		"diff": "0"
+	},
+	"stock/rangeselector/vertical-align-middle": {
+		"diff": "0"
+	},
+	"stock/scrollbar/enabled": {
+		"diff": "0"
+	},
+	"stock/scrollbar/height": {
+		"diff": "0"
+	},
+	"stock/scrollbar/style": {
+		"diff": "0"
+	},
+	"stock/time/individual": {
+		"diff": "0.027741830065359477"
+	},
+	"stock/tooltip/formatter": {
+		"diff": "0"
+	},
+	"stock/tooltip/general": {
+		"diff": "0"
+	},
+	"stock/tooltip/positioner": {
+		"diff": "0"
+	},
+	"stock/xaxis/alternategridcolor": {
+		"diff": "0"
+	},
+	"stock/xaxis/crosshair-dashed": {
+		"diff": "0"
+	},
+	"stock/xaxis/crosshair-label": {
+		"diff": "0"
+	},
+	"stock/xaxis/crosshairs-xy": {
+		"diff": "0"
+	},
+	"stock/xaxis/datetimelabelformats": {
+		"diff": "0"
+	},
+	"stock/xaxis/endontick": {
+		"diff": "0"
+	},
+	"stock/xaxis/events-setextremes": {
+		"diff": "0"
+	},
+	"stock/xaxis/gridlinecolor": {
+		"diff": "0"
+	},
+	"stock/xaxis/gridlinedashstyle": {
+		"diff": "0"
+	},
+	"stock/xaxis/gridlinewidth": {
+		"diff": "0"
+	},
+	"stock/xaxis/id": {
+		"diff": "0"
+	},
+	"stock/xaxis/labels-enabled": {
+		"diff": "0"
+	},
+	"stock/xaxis/labels-formatter": {
+		"diff": "0"
+	},
+	"stock/xaxis/labels-staggerlines": {
+		"diff": "0"
+	},
+	"stock/xaxis/linecolor": {
+		"diff": "0"
+	},
+	"stock/xaxis/linewidth": {
+		"diff": "0"
+	},
+	"stock/xaxis/linkedto": {
+		"diff": "0"
+	},
+	"stock/xaxis/min-max": {
+		"diff": "0"
+	},
+	"stock/xaxis/minorgridlinecolor": {
+		"diff": "0"
+	},
+	"stock/xaxis/minorgridlinedashstyle": {
+		"diff": "0"
+	},
+	"stock/xaxis/minorgridlinewidth": {
+		"diff": "0"
+	},
+	"stock/xaxis/minortickinterval-auto": {
+		"diff": "0"
+	},
+	"stock/xaxis/minorticks": {
+		"diff": "0"
+	},
+	"stock/xaxis/minpadding-maxpadding": {
+		"diff": "0"
+	},
+	"stock/xaxis/minrange": {
+		"diff": "0"
+	},
+	"stock/xaxis/offset": {
+		"diff": "0"
+	},
+	"stock/xaxis/opposite": {
+		"diff": "0"
+	},
+	"stock/xaxis/ordinal-false": {
+		"diff": "0"
+	},
+	"stock/xaxis/ordinal-true": {
+		"diff": "0"
+	},
+	"stock/xaxis/overscroll": {
+		"diff": "0"
+	},
+	"stock/xaxis/plotbands": {
+		"diff": "0"
+	},
+	"stock/xaxis/plotbands-label": {
+		"diff": "0"
+	}
+}

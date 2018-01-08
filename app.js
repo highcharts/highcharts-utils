@@ -32,6 +32,9 @@ app.use(express.static(
   path.join(__dirname, 'public'),
   { maxAge: 60000 }
 ));
+app.use('/temp', express.static( // non-cached temporary json files
+  path.join(__dirname, 'temp')
+));
 app.use('/reference', express.static(
   path.join(__dirname, 'node_modules/highcharts'),
   { maxAge: '10m' }
