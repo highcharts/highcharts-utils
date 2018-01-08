@@ -324,6 +324,7 @@ var controller = { // eslint-disable-line no-unused-vars
     },
 
     runBatch: function() {
+        controller.continueBatch = true;
         controller.frames().main.contentWindow.location.href = 
             '/samples/compare-view?path=' +
             (controller.currentSample || controller.samples[0]).path;

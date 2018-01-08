@@ -21,7 +21,7 @@ router.get('/', function(req, res) {
 			JSON.stringify(json, null, '\t'),
 			'utf8'
 		);
-		res.send();
+		res.status(204).send();
 
 	} catch (e) {
 		res.status(500).send('Error in compare-update-report.js. ' + e);

@@ -16,7 +16,10 @@
 		$(window).bind('keydown', parent.keyDown);
 
 		$(window).bind('click', function (e) {
-			if (e.target !== $('#batch-compare', document)[0]) {
+			if (
+				e.target !== $('#batch-compare', document)[0] && 
+				e.target !== $('#batch-compare *', document)[0]
+			) {
 				controller.stopBatch();
 			}
 			controller.toggleBisect(false);
@@ -194,6 +197,7 @@
 		top: 0;
 		width: 100%;
 		z-index: 10;
+		text-align: center;
 	}
 	#top-nav .text {
 		padding-top: 0.5em;
@@ -201,6 +205,11 @@
 	#top-nav .text a {
 		color: white;
 		text-decoration: underline;
+	}
+	#top-nav a.button {
+		font-size: 1.5em;
+		line-height: 1em;
+		padding: 0.5em 1em;
 	}
 	#main-nav {
 		margin-left: 10px;
@@ -237,6 +246,9 @@
 		border: 1px solid #7cb5ec;
 		border-radius: 0.5em;
 	}
+	#test-status {
+		text-align: center;
+	}
 
 </style>
 		
@@ -246,19 +258,20 @@
 	<a class="button" href="/samples/readme" target="main">
 		<i class="fa fa-home"></i>
 	</a>
-	<a class="button" id="batch-compare" title="Batch compare all samples">
+	<a class="button" id="batch-compare" title="Batch test all samples">
 		<i class="fa fa-play"></i>
-		Run tests
 	</a>
 	<a class="button" id="batch-stop" title="Stop comparing">
-		<i class="fa fa-stop"></i>
-		Stop
+		<i class="fa fa-pause"></i>
 	</a>
-	<a class="button" href="compare-report.php" title="View compare history for all browsers" target="main">Report</a>
-	<a class="button" id="reset" title="Reset compare history for all browsers">Reset</a>
+	<a class="button" href="compare-report" title="View compare history for all browsers" target="main">
+		<i class="fa fa-list"></i>
+	</a>
+	<a class="button" id="reset" title="Clear test history for all browsers">
+		<i class="fa fa-trash"></i>
+	</a>
 	<a class="button" id="reload" title="Reload frame">
 		<i class="fa fa-refresh"></i>
-		Reload
 	</a>
 	<!--a class="button" id="settings" title="Settings" href="settings.php" target="main">
 		<i class="fa fa-cog"></i>

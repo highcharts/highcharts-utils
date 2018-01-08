@@ -37,7 +37,7 @@ function showCommentBox() {
 
 function updateHash() {
 	if (window.parent && window.parent.frames[0] && window.parent.history.pushState) {
-		var hash = window.parent.frames[0].continueBatch ? '#batch' : '#test';
+		var hash = controller.continueBatch ? '#batch' : '#test';
 		hash += '/' + path;
 		if (hash !== window.parent.location.hash) {
 			window.parent.history.pushState(null, null, hash);
@@ -143,6 +143,7 @@ function pad(s, length, left) {
 
 function proceed() {
 	updateHash(); // Batch may be stopped
+	console.log('@proceed', controller.continueBatch)
 	if (controller.continueBatch) {
 		var contentDoc = window.parent.frames[0].document,
 			href,
@@ -162,7 +163,12 @@ function proceed() {
 				return;
 			}
 
-			if (!contentDoc.getElementById('i' + nextIndex) || /batch/.test(contentDoc.getElementById('i' + nextIndex).className)) {
+			if (
+				!contentDoc.getElementById('i' + nextIndex) ||
+				/batch/.test(
+					contentDoc.getElementById('i' + nextIndex).className
+				)
+			) {
 				break;
 			}
 		}
@@ -171,11 +177,10 @@ function proceed() {
 
 		controller.batchRuns++;
 		// Clear memory build-up from time to time by reloading the
-		// whole thing. Firefox has problems redirecting.
-		if (controller.batchRuns > 90 &&
-				navigator.userAgent.indexOf('WebKit') !== -1) {
-			window.parent.location.href = '/samples/#batch/' +
-				controller.samples[nextIndex].path;
+		// whole thing.
+		if (controller.batchRuns > 90) {
+			window.top.location.hash = '#batch/' + controller.samples[nextIndex].path;
+			window.top.location.reload();
 		} else {
 			window.location.href = href;
 		}
@@ -358,7 +363,8 @@ function onBothLoad() {
 				//		- callback: function to call after conversion
 				//
 				function convert(source, target, callback) {
-					var useBlob = navigator.userAgent.indexOf('WebKit') === -1,
+					var useBlob = navigator.userAgent.indexOf('WebKit') === -1 ||
+							navigator.userAgent.indexOf('Edge') !== -1,
 						context = document.getElementById(target).getContext('2d'),
 						image = new Image(),
 						data,
@@ -452,7 +458,7 @@ function onBothLoad() {
 					});
 
 				// start converting
-				if (/Edge\/|Trident\/|MSIE /.test(navigator.userAgent)) {
+				if (/Trident\/|MSIE /.test(navigator.userAgent)) {
 					try {
 						canvg(canvas1, source1, {
 							scaleWidth: canvasWidth,
