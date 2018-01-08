@@ -158,7 +158,7 @@ function proceed() {
 			if (next) {
 				href = next.href;
 			} else {
-				window.location.href = 'view';
+				window.parent.location = '/samples';
 				return;
 			}
 
