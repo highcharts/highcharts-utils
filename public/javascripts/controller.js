@@ -344,19 +344,29 @@ var controller = { // eslint-disable-line no-unused-vars
      * local /samples/data
      */
     getJSON: function (url, callback) {
+
+        var path = url;
         var match = url.match(
-            /https:\/\/www\.highcharts\.com\/samples\/data\/jsonp\.php\?filename=([^\&]+)/
+            /https:\/\/www\.highcharts\.com\/samples\/data\/jsonp\.php\?filename=(.+)\.json/
         )
         if (match) {
-            url = '/samples/data/' + match[1];
+            path = `/samples/data/${match[1]}.json`;
         }
         $.ajax({
             dataType: 'json',
-            url: url,
+            url: path,
 
             // Strip comments
             dataFilter: function (data) {
-                var filtered = data.replace(
+                if (!data) {
+                    console.error(
+                        '@getJSON.dataFilter',
+                        'No data found',
+                        url,
+                        path
+                    );
+                }
+                var filtered = (data || '').replace(
                     /\/\*.+?\*\/|\/\/.*(?=[\n\r])/g,
                     ''
                 );
