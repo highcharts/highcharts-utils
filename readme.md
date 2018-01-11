@@ -25,5 +25,5 @@ Enabling HTTPS makes it easier to test things on 3rd party pages that use SSL.
 
 Run `cd certs && chmod osx.create.ssl.certs.sh && osx.create.ssl.certs.sh` from the project directory. Requires that homebrew is installed.
 
-Note that Chrome will auto-block self-signed certs, so when you start the server,
-you should visit [https://utils.highcharts.local](https://utils.highcharts.local) and [https://code.highcharts.local/](https://code.highcharts.local), and whitelist them for the session.
+
+Next you need to whitelist the certificate. Open the cert folder, and double click the `highcharts.local.csr`, and add it to the login keychain.
