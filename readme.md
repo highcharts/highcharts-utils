@@ -15,3 +15,15 @@ If you don't want to block port 80 and don't need the virtual hosts, run
 
 ### Debugging the utils application
 Run `npm start` and open `http://localhost:3030`.
+
+
+## Using with HTTPS
+
+Enabling HTTPS makes it easier to test things on 3rd party pages that use SSL.
+
+### OSX
+
+Run `cd certs && chmod osx.create.ssl.certs.sh && osx.create.ssl.certs.sh` from the project directory. Requires that homebrew is installed.
+
+
+Next you need to whitelist the certificate. Open the cert folder, and double click the `highcharts.local.csr`, and add it to the login keychain.

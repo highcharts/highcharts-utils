@@ -1,13 +1,33 @@
 const http = require('http');
+const https = require('https');
 const httpProxy = require('http-proxy');
-const colors = require('colors');
 const hostile = require('hostile');
 const exitHook = require('async-exit-hook');
 const argv = require('yargs').argv;
 const cfg = require('./config.json');
+const fs = require('fs');
+const path = require('path');
 
 const topDomain = argv.topdomain || 'local';
 
+const httpsOptions = {
+  key: fs.readFileSync(
+            path.join(
+                __dirname,
+                'certs',
+                'highcharts.local.key.pem'
+            ),
+            'utf-8'
+        ),
+  cert: fs.readFileSync(
+            path.join(
+                __dirname,
+              'certs',
+              'highcharts.local.crt'
+            ),
+            'utf-8'
+        )
+};
 
 // Start utils.highcharts.local
 require('./bin/www');
@@ -15,19 +35,37 @@ require('./bin/www');
 // Start code.highcharts.local
 require('./app-code');
 
+// Require colors
+require('colors');
 
 // Set up the proxy server
 const proxy = httpProxy.createProxy();
+
 const redirects = {
   'utils.highcharts.*': `http://localhost:${cfg.utilsPort}`,
   'code.highcharts.*': `http://localhost:${cfg.codePort}`
 }
+
+let sslEnabled = false;
+
 http.createServer((req, res) => {
-	host = req.headers.host.replace(/\.[a-z]+$/, '.*');
+	let host = req.headers.host.replace(/\.[a-z]+$/, '.*');
   	proxy.web(req, res, {
     	target: redirects[host]
   	});
 }).listen(80);
+
+if (httpsOptions.key && httpsOptions.cert) {
+
+    sslEnabled = true;
+
+    https.createServer(httpsOptions, (req, res) => {
+        let host = req.headers.host.replace(/\.[a-z]+$/, '.*');
+        proxy.web(req, res, {
+            target: redirects[host]
+        });
+    }).listen(443);
+}
 
 // Set up the hosts file
 const domains = [
@@ -46,11 +84,12 @@ exitHook(callback => {
 	callback();
 });
 
-
 console.log(`
 Servers:
 - Utils server: ${domains[0]} or http://localhost:${cfg.utilsPort}.
 - Code server: ${domains[1]} or http://localhost:${cfg.codePort}.
+
+SSL enabled: ${sslEnabled}
 
 Parameters:
 --topdomain

@@ -1,2 +1,7 @@
 node_modules
 temp/**.json
+certs/*.key
+certs/*.crt
+certs/*.pem
+certs/*.csr
+
