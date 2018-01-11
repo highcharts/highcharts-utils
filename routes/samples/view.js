@@ -23,7 +23,7 @@ router.get('/', function(req, res) {
 		css: f.getCSS(req.query.path, codePath),
 		js: f.getJS(req.query.path),
 		scripts: [
-			'/javascripts/vendor/jquery-1.9.1.js',
+			'/javascripts/vendor/jquery-1.11.1.js',
 			'/javascripts/view.js',
 			'/javascripts/nav.js'
 		].concat(resources.scripts),

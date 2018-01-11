@@ -54,6 +54,16 @@ controller.Sample = function (options, index) {
             testAnchor.id = 'checkbox-' + options.path;
             testAnchor.checked = (diff === '0');
 
+            $(testAnchor).click(function () {
+                if (this.checked) {
+                    $(li).removeClass('different').addClass('identical');
+                } else {
+                    $(li).removeClass('identical').addClass('different');
+                }
+
+                setDiff(this.checked ? 0 : 1);
+            });
+
         } else {
             testAnchor = contentsDoc.createElement('a');
             testAnchor.className = 'dissimilarity-index';
@@ -188,6 +198,7 @@ controller.Sample = function (options, index) {
                 diff = '';
             }
         }
+        
 
         // Render test anchor
         addTestAnchor();
@@ -211,11 +222,7 @@ controller.Sample = function (options, index) {
         if (newDiff.toString() !== diff) {
             
             diff = newDiff.toString();
-            $.extend(true, options, {
-                compare: {
-                    diff: diff
-                }
-            });
+            options.compare.diff = diff;
             save();
             renderList();
         }
@@ -225,11 +232,12 @@ controller.Sample = function (options, index) {
      * Save the current compare diff and comment to file.
      */
     function save() {
-        $.get('/samples/compare-update-report', {
+        var config = {
             path: options.path,
             browser: controller.getBrowser().toLowerCase(),
             compare: options.compare
-        });
+        };
+        $.get('/samples/compare-update-report', config);
     }
 
     function setOptions(newOptions) {

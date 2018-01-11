@@ -21,20 +21,6 @@
 			controller.toggleBisect(false);
 		});
 
-		$('.manual-checkbox', document).click(function () {
-			var path = this.id.replace(/^checkbox-/, ''),
-				$li = $(this).parent(),
-				diff = this.checked ? 0 : 1;
-
-			if (this.checked) {
-				$li.removeClass('different').addClass('identical');
-			} else {
-				$li.removeClass('identical').addClass('different');
-			}
-
-			controller.samples[path].setDiff(diff);
-		});
-
 		
 		$("#batch-compare", document).click(function (e) {
 			e.stopPropagation();
@@ -143,10 +129,13 @@
 		color: gray;
 	}
 	
+	.progress {
+		margin: 0 -10px 20px -10px;
+	}
 	.progress div {
 		height: 1em;
 		float: left;
-		margin-top: 5px;
+		margin-top: 10px;
 	}
 	.progress div.success {
 		background: #a4edba;

@@ -13,6 +13,7 @@ var controller = { // eslint-disable-line no-unused-vars
 
     onLoad: [function () {
         controller.samples.forEach(function (sample) {
+            controller.compare[sample.path] = controller.compare[sample.path] || {};
             sample.options.compare = controller.compare[sample.path];
             sample.renderList();
         });
@@ -146,7 +147,7 @@ var controller = { // eslint-disable-line no-unused-vars
 
         if (controller.loaded) {
 
-            var totalWidth = 95;
+            var totalWidth = 99;
             var remaining = (
                 controller.samples.length -
                 testStatus.success.length -

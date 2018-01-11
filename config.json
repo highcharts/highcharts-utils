@@ -1,5 +1,6 @@
 {
 	"highchartsDir": "./../highcharts/",
 	"utilsPort": 3030,
-	"codePort": 3031
+	"codePort": 3031,
+	"emulateKarma": false
 }

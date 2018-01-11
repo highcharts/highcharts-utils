@@ -1,6 +1,6 @@
 /* global $, Highcharts */
 if (window.console) {
-	console.clear();
+//	console.clear();
 }
 
 var controller = window.parent && window.parent.controller,

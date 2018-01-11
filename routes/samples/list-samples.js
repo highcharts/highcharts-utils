@@ -1,8 +1,6 @@
 
 const express = require('express');
 const router = express.Router();
-const browser = require('browser-detect');
-const branchName = require('current-git-branch');
 const f = require('./../../lib/functions.js');
 const fs = require('fs');
 
@@ -37,9 +35,9 @@ const getSample = (path) => {
 const getSamples = () => {
 	let samples = [];
 	[
-		'highcharts', 'stock', 'maps', 'unit-tests', 'issues', 'cloud'
+		'highcharts', 'stock', 'maps', 'gantt', 'unit-tests', 'issues', 'cloud'
 	].forEach(group => {
-		if (fs.lstatSync(samplesDir + group).isDirectory()) {
+		if (fs.existsSync(samplesDir + group) && fs.lstatSync(samplesDir + group).isDirectory()) {
 			fs.readdirSync(samplesDir + group).forEach(subgroup => {
 				if (fs.lstatSync(samplesDir + group + '/' + subgroup)
 					.isDirectory()

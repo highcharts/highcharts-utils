@@ -34,11 +34,13 @@ router.get('/', function(req, res) {
 	}
 
 	let tpl = {
-		html: getHTML(req, codePath),
+		html: cfg.emulateKarma ? 
+			f.getKarmaHTML() :
+			getHTML(req, codePath),
 		css: f.getCSS(path, codePath),
 		js: f.getJS(path),
 		scripts: [
-			'/javascripts/vendor/jquery-1.9.1.js',
+			'/javascripts/vendor/jquery-1.11.1.js',
 			'/javascripts/compare-iframe.js',
 			'/javascripts/test-controller.js'
 		].concat(resources.scripts),
