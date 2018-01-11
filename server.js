@@ -10,23 +10,19 @@ const path = require('path');
 
 const topDomain = argv.topdomain || 'local';
 
+const pemFile = path.join(
+  __dirname,
+  'certs',
+  'highcharts.local.key.pem'
+);
+const crtFile = path.join(
+  __dirname,
+  'certs',
+  'highcharts.local.crt'
+);
 const httpsOptions = {
-  key: fs.readFileSync(
-            path.join(
-                __dirname,
-                'certs',
-                'highcharts.local.key.pem'
-            ),
-            'utf-8'
-        ),
-  cert: fs.readFileSync(
-            path.join(
-                __dirname,
-              'certs',
-              'highcharts.local.crt'
-            ),
-            'utf-8'
-        )
+  key: fs.existsSync(pemFile) && fs.readFileSync(pemFile, 'utf-8'),
+  cert: fs.existsSync(crtFile) && fs.readFileSync(crtFile, 'utf-8')
 };
 
 // Start utils.highcharts.local
@@ -84,10 +80,11 @@ exitHook(callback => {
 	callback();
 });
 
+const protocol = sslEnabled ? 'https' : 'http';
 console.log(`
 Servers:
-- Utils server: ${domains[0]} or http://localhost:${cfg.utilsPort}.
-- Code server: ${domains[1]} or http://localhost:${cfg.codePort}.
+- Utils server: ${protocol}://${domains[0]} or http://localhost:${cfg.utilsPort}.
+- Code server: ${protocol}://${domains[1]} or http://localhost:${cfg.codePort}.
 
 SSL enabled: ${sslEnabled}
 
