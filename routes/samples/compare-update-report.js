@@ -6,8 +6,11 @@ const f = require('../../lib/functions.js');
 
 router.get('/', function(req, res) {
 	try {
-		let fileName = path.join(__dirname, '../../temp/compare.' +
-			f.getBranch() + '.' + req.query.browser + '.json');
+		let fileName = path.join(
+			__dirname,
+			'../../temp/compare.' +	f.getBranch().replace('/', '-') + '.' +
+			req.query.browser + '.json'
+		);
 		let json = {};
 		
 		if (fs.existsSync(fileName)) {
@@ -21,6 +24,7 @@ router.get('/', function(req, res) {
 			JSON.stringify(json, null, '\t'),
 			'utf8'
 		);
+
 		res.status(204).send();
 
 	} catch (e) {

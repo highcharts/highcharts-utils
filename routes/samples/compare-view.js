@@ -6,6 +6,7 @@ router.get('/', function(req, res) {
 	res.render('samples/compare-view', {
 		path: req.query.path,
 		compareClass: 'active',
+		consoleClear: true,
 		scripts: [
 			'/javascripts/compare-view.js',
 			'/javascripts/nav.js'

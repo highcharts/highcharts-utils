@@ -53,7 +53,7 @@ var controller = { // eslint-disable-line no-unused-vars
     loadCompare: function () {
         $.ajax({
             dataType: 'json',
-            url: '/temp/compare.' + controller.server.branch + '.' +
+            url: '/temp/compare.' + controller.server.branch.replace('/', '-') + '.' +
                 controller.getBrowser().toLowerCase() +
                 '.json',
             success: function (compare) {
