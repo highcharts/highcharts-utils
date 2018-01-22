@@ -6,6 +6,7 @@ const exitHook = require('async-exit-hook');
 const argv = require('yargs').argv;
 const cfg = require('./config.json');
 const fs = require('fs');
+const ip = require('ip');
 const path = require('path');
 
 const topDomain = argv.topdomain || 'local';
@@ -81,10 +82,18 @@ exitHook(callback => {
 });
 
 const protocol = sslEnabled ? 'https' : 'http';
+const ipAddress = ip.address();
+
 console.log(`
-Servers:
-- Utils server: ${protocol}://${domains[0]} or http://localhost:${cfg.utilsPort}.
-- Code server: ${protocol}://${domains[1]} or http://localhost:${cfg.codePort}.
+Utils server available at:
+  - ${protocol}://${domains[0]}
+  - http://localhost:${cfg.utilsPort}
+  - http://${ipAddress}:${cfg.utilsPort}
+Code server available at:
+  - ${protocol}://${domains[1]}
+  - http://localhost:${cfg.codePort}
+  - http://${ipAddress}:${cfg.codePort}
+
 
 SSL enabled: ${sslEnabled}
 
@@ -92,5 +101,5 @@ Parameters:
 --topdomain
   Defaults to "local", defines the top domain for utils.highcharts.* and
   code.highcharts.* for debugging over network and virtual machines.
-`.green);
+`.cyan);
 

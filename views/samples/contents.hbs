@@ -79,10 +79,10 @@
 		});
 		*/
 
-		$('#main-nav', document).css(
-			'margin-top',
-			$('#top-nav', document).height()
-		);
+		$('#main-nav', document).css({
+			'margin-top': $('#top-nav', document).height() + 30,
+			'margin-bottom': '30px'
+		});
 
 		countFails();
 		

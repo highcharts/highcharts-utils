@@ -351,7 +351,7 @@ var controller = { // eslint-disable-line no-unused-vars
             /https:\/\/www\.highcharts\.com\/samples\/data\/jsonp\.php\?filename=(.+)\.json/
         )
         if (match) {
-            path = `/samples/data/${match[1]}.json`;
+            path = '/samples/data/' + match[1] + '.json';
         }
         $.ajax({
             dataType: 'json',
