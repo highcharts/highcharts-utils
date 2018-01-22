@@ -3,7 +3,9 @@
 Visual testing and debugging tools for Highcharts.
 
 ### Usage
-`sudo node server`
+**OSX:** `sudo node server`
+
+**Windows:** Open a CLI with administrator priviliges and run `node server`
 
 This will start a proxy server on port 80, start servers on `localhost:3030` and
 `localhost:3031` (configurable ports) and set up virtual hosts for
@@ -27,4 +29,11 @@ Run `cd certs && chmod 755 osx.create.ssl.certs.sh && ./osx.create.ssl.certs.sh`
 
 
 Next you need to whitelist the certificate. Open the cert folder, and double click the `highcharts.local.csr`, and add it to the login keychain.
+Note that the change only takes effect after the next system login.
+
+### Windows
+Run `cd certs && ./win.create.ssl.certs.sh` from the project directory. Requires that OpenSSL is installed.
+Press `Enter` to use the suggested default values for the certificate.
+
+Next you need to install the certificate to whitelist it. Open the cert folder, and double click the `highcharts.local.csr`, select "Install Certficate...", and select "Next" until finished to let Windows choose the default settings.
 Note that the change only takes effect after the next system login.
