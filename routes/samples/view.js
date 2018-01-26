@@ -22,6 +22,7 @@ router.get('/', function(req, res) {
 		html: f.getHTML(req, codePath),
 		css: f.getCSS(req.query.path, codePath),
 		js: f.getJS(req.query.path),
+		preJS: req.session.preJS,
 		consoleClear: true,
 		scripts: [
 			'/javascripts/vendor/jquery-1.11.1.js',

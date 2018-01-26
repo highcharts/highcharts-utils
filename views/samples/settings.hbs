@@ -1,0 +1,28 @@
+
+{{> nav }}
+
+<style type="text/css">
+textarea {
+    font-family: monospace;
+    margin: 0.5em 0;
+}
+textarea#preJS {
+    width: 100%;
+    height: 60em;
+}
+</style>
+<form id="settings" action="/samples/settings-post" method="post">
+    <div style="padding: 10px">
+
+        <h4>HTML to insert between demo.html and demo.js</h4>
+        <small>Script tags with experimental modules or plugins can be inserted
+        here, for testing on multiple samples. It is stored in the session and
+        will affect the view page.</small>
+        <textarea id="preJS" name="preJS">{{{preJS}}}</textarea>
+
+
+        <input type="submit" value="OK" />
+    </div>
+
+
+</form>
