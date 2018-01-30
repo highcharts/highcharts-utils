@@ -5,7 +5,7 @@ const f = require('../../lib/functions.js');
 const path = require('path');
 
 const getSavedCompare = (req) => {
-	let fileName = path.join(__dirname, '../../public/temp/compare.' +
+	let fileName = path.join(__dirname, '../../temp/compare.' +
 			f.getBranch() + '.' + req.query.browser + '.json');
 	let compare;
 	

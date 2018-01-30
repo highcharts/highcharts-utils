@@ -11,6 +11,8 @@ const path = require('path');
 
 const topDomain = argv.topdomain || 'local';
 
+let sslEnabled = false;
+
 const pemFile = path.join(
   __dirname,
   'certs',
@@ -43,14 +45,20 @@ const redirects = {
   'code.highcharts.*': `http://localhost:${cfg.codePort}`
 }
 
-let sslEnabled = false;
 
-http.createServer((req, res) => {
+const server = http.createServer((req, res) => {
 	let host = req.headers.host.replace(/\.[a-z]+$/, '.*');
   	proxy.web(req, res, {
     	target: redirects[host]
   	});
-}).listen(80);
+})
+server.on('error', () => {
+  console.error(`
+Could not start server.
+Do you have another server running on port 80?
+`.red)
+});
+server.listen(80);
 
 if (httpsOptions.key && httpsOptions.cert) {
 

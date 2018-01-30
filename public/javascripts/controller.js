@@ -343,6 +343,7 @@ var controller = { // eslint-disable-line no-unused-vars
     /**
      * Pick up calls to www.highcharts.com/samples/data and redirect to the
      * local /samples/data
+     * @todo Pick up CORS calls to https://cdn.rawgit.com and www.hc.com
      */
     getJSON: function (url, callback) {
 
@@ -358,6 +359,7 @@ var controller = { // eslint-disable-line no-unused-vars
             url: path,
 
             // Strip comments
+            /*
             dataFilter: function (data) {
                 if (!data) {
                     console.error(
@@ -377,14 +379,17 @@ var controller = { // eslint-disable-line no-unused-vars
                 }
                 return filtered;
             },
+            */
             success: callback,
             error: function (xhr, status, e) {
-                console.error(
-                    '$.ajax error:',
-                    controller.currentSample.path,
-                    e,
-                    xhr
-                );
+                if (
+                    controller.frames().main &&
+                    controller.frames().main.contentWindow &&
+                    controller.frames().main.contentWindow.onDifferent
+                ) {
+                    controller.frames().main.contentWindow.onDifferent('Err');
+                }
+                throw e;
             }
         });
 

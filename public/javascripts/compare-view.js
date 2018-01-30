@@ -415,6 +415,7 @@ function onBothLoad() {
 					if (diff > 0 && diff < 0.005) {
 						diff = 0;
 					}
+					diff = Math.round(diff * 100) / 100;
 					return diff;
 				}
 

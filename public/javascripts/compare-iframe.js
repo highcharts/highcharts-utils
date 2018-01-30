@@ -124,6 +124,7 @@ window.compareSVG = function () {
 
 function error(e) {
 	if (which === 'right') {
+		throw e;
 		e = 'ERROR (' + which + ' frame): ' + (e.message || e);
 		console.error(e, sample.path);
 		parent.window.error = e;
@@ -192,6 +193,14 @@ window.setUpHighcharts = function () {
 					kdNow: true,
 					dataLabels: {
 						defer: false
+					},
+					states: {
+						normal: {
+							animation: animation
+						},
+						hover: {
+							animation: animation
+						}
 					}
 				}
 			},
