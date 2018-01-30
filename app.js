@@ -85,8 +85,9 @@ app.use(
   '/samples/compare-update-report',
   require('./routes/samples/compare-update-report')
 );
-app.use('/samples/compare-view', require('./routes/samples/compare-view'));
+app.use('/samples/compare-report', require('./routes/samples/compare-report'));
 app.use('/samples/compare-reset', require('./routes/samples/compare-reset'));
+app.use('/samples/compare-view', require('./routes/samples/compare-view'));
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
