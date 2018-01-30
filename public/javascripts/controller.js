@@ -171,6 +171,7 @@ var controller = { // eslint-disable-line no-unused-vars
 
             this.frames().contents.contentDocument.getElementById('test-status')
                 .innerHTML =
+                table +
                 '<span class="success">Success: ' + testStatus.success.length + '</span>, ' +
                 '<a class="' + (testStatus.error.length ? 'error' : '') +
                 '" href="javascript:controller&&controller.filter(\'error\')">' +
@@ -178,9 +179,7 @@ var controller = { // eslint-disable-line no-unused-vars
                 '<a class="remaining" href="javascript:controller&&controller.filter(\'remaining\')">' +
                 'Remaining: ' + remaining + '</a> of ' +
                 '<a href="javascript:controller&&controller.filter()">' +
-                    controller.samples.length + '</a>' +
-
-                table;
+                    controller.samples.length + '</a>';
 
             
             controller.docTitle();
