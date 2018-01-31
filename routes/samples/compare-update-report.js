@@ -12,9 +12,11 @@ router.get('/', function(req, res) {
 			req.query.browser + '.json'
 		);
 		let json = {};
+		let fileExisted = false;
 		
 		if (fs.existsSync(fileName)) {
 			json = require(fileName);
+			fileExisted = true;
 		}
 
 		json[req.query.path] = req.query.compare;
@@ -24,6 +26,10 @@ router.get('/', function(req, res) {
 			JSON.stringify(json, null, '\t'),
 			'utf8'
 		);
+
+		if (!fileExisted) {
+			fs.chmodSync(fileName, '775');
+		}
 
 		res.status(204).send();
 

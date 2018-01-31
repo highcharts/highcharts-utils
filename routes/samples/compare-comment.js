@@ -29,8 +29,8 @@ router.get('/', function(req, res) {
 			symbolName: 'check',
 			selected: (comment && comment.symbol === 'check') ? 'selected' : ''
 		}, {
-			symbolName: 'exclamation-sign',
-			selected: (comment && comment.symbol === 'exclamation-sign') ?
+			symbolName: 'warning',
+			selected: (comment && comment.symbol === 'warning') ?
 				'selected' :
 				''
 		}],

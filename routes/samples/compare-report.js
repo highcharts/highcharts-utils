@@ -46,7 +46,6 @@ router.get('/', function(req, res) {
 
 				if (sample.comment) {
 					compare[path].comment = sample.comment;
-					console.log('@title', sample.comment.title)
 				}
 			})
 		}

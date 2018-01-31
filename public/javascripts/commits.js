@@ -345,7 +345,8 @@ $(function() {
 			$('<a>')
 				.attr({
 					href: isComparing ? 
-						mainLocation + '&rightcommit=' + commit :
+						'/samples/view?path=' + window.parent.controller.getQueryParameters(mainFrame.contentWindow).path +
+							'&rightcommit=' + commit :
 						'view?hash='+ commit,
 					target: 'main',
 					'class': 'message'
@@ -394,7 +395,7 @@ $(function() {
 				})
 				.appendTo($li);
 
-			$('<span class="date">' + (date || '&nbsp;') + '</span>')
+			$('<span class="date">' + commit + ' | ' + (date || '&nbsp;') + '</span>')
 				.css({
 					marginLeft: 20 + 10 * indentLevel
 				})

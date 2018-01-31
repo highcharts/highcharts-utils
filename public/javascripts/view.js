@@ -102,16 +102,18 @@ window.setUp = function () {
 			}
 			return proceed.call(this, e);
 		});
+	}
+	*/
 
+	if (typeof Highcharts !== 'undefined') {
 		Highcharts.setOptions({
 			exporting: {
 				// Avoid versioning
 				// libURL: 'https://code.highcharts.com/lib'
-				libURL: 'http://rawgithub.local/highcharts/vendor'
+				libURL: '/code/lib'
 			}
 		});
 	}
-	*/
 
 	if (query.profile && typeof Highcharts !== 'undefined') {
 		Highcharts.wrap(Highcharts.Chart.prototype, 'init', function (proceed) {

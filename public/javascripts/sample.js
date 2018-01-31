@@ -138,7 +138,7 @@ controller.Sample = function (options, index) {
             ) {
                 className = 'approved';
                 status = 'success';
-            } else if (comment.symbol === 'exclamation-sign') {
+            } else if (comment.symbol === 'warning') {
                 className = 'different';
                 status = 'error';
             }
