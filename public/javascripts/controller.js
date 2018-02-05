@@ -315,6 +315,16 @@ var controller = { // eslint-disable-line no-unused-vars
         }
     },
 
+    previous: function () {
+        // No + 1 because .index is 1-based
+        var prevSample = controller.samples[controller.currentSample.index - 2];
+        if (prevSample) {
+            controller.frames().main.contentWindow.location.href = 
+                controller.frames().main.contentWindow.location.href
+                    .replace(controller.currentSample.path, prevSample.path);
+        }
+    },
+
     batchMode: function() {
         var contentsDoc = controller.frames().contents.contentDocument;
         controller.continueBatch = true;
@@ -347,12 +357,23 @@ var controller = { // eslint-disable-line no-unused-vars
     getJSON: function (url, callback) {
 
         var path = url;
-        var match = url.match(
-            /https:\/\/www\.highcharts\.com\/samples\/data\/jsonp\.php\?filename=(.+)\.json/
+        var match;
+
+
+        match = url.match(
+            /https:\/\/www\.highcharts\.com\/samples\/data\/(.+)\.json/
         )
         if (match) {
             path = '/samples/data/' + match[1] + '.json';
         }
+
+        match = url.match(
+            /https:\/\/cdn\.rawgit\.com\/highcharts\/highcharts\/[a-z0-9\.]+\/samples\/data\/(.+)\.json/
+        )
+        if (match) {
+            path = '/samples/data/' + match[1] + '.json';
+        }
+
         $.ajax({
             dataType: 'json',
             url: path,

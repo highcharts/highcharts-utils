@@ -16,10 +16,10 @@
 		/* eslint-disable */
 		function keyDown(e) {
 			if (e.keyCode === 39) {
-				document.getElementById('main').contentWindow.next();
+				controller.next();
 			}
 			if (e.keyCode === 37) {
-				document.getElementById('main').contentWindow.previous();
+				controller.previous();
 			}
 			if (e.ctrlKey && e.keyCode === 13) {
 				document.getElementById('main').contentWindow.location.reload();
