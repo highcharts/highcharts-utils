@@ -60,6 +60,9 @@ body.page h1 {
 	background: #40818b;
 	color: white;
 }
+.top-bar a.button i, .top-bar button i {
+	display: none;
+}
 
 .test-report {
 	border-radius: 5px;
@@ -178,3 +181,20 @@ body.manual #comment-placeholder {
 #qunit-banner.qunit-pass { 
 	background-color: #a4edba !important; 
 }
+
+@media only screen and (max-width: 500px) {
+	.top-bar button, .top-bar a.button {
+    	color: white;
+    	background: none;
+    	padding: 0 0.5em;
+    	margin: 0;
+    }
+    .top-bar button i, .top-bar a.button i {
+    	display: inline-block;
+    	font-size: 1.2em
+    }
+    .top-bar .button-text {
+    	display: none
+    }
+}
+

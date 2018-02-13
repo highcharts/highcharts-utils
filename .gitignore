@@ -5,3 +5,5 @@ certs/*.crt
 certs/*.pem
 certs/*.csr
 
+
+public/stylesheets/style.css

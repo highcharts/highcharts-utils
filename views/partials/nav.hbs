@@ -17,45 +17,67 @@
 		</form>
 		{{/if}}
 		<button id="next" disabled="disabled" title="Next (Arrow Right)">
-			Next</button>
+			<i class="fa fa-arrow-right"></i>
+			<span class="button-text">Next</span>
+		</button>
 
 		<button id="reload" onclick="location.reload()"
-			title="Reload (Ctrl + Enter)">Reload</button>
+			title="Reload (Ctrl + Enter)">
+			<i class="fa fa-refresh"></i>
+			<span class="button-text">Reload</span>
+		</button>
 		
 		{{#if styled}}
 		<a class="button active" title="View this sample with CSS and no inline styling"
-			href="view?path={{path}}&amp;styled=false">Styled</a>
+				href="view?path={{path}}&amp;styled=false">
+			<i class="fa fa-css3"></i>
+			<span class="button-text">Styled</span>
+		</a>
 		{{else}}
 		<a class="button" title="View this sample with CSS and no inline styling"
-			href="view?path={{path}}&amp;styled=true">Styled</a>
+			href="view?path={{path}}&amp;styled=true">
+			<i class="fa fa-css3"></i>
+			<span class="button-text">Styled</span>
+		</a>
 		{{/if}}
 		
 		<a class="button {{compareClass}}"
-			style="border-bottom-right-radius: 0; border-top-right-radius: 0; margin-right: 0"
-			href="compare-view?path={{path}}">Compare
+				style="border-bottom-right-radius: 0; border-top-right-radius: 0; margin-right: 0"
+				href="compare-view?path={{path}}">
+			<i class="fa fa-columns"></i>
+			<span class="button-text">Compare</span>
 		</a><a class="button" id="bisect" 
-			style="border-bottom-left-radius: 0; border-top-left-radius: 0; margin-left: 0; border-left: 1px solid gray">Bisect</a>
+			style="border-bottom-left-radius: 0; border-top-left-radius: 0; margin-left: 0; border-left: 1px solid gray">
+			<i class="fa fa-code-fork"></i>
+			<span class="button-text">Bisect</span>
+		</a>
 		
 
 		<a class="button"
 			href="view?path={{path}}&amp;profile=1"
-			style="border-bottom-right-radius: 0; border-top-right-radius: 0; margin-right: 0">Profile
+			style="border-bottom-right-radius: 0; border-top-right-radius: 0; margin-right: 0">
+			<i class="fa fa-rocket"></i>
+			<span class="button-text">Profile</span>
 		</a><a class="button"
 			style="border-bottom-left-radius: 0; border-top-left-radius: 0; margin-left: 0; border-left: 1px solid gray"
-			href="view?path={{path}}&amp;time=1">Time</a>
+			href="view?path={{path}}&amp;time=1">
+			<i class="fa fa-clock-o"></i>
+			<span class="button-text">Time</span></a>
 		
 
 		<a id="view-source" class="button" href="javascript:;"
-			style="border-bottom-right-radius: 0; border-top-right-radius: 0; margin-right: 0">View source
+			style="border-bottom-right-radius: 0; border-top-right-radius: 0; margin-right: 0">
+			<i class="fa fa-code"></i>
+			<span class="button-text">View source</span>
 		</a><a class="button"
 			href="http://jsfiddle.net/gh/get/library/pure/highcharts/highcharts/tree/master/samples/{{path}}/"
 			style="border-bottom-left-radius: 0; border-top-left-radius: 0; margin-left: 0; border-left: 1px solid gray"
-			target="_blank">jsFiddle</a>
+			target="_blank">
+			<i class="fa fa-jsfiddle"></i>
+			<span class="button-text">jsFiddle</span></a>
 
 
 		<!--		
-		<input id="record" type="checkbox" />
-		<label for="record" title="Record calls to Pointer mouse events that can be added to test.js for automatic testing of tooltip and other mouse operations">Record mouse</label>
 		-->
 		
 	</div>

@@ -29,7 +29,9 @@ router.get('/', function(req, res) {
 			'/javascripts/view.js',
 			'/javascripts/nav.js'
 		].concat(resources.scripts),
-		styles: resources.styles,
+		styles: [
+			'/stylesheets/vendor/font-awesome-4.7.0/css/font-awesome.css'
+		].concat(resources.styles),
 		readme: f.getReadme(req.query.path),
 		testNotes: f.getTestNotes(req.query.path),
 		themes: {

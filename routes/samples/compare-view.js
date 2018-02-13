@@ -7,6 +7,9 @@ router.get('/', function(req, res) {
 		path: req.query.path,
 		compareClass: 'active',
 		consoleClear: true,
+		styles: [
+			'/stylesheets/vendor/font-awesome-4.7.0/css/font-awesome.css'
+		],
 		scripts: [
 			'/javascripts/compare-view.js',
 			'/javascripts/nav.js'
