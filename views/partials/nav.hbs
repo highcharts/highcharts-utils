@@ -1,31 +1,20 @@
 <div class="top-bar">
 
-	<div id="version" style="float:right; color: silver; font-size: 0.8em"></div>
+	<div id="version" style="float:right; color: silver; font-size: 0.8em; line-height: 3em; padding-right: 1em"></div>
 
 	<h2 style="margin: 0">{{path}}</h2>
 
-	<div style="text-align: center">
-		{{#if themes}}
-		<form method="post" action="/samples/set-theme" style="display:inline">
-			<select name="theme" onchange="this.form.submit()">
-			{{#each themes}}
-				<option value="{{@key}}" {{selected}}>
-					{{name}}
-				</option>
-			{{/each}}
-			</select>
-		</form>
-		{{/if}}
-		<button id="next" disabled="disabled" title="Next (Arrow Right)">
+	<div class="top-bar-menu">
+		<a class="button" href="javascript:;" id="next" disabled="disabled" title="Next (Arrow Right)">
 			<i class="fa fa-arrow-right"></i>
 			<span class="button-text">Next</span>
-		</button>
+		</a>
 
-		<button id="reload" onclick="location.reload()"
+		<a class="button" id="reload" href="javascript:location.reload()"
 			title="Reload (Ctrl + Enter)">
 			<i class="fa fa-refresh"></i>
 			<span class="button-text">Reload</span>
-		</button>
+		</a>
 		
 		{{#if styled}}
 		<a class="button active" title="View this sample with CSS and no inline styling"
@@ -42,43 +31,46 @@
 		{{/if}}
 		
 		<a class="button {{compareClass}}"
-				style="border-bottom-right-radius: 0; border-top-right-radius: 0; margin-right: 0"
 				href="compare-view?path={{path}}">
 			<i class="fa fa-columns"></i>
 			<span class="button-text">Compare</span>
-		</a><a class="button" id="bisect" 
-			style="border-bottom-left-radius: 0; border-top-left-radius: 0; margin-left: 0; border-left: 1px solid gray">
+		</a><a class="button" id="bisect">
 			<i class="fa fa-code-fork"></i>
 			<span class="button-text">Bisect</span>
 		</a>
 		
 
 		<a class="button"
-			href="view?path={{path}}&amp;profile=1"
-			style="border-bottom-right-radius: 0; border-top-right-radius: 0; margin-right: 0">
+			href="view?path={{path}}&amp;profile=1">
 			<i class="fa fa-rocket"></i>
 			<span class="button-text">Profile</span>
 		</a><a class="button"
-			style="border-bottom-left-radius: 0; border-top-left-radius: 0; margin-left: 0; border-left: 1px solid gray"
 			href="view?path={{path}}&amp;time=1">
 			<i class="fa fa-clock-o"></i>
 			<span class="button-text">Time</span></a>
 		
 
-		<a id="view-source" class="button" href="javascript:;"
-			style="border-bottom-right-radius: 0; border-top-right-radius: 0; margin-right: 0">
+		<a id="view-source" class="button" href="javascript:;">
 			<i class="fa fa-code"></i>
 			<span class="button-text">View source</span>
 		</a><a class="button"
 			href="http://jsfiddle.net/gh/get/library/pure/highcharts/highcharts/tree/master/samples/{{path}}/"
-			style="border-bottom-left-radius: 0; border-top-left-radius: 0; margin-left: 0; border-left: 1px solid gray"
 			target="_blank">
 			<i class="fa fa-jsfiddle"></i>
 			<span class="button-text">jsFiddle</span></a>
 
-
-		<!--		
-		-->
+		{{#if themes}}
+		<form method="post" action="/samples/set-theme" style="display:inline">
+			<select name="theme" onchange="this.form.submit()">
+			{{#each themes}}
+				<option value="{{@key}}" {{selected}}>
+					{{name}}
+				</option>
+			{{/each}}
+			</select>
+		</form>
+		{{/if}}
+		
 		
 	</div>
 </div>
