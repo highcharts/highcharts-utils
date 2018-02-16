@@ -43,27 +43,33 @@ body.page h1 {
 }
 
 .buttons a, a.button, button, input.button {
-	border: none;
-	background: none;
-	padding: 0.5em 1.5em;
-	color: white;
+	padding: 0.5em 1em;
 	text-decoration: none;
 	font-size: 1.1em;
 	white-space: nowrap;
 	cursor: pointer;
 	line-height: 1.5em;
 	display: inline-block;
-	border-top: 3px solid transparent;
 	transition: border-color 250ms;
 }
-.buttons a:hover, a.button:hover, button:hover, input.button:hover {
-	border-top: 3px solid #40818b;
-	color: white;
-}
-.buttons a.active, a.button.active, button.active, input.button:active {
-	border-top: 3px solid #40818b;
-	background: #47475c;
-	color: white;
+
+.top-bar {
+	.buttons a, a.button, button, input.button {
+		border: none;
+		background: none;
+		color: white;
+		border-top: 3px solid transparent;
+	}
+
+	.buttons a:hover, a.button:hover, button:hover, input.button:hover {
+		border-top: 3px solid #40818b;
+		color: white;
+	}
+	.buttons a.active, a.button.active, button.active, input.button:active {
+		border-top: 3px solid #40818b;
+		background: #47475c;
+		color: white;
+	}
 }
 
 .test-report {

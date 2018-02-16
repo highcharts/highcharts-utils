@@ -42,8 +42,12 @@
 
 var controller = window.parent && window.parent.controller;
 var path = controller.getQueryParameters(document).path;
+var sample = controller.samples[path];
 var $ = window.parent.$;
 $(window).load(function () {
+
+	sample.setCurrent();
+
 	$('#submit-actual', document).click(function () {
 		$('#diff', document).attr(
 			'value',
@@ -54,8 +58,7 @@ $(window).load(function () {
 	$('#title', document)[0].focus();
 
 	document.getElementsByTagName('form')[0].onsubmit = function submit() {
-		var sample = controller.samples[path];
-
+		
 		// Set options and save to disk
 		sample.setOptions({
 			compare: {
