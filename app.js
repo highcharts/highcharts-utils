@@ -11,6 +11,7 @@ var bodyParser = require('body-parser');
 var lessMiddleware = require('less-middleware');
 var hbs = require('hbs');
 var session = require('express-session');
+var cfg = require('./config.json');
 
 var app = express();
 
@@ -41,6 +42,10 @@ app.use('/reference', express.static(
 ));
 app.use('/mapdata', express.static(
   path.join(__dirname, 'node_modules/map-collection/Export/1.1.2'),
+  { maxAge: '10m' }
+));
+app.use('/samples/graphics', express.static(
+  path.join(__dirname, cfg.highchartsDir, 'samples/graphics'),
   { maxAge: '10m' }
 ));
 
