@@ -1,3 +1,10 @@
+/**
+ * Generates a set exchange rates from the year 2007 up to 2017 and writes the
+ * results into the following files:
+ * ../../highcharts/samples/data/usdeur.js
+ * ../../highcharts/samples/data/usdeur.json
+ */
+
 const Config = require('../../config.json');
 const FS = require('fs');
 const Path = require('path');
@@ -24,7 +31,7 @@ module.exports = function () {
                         generateUsdEurJs(data),
                         generateUsdEurJson(data)
                     ])
-                    .then(successes => resolve(successes.every(success => { return success; })))
+                    .then(successes => resolve(successes.every(success => success)))
                     .catch(reject);
             }
             catch (error) {

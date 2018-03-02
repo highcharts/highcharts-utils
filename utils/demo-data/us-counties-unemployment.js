@@ -1,3 +1,9 @@
+/**
+ * Generates a data set of official unemployment rates of the counties of the
+ * United States of America into the following file:
+ * ../../highcharts/samples/data/us-counties-unemployment.json
+ */
+
 const Config = require('../../config.json');
 const FS = require('fs');
 const Path = require('path');
