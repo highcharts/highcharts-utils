@@ -5,7 +5,7 @@
   "scripts": {
     "start": "./node_modules/.bin/nodemon ./bin/www",
     "precommit": "./node_modules/.bin/lint-staged",
-    "demodata": "node ./lib/demo-data"
+    "demodata": "node ./utils/demo-data"
   },
   "dependencies": {
     "async-exit-hook": "^2.0.1",
