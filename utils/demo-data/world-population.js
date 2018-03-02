@@ -1,3 +1,11 @@
+/**
+ * Generates population data provided by the World Bank and saves it into the
+ * following files:
+ * ../../highcharts/samples/data/world-population-density.json
+ * ../../highcharts/samples/data/world-population-history.csv
+ * ../../highcharts/samples/data/world-population.json
+ */
+
 const Config = require('../../config.json');
 const FS = require('fs');
 const JSZip = require('jszip');

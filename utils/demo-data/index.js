@@ -1,21 +1,26 @@
-const browserversion = require('./browser-version');
-const largedataset = require('./large-dataset');
-const uscountiesunemployment = require('./us-counties-unemployment');
+/**
+ * Calls generators to create data for demos into the following folder:
+ * ../../highcharts/samples/data
+ */
+
+const browserVersions = require('./browser-versions');
+const largeDataset = require('./large-dataset');
+const usCountiesUnemployment = require('./us-counties-unemployment');
 const usdeur = require('./usdeur');
-const worldmortality = require('./world-mortality');
-const worldpopulation = require('./world-population');
+const worldMortality = require('./world-mortality');
+const worldPopulation = require('./world-population');
 
 Promise
     .all([
-        browserversion(),
-        largedataset(),
-        uscountiesunemployment(),
+        browserVersions(),
+        largeDataset(),
+        usCountiesUnemployment(),
         usdeur(),
-        worldmortality(),
-        worldpopulation(),
+        worldMortality(),
+        worldPopulation(),
     ])
     .then(successes => {
-        let success = successes.every(success => { return success; });
+        let success = successes.every(success => success);
         if (success) {
             console.log('🎉 Generating succeeded');
             process.exit(0);

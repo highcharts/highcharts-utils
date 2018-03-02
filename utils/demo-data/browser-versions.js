@@ -1,4 +1,15 @@
-const Config = require('../../config.json');
+/** 
+ * Generates a JSON file with browser version statistics of statcounter to be
+ * included partial in:
+ * - highcharts/demo/column-drilldown
+ * - highcharts/demo/pie-donut
+ * - highcharts/demo/pie-drilldown
+ * 
+ * The JSON can be found in the following file:
+ * ../../highcharts/samples/data/browser-versions.json
+ */
+
+ const Config = require('../../config.json');
 const FS = require('fs');
 const Path = require('path');
 const Request = require('request');
@@ -128,7 +139,7 @@ module.exports = function () {
                 })
 
             FS.appendFile(
-                Path.join(Config['highchartsDir'], 'samples/data/browser-version.json'),
+                Path.join(Config['highchartsDir'], 'samples/data/browser-versions.json'),
                 JSON.stringify(finalJson, undefined, '\t'),
                 { encoding: 'utf8', flag: 'w' },
                 (error) => {

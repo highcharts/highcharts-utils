@@ -1,3 +1,23 @@
+/**
+ * Generates a JSON of mortality rates in the world with the help of a CSV
+ * file, that is generated out of an Excel file provided by the WHO.
+ * 
+ * The Excel file can be downloaded at:
+ * http://www.who.int/entity/healthinfo/global_burden_disease/GHE2015_Deaths-2015-country.xls?ua=1
+ * 
+ * The variable xlsExportedCsvFile has to point to this CSV file.
+ * The CSV file must contain the following structure:
+ * 
+ * Sex,GHE code,,GHE cause,,,"Member State", Afghanistan, [...]
+ * ,,,,,,ISO-3 Code,AFG, [...]
+ * Persons,10,I.,"Communicable, maternal, perinatal and nutritional conditions",,,,102.5, [...]
+ * Persons,600,II.,Noncommunicable diseases,,,,110.4, [...]
+ * Persons,1510,III.,Injuries,,,,47.0, [...]
+ * 
+ * The generated JSON can be found in the following folder:
+ * ../../highcharts/samples/data/world-mortality.json
+ */
+
 const Config = require('../../config.json');
 const FS = require('fs');
 const Path = require('path');

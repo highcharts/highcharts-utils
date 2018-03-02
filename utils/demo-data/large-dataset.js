@@ -1,3 +1,10 @@
+/**
+ * Generates a large dataset of hourly temperatures since 2009 and writes the
+ * results in two files:
+ * ../../highcharts/samples/data/large-dataset.js
+ * ../../highcharts/samples/data/large-dataset.json
+ */
+
 const Config = require('../../config.json');
 const FS = require('fs');
 const Path = require('path');
@@ -35,7 +42,7 @@ module.exports = function () {
             ])
         })
         .then(successes => {
-            return Promise.resolve(successes.every(success => { return success; }));
+            return Promise.resolve(successes.every(success => success));
         });
 };
 
