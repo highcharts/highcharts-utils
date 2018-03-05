@@ -22,14 +22,14 @@ Promise
     .then(successes => {
         let success = successes.every(success => success);
         if (success) {
-            console.log('🎉 Generating succeeded');
+            console.log('✅  Generating succeeded');
             process.exit(0);
         } else {
             throw new Error('Some generators failed');
         }
     })
     .catch(error => {
-        console.error(error);
-        console.log('💩 Generating failed');
+        console.error('❌  ' + error.message);
+        console.log('❌  Generating failed');
         process.exit(1);
     });
