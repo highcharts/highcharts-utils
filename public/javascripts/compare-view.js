@@ -200,7 +200,7 @@ function proceed() {
 }
 
 function onIdentical(diff) {
-	sample.setDiff(diff)
+	sample.setDiff(diff || 0)
 	proceed();
 }
 
