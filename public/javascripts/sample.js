@@ -46,8 +46,12 @@ controller.Sample = function (options, index) {
 
     function addTestAnchor() {
 
-        var testAnchor;
-        if (options.details && options.details.requiresManualTesting) {
+        var testAnchor,
+            requiresManualTesting = options.details &&
+                options.details.requiresManualTesting,
+            skipTest = options.details && options.details.skipTest;
+        
+        if (requiresManualTesting) {
             testAnchor = contentsDoc.createElement('input');
             testAnchor.type = 'checkbox';
             testAnchor.className = 'dissimilarity-index manual-checkbox';
@@ -63,6 +67,14 @@ controller.Sample = function (options, index) {
 
                 setDiff(this.checked ? 0 : 1);
             });
+
+        } else if (skipTest) {
+            testAnchor = contentsDoc.createElement('a');
+            testAnchor.className = 'dissimilarity-index skip';
+            testAnchor.href = '/samples/compare-view?path=' + options.path;
+            testAnchor.target = 'main';
+            testAnchor.innerHTML = '<i class="fa fa-ban"></i>';
+            testAnchor.title = 'Skipped by setting skipTest:true in demo.details';
 
         } else {
             testAnchor = contentsDoc.createElement('a');
@@ -85,7 +97,6 @@ controller.Sample = function (options, index) {
                 }
             }
         }
-
         li.appendChild(testAnchor);
     }
 
@@ -124,6 +135,9 @@ controller.Sample = function (options, index) {
             if ((/^[0-9\.\/]+$/.test(diff) || diff > 0 || diff === 'Err') && diff !== '0') {
                 className = 'different';
                 status = 'error';
+            } else if (diff === 'skip') {
+                className = 'skip';
+                status = 'success';
             } else {
                 className = 'identical';
                 status = 'success';

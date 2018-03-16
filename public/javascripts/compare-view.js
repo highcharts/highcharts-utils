@@ -60,7 +60,7 @@ function setUpElements() {
 
 	// The body elements
 	if (skipTest) { 
-		onIdentical();
+		onIdentical('skip');
 		document.getElementById('skip-test-info').style
 			.display = 'block';
 	} else {
@@ -199,8 +199,8 @@ function proceed() {
 	}
 }
 
-function onIdentical() {
-	sample.setDiff(0)
+function onIdentical(diff) {
+	sample.setDiff(diff)
 	proceed();
 }
 
