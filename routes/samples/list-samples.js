@@ -47,8 +47,12 @@ const getSamples = () => {
 					).forEach(sample => {
 						let path = `${group}/${subgroup}/${sample}`;
 						if (fs.lstatSync(
-							samplesDir + path
-						).isDirectory()) {
+								samplesDir + path
+							).isDirectory() &&
+							fs.existsSync(
+								samplesDir + path + '/demo.html'
+							)
+						) {
 							samples.push(getSample(path));
 						}
 					});
