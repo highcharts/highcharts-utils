@@ -12,6 +12,8 @@ const path = require('path');
 const topDomain = argv.topdomain || 'local';
 
 let sslEnabled = false;
+let utilsDomainLine = '';
+let codeDomainLine = ''
 
 const pemFile = path.join(
   __dirname,
@@ -44,68 +46,76 @@ const redirects = {
   'utils.highcharts.*': `http://localhost:${cfg.utilsPort}`,
   'code.highcharts.*': `http://localhost:${cfg.codePort}`
 }
+if (argv.proxy !== false) {
+  const server = http.createServer((req, res) => {
+  	let host = req.headers.host.replace(/\.[a-z]+$/, '.*');
+    	proxy.web(req, res, {
+      	target: redirects[host]
+    	});
+  })
+  server.on('error', () => {
+    console.error(`
+  Could not start proxy server.
+  Do you have another server running on port 80?
+  Run again with --no-proxy to access utils and code directly.
+  `.red)
+  });
+  server.listen(80);
 
 
-const server = http.createServer((req, res) => {
-	let host = req.headers.host.replace(/\.[a-z]+$/, '.*');
-  	proxy.web(req, res, {
-    	target: redirects[host]
+  if (httpsOptions.key && httpsOptions.cert) {
+
+      sslEnabled = true;
+
+      https.createServer(httpsOptions, (req, res) => {
+          let host = req.headers.host.replace(/\.[a-z]+$/, '.*');
+          proxy.web(req, res, {
+              target: redirects[host]
+          });
+      }).listen(443);
+  }
+
+  // Set up the hosts file
+  const domains = [
+  	`utils.highcharts.${topDomain}`,
+  	`code.highcharts.${topDomain}`
+  ];
+  const protocol = sslEnabled ? 'https' : 'http';
+  utilsDomainLine = `- ${protocol}://${domains[0]}
+  `;
+  codeDomainLine = `- ${protocol}://${domains[1]}
+  `;
+  
+  domains.forEach(domain => {
+  	hostile.set('127.0.0.1', domain);
+  });
+
+  // Remove domains from hosts file on exit
+  exitHook(callback => {
+  	domains.forEach(domain => {
+  		hostile.remove('127.0.0.1', domain);
   	});
-})
-server.on('error', () => {
-  console.error(`
-Could not start server.
-Do you have another server running on port 80?
-`.red)
-});
-server.listen(80);
-
-if (httpsOptions.key && httpsOptions.cert) {
-
-    sslEnabled = true;
-
-    https.createServer(httpsOptions, (req, res) => {
-        let host = req.headers.host.replace(/\.[a-z]+$/, '.*');
-        proxy.web(req, res, {
-            target: redirects[host]
-        });
-    }).listen(443);
+  	callback();
+  });
 }
 
-// Set up the hosts file
-const domains = [
-	`utils.highcharts.${topDomain}`,
-	`code.highcharts.${topDomain}`
-];
-domains.forEach(domain => {
-	hostile.set('127.0.0.1', domain);
-});
-
-// Remove domains from hosts file on exit
-exitHook(callback => {
-	domains.forEach(domain => {
-		hostile.remove('127.0.0.1', domain);
-	});
-	callback();
-});
-
-const protocol = sslEnabled ? 'https' : 'http';
 const ipAddress = ip.address();
 
 console.log(`
 Utils server available at:
-  - ${protocol}://${domains[0]}
-  - http://localhost:${cfg.utilsPort}
+  ${utilsDomainLine}- http://localhost:${cfg.utilsPort}
   - http://${ipAddress}:${cfg.utilsPort}
 Code server available at:
-  - ${protocol}://${domains[1]}
-  - http://localhost:${cfg.codePort}
+  ${codeDomainLine}- http://localhost:${cfg.codePort}
   - http://${ipAddress}:${cfg.codePort}
 
 
 SSL enabled: ${sslEnabled}
 
 Parameters:
+--no-proxy
+  Add this if port 80 is taken and you want to run the code or utils server
+  directly by its IP adress and port number.
 --topdomain
   Defaults to "local", defines the top domain for utils.highcharts.* and
   code.highcharts.* for debugging over network and virtual machines.

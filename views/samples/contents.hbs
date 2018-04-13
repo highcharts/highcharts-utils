@@ -123,7 +123,16 @@
 		border: 1px solid #F6F6F6;
 		background: white;
 		border-radius: 5px;
-		padding: 2px;
+		padding: 0.3em 0.2em;
+		position: relative;
+	}
+	li a {
+		max-width: 80%;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		display: inline-block;
+		white-space: nowrap;
+		vertical-align: bottom;
 	}
 	li.visited a {
 		color: gray;
@@ -217,7 +226,7 @@
 	}
 	.comment {
 		position: absolute;
-		right: 4em;
+		right: 3em;
 	}	
 	.comment-title {
 		display: none;
@@ -234,7 +243,8 @@
 		display: block;
 	}
 	.dissimilarity-index {
-		float: right;
+		position: absolute;
+		right: 0.2em;
 	}
 	#filtered {
 		display: none;

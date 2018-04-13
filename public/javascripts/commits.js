@@ -345,7 +345,7 @@ $(function() {
 			$('<a>')
 				.attr({
 					href: isComparing ? 
-						'/samples/view?path=' + window.parent.controller.getQueryParameters(mainFrame.contentWindow).path +
+						'/samples/compare-view?path=' + window.parent.controller.getQueryParameters(mainFrame.contentWindow).path +
 							'&rightcommit=' + commit :
 						'view?hash='+ commit,
 					target: 'main',
@@ -395,7 +395,9 @@ $(function() {
 				})
 				.appendTo($li);
 
-			$('<span class="date">' + commit + ' | ' + (date || '&nbsp;') + '</span>')
+			$('<span class="date">' +
+				'<a target="_new" href="https://github.com/highcharts/highcharts/commit/' + commit + '">' +
+				commit + '</a> | ' + (date || '&nbsp;') + '</span>')
 				.css({
 					marginLeft: 20 + 10 * indentLevel
 				})
