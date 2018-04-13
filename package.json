@@ -21,7 +21,7 @@
     "express-session": "^1.15.6",
     "glob": "^7.1.2",
     "hbs": "~4.0.1",
-    "highcharts": "^6.0.7",
+    "highcharts": "^6.1.0",
     "highcharts-map-collection": "github:highcharts/map-collection",
     "hostile": "^1.3.0",
     "http-proxy": "^1.16.2",
