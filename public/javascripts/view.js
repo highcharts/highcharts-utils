@@ -16,6 +16,8 @@ var controller = window.parent && window.parent.controller,
 	controller.addResources(document, sample.options.details.resources);
 	if (sample.isUnitTest()) { 
 		controller.addResources(document, ['test-controller.js']);
+		controller.addResources(document, ['test-template.js']);
+		controller.addResources(document, ['test-utilities.js']);
 	}
 
 	if (typeof $ === 'undefined') {

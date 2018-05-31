@@ -42,7 +42,9 @@ router.get('/', function(req, res) {
 		scripts: [
 			'/javascripts/vendor/jquery-1.11.1.js',
 			'/javascripts/compare-iframe.js',
-			'/javascripts/test-controller.js'
+			'/javascripts/test-controller.js',
+			'/javascripts/test-template.js',
+			'/javascripts/test-utilities.js'
 		].concat(resources.scripts),
 		styles: resources.styles,
 		path: path,
