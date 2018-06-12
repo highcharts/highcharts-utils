@@ -12,6 +12,7 @@ const JSZip = require('jszip');
 const Path = require('path');
 const Request = require('request');
 
+const countries = require(Path.join(__dirname, 'countries.json'));
 const csvParser = new RegExp('(?:^|\\s+|\\,)(?:\\"([^\\"]*?)\\")+', 'gm');
 const landUrl = 'http://api.worldbank.org/v2/en/indicator/AG.LND.TOTL.K2?downloadformat=csv';
 const populationUrl = 'http://api.worldbank.org/v2/en/indicator/SP.POP.TOTL?downloadformat=csv';
@@ -26,7 +27,13 @@ module.exports = function () {
             return JSZip
                 .loadAsync(body)
                 .then(zipFile => {
-                    let historyFile = zipFile.files['API_SP.POP.TOTL_DS2_en_csv_v2.csv'];
+                    let historyFile;
+                    for (let file in zipFile.files) {
+                        if (file.indexOf('API_SP.POP.TOTL_DS2_en_csv_v2') === 0) {
+                            historyFile = zipFile.files[file];
+                            break;
+                        }
+                    }
                     if (!historyFile) {
                         throw new Error('API_SP.POP.TOTL_DS2_en_csv_v2.csv not found');
                     }
@@ -102,13 +109,20 @@ const generateWorldPopulationDensityJson = function (fileInZip) {
                     continue;
                 }
 
+                let country = countries.find(country => dataSet[1] === country['alpha-3']);
+                if (country) {
+                    finalDataSet.code = country['alpha-2'];
+                } else {
+                    continue;
+                }
+
                 dataParsed = parseFloat(dataSet[dataSet.length - 1] || dataSet[dataSet.length - 2]);
 
                 if (!dataParsed) {
                     continue;
                 }
 
-                finalDataSet.value = Math.round(dataParsed / landJson[dataSet[1]].value);
+                finalDataSet.value = Math.round(100 * dataParsed / landJson[dataSet[1]].value) / 100;
 
                 finalJson.push(finalDataSet);
             }
@@ -288,6 +302,13 @@ const generateWorldPopulationJson = function (fileInZip) {
                     z: 0,
                 };
 
+                let country = countries.find(country => dataSet[1] === country['alpha-3']);
+                if (country) {
+                    finalDataSet.code = country['alpha-2'];
+                } else {
+                    continue;
+                }
+
                 for (let j = 4; j < dataEnd; ++j) {
                     dataParsed = parseInt(dataSet[j]);
                     finalDataSet.z = (dataParsed > 0 ? Math.round(dataParsed / 1000) : finalDataSet.z);
@@ -326,7 +347,13 @@ const loadWorldLandJson = function () {
             JSZip
                 .loadAsync(body)
                 .then(archive => {
-                    let historyFile = archive.files['API_AG.LND.TOTL.K2_DS2_en_csv_v2.csv'];
+                    let historyFile;
+                    for (let file in archive.files) {
+                        if (file.indexOf('API_AG.LND.TOTL.K2_DS2_en_csv_v2') === 0) {
+                            historyFile = archive.files[file];
+                            break;
+                        }
+                    }
                     if (!historyFile) {
                         throw new Error('API_AG.LND.TOTL.K2_DS2_en_csv_v2.csv not found');
                     }
@@ -383,6 +410,13 @@ const loadWorldLandJson = function () {
                             name: dataSet[0],
                             value: dataParsed,
                         };
+
+                        let country = countries.find(country => dataSet[1] === country['alpha-3']);
+                        if (country) {
+                            finalDataSet.code = country['alpha-2'];
+                        } else {
+                            continue;
+                        }
 
                         finalJson[finalDataSet.code3] = finalDataSet;
                     }

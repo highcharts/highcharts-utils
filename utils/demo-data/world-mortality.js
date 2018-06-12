@@ -26,7 +26,7 @@ const Path = require('path');
 const csvParser = new RegExp('(\\"[^\\"]*?\\"|[^\\,]*?)([\\r\\n]+|\\,)', 'g');
 const targetFilePath = Path.join('../..', Config['highchartsDir'], 'samples/data/world-mortality.json');
 //const xlsUrl = 'http://www.who.int/entity/healthinfo/global_burden_disease/GHE2015_Deaths-2015-country.xls?ua=1';
-const xlsExportedCsvFile = '/Users/highsoft/Downloads/GHE2015_Deaths-2015-country.csv';
+const xlsExportedCsvFile = '/Users/torstein/Downloads/GHE2015_Deaths-2015-country.csv';
 
 module.exports = function () {
     return new Promise((resolve, reject) => FS.readFile(xlsExportedCsvFile, 'utf8',
