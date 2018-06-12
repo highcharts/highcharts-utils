@@ -492,19 +492,23 @@ function onBothLoad() {
 				rightcommit + '</a>' : rightVersion) +
 			'</div>';
 
-		if (identical) {
-			report += '<div>The innerHTML is identical</div>';
-			if (leftVersion === rightVersion) {
-				report += "<div style='color: red; font-weight: bold'>Warning: Left and right versions are identical.</div>";
+		// When running in batch, first check the HTML. When running one by one,
+		// do a deeper check.
+		if (controller.continueBatch) {
+			if (identical) {
+				report += '<div>The innerHTML is identical</div>';
+				if (leftVersion === rightVersion) {
+					report += "<div style='color: red; font-weight: bold'>Warning: Left and right versions are identical.</div>";
+				}
+			} else {
+				report += '<div>The innerHTML is different, testing generated SVG...</div>';
 			}
-		} else {
-			report += '<div>The innerHTML is different, testing generated SVG...</div>';
 		}
 
 		$('#report', document).html(report)
 			.css('background', identical ? "#a4edba" : '#f15c80');
 
-		if (!identical) {
+		if (!identical || !controller.continueBatch) {
 			// switch to image mode
 			leftSVG = rightSVG = undefined;
 			mode = 'images';

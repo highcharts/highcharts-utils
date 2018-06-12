@@ -196,17 +196,24 @@ window.setUp = function () {
 		Highcharts.Chart.prototype.callbacks.push(function () {
 			var svg = Highcharts.charts[0].container.innerHTML;
 			var match;
-			var re = / (style|fill|stroke|stroke-width|fill-opacity)="/g
+			var re = / (style|fill|stroke|stroke-width|fill-opacity)="/g;
+			var count = 0;
 			do {
 			    match = re.exec(svg);
 			    if (match) {
-			        console.warn(
-						'Found presentational attribute:',
-						match[1],
-						svg.substr(match.index - 80, 200)
-					);
+			    	if (count < 3) {
+			    		console.warn(
+							'Found presentational attribute:',
+							'"' + match[1] + '"',
+							'...' + svg.substr(match.index - 80, 200) + '...'
+						);
+			    	}
 			    }
+			    count++;
 			} while (match);
+			if (count > 3) {
+				console.warn('... plus ' + (count - 3) + ' more cases')
+			}
 		});
 	}
 } // end setUp
