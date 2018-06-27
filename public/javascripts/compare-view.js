@@ -300,6 +300,8 @@ function activateOverlayCompare(isCanvas) {
 var report = '';
 function onBothLoad() {
 
+	var FORCE_VISUAL_COMPARE = true;
+
 	var out,
 		identical;
 
@@ -322,7 +324,7 @@ function onBothLoad() {
 			.replace(/Created with [a-zA-Z0-9\.@\- ]+/, "Created with ___");
 	}
 
-	if (leftSVG === rightSVG) {
+	if (leftSVG === rightSVG && !FORCE_VISUAL_COMPARE) {
 		identical = true;
 		onIdentical();
 	}
@@ -337,7 +339,7 @@ function onBothLoad() {
 					.replace(/</g, '&lt;')
 					.replace(/>/g, '&gt;\n');
 
-		} else if (identical) {
+		} else if (identical && !FORCE_VISUAL_COMPARE) {
 			report += "<br/>The generated SVG is identical";
 			$('#report', document).html(report)
 				.css('background', "#a4edba");
