@@ -489,6 +489,10 @@ function onBothLoad() {
 
 		}
 	} else {
+		if (rightVersion.indexOf(leftVersion) !== 0) {
+			report += '<div style="color: red; font-weight: bold">Warning: Left and right versions mismatch.</div>';
+		}
+
 		report += '<div>Left version: '+ leftVersion +'; right version: '+
 			(rightcommit ? '<a href="http://github.com/highcharts/highcharts/commit/' + rightcommit + '" target="_blank">' +
 				rightcommit + '</a>' : rightVersion) +
