@@ -3,8 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "./node_modules/.bin/nodemon ./bin/www",
-    "precommit": "./node_modules/.bin/lint-staged",
+    "start": "sudo node ./server",
+    "precommit": "lint-staged",
     "demodata": "node ./utils/demo-data"
   },
   "dependencies": {
