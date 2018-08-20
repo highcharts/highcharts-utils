@@ -2,8 +2,10 @@
 
 Visual testing and debugging tools for Highcharts.
 
-## Setup
+## Installation
+Run `npm install`
 
+## Start server
  * OSX: `sudo node server`
  * Windows: Open a CLI with administrator priviliges and run `node server`
 
@@ -41,3 +43,5 @@ Note that the change only takes effect after the next system login.
 ## Usage
 See [highcharts/samples](https://github.com/highcharts/highcharts/tree/master/samples)
 for description of how the samples are set up and how to use the utils.
+
+The server `code.highcharts.local` is serving files locally from the `/code` folder in your highcharts repository. The folder `/code` is created by running `gulp` in the root folder of the Highcharts repo. See [config.json](config.json) for pointing to the location of your cloned Highcharts repo. 
