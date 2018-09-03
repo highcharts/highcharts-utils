@@ -17,6 +17,7 @@ var controller = window.parent && window.parent.controller,
 	if (sample.isUnitTest()) { 
 		controller.addResources(document, ['test-controller.js']);
 		controller.addResources(document, ['test-template.js']);
+		//controller.addResources(document, ['test-templates/highcharts/scatter.js']);
 		controller.addResources(document, ['test-utilities.js']);
 	}
 

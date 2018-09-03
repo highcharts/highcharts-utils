@@ -29,7 +29,16 @@
 		$("#batch-stop", document).click(controller.stopBatch);
 
 		$('#reset', document).click(function () {
-			if (confirm("Do you want to reset the compare history? Results from all browsers will be lost.")) {
+			if (
+				confirm(
+					'Do you want to reset the compare history?\n' +
+					'Results from all browsers will be lost.\n\n' +
+					'You may also have to restart the node server to clear cache.'
+				)
+			) {
+				Object.keys(controller.compare).forEach(function (key) {
+					delete controller.compare[key];
+				});
 				$.getScript('/samples/compare-reset');
 			}
 		});

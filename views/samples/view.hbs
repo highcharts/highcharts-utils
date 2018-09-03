@@ -21,7 +21,9 @@
 
 	<script>
 	if (controller) {
-		setUp();
+		if (typeof setUp === 'function') {
+			setUp();
+		}
 
 		// Override and point to local resources
 		$.getJSON = controller.getJSON;

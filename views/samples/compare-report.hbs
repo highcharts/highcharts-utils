@@ -136,6 +136,7 @@ Highcharts.SparkLine = function (a, b, c) {
 			});
 		})
 	});
+	var skip = null;
 </script>
 
 <style type="text/css">
@@ -202,24 +203,24 @@ Highcharts.SparkLine = function (a, b, c) {
 		<h3>Test results</h3>
 		<table id="results" data-browsers="{{browsers}}">
 			
-			<thead>
-				<tr>
-					<th class='path'></th>
-					{{#each browsers}}
-					<th>{{this}}</th>
-					{{/each}}
-					<th class='sparkline'>Variance</th>
-					<th class='diff'>Diff</th>
-					<th class='comment'>Comment</th>
-				</tr>
-			</thead>
-
-			<tbody>
 			{{#each compare}}
+
+			{{#if showHeader}}
+			<tr>
+				<th class='path'></th>
+				{{#each this.browsers}}
+				<th>{{@key}}</th>
+				{{/each}}
+				<th class='sparkline'>Variance</th>
+				<th class='diff'>Diff</th>
+				<th class='comment'>Comment</th>
+			</tr>
+			{{/if}}
+
 			<tr>
 				<th class='path'>
 					{{@index}}.
-					<a href="compare-view?path={{@key}}">{{@key}}</a>
+					<a href="view?path={{@key}}">{{@key}}</a>
 				</th>
 				{{#each this.browsers}}
 				<td class="value" title="{{@key}}: {{this}}">{{this}}</td>
@@ -245,7 +246,6 @@ Highcharts.SparkLine = function (a, b, c) {
 
 			</tr>
 			{{/each}}
-			</tbody>
 		</table>
 	</div>
 </div>

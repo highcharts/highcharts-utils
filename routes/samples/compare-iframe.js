@@ -43,9 +43,16 @@ router.get('/', function(req, res) {
 			'/javascripts/vendor/jquery-1.11.1.js',
 			'/javascripts/compare-iframe.js',
 			'/javascripts/test-controller.js',
-			'/javascripts/test-template.js',
 			'/javascripts/test-utilities.js'
 		].concat(resources.scripts),
+		deferredScripts: [
+			'/javascripts/test-template.js',
+			'/javascripts/test-templates/highcharts/area.js',
+			'/javascripts/test-templates/highcharts/column.js',
+			'/javascripts/test-templates/highcharts/line.js',
+			'/javascripts/test-templates/highcharts/scatter.js',
+			'/javascripts/test-templates/highstock/line.js'
+		],
 		styles: resources.styles,
 		path: path,
 		which: which

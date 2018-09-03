@@ -185,6 +185,19 @@ var controller = { // eslint-disable-line no-unused-vars
             controller.docTitle();
 
         }
+
+        // Click good or bad
+        var bisectButton = 
+            controller.frames().commits &&
+            controller.frames().commits.contentDocument && 
+            controller.frames().commits.contentDocument.querySelector('input.automatic').checked && 
+            controller.frames().commits.contentDocument.getElementById(
+                'current-' + { success: 'good', error: 'bad' }[status]
+            );
+        
+        if (bisectButton) {
+            bisectButton.click();
+        }
     },
 
     docTitle: function () {

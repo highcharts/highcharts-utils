@@ -17,5 +17,10 @@
   	</head>
   	<body>
     	{{{body}}}
+
+
+      {{#each deferredScripts}}
+      <script src="{{this}}"></script>
+      {{/each}}
   	</body>
 </html>

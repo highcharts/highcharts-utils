@@ -21,7 +21,7 @@ router.get('/', function(req, res) {
 		
 		if (fs.existsSync(file)) {
 			let results = require(file);
-			Object.keys(results).forEach((path) => {
+			Object.keys(results).forEach((path, i) => {
 				let sample = results[path];
 				//let range = [sample.diff];
 				if (!compare[path]) {
@@ -34,7 +34,7 @@ router.get('/', function(req, res) {
 
 				compare[path].browsers[browser] = sample.diff;
 
-				if (sample.diff !== 'Err') {
+				if (sample.diff !== 'Err' && sample.diff !== 'skip') {
 					compare[path].sparkline.push(sample.diff);
 
 					// Show sparkline only when not 0
@@ -46,6 +46,10 @@ router.get('/', function(req, res) {
 
 				if (sample.comment) {
 					compare[path].comment = sample.comment;
+				}
+
+				if (i % 20 === 0) {
+					compare[path].showHeader = true;
 				}
 			})
 		}

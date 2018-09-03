@@ -11,7 +11,10 @@ $(window).bind('load', function () {
 
 		// Add the next button
 		var contentsDoc = controller.frames().contents.contentDocument;
-		if (contentsDoc.getElementById('i' + (controller.currentSample.index + 1))) {
+		if (
+			controller.currentSample &&
+			contentsDoc.getElementById('i' + (controller.currentSample.index + 1))
+		) {
 			
 			$('#next', document).click(function() {
 				controller.next();
