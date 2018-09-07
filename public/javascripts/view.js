@@ -194,26 +194,26 @@ window.setUp = function () {
 	*/
 
 	if (/\/css\//.test(path)) {
-		Highcharts.Chart.prototype.callbacks.push(function () {
-			var svg = Highcharts.charts[0].container.innerHTML;
-			var match;
-			var re = / (style|fill|stroke|stroke-width|fill-opacity)="/g;
-			var count = 0;
-			do {
-			    match = re.exec(svg);
-			    if (match) {
-			    	if (count < 3) {
-			    		console.warn(
-							'Found presentational attribute:',
-							'"' + match[1] + '"',
-							'...' + svg.substr(match.index - 80, 200) + '...'
-						);
-			    	}
-			    }
-			    count++;
-			} while (match);
-			if (count > 3) {
-				console.warn('... plus ' + (count - 3) + ' more cases')
+		Highcharts.addEvent(Highcharts.Chart, 'load', function () {
+			var container = Highcharts.charts[0].container,
+				blacklist = ['style', 'fill', 'stroke', 'stroke-width', 'fill-opacity'];
+			if (
+				(new RegExp(' (' + blacklist.join('|') + ')="', 'g')).test(
+					container.innerHTML
+				)
+			) {
+				blacklist.forEach(function (attr) {
+					container.querySelectorAll('*[' + attr + ']').forEach(
+						function (elem) {
+							console.log(
+								'⚠️ Found presentational attribute in styled mode:',
+								attr,
+								elem
+							);
+						}
+					);
+				});
+				
 			}
 		});
 	}
