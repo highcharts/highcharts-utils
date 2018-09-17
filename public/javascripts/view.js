@@ -194,27 +194,49 @@ window.setUp = function () {
 	*/
 
 	if (/\/css\//.test(path)) {
-		Highcharts.addEvent(Highcharts.Chart, 'load', function () {
-			var container = Highcharts.charts[0].container,
-				blacklist = ['style', 'fill', 'stroke', 'stroke-width', 'fill-opacity'];
-			if (
-				(new RegExp(' (' + blacklist.join('|') + ')="', 'g')).test(
-					container.innerHTML
-				)
-			) {
-				blacklist.forEach(function (attr) {
-					container.querySelectorAll('*[' + attr + ']').forEach(
-						function (elem) {
-							console.log(
-								'⚠️ Found presentational attribute in styled mode:',
-								attr,
-								elem
-							);
-						}
-					);
-				});
-				
-			}
-		});
+		(function () {
+			var container;
+			var notified = {};
+			var checkStyledMode = function () {
+				container = Highcharts.charts[0].container;
+				var blacklist = ['style', 'fill', 'stroke', 'stroke-width', 'fill-opacity'];
+				if (
+					(new RegExp(' (' + blacklist.join('|') + ')="', 'g')).test(
+						container.innerHTML
+					)
+				) {
+					blacklist.forEach(function (attr) {
+						container.querySelectorAll('*[' + attr + ']').forEach(
+							function (elem) {
+								var key = [attr, elem.nodeName, elem.getAttribute('class')].join(',');
+								if (!notified[key]) {
+									console.log(
+										'⚠️ Found presentational attribute in styled mode:',
+										attr,
+										elem
+									);
+								}
+								notified[key] = true;
+							}
+						);
+					});
+					
+				}
+			};
+			Highcharts.addEvent(Highcharts.Chart, 'load', function () {
+				checkStyledMode();
+
+				// Observe for dynamic things like tooltip
+				var observer = new MutationObserver(checkStyledMode);
+
+				// Start observing the target node for configured mutations
+				observer.observe(
+					container,
+					{ attributes: true, childList: true, subtree: true }
+				);				
+			});
+
+		}());
+
 	}
 } // end setUp
