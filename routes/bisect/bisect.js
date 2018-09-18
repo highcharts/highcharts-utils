@@ -34,7 +34,7 @@ router.get('/', function(req, res) {
 		} else {
 			req.session.steps.push({
 				commit: result.split(' ')[0],
-				message: result.split(' ')[0].substr(0, 10),
+				message: 'Bisected to commit ' + result.split(' ')[0].substr(0, 10),
 				full: result,
 				className: 'culprit',
 				isCulprit: true

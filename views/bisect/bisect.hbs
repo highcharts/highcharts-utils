@@ -149,17 +149,25 @@ document.addEventListener('DOMContentLoaded', function () {
 	#result {
 		margin: 2em 1em;
 	}
+	pre, code {
+		font-family: monospace;
+		color: gray;
+		border: 1px solid silver;
+		border-radius: 2px;
+		padding: 0 0.2em;
+	}
 	li.culprit {
 		border: 2px solid red;
 		border-radius: 5px;
-		padding: 0.5em
+		padding: 0.5em;
 		margin: 1em 0;
 		list-style: none;
 	}
 	li.culprit pre {
 		overflow-x: auto;
-		font-family: ;
+		font-size: 0.9em;
 	}
+
 </style>
 
 <form method="post" action="/bisect/bisect">
@@ -216,6 +224,8 @@ document.addEventListener('DOMContentLoaded', function () {
 			<a target="_blank" href="https://github.com/highcharts/highcharts/commit/{{commit}}">
 				View on GitHub
 			</a>
+			<p>Now run <code>sudo chown -R ${USER} .</code> in the highcharts repo
+			to clean up.</p>
 			{{/if}}
 		</li>
 
