@@ -2,6 +2,15 @@
 
 Visual testing and debugging tools for Highcharts.
 
+## Remark
+Be sure to have access to `github:highcharts/map-collection` before launching `npm install`.
+Otherwise,  if you don’t need to run Highmap demos, open the `package.json` file, then delete the following section:
+```
+“devDependencies”: {
+  “map-collection”: “github:highcharts/map-collection”
+}
+```
+
 ## Installation
 Run `npm install`
 
