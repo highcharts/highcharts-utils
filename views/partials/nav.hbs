@@ -30,34 +30,39 @@
 		</a>
 		{{/if}}
 		
-		<a class="button {{compareClass}}"
+		<a class="button {{compareClass}} mobile-hide"
 				href="compare-view?path={{path}}">
 			<i class="fa fa-columns"></i>
 			<span class="button-text">Compare</span>
-		</a><a class="button" id="bisect">
+		</a><a class="button mobile-hide" id="bisect">
 			<i class="fa fa-code-fork"></i>
 			<span class="button-text">Bisect</span>
 		</a>
 		
 
-		<a class="button"
+		<a class="button mobile-hide"
 			href="view?path={{path}}&amp;profile=1">
 			<i class="fa fa-rocket"></i>
 			<span class="button-text">Profile</span>
-		</a><a class="button"
+		</a><a class="button mobile-hide"
 			href="view?path={{path}}&amp;time=1">
 			<i class="fa fa-clock-o"></i>
 			<span class="button-text">Time</span></a>
 		
 
-		<a id="view-source" class="button" href="javascript:;">
+		<a id="view-source" class="button mobile-hide" href="javascript:;">
 			<i class="fa fa-code"></i>
 			<span class="button-text">View source</span>
-		</a><a class="button"
+		</a><a class="button mobile-hide"
 			href="http://jsfiddle.net/gh/get/library/pure/highcharts/highcharts/tree/master/samples/{{path}}/"
 			target="_blank">
 			<i class="fa fa-jsfiddle"></i>
 			<span class="button-text">jsFiddle</span></a>
+		</a><a class="button mobile-hide"
+			href="/samples/view?path={{path}}&mobile=true"
+			target="_blank">
+			<i class="fa fa-mobile"></i>
+			<span class="button-text">Mobile</span></a>
 
 		{{#if themes}}
 		<form method="post" action="/samples/set-theme" style="display:inline">

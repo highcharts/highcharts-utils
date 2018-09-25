@@ -26,7 +26,6 @@ const log = () => {
     ${codeDomainLine}- http://localhost:${cfg.codePort}
     - http://${ipAddress}:${cfg.codePort}
 
-
   SSL enabled: ${sslEnabled}
 
   Parameters:
@@ -36,6 +35,11 @@ const log = () => {
   --topdomain
     Defaults to "local", defines the top domain for utils.highcharts.* and
     code.highcharts.* for debugging over network and virtual machines.
+
+  Development:
+  While developing highcharts-utils, run 'nodemon ./bin/www' and point your
+  browser to http://localhost:3030. It watches source file changes and restarts
+  automatically.
   `.cyan);
 }
 

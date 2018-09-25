@@ -118,7 +118,8 @@ function compareHTML() {
 
 }
 
-window.compareSVG = function () { 
+window.compareSVG = function () {
+	console.log('@compareSVG', which)
 	window.parent.onLoadTest(which, (chart.getSVGForExport || chart.getSVG).call(chart));
 }
 

@@ -10,6 +10,60 @@ var controller = window.parent && window.parent.controller,
 
 (function () {
 	if (!controller) {
+
+		function getQueryParameters (win) {
+	        var pairs = (win || window).location.search.slice(1).split('&');
+
+	        var result = {},
+	        	i = 0,
+	        	pair;
+	        for (i = 0; i < pairs.length; i++) {
+	        	pair = pairs[i];
+	            pair = pair.split('=');
+	            result[pair[0]] = decodeURIComponent(pair[1] || '');
+	        }
+	        return result;
+	    };
+	    path = getQueryParameters(window).path;
+
+		$.getJSON('/samples/list-samples', function (samples) {
+			var i;
+
+			// Activate the next button
+			for (i = 0; i < samples.length; i++) {
+				if (samples[i].path === path && samples[i + 1]) {
+					$('#next').attr({
+						href: window.location.href.replace(
+							path,
+							samples[i + 1].path
+						),
+						disabled: false
+					});
+					break;
+				}
+			}
+
+			// Populate the sample navigation
+			var folder = path.split('/'),
+				$samplesNav = $('#samples-nav'),
+				active;
+
+			folder.pop();
+			folder = folder.join('/');
+
+			for (i = 0; i < samples.length; i++) {
+				if (samples[i].path.indexOf(folder) === 0) {
+					active = samples[i].path === path ? ' active' : ' ';
+					$('<a>' + samples[i].path.replace(folder + '/', '') + '</a>').attr({
+						href: window.location.href.replace(
+							path,
+							samples[i].path
+						),
+						'class': 'button' + active
+					}).appendTo($samplesNav);
+				}
+			}
+		});
 		return;
 	}
 
