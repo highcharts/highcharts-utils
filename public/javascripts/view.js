@@ -247,13 +247,32 @@ window.setUp = function () {
 	<?php } ?>
 	*/
 
-	if (/\/css\//.test(path)) {
+	var hasStyledModeFiles = [].some.call(
+			document.getElementsByTagName('script'),
+			function (script) {
+				return script.src && script.src.indexOf('/code/js/high') !== -1;
+			}
+		),
+		// HC7 option
+		hasStyledModeOption = (
+			Highcharts.charts[0] &&
+			Highcharts.charts[0].styledMode
+		);
+
+	if (hasStyledModeFiles || hasStyledModeOption) {
 		(function () {
 			var container;
 			var notified = {};
 			var checkStyledMode = function () {
 				container = Highcharts.charts[0].container;
-				var blacklist = ['style', 'fill', 'stroke', 'stroke-width', 'fill-opacity'];
+				var blacklist = [
+					'fill',
+					'fill-opacity',
+					//'opacity', // To do: check this in HC7
+					'stroke',
+					'stroke-width',
+					'style'
+				];
 				if (
 					(new RegExp(' (' + blacklist.join('|') + ')="', 'g')).test(
 						container.innerHTML

@@ -8,6 +8,8 @@
 const express = require('express');
 const router = express.Router();
 const f = require('./../../lib/functions.js');
+const fs = require('fs');
+const ip = require('ip');
 
 router.get('/', function(req, res) {
 	let resources = f.getResources(req.query.path);
@@ -15,6 +17,8 @@ router.get('/', function(req, res) {
 	let codePath = req.query.rightcommit ?
 		'https://github.highcharts.com/' + req.query.rightcommit :
 		'/code';
+
+	fs.writeFile('./path.txt', req.query.path, 'utf-8');
 
 	let tpl = {
 		title: req.query.path,
@@ -26,6 +30,7 @@ router.get('/', function(req, res) {
 		preJS: req.session.preJS,
 		consoleClear: true,
 		bodyClass: req.query.mobile ? 'mobile' : '',
+		ipAddress: ip.address(),
 		scripts: [
 			'/javascripts/vendor/jquery-1.11.1.js',
 			'/javascripts/view.js',

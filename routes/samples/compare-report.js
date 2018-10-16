@@ -3,6 +3,7 @@ const f = require('../../lib/functions.js');
 const fs = require('fs');
 const path = require('path');
 const router = express.Router();
+const ip = require('ip');
 
 const browsers = ['Chrome', 'Safari', 'Firefox', 'Edge', 'MSIE'];
 
@@ -65,7 +66,8 @@ router.get('/', function(req, res) {
 			'/javascripts/vendor/jquery-1.11.1.js',
 			'/code/highcharts.js'
 		],
-		compare: compare
+		compare: compare,
+		ipAddress: ip.address()
 	});
 });
 

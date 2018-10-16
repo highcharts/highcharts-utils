@@ -195,6 +195,9 @@ document.addEventListener('DOMContentLoaded', function () {
 	<label for="automatic" class="automatic">Automatic</label>
 	
 	<input type="submit" value="Start bisect" />
+
+	<p>Note: After bisecting, or on crash, run<br><code>sudo chown -R ${USER} .</code> in the highcharts repo
+			to clean up.</p>
 	
 	<br>
 	<br>
@@ -224,8 +227,7 @@ document.addEventListener('DOMContentLoaded', function () {
 			<a target="_blank" href="https://github.com/highcharts/highcharts/commit/{{commit}}">
 				View on GitHub
 			</a>
-			<p>Now run <code>sudo chown -R ${USER} .</code> in the highcharts repo
-			to clean up.</p>
+			
 			{{/if}}
 		</li>
 

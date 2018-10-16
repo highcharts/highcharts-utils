@@ -58,6 +58,7 @@ app.use(session({
 // Routes
 app.use('/', require('./routes/index'));
 app.use('/code', require('./routes/code'));
+app.use('/draft', require('./routes/draft'));
 
 // Bisect
 app.use('/bisect/', require('./routes/bisect/index'));

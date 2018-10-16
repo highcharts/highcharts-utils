@@ -220,7 +220,8 @@ Highcharts.SparkLine = function (a, b, c) {
 			<tr>
 				<th class='path'>
 					{{@index}}.
-					<a href="view?path={{@key}}">{{@key}}</a>
+					<a href="http://{{../ipAddress}}:3030/samples/#test/{{@key}}"
+						target="_blank">{{@key}}</a>
 				</th>
 				{{#each this.browsers}}
 				<td class="value" title="{{@key}}: {{this}}">{{this}}</td>
