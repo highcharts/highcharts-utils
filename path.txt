@@ -1,1 +1,1 @@
-gantt/demo/custom-labels
+highcharts/boost/line

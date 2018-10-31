@@ -9,9 +9,7 @@ const cfg = require('./config.json');
 
 http.createServer(function(req, res) {
 
-	let url = req.url
-		.replace(/^\/stock\//g, '/')
-		.replace(/^\/maps\//g, '/');
+	let url = req.url.replace(/^\/(gantt|maps|stock)\//g, '/');
 
 	let file = f.getCodeFile(url);
 
