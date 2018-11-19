@@ -30,7 +30,7 @@ If you don't want to block port 80 and don't need the virtual hosts, run
 Run `npm start` and open `http://localhost:3030`.
 
 
-### Using with HTTPS
+## Optional: Using with HTTPS
 
 Enabling HTTPS makes it easier to test things on 3rd party pages that use SSL.
 

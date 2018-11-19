@@ -5,6 +5,12 @@
 	<h2 style="margin: 0">{{path}}</h2>
 
 	<div class="top-bar-menu">
+		{{#if mobile}}
+		<a class="button" href="/samples/mobile">
+			<i class="fa fa-home"></i>
+			<span class="button-text">Overview</span>
+		</a>
+		{{/if}}
 		<a class="button" href="javascript:;" id="next" disabled="disabled" title="Next (Arrow Right)">
 			<i class="fa fa-arrow-right"></i>
 			<span class="button-text">Next</span>

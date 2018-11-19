@@ -44,6 +44,7 @@ var controller = window.parent && window.parent.controller,
 			}
 
 			// Populate the sample navigation
+			/*
 			var folder = path.split('/'),
 				$samplesNav = $('#samples-nav'),
 				active;
@@ -63,6 +64,7 @@ var controller = window.parent && window.parent.controller,
 					}).appendTo($samplesNav);
 				}
 			}
+			*/
 		});
 		return;
 	}
