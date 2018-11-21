@@ -41,7 +41,7 @@ app.use('/reference', express.static(
   { maxAge: '10m' }
 ));
 app.use('/mapdata', express.static(
-  path.join(__dirname, 'node_modules/map-collection/Export/1.1.2'),
+  path.join(__dirname, 'node_modules/@highcharts/map-collection'),
   { maxAge: '10m' }
 ));
 app.use('/samples/graphics', express.static(

@@ -8,6 +8,7 @@
     "demodata": "node ./utils/demo-data"
   },
   "dependencies": {
+    "@highcharts/map-collection": "^1.1.2",
     "async-exit-hook": "^2.0.1",
     "body-parser": "~1.17.1",
     "browser-detect": "^0.2.22",
@@ -43,8 +44,5 @@
       "eslint",
       "git add"
     ]
-  },
-  "devDependencies": {
-    "map-collection": "github:highcharts/map-collection"
   }
 }

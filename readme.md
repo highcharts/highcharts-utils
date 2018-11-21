@@ -2,15 +2,6 @@
 
 Visual testing and debugging tools for Highcharts.
 
-## Remark
-Be sure to have access to `github:highcharts/map-collection` before launching `npm install`.
-Otherwise,  if you don’t need to run Highmap demos, open the `package.json` file, then delete the following section:
-```
-“devDependencies”: {
-  “map-collection”: “github:highcharts/map-collection”
-}
-```
-
 ## Installation
 Run `npm install`
 
@@ -28,6 +19,12 @@ If you don't want to block port 80 and don't need the virtual hosts, run
 
 #### Debugging the utils application
 Run `npm start` and open `http://localhost:3030`.
+
+## Usage
+See [highcharts/samples](https://github.com/highcharts/highcharts/tree/master/samples)
+for description of how the samples are set up and how to use the utils.
+
+The server `code.highcharts.local` is serving files locally from the `/code` folder in your highcharts repository. The folder `/code` is created by running `gulp` in the root folder of the Highcharts repo. See [config.json](config.json) for pointing to the location of your cloned Highcharts repo. 
 
 
 ## Optional: Using with HTTPS
@@ -49,8 +46,4 @@ Press `Enter` to use the suggested default values for the certificate.
 Next you need to install the certificate to whitelist it. Open the cert folder, and double click the `highcharts.local.csr`, select "Install Certficate...", and select "Next" until finished to let Windows choose the default settings.
 Note that the change only takes effect after the next system login.
 
-## Usage
-See [highcharts/samples](https://github.com/highcharts/highcharts/tree/master/samples)
-for description of how the samples are set up and how to use the utils.
 
-The server `code.highcharts.local` is serving files locally from the `/code` folder in your highcharts repository. The folder `/code` is created by running `gulp` in the root folder of the Highcharts repo. See [config.json](config.json) for pointing to the location of your cloned Highcharts repo. 

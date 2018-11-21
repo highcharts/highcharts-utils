@@ -1,1 +1,1 @@
-highcharts/dragdrop/bar-series
+maps/demo/all-areas-as-null
