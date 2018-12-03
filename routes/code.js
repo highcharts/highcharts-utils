@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const f = require('../lib/functions');
 
-router.get(/[a-z\/\-\.]+\.(js|css)/, function(req, res) {
+router.get(/[a-z\/\-\.]/, function(req, res) {
 	let file = f.getCodeFile(req.path);
 
 	if (file.error) {

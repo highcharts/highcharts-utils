@@ -1,1 +1,1 @@
-maps/demo/all-areas-as-null
+stock/demo/stock-tools-gui
