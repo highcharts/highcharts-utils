@@ -254,56 +254,47 @@ window.setUp = function () {
 	<?php } ?>
 	*/
 
-	var hasStyledModeFiles = [].some.call(
-			document.getElementsByTagName('script'),
-			function (script) {
-				return script.src && script.src.indexOf('/code/js/high') !== -1;
-			}
-		),
-		// HC7 option
-		hasStyledModeOption = (
-			Highcharts.charts[0] &&
-			Highcharts.charts[0].styledMode
-		);
+	(function () {
+		var container;
+		var notified = {};
+		var checkStyledMode = function () {
 
-	if (hasStyledModeFiles || hasStyledModeOption) {
-		(function () {
-			var container;
-			var notified = {};
-			var checkStyledMode = function () {
-				container = Highcharts.charts[0].container;
-				var blacklist = [
-					'fill',
-					'fill-opacity',
-					//'opacity', // To do: check this in HC7
-					'stroke',
-					'stroke-width',
-					'style'
-				];
-				if (
-					(new RegExp(' (' + blacklist.join('|') + ')="', 'g')).test(
-						container.innerHTML
-					)
-				) {
-					blacklist.forEach(function (attr) {
-						container.querySelectorAll('*[' + attr + ']').forEach(
-							function (elem) {
-								var key = [attr, elem.nodeName, elem.getAttribute('class')].join(',');
-								if (!notified[key]) {
-									console.log(
-										'⚠️ Found presentational attribute in styled mode:',
-										attr,
-										elem
-									);
-								}
-								notified[key] = true;
+			container = Highcharts.charts[0].container;
+			var blacklist = [
+				'fill',
+				'fill-opacity',
+				//'opacity', // To do: check this in HC7
+				'stroke',
+				'stroke-width',
+				'style'
+			];
+
+			if (
+				(new RegExp(' (' + blacklist.join('|') + ')="', 'g')).test(
+					container.innerHTML
+				)
+			) {
+				blacklist.forEach(function (attr) {
+					container.querySelectorAll('*[' + attr + ']').forEach(
+						function (elem) {
+							var key = [attr, elem.nodeName, elem.getAttribute('class')].join(',');
+							if (!notified[key]) {
+								console.log(
+									'⚠️ Found presentational attribute in styled mode:',
+									attr,
+									elem
+								);
 							}
-						);
-					});
-					
-				}
-			};
-			Highcharts.addEvent(Highcharts.Chart, 'load', function () {
+							notified[key] = true;
+						}
+					);
+				});
+				
+			}
+		};
+		Highcharts.addEvent(Highcharts.Chart, 'load', function () {
+
+			if (this.styledMode) {
 				checkStyledMode();
 
 				// Observe for dynamic things like tooltip
@@ -313,10 +304,9 @@ window.setUp = function () {
 				observer.observe(
 					container,
 					{ attributes: true, childList: true, subtree: true }
-				);				
-			});
+				);
+			}			
+		});
 
-		}());
-
-	}
+	}());
 } // end setUp
