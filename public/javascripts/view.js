@@ -275,7 +275,8 @@ window.setUp = function () {
 				)
 			) {
 				blacklist.forEach(function (attr) {
-					container.querySelectorAll('*[' + attr + ']').forEach(
+					[].forEach.call(
+						container.querySelectorAll('*[' + attr + ']'),
 						function (elem) {
 							var key = [attr, elem.nodeName, elem.getAttribute('class')].join(',');
 							if (!notified[key]) {
