@@ -1,1 +1,1 @@
-stock/demo/stock-tools-gui
+highcharts/studies/dependency-wheel
