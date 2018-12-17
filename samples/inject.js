@@ -97,12 +97,29 @@ window.onload = function () {
         );
     }
 
+    // Take a query string on the form key/value/also-value/key2/value2/etc and
+    // split it
     function parseQS (qs) {
-        return qs.split("&").reduce(function(prev, curr) {
-            var p = curr.split("=");
-            prev[decodeURIComponent(p[0])] = decodeURIComponent(p[1]);
-            return prev;
-        }, {});
+        var ret = {},
+            keys = ['gh', 'sample'];
+
+        qs = qs.split('/');
+
+        keys.forEach(function (key) {
+                
+            for (
+                var i = qs.indexOf(key) + 1;
+                (i < qs.length && keys.indexOf(qs[i]) === -1); // stop if we're inspecing next key
+                i++
+            ) {
+                if (!ret[key]) {
+                    ret[key] = qs[i];
+                } else {
+                    ret[key] += '/' + qs[i];
+                }
+            }
+        });
+        return ret;
     }
 
     var qs = parseQS(window.location.hash.replace(/^#/, ''));
