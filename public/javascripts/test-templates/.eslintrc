@@ -1,9 +1,0 @@
-env:
-    browser: true
-
-globals:
-    Highcharts: true
-    QUnit: true
-    TestController: true
-    TestTemplate: true
-    TestUtilities: true
