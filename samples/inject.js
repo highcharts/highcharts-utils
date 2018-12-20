@@ -2,8 +2,7 @@
 window.onload = function () {
     
     // Settings
-    var hash;
-    var sample;
+    var params;
     var parent = document.getElementById('demo');
 
     // Vars
@@ -18,12 +17,7 @@ window.onload = function () {
                callback(xhttp.responseText);
             }
         };
-        xhttp.open(
-            'GET',
-            'https://cdn.jsdelivr.net/gh/highcharts/highcharts@' + hash +
-            '/samples/' + sample + '/demo.html',
-            true
-        );
+        xhttp.open('GET', path, true);
         xhttp.send();
 
     }
@@ -35,7 +29,7 @@ window.onload = function () {
             var script = document.createElement('script');
             script.onload = function () {
 
-                progress(i + 1, scripts.length + 1);
+                progress(i + 2, scripts.length + 1);
 
                 loadScript(i + 1);
             };
@@ -44,41 +38,69 @@ window.onload = function () {
         }
     }
 
+    function onLoadAll() {
+        var jsFiddle = document.getElementById('jsfiddle');
+        if (jsFiddle) {
+            jsFiddle.href = 'https://jsfiddle.net/gh/get/library/pure/highcharts/highcharts/tree/' +
+                (params.gh || 'master') + '/samples/' + params.sample;
+            jsFiddle.style.display = 'inline';
+        }
+        
+    }
+
     function progress(n, total) {
-        if (document.getElementById('container')) {
+        if (document.getElementById('main')) {
             if (!progressBar) {
                 progressBar = document.createElement('div');
                 progressBar.style.width = 0;
-                progressBar.style.height = '3px';
-                progressBar.style.backgroundColor = 'blue';
-                progressBar.style.transition = 'width 250ms';
-                document.getElementById('container').appendChild(progressBar);
+                progressBar.style.height = '5px';
+                progressBar.style.backgroundColor = 'rgb(128, 133, 233)';
+                progressBar.style.transition = 'width 250ms, background-color 500ms';
+                document.getElementById('main').parentNode.insertBefore(
+                    progressBar,
+                    document.getElementById('main')
+                );
             }
             progressBar.style.width = Math.round(100 * n / total) + '%';
+            
+            if (n === total) {
+                progressBar.style.backgroundColor = 'transparent';
+                onLoadAll();
+            }
         }
     }
 
+    function handleDetails(details) {
+        if (details.name) {
+            document.title = details.name;
+        }
+    }
 
     function loadHTML () {
         xhr(
-            'https://cdn.jsdelivr.net/gh/highcharts/highcharts@' + hash +
-            '/samples/' + sample + '/demo.html',
+            'https://cdn.jsdelivr.net/gh/highcharts/highcharts@' + (params.gh || 'master') +
+            '/samples/' + params.sample + '/demo.html',
             function (s) {
                 parent.innerHTML = s;
+
                 [].forEach.call(
                     parent.getElementsByTagName('script'),
                     function (script) {
                         var src = script.getAttribute('src');
-                        src = src.replace(
-                            '/code.highcharts.com/',
-                            '/github.highcharts.com/' + hash + '/');
+
+                        if (params.gh) {
+                            src = src.replace(
+                                '/code.highcharts.com/',
+                                '/github.highcharts.com/' + params.gh + '/');
+                        }
 
                         scripts.push(src);
                     }
                 );
+
                 scripts.push(
                     'https://cdn.jsdelivr.net/gh/highcharts/highcharts@' +
-                    hash + '/samples/' + sample + '/demo.js'
+                    (params.gh || 'master') + '/samples/' + params.sample + '/demo.js'
                 );
 
                 progress(1, scripts.length + 1);
@@ -86,9 +108,18 @@ window.onload = function () {
                 // Load CSS
                 var link = document.createElement('link');
                 link.rel = 'stylesheet';
-                link.href = 'https://cdn.jsdelivr.net/gh/highcharts/highcharts@' + hash +
-                    '/samples/' + sample + '/demo.css';
+                link.href = 'https://cdn.jsdelivr.net/gh/highcharts/highcharts@' + (params.gh || 'master') +
+                    '/samples/' + params.sample + '/demo.css';
                 document.head.appendChild(link);
+
+                // Load details
+                xhr('https://cdn.jsdelivr.net/gh/highcharts/highcharts@' +
+                    (params.gh || 'master') + '/samples/' + params.sample +
+                    '/demo.details',
+                    function (yaml) {
+                        handleDetails(parseYAML(yaml));
+                    }
+                );
 
 
                 // Load scripts sequentially
@@ -122,10 +153,17 @@ window.onload = function () {
         return ret;
     }
 
-    var qs = parseQS(window.location.hash.replace(/^#/, ''));
+    function parseYAML (yaml) {
+        return yaml.split('\n').reduce(function (acc, line) {
+            line = line.split(':');
+            if (line.length === 2) {
+                acc[line[0].trim()] = line[1].trim();
+            }
+            return acc;
+        }, {});
+    }
 
-    hash = qs.gh;
-    sample = qs.sample;
+    params = parseQS(window.location.hash.replace(/^#/, ''));
 
     loadHTML();
 }

@@ -1,7 +1,7 @@
 <html>
 	<head>
 		<script src="inject.js"></script>
-		<title>Highcharts Preview</title>
+		<title>Highcharts Demo</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<style>
 			body {
@@ -18,15 +18,71 @@
 				margin-left: 10px;
 				width: auto;
 			}
+			.actions {
+				float: right;
+			}
+			.action {
+				float: right;
+				line-height: 50px;
+				margin-right: 10px;
+				text-decoration: none;
+				font-size: 0.8em;
+				display: none;
+			}
+			a.action {
+				color: #8087e8;
+			}
+			.action i.fa {
+				font-size: 1.6em;
+			}
+			.navbar a.action {
+				color: #eeeaea;
+			}
+			.description {
+				max-width: 800px;
+				margin: 1em auto;
+				padding: 10px;
+			}
+			.error {
+				text-align: center;
+				font-style: italic;
+				color: red;
+			}
+
+			.embed .navbar {
+				background-color: #eeeaea;
+				color: #3d3d3d;
+				height: 50px;
+			}
+			.embed .navbar-brand {
+				display: none;
+			}
+			.embed a.action {
+				color: #8087e8;
+			}
+
+			.nonav .navbar {
+				display: none;
+			}
+
 			#main {
 				padding: 10px;
 			}
 		</style>
+		<link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.css" type="text/css" />
 	</head>
 	<body>
-		<div class="navbar">
+		<div id="navbar" class="navbar">
 			<a href="https://www.highcharts.com" class="navbar-brand" title="Highcharts">
 				<img src="https://www.highcharts.com/media/templates/highsoft_2015/images/logo.svg" alt="Highcharts" />
+			</a>
+
+			<a id="codepen" href="" class="action" target="_new">
+				<i class="fa fa-codepen"></i> CodePen
+			</a>
+
+			<a id="jsfiddle" href="" class="action" target="_new">
+				<i class="fa fa-jsfiddle"></i> jsFiddle
 			</a>
 		</div>
 		<div id="main">
