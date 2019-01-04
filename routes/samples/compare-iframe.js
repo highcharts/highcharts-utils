@@ -38,7 +38,7 @@ router.get('/', function(req, res) {
 			f.getKarmaHTML() :
 			getHTML(req, codePath),
 		css: f.getCSS(path, codePath),
-		js: f.getJS(path),
+		js: f.getJS(path, req),
 		scripts: [
 			'/javascripts/vendor/jquery-1.11.1.js',
 			'/javascripts/compare-iframe.js',

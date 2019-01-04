@@ -27,7 +27,7 @@ router.get('/', function(req, res) {
 		mobile: req.query.mobile,
 		html: f.getHTML(req, codePath),
 		css: f.getCSS(req.query.path, codePath),
-		js: f.getJS(req.query.path),
+		js: f.getJS(req.query.path, req),
 		preJS: req.session.preJS,
 		consoleClear: true,
 		bodyClass: req.query.mobile ? 'mobile' : '',
