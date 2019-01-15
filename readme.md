@@ -18,7 +18,7 @@ If you don't want to block port 80 and don't need the virtual hosts, run
 `npm start` and open `http://localhost:3030`.
 
 #### Debugging the utils application
-Run `npm start` and open `http://localhost:3030`.
+Run `nodemon ./bin/www` and open `http://localhost:3030`.
 
 ## Usage
 See [highcharts/samples](https://github.com/highcharts/highcharts/tree/master/samples)

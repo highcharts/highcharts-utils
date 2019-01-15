@@ -320,11 +320,18 @@ var controller = { // eslint-disable-line no-unused-vars
 
     next: function () {
         // No + 1 because .index is 1-based
-        var nextSample = controller.samples[controller.currentSample.index];
-        if (nextSample) {
-            controller.frames().main.contentWindow.location.href = 
-                controller.frames().main.contentWindow.location.href
-                    .replace(controller.currentSample.path, nextSample.path);
+        var index = controller.currentSample.index - 1,
+            nextSample;
+
+        // Jump to the next visible item
+        while (index++ && index <= controller.samples.length) {
+            nextSample = controller.samples[index];
+            if (nextSample.getLi().style.display !== 'none') {
+                controller.frames().main.contentWindow.location.href = 
+                    controller.frames().main.contentWindow.location.href
+                        .replace(controller.currentSample.path, nextSample.path);
+                break;
+            }
         }
     },
 

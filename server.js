@@ -103,6 +103,11 @@ if (argv.proxy !== false) {
                 target: redirects[host]
             });
         }).listen(443);
+    } else {
+      console.log(`  SSL key files not found, starting non-secure.
+    - pemFile: ${pemFile}
+    - crtFile: ${crtFile}`
+        .yellow)
     }
 
     // Set up the hosts file

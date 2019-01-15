@@ -1,1 +1,1 @@
-highcharts/studies/dependency-wheel
+highcharts/demo/waterfall

@@ -163,10 +163,13 @@ function proceed() {
 			}
 
 			if (
-				!contentDoc.getElementById('i' + nextIndex) ||
-				/batch/.test(
-					contentDoc.getElementById('i' + nextIndex).className
-				)
+				(
+					!contentDoc.getElementById('i' + nextIndex) ||
+					/batch/.test(
+						contentDoc.getElementById('i' + nextIndex).className
+					)
+				) && contentDoc.getElementById('i' + nextIndex).parentNode.style.display !== 'none'
+
 			) {
 				break;
 			}
