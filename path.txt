@@ -1,1 +1,1 @@
-highcharts/demo/waterfall
+highcharts/3d/bar

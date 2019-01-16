@@ -239,6 +239,11 @@ controller.Sample = function (options, index) {
             options.compare.diff = diff;
             save();
             renderList();
+        } else {
+            controller.updateStatus(
+                options.path,
+                status
+            );
         }
     }
 
@@ -257,7 +262,7 @@ controller.Sample = function (options, index) {
     function setOptions(newOptions) {
         $.extend(true, options, newOptions);
         renderList();
-        save()
+        save();
     }
 
 

@@ -201,8 +201,9 @@ var controller = { // eslint-disable-line no-unused-vars
     },
 
     docTitle: function () {
-        if (controller.continueBatch) {
+        if (controller.continueBatch && controller.currentSample) {
             document.title =
+                controller.currentSample.index + ' - ' +
                 '\u2713 ' + controller.testStatus.success.length + ' - ' + 
                 '\u2716 ' + controller.testStatus.error.length + ' - ' +
                 controller.samples.length;
