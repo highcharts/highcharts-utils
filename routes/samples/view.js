@@ -33,6 +33,7 @@ router.get('/', function(req, res) {
 		bodyClass: req.query.mobile ? 'mobile' : '',
 		ipAddress: ip.address(),
 		branch: f.getBranch(),
+		latestCommit: f.getLatestCommit(),
 		scripts: [
 			'/javascripts/vendor/jquery-1.11.1.js',
 			'/javascripts/view.js',

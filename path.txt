@@ -1,1 +1,1 @@
-highcharts/3d/bar
+highcharts/series-networkgraph/cloth
