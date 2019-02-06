@@ -167,7 +167,9 @@ document.addEventListener('DOMContentLoaded', function () {
 		overflow-x: auto;
 		font-size: 0.9em;
 	}
-
+	.error-message {
+		overflow-x: scroll;
+	}
 </style>
 
 <form method="post" action="/bisect/bisect">
@@ -207,6 +209,11 @@ document.addEventListener('DOMContentLoaded', function () {
 </div>
 
 <div id="result">
+
+	{{#if error}}
+	<pre class="error-message">{{error}}</pre>
+	{{/if}}
+
 	<ol id="steps">
 	{{#each steps}}
 

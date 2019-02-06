@@ -22,7 +22,7 @@ router.get('/', function(req, res) {
 		
 		if (fs.existsSync(file)) {
 			let results = require(file);
-			Object.keys(results).forEach((path, i) => {
+			Object.keys(results).forEach((path) => {
 				let sample = results[path];
 				//let range = [sample.diff];
 				if (!compare[path]) {
@@ -48,11 +48,14 @@ router.get('/', function(req, res) {
 				if (sample.comment) {
 					compare[path].comment = sample.comment;
 				}
-
-				if (i % 20 === 0) {
-					compare[path].showHeader = true;
-				}
 			})
+		}
+	});
+
+	// Show headers
+	Object.keys(compare).forEach((path, i) => {
+		if (i % 20 === 0) {
+			compare[path].showHeader = true;
 		}
 	});
 

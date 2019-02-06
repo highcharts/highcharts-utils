@@ -113,7 +113,7 @@ Highcharts.SparkLine = function (a, b, c) {
 
 				if (diff === 0) {
 					className = 'diff';
-				} else {
+                } else {
 					className = 'diff different';
 					diff = Math.round(diff * 100) / 100;
 				}
@@ -188,6 +188,9 @@ Highcharts.SparkLine = function (a, b, c) {
 		background: #f15c80;
 		color: white;
 	}
+    .val-skip {
+        opacity: 0.3;
+    }
 </style>
 
 
@@ -224,7 +227,7 @@ Highcharts.SparkLine = function (a, b, c) {
 						target="_blank">{{@key}}</a>
 				</th>
 				{{#each this.browsers}}
-				<td class="value" title="{{@key}}: {{this}}">{{this}}</td>
+				<td class="value val-{{this}}" title="{{@key}}: {{this}}">{{this}}</td>
 				{{/each}}
 
 				<td id="sparkline-{{@index}}" class="sparkline"></td>

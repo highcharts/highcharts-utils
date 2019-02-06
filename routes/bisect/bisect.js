@@ -22,7 +22,7 @@ router.get('/', function(req, res) {
 		});
 
 		if (err) {
-			throw err;
+			tpl.error = err;
 
 		// Bisecting...
 		} else if (result.indexOf('Bisecting') === 0) {
