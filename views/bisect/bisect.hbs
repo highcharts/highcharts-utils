@@ -109,7 +109,8 @@ document.addEventListener('DOMContentLoaded', function () {
 		line-height: 1.5em;
 	}
 	#topnav label {
-		margin: 0.5em 0;
+		display: block;
+		margin: 1em 0 0.2em 0;
 	}
 	#compare-header {
 		display: none;
@@ -140,7 +141,7 @@ document.addEventListener('DOMContentLoaded', function () {
 		font-size: 2em;
 		padding: 0 0.5em;
 	}
-	.automatic {
+	#topnav .automatic {
 		display: none;
 	}
 	.compare .automatic {
@@ -154,7 +155,7 @@ document.addEventListener('DOMContentLoaded', function () {
 		color: gray;
 		border: 1px solid silver;
 		border-radius: 2px;
-		padding: 0 0.2em;
+		padding: 0 0.7em;
 	}
 	li.culprit {
 		border: 2px solid red;
@@ -181,14 +182,11 @@ document.addEventListener('DOMContentLoaded', function () {
 	<label>
 	Last known <strong>good</strong> tag or commit
 	</label>
-	<br>
 	<input type="text" name="good" value="{{good}}" />
 
-	<br>
 	<label>
 	First known <strong>bad</strong> tag or commit (leave blank if still broken)
 	</label>
-	<br>
 	<input type="text" name="bad" value="{{bad}}" />
 
 	<br>
@@ -203,7 +201,7 @@ document.addEventListener('DOMContentLoaded', function () {
 	
 	<br>
 	<br>
-	<a id="setdata" href="main" target="main">Change test data</a>
+	<a id="setdata" class="button" href="main" target="main">Change test data</a>
 	</div>
 
 </div>
