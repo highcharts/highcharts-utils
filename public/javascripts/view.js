@@ -293,21 +293,22 @@ window.setUp = function () {
 				
 			}
 		};
-		Highcharts.addEvent(Highcharts.Chart, 'load', function () {
+		if (typeof Highcharts !== 'undefined') {
+			Highcharts.addEvent(Highcharts.Chart, 'load', function () {
 
-			if (this.styledMode) {
-				checkStyledMode();
+				if (this.styledMode) {
+					checkStyledMode();
 
-				// Observe for dynamic things like tooltip
-				var observer = new MutationObserver(checkStyledMode);
+					// Observe for dynamic things like tooltip
+					var observer = new MutationObserver(checkStyledMode);
 
-				// Start observing the target node for configured mutations
-				observer.observe(
-					container,
-					{ attributes: true, childList: true, subtree: true }
-				);
-			}			
-		});
-
+					// Start observing the target node for configured mutations
+					observer.observe(
+						container,
+						{ attributes: true, childList: true, subtree: true }
+					);
+				}			
+			});
+		}
 	}());
 } // end setUp

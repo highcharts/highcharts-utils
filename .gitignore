@@ -1,12 +1,7 @@
-node_modules
-temp/*.json
-certs/*.key
-certs/*.crt
-certs/*.pem
-certs/*.csr
+/certs
+/node_modules
+/temp
 
+/public/stylesheets/style.css
+/path.txt
 
-public/stylesheets/style.css
-path.txt
-path.txt
-path.txt
