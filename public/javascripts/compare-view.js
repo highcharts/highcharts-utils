@@ -366,9 +366,8 @@ function onBothLoad() {
 				//		- target: the id of the canvas element to render to
 				//		- callback: function to call after conversion
 				//
-				function convert(source, target, callback) {
-					var useBlob = navigator.userAgent.indexOf('WebKit') === -1 ||
-							navigator.userAgent.indexOf('Edge') !== -1,
+				function convert(source, target, callback, which) {
+					var useBlob,
 						context = document.getElementById(target).getContext('2d'),
 						image = new Image(),
 						data,
@@ -378,6 +377,8 @@ function onBothLoad() {
 
 					// Firefox runs Blob. Safari requires the data: URL. Chrome accepts both
 					// but seems to be slightly faster with data: URL.
+					useBlob = ['Chrome', 'Edge', 'Firefox']
+						.indexOf(controller.getBrowser()) !== -1;
 					if (useBlob) {
 						domurl = window.URL || window.webkitURL || window;
 						blob = new Blob([source], { type: 'image/svg+xml;charset-utf-16'});
@@ -393,10 +394,10 @@ function onBothLoad() {
 						}
 						callback(data);
 					}
-					image.onerror = function () {
-						var side = source === source1 ? 'left' : 'right';
-						report += '<div>Failed painting SVG to canvas on ' + side + ' side.</div>';
+					image.onerror = function (e) {
+						report += '<div>Failed painting SVG to canvas on ' + which + ' side.</div>';
 						$('#report', document).html(report).css('background', '#f15c80');
+						console.error(e);
 						onDifferent('Err');
 					}
 					image.src = useBlob ?
@@ -482,8 +483,8 @@ function onBothLoad() {
 					}
 
 				} else {
-					convert(source1, canvas1, startCompare);
-					convert(source2, canvas2, startCompare);
+					convert(source1, canvas1, startCompare, 'left');
+					convert(source2, canvas2, startCompare, 'right');
 				}
 			}
 
