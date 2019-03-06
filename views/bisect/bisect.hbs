@@ -141,9 +141,7 @@ document.addEventListener('DOMContentLoaded', function () {
 		font-size: 2em;
 		padding: 0 0.5em;
 	}
-	#topnav .automatic {
-		display: none;
-	}
+	
 	.compare .automatic {
 		display: inline;
 	}
@@ -191,8 +189,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
 	<br>
 	
-	<input type="checkbox" id="automatic" name="automatic" {{automaticChecked}} class="automatic" />
-	<label for="automatic" class="automatic">Automatic</label>
+	<label for="automatic" class="automatic">
+		<input type="checkbox" id="automatic" name="automatic" {{automaticChecked}} class="automatic" />
+		Automatic
+	</label>
 	
 	<input type="submit" value="Start bisect" />
 
