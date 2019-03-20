@@ -70,6 +70,8 @@ require('colors');
 // Set up the proxy server
 const proxy = httpProxy.createProxy();
 
+proxy.on('error', console.error);
+
 const redirects = {
   'utils.highcharts.*': `http://localhost:${cfg.utilsPort}`,
   'code.highcharts.*': `http://localhost:${cfg.codePort}`
