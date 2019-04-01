@@ -201,6 +201,9 @@ window.setUpHighcharts = function () {
 						},
 						hover: {
 							animation: animation
+						},
+						inactive: {
+							animation: animation
 						}
 					}
 				}

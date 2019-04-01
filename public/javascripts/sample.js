@@ -175,7 +175,9 @@ controller.Sample = function (options, index) {
         addHeaders();
 
         // Add list
-        var ul = mainNav.querySelector('ul#' + ulId);
+        var ul = mainNav.querySelector('ul#' + ulId),
+            innerHTML = options.path;
+        
         if (!ul) {
             ul = contentsDoc.createElement('ul');
             ul.id = ulId;
@@ -190,9 +192,14 @@ controller.Sample = function (options, index) {
         }
         li.innerHTML = index + '. '; // Flushes previous content
 
+        // No capital
+        if (/[A-Z]/.test(innerHTML)) {
+            innerHTML = '<span style="color:red">Only lower case allowed in folders:<br>' + innerHTML + '</span>';
+        }
+
         // Add main anchor
         var anchor = contentsDoc.createElement('a');
-        anchor.innerHTML = options.path;
+        anchor.innerHTML = innerHTML;
         anchor.id = 'i' + index;
         anchor.target = 'main';
         anchor.href = isUnitTest() ?

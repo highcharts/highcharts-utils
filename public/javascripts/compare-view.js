@@ -320,11 +320,13 @@ function onBothLoad() {
 	if (leftSVG && rightSVG) {
 		leftSVG = leftSVG
 			.replace(/which=left/g, "")
-			.replace(/Created with [a-zA-Z0-9\.@\- ]+/, "Created with ___");
+			.replace(/Created with [a-zA-Z0-9\.@\- ]+/, "Created with ___")
+			.replace(/highcharts-[a-z0-9]{7}-/, 'highcharts-uniqueid-'),
 
 		rightSVG = rightSVG
 			.replace(/which=right/g, "")
-			.replace(/Created with [a-zA-Z0-9\.@\- ]+/, "Created with ___");
+			.replace(/Created with [a-zA-Z0-9\.@\- ]+/, "Created with ___")
+			.replace(/highcharts-[a-z0-9]{7}-/, 'highcharts-uniqueid-');
 	}
 
 	if (leftSVG === rightSVG && !FORCE_VISUAL_COMPARE) {
@@ -387,12 +389,17 @@ function onBothLoad() {
 
 					// This is fired after the image has been created
 					image.onload = function() {
-						context.drawImage(image, 0, 0, canvasWidth, canvasHeight);
-						data = context.getImageData(0, 0, canvasWidth, canvasHeight).data;
-						if (useBlob) {
-							domurl.revokeObjectURL(svgurl);
+						try {
+							context.drawImage(image, 0, 0, canvasWidth, canvasHeight);
+							data = context.getImageData(0, 0, canvasWidth, canvasHeight).data;
+							if (useBlob) {
+								domurl.revokeObjectURL(svgurl);
+							}
+							callback(data);
+						} catch (e) {
+							console.error(e);
+							onDifferent('Err');
 						}
-						callback(data);
 					}
 					image.onerror = function (e) {
 						report += '<div>Failed painting SVG to canvas on ' + which + ' side.</div>';
