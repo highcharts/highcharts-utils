@@ -41,6 +41,7 @@ router.get('/', function(req, res) {
 		js: f.getJS(path, req),
 		scripts: [
 			'/javascripts/vendor/jquery-1.11.1.js',
+			'/javascripts/vendor/lolex.js',
 			'/javascripts/compare-iframe.js',
 			'/javascripts/test-controller.js',
 			'/javascripts/test-utilities.js'
