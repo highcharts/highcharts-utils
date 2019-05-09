@@ -1,11 +1,10 @@
 const express = require('express');
-const path = require('path');
 const router = express.Router();
 const highchartsDir = require('../../config.json').highchartsDir;
 const git = require('simple-git/promise')(highchartsDir);
 
 
-router.get('/', function(req, res, next) {
+router.get('/', function(req, res) {
 
 	let tpl = {
   		scripts: [
@@ -22,7 +21,7 @@ router.get('/', function(req, res, next) {
   	git.tags()
 
   		// Get the tags
-  		.then(tags => new Promise((resolve, reject) => {
+  		.then(tags => new Promise((resolve) => {
   			if (!tpl.after) {
   				tpl.after = tags.latest;
   			}
@@ -53,20 +52,24 @@ router.get('/', function(req, res, next) {
 
 	  			git.log(cmd)
 					.then(gitlog => {
-						tpl.gitlog = gitlog.all[0].hash;
-						if (
-							gitlog.all[0].date &&
-							gitlog.all[0].date.indexOf('<br>') !== -1
-						) {
-							tpl.gitlog += gitlog.all[0].date;
-						}
-						resolve();
+                        if (!gitlog.all[0]) {
+                            reject('No gitlog found');
+                        } else {
+    						tpl.gitlog = gitlog.all[0].hash;
+    						if (
+    							gitlog.all[0].date &&
+    							gitlog.all[0].date.indexOf('<br>') !== -1
+    						) {
+    							tpl.gitlog += gitlog.all[0].date;
+    						}
+    						resolve();
+                        }
 					});
 			}
   		}))
 
   		// Get the branches
-		.then(() => new Promise((resolve, reject) => {
+		.then(() => new Promise((resolve) => {
 			git.branchLocal()
 				.then(log => {
 
@@ -80,7 +83,8 @@ router.get('/', function(req, res, next) {
 					resolve();
 				});
 		}))
-		.then(() => res.render('bisect/commits', tpl));
+		.then(() => res.render('bisect/commits', tpl))
+        .catch((e) => res.status(500).send(e.toString()));
 });
 
 module.exports = router;
