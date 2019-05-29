@@ -1,7 +1,10 @@
+/* eslint-env node,es6 */
+
 const express = require('express');
 const router = express.Router();
 const highchartsDir = require('../../config.json').highchartsDir;
 const git = require('simple-git')(highchartsDir);
+const { spawn } =  require('child_process');
 
 const parseResult = (result) => {
 	return {
@@ -12,8 +15,31 @@ const parseResult = (result) => {
 	};
 };
 
+const chown = () => new Promise((resolve, reject) => {
+	const ls = spawn(
+		'chown',
+		['-R', process.env.SUDO_USER, '.'],
+		{ cwd: highchartsDir }
+	);
 
-router.get('/', function(req, res) {
+	ls.stderr.on('data', reject);
+
+	ls.on('close', resolve);
+});
+
+
+router.get('/', async (req, res, next) => {
+
+	const reset = async () => {
+		// Reset
+		delete req.session.current;
+		delete req.session.good;
+		delete req.session.bad;
+		delete req.session.cancel;
+		git.raw(['bisect', 'reset']);
+
+		await chown().catch(next);
+	};
 
 	const handleStep = (err, result) => {
 
@@ -23,6 +49,7 @@ router.get('/', function(req, res) {
 
 		if (err) {
 			tpl.error = err;
+			reset();
 
 		// Bisecting...
 		} else if (result.indexOf('Bisecting') === 0) {
@@ -40,11 +67,7 @@ router.get('/', function(req, res) {
 				isCulprit: true
 			});
 
-			// Reset
-			delete req.session.current;
-			delete req.session.good;
-			delete req.session.bad;
-			git.raw(['bisect', 'reset']);
+			reset();
 		}
 
 
@@ -61,7 +84,17 @@ router.get('/', function(req, res) {
   		automaticChecked: req.session.automatic !== false ? 'checked' : ''
   	};
 
-  	if (tpl.good === undefined || tpl.good.trim === '') {
+  	if (req.session.cancel) {
+  		reset();
+  		delete tpl.good;
+  		delete tpl.bad;
+  		res.render('bisect/bisect', tpl);
+
+  	} else if (req.session.skip) {
+  		git.raw(['bisect', 'skip'], handleStep);
+
+
+  	} else if (tpl.good === undefined || tpl.good.trim === '') {
   		console.log('undefined good')
 
   		// Use latest tag by default
@@ -102,6 +135,8 @@ router.get('/', function(req, res) {
 router.post('/', function(req, res) {
 	req.session.good = req.body.good;
 	req.session.bad = req.body.bad;
+	req.session.cancel = req.body.cancel ? true : false;
+	req.session.skip = req.body.skip ? true : false;
 	req.session.automatic = req.body.automatic ? true : false;
 
 	delete req.session.current;

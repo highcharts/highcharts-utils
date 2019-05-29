@@ -4,6 +4,9 @@
         "node": true,
         "es6": true
     },
+    "parserOptions": {
+        "ecmaVersion": 8
+    },
     "rules": {
     	"no-undef": 2,
 	    "no-unused-vars": 2

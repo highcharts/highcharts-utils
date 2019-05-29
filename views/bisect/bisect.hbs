@@ -169,6 +169,9 @@ document.addEventListener('DOMContentLoaded', function () {
 	.error-message {
 		overflow-x: scroll;
 	}
+	input.light {
+		border-color: transparent;
+	}
 </style>
 
 <form method="post" action="/bisect/bisect">
@@ -225,6 +228,10 @@ document.addEventListener('DOMContentLoaded', function () {
 			{{#if showButtons}}
 			<input type="submit" id="current-good" name="current-good" value="Good" />
 			<input type="submit" id="current-bad" name="current-bad" value="Bad" />
+
+			<input type="submit" class="light" id="skip" name="skip" value="Skip" 
+				title="If this commit doesn't build, skip to the next"/>
+			<input type="submit" class="light" id="cancel" name="cancel" value="Cancel" />
 			{{/if}}
 
 			{{#if isCulprit}}

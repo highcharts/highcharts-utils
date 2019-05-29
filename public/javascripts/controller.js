@@ -102,7 +102,7 @@ var controller = { // eslint-disable-line no-unused-vars
             if (!frame) {
                 frame = window.parent.document.createElement('frame');
                 frame.setAttribute('id', 'commits-frame');
-                frame.setAttribute('src', '/bisect/commits');
+                frame.setAttribute('src', '/bisect/bisect');
             } else {
                 frame.contentWindow.location.reload();
             }

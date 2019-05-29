@@ -95,6 +95,17 @@ if (argv.proxy !== false) {
 
 
   server.listen(80, () => {
+
+
+    // Find out which user used sudo through the environment variable, so that
+    // bisect doesn't write all files with the root user
+    /*
+    const uid = parseInt(process.env.SUDO_UID);
+    if (uid) {
+        process.setuid(uid);
+    }
+    */
+
     if (httpsOptions.key && httpsOptions.cert) {
 
         sslEnabled = true;
