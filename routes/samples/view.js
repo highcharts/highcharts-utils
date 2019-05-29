@@ -18,7 +18,9 @@ router.get('/', function(req, res) {
 		'https://github.highcharts.com/' + req.query.rightcommit :
 		'/code';
 	fs.writeFile('./path.txt', req.query.path, 'utf-8', (err) => {
-		if (err) throw err;
+		if (err) {
+			console.log(err);
+		}
 	});
 
 	let tpl = {

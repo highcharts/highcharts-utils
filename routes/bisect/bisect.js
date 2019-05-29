@@ -3,30 +3,43 @@
 const express = require('express');
 const router = express.Router();
 const highchartsDir = require('../../config.json').highchartsDir;
-const git = require('simple-git')(highchartsDir);
 const { spawn } =  require('child_process');
 
-const parseResult = (result) => {
-	return {
-		commit: result.split('[')[1].split(']')[0],
-		full: result,
-		message: result.split('[')[1].split(']')[1].trim(),
-		bisectStatus: result.split('[')[0].trim()
+const git = cmd => new Promise((resolve, reject) => {
+	const options = {
+		cwd: highchartsDir
 	};
-};
 
-const chown = () => new Promise((resolve, reject) => {
-	const ls = spawn(
-		'chown',
-		['-R', process.env.SUDO_USER, '.'],
-		{ cwd: highchartsDir }
-	);
+	// When running with administrator privileges, make sure we're running as
+	// the normal user so that we don't have to unlock all files after.
+	if (process.env.SUDO_UID) {
+		options.uid = parseInt(process.env.SUDO_UID, 10);
+	}
 
-	ls.stderr.on('data', reject);
+	const p = spawn('git', cmd, options);
+	let data = '';
 
-	ls.on('close', resolve);
+	p.stderr.on('data', reject);
+
+	p.stdout.on('data', d => {
+		data += d.toString();
+	});
+
+	p.on('close', code => {
+		if (code === 0) {
+			resolve(data);
+		} else {
+			reject(code);
+		}
+	});
+})
+
+const parseResult = result => ({
+	commit: result.split('[')[1].split(']')[0],
+	full: result,
+	message: result.split('[')[1].split(']')[1].trim(),
+	bisectStatus: result.split('[')[0].trim()
 });
-
 
 router.get('/', async (req, res, next) => {
 
@@ -36,23 +49,18 @@ router.get('/', async (req, res, next) => {
 		delete req.session.good;
 		delete req.session.bad;
 		delete req.session.cancel;
-		git.raw(['bisect', 'reset']);
-
-		await chown().catch(next);
+		
+		await git(['bisect', 'reset']).catch(next);
 	};
 
-	const handleStep = (err, result) => {
+	const handleStep = (result) => {
 
 		req.session.steps.forEach((step) => {
 			step.showButtons = false;
 		});
 
-		if (err) {
-			tpl.error = err;
-			reset();
-
 		// Bisecting...
-		} else if (result.indexOf('Bisecting') === 0) {
+		if (result.indexOf('Bisecting') === 0) {
 			req.session.steps.push(parseResult(result));
 
 			req.session.steps[req.session.steps.length - 1].showButtons = true;
@@ -91,44 +99,44 @@ router.get('/', async (req, res, next) => {
   		res.render('bisect/bisect', tpl);
 
   	} else if (req.session.skip) {
-  		git.raw(['bisect', 'skip'], handleStep);
+  		let result = await git(['bisect', 'skip']).catch(reset);
+  		handleStep(result);
 
 
   	} else if (tpl.good === undefined || tpl.good.trim === '') {
   		console.log('undefined good')
 
   		// Use latest tag by default
-  		git.tags(function (err, tags) {
-  			tpl.good = tags.latest;
+  		let tags = await git(['tag', '-l']).catch(next);
 
-  			res.render('bisect/bisect', tpl);
-  		});
+  		if (tags) {
+	  		tags = tags.trim().split(/\s/g);
+
+	  		// Propose latest tag as the good commit
+	  		tpl.good = tags.pop();
+	  	}
+  		
+  		res.render('bisect/bisect', tpl);
 
 
   	// Start a new bisect
   	} else if (!req.session.current) {
 
   		req.session.steps = [];
-  		git.raw(['bisect', 'start'], (err) => {
-  			if (err) {
-	  			throw err;
-	  		} 
 
-	  	});
-	  	git.raw(['bisect', 'good', tpl.good], (err) => {
-	  		if (err) {
-	  			throw err;
-	  		}
-	  	});
+  		await git(['bisect', 'start']).catch(next);
+	  	await git(['bisect', 'good', tpl.good]).catch(next);
 	  	let cmd = ['bisect', 'bad'];
 		if (req.session.bad) {
 			cmd.push(req.session.bad);
 		}
-		git.raw(cmd, handleStep);
+		let result = await git(cmd).catch(next);
+		handleStep(result);
 
 	// Mark good or bad
 	} else {
-		git.raw(['bisect', req.session.current], handleStep);
+		let result = await git(['bisect', req.session.current]).catch(next);
+		handleStep(result);
 	}
 });
 
