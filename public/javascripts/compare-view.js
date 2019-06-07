@@ -377,6 +377,8 @@ function onBothLoad() {
 						blob,
 						svgurl;
 
+					source = source.replace(/<foreignObject .*?<\/foreignObject>/g, '')
+
 					// Firefox runs Blob. Safari requires the data: URL. Chrome accepts both
 					// but seems to be slightly faster with data: URL.
 					useBlob = ['Chrome', 'Edge', 'Firefox']
