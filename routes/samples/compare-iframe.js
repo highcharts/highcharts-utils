@@ -7,6 +7,7 @@ const f = require('./../../lib/functions.js');
 const fs = require('fs');
 const router = express.Router();
 const cfg = require('../../config.json');
+const { join } = require('path');
 
 const getHTML = (req, codePath) => {
 	let html = f.getHTML(req, codePath);
@@ -61,7 +62,7 @@ router.get('/', function(req, res) {
 
 	// Add-hoc unit tests in visual samples. Bad practice, should be undone.
 	let unitTestsFile =
-		cfg.highchartsDir + 'samples/' + path + '/unit-tests.js';
+		join(cfg.highchartsDir, 'samples', path, 'unit-tests.js');
 	if (fs.existsSync(unitTestsFile)) {
 		tpl.scripts.push(
 			'/javascripts/vendor/qunit-2.0.1.js'
@@ -73,7 +74,7 @@ router.get('/', function(req, res) {
 	}
 
 	// Add test.js
-	let testFile = cfg.highchartsDir + 'samples/' + path + '/tests.js';
+	let testFile = join(cfg.highchartsDir, 'samples', path, 'tests.js');
 	if (fs.existsSync(testFile)) {
 		tpl.testFile = fs.readFileSync(testFile);
 	}
