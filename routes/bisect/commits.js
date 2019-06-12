@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const highchartsDir = require('../../config.json').highchartsDir;
+const { resolve } = require('path');
+const highchartsDir = resolve(require('../../config.json').highchartsDir);
 const git = require('simple-git/promise')(highchartsDir);
 
 

@@ -3,9 +3,9 @@ const express = require('express');
 const router = express.Router();
 const f = require('./../../lib/functions.js');
 const fs = require('fs');
-const { join } = require('path');
+const { join, resolve } = require('path');
 
-const highchartsDir = require('./../../config.json').highchartsDir;
+const highchartsDir = resolve(require('./../../config.json').highchartsDir);
 const samplesDir = join(highchartsDir, 'samples');
 
 
