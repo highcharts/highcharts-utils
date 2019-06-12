@@ -3,9 +3,10 @@ const express = require('express');
 const router = express.Router();
 const f = require('./../../lib/functions.js');
 const fs = require('fs');
+const { join } = require('path');
 
 const highchartsDir = require('./../../config.json').highchartsDir;
-const samplesDir = `${highchartsDir}samples/`;
+const samplesDir = join(highchartsDir, 'samples');
 
 
 const getSample = (path) => {
@@ -23,7 +24,7 @@ const getSample = (path) => {
 		'test-notes.html'
 
 	].forEach(extraFile => {
-		let filePath = `${samplesDir}/${path}/${extraFile}`;
+		let filePath = join(samplesDir, path, extraFile);
 		if (fs.existsSync(filePath)) {
 			sample.files[extraFile] = true;
 		}
@@ -37,21 +38,16 @@ const getSamples = () => {
 	[
 		'highcharts', 'stock', 'maps', 'gantt', 'unit-tests', 'issues', 'cloud'
 	].forEach(group => {
-		if (fs.existsSync(samplesDir + group) && fs.lstatSync(samplesDir + group).isDirectory()) {
-			fs.readdirSync(samplesDir + group).forEach(subgroup => {
-				if (fs.lstatSync(samplesDir + group + '/' + subgroup)
-					.isDirectory()
-				) {
-					fs.readdirSync(
-						samplesDir + group + '/' + subgroup
-					).forEach(sample => {
-						let path = `${group}/${subgroup}/${sample}`;
-						if (fs.lstatSync(
-								samplesDir + path
-							).isDirectory() &&
-							fs.existsSync(
-								samplesDir + path + '/demo.html'
-							)
+		const groupDir = join(samplesDir, group);
+		if (fs.existsSync(groupDir) && fs.lstatSync(groupDir).isDirectory()) {
+			fs.readdirSync(groupDir).forEach(subgroup => {
+				const subgroupDir = join(groupDir, subgroup);
+				if (fs.lstatSync(subgroupDir).isDirectory()) {
+					fs.readdirSync(subgroupDir).forEach(sample => {
+						let path = join(subgroupDir, sample);
+						if (
+							fs.lstatSync(path).isDirectory() &&
+							fs.existsSync(join(path, 'demo.html'))
 						) {
 							samples.push(getSample(path));
 						}

@@ -45,7 +45,7 @@ app.use('/mapdata', express.static(
   { maxAge: '10m' }
 ));
 app.use('/samples/graphics', express.static(
-  path.join(__dirname, cfg.highchartsDir, 'samples/graphics')
+  path.join(cfg.highchartsDir, 'samples/graphics')
 ));
 
 app.use(session({
