@@ -3,15 +3,21 @@ const express = require('express');
 const router = express.Router();
 const f = require('./../../lib/functions.js');
 const fs = require('fs');
-const { join, resolve } = require('path');
+const { join, relative, resolve, sep } = require('path');
 
 const highchartsDir = resolve(require('./../../config.json').highchartsDir);
 const samplesDir = join(highchartsDir, 'samples');
 
-
+/**
+ * Creates a serializable representation of a sample.
+ *
+ * @param {string} path Absolute file path to sample directory
+ * @returns {object} Return sample
+ */
 const getSample = (path) => {
 	let sample = {
-		path: path,
+		// path is a url relative to sample directory
+		path: relative(samplesDir, path).split(sep).join('/'),
 		details: f.getDetails(path),
 		files: {}
 	};
@@ -24,7 +30,7 @@ const getSample = (path) => {
 		'test-notes.html'
 
 	].forEach(extraFile => {
-		let filePath = join(samplesDir, path, extraFile);
+		let filePath = join(path, extraFile);
 		if (fs.existsSync(filePath)) {
 			sample.files[extraFile] = true;
 		}
