@@ -18,7 +18,7 @@ router.get('/', function(req, res) {
 	let codePath = req.query.rightcommit ?
 		'https://github.highcharts.com/' + req.query.rightcommit :
 		'/code';
-	fs.writeFile(join(__dirname, 'path.txt'), req.query.path, 'utf-8', (err) => {
+	fs.writeFile(join(__dirname, '../../path.txt'), req.query.path, 'utf-8', (err) => {
 		if (err) {
 			console.log(err);
 		}
