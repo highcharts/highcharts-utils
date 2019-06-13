@@ -14,6 +14,7 @@ const topDomain = argv.topdomain || 'local';
 let sslEnabled = false;
 let utilsDomainLine = '';
 let codeDomainLine = '';
+let apiDomainLine = '';
 
 const log = () => {
   const ipAddress = ip.address();
@@ -25,6 +26,9 @@ const log = () => {
   Code server available at:
     ${codeDomainLine}- http://localhost:${cfg.codePort}
     - http://${ipAddress}:${cfg.codePort}
+  API server available at:
+    ${apiDomainLine}- http://localhost:${cfg.apiPort}
+    - http://${ipAddress}:${cfg.apiPort}
 
   SSL enabled: ${sslEnabled}
 
@@ -64,6 +68,9 @@ require('./bin/www');
 // Start code.highcharts.local
 require('./app-code');
 
+// Start api.highcharts.local
+require('./app-api');
+
 // Require colors
 require('colors');
 
@@ -74,7 +81,8 @@ proxy.on('error', console.error);
 
 const redirects = {
   'utils.highcharts.*': `http://localhost:${cfg.utilsPort}`,
-  'code.highcharts.*': `http://localhost:${cfg.codePort}`
+  'code.highcharts.*': `http://localhost:${cfg.codePort}`,
+  'api.highcharts.*': `http://localhost:${cfg.apiPort}`
 }
 if (argv.proxy !== false) {
   const server = http.createServer((req, res) => {
@@ -126,12 +134,15 @@ if (argv.proxy !== false) {
     // Set up the hosts file
     const domains = [
       `utils.highcharts.${topDomain}`,
-      `code.highcharts.${topDomain}`
+      `code.highcharts.${topDomain}`,
+      `api.highcharts.${topDomain}`
     ];
     const protocol = sslEnabled ? 'https' : 'http';
     utilsDomainLine = `- ${protocol}://${domains[0]}
     `;
     codeDomainLine = `- ${protocol}://${domains[1]}
+    `;
+    apiDomainLine = `- ${protocol}://${domains[2]}
     `;
     
     domains.forEach(domain => {
