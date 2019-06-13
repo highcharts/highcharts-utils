@@ -37,11 +37,11 @@ app.use('/temp', express.static( // non-cached temporary json files
   path.join(__dirname, 'temp')
 ));
 app.use('/reference', express.static(
-  path.join(__dirname, 'node_modules/highcharts'),
+  path.dirname(require.resolve('highcharts/package.json')),
   { maxAge: '10m' }
 ));
 app.use('/mapdata', express.static(
-  path.join(__dirname, 'node_modules/@highcharts/map-collection'),
+  path.dirname(require.resolve('@highcharts/map-collection/package.json')),
   { maxAge: '10m' }
 ));
 app.use('/samples/graphics', express.static(
