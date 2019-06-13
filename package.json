@@ -7,6 +7,7 @@
     "precommit": "lint-staged",
     "demodata": "node ./utils/demo-data"
   },
+  "bin": "./bin/cli.js",
   "dependencies": {
     "@babel/core": "^7.4.5",
     "@babel/preset-env": "^7.4.5",
