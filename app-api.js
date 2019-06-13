@@ -1,6 +1,5 @@
 // Modules sorted by names alphabetically
 const express = require('express');
-const http = require('http');
 const { join, resolve } = require('path');
 const { apiPort, highchartsDir } = require('./config.json');
 
@@ -11,7 +10,6 @@ const apiDir = join(resolve(highchartsDir), 'build/api');
  * Create express application
  */
 const app = express();
-app.set('port', apiPort);
 
 // Redirect / to /highcharts
 app.use('/', (req, res, next) => {
@@ -27,5 +25,4 @@ app.use('/', express.static(apiDir, { extensions: ['html'] }));
 /**
  * Create HTTP server.
  */
-const server = http.createServer(app);
-server.listen(apiPort);
+app.listen(apiPort);
