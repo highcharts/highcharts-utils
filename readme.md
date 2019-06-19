@@ -21,6 +21,8 @@ If you don't want to block port 80 and don't need the virtual hosts, run
 Run `nodemon ./bin/www` and open `http://localhost:3030`.
 
 ## Usage
+CLI arguments are available for preview with `npx highcharts-utils --help`, or an equivalent command.
+
 See [highcharts/samples](https://github.com/highcharts/highcharts/tree/master/samples)
 for description of how the samples are set up and how to use the utils.
 

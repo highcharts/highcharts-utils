@@ -11,7 +11,7 @@ var bodyParser = require('body-parser');
 var lessMiddleware = require('less-middleware');
 var hbs = require('hbs');
 var session = require('express-session');
-var cfg = require('./config.json');
+var { highchartsDir } = require('./lib/arguments.js');
 
 var app = express();
 
@@ -45,7 +45,7 @@ app.use('/mapdata', express.static(
   { maxAge: '10m' }
 ));
 app.use('/samples/graphics', express.static(
-  path.join(cfg.highchartsDir, 'samples/graphics')
+  path.join(highchartsDir, 'samples/graphics')
 ));
 
 app.use(session({

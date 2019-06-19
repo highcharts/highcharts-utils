@@ -5,11 +5,11 @@
  * ../../highcharts/samples/data/usdeur.json
  */
 
-const Config = require('../../config.json');
 const FS = require('fs');
 const Path = require('path');
 const Request = require('request');
 const Xml2Json = require('xml2json');
+const { samplesDir } = require('../../lib/arguments.js');
 
 const url = 'https://sdw-wsrest.ecb.europa.eu/service/data/EXR/D.USD.EUR.SP00.A?startPeriod=2007-01-01&endPeriod=2017-12-31&detail=dataonly';
 
@@ -77,7 +77,7 @@ const generateUsdEurJs = function (data) {
             js.push('];');
 
             FS.appendFile(
-                Path.join(Config['highchartsDir'], 'samples/data/usdeur.js'),
+                Path.join(samplesDir, 'data/usdeur.js'),
                 js.join('\n'),
                 { encoding: 'utf8', flag: 'w' },
                 (error) => {
@@ -115,7 +115,7 @@ const generateUsdEurJson = function (data) {
             });
 
             FS.appendFile(
-                Path.join(Config['highchartsDir'], 'samples/data/usdeur.json'),
+                Path.join(samplesDir, 'data/usdeur.json'),
                 JSON.stringify(json, undefined, '\t'),
                 { encoding: 'utf8', flag: 'w' },
                 (error) => {

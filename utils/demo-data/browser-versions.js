@@ -9,11 +9,11 @@
  * ../../highcharts/samples/data/browser-versions.json
  */
 
- const Config = require('../../config.json');
 const FS = require('fs');
 const Path = require('path');
 const Request = require('request');
 const CompareVersions = require('compare-versions');
+const { samplesDir } = require('../../lib/arguments.js');
 
 const csvParser = new RegExp('(?:\\"([^\\"]+?)\\")\\,([\\d.]+)[\\r\\n]+', 'g');
 // Download URL taken from http://gs.statcounter.com/browser-version-market-share
@@ -139,7 +139,7 @@ module.exports = function () {
                 })
 
             FS.appendFile(
-                Path.join(Config['highchartsDir'], 'samples/data/browser-versions.json'),
+                Path.join(samplesDir, 'data/browser-versions.json'),
                 JSON.stringify(finalJson, undefined, '\t'),
                 { encoding: 'utf8', flag: 'w' },
                 (error) => {

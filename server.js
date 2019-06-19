@@ -3,14 +3,20 @@ const https = require('https');
 const httpProxy = require('http-proxy');
 const hostile = require('hostile');
 const exitHook = require('async-exit-hook');
-const argv = require('yargs').argv;
-const cfg = require('./config.json');
 const fs = require('fs');
 const ip = require('ip');
-const path = require('path');
 require('colors');
 
-const topDomain = argv.topdomain || 'local';
+const {
+  apiPort,
+  codePort,
+  crtFile,
+  highchartsDir,
+  pemFile,
+  proxy: useProxy,
+  topdomain: topDomain,
+  utilsPort
+} = require('./lib/arguments.js');
 
 let sslEnabled = false;
 let utilsDomainLine = '';
@@ -22,14 +28,14 @@ const log = () => {
 
   console.log(`
   Utils server available at:
-    ${utilsDomainLine}- http://localhost:${cfg.utilsPort}
-    - http://${ipAddress}:${cfg.utilsPort}
+    ${utilsDomainLine}- http://localhost:${utilsPort}
+    - http://${ipAddress}:${utilsPort}
   Code server available at:
-    ${codeDomainLine}- http://localhost:${cfg.codePort}
-    - http://${ipAddress}:${cfg.codePort}
+    ${codeDomainLine}- http://localhost:${codePort}
+    - http://${ipAddress}:${codePort}
   API server available at:
-    ${apiDomainLine}- http://localhost:${cfg.apiPort}
-    - http://${ipAddress}:${cfg.apiPort}
+    ${apiDomainLine}- http://localhost:${apiPort}
+    - http://${ipAddress}:${apiPort}
 
   SSL enabled: ${sslEnabled}
 
@@ -48,26 +54,16 @@ const log = () => {
   `.cyan);
 }
 
-const pemFile = path.join(
-  __dirname,
-  'certs',
-  'highcharts.local.key.pem'
-);
-const crtFile = path.join(
-  __dirname,
-  'certs',
-  'highcharts.local.crt'
-);
 const httpsOptions = {
   key: fs.existsSync(pemFile) && fs.readFileSync(pemFile, 'utf-8'),
   cert: fs.existsSync(crtFile) && fs.readFileSync(crtFile, 'utf-8')
 };
 
 
-let hcPackage = require(`${cfg.highchartsDir}/package.json`);
+let hcPackage = require(`${highchartsDir}/package.json`);
 if (hcPackage.name !== 'highcharts') {
   console.error(`
-    Highcharts repo not found, plase set "highchartsDir" in config.json
+    Highcharts repo not found, please set "highchartsDir" in config.json or through CLI arguments.
   `.red);
   return;
 }
@@ -90,11 +86,11 @@ const proxy = httpProxy.createProxy();
 proxy.on('error', console.error);
 
 const redirects = {
-  'utils.highcharts.*': `http://localhost:${cfg.utilsPort}`,
-  'code.highcharts.*': `http://localhost:${cfg.codePort}`,
-  'api.highcharts.*': `http://localhost:${cfg.apiPort}`
+  'utils.highcharts.*': `http://localhost:${utilsPort}`,
+  'code.highcharts.*': `http://localhost:${codePort}`,
+  'api.highcharts.*': `http://localhost:${apiPort}`
 }
-if (argv.proxy !== false) {
+if (useProxy) {
   const server = http.createServer((req, res) => {
   	let host = req.headers.host.replace(/\.[a-z]+$/, '.*');
     	proxy.web(req, res, {

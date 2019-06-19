@@ -1,10 +1,6 @@
 // Modules sorted by names alphabetically
 const express = require('express');
-const { join, resolve } = require('path');
-const { apiPort, highchartsDir } = require('./config.json');
-
-// Constants
-const apiDir = join(resolve(highchartsDir), 'build/api');
+const { apiDir, apiPort, } = require('./lib/arguments.js');
 
 /**
  * Create express application

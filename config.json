@@ -3,5 +3,9 @@
 	"utilsPort": 3030,
 	"codePort": 3031,
 	"apiPort": 3032,
-	"emulateKarma": false
+	"emulateKarma": false,
+	"pemFile": "./certs/highcharts.local.key.pem",
+	"crtFile": "./certs/highcharts.local.crt",
+	"proxy": true,
+	"topdomain": "local"
 }

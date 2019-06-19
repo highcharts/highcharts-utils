@@ -5,7 +5,7 @@
 const http = require('http');
 const fs = require('fs');
 const f = require('./lib/functions');
-const cfg = require('./config.json');
+const { codePort } = require('./lib/arguments.js');
 
 http.createServer(function(req, res) {
 
@@ -20,4 +20,4 @@ http.createServer(function(req, res) {
 
 	res.end(fs.readFileSync(file.success));
     
-}).listen(cfg.codePort);
+}).listen(codePort);

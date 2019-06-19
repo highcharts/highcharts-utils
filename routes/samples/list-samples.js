@@ -3,10 +3,8 @@ const express = require('express');
 const router = express.Router();
 const f = require('./../../lib/functions.js');
 const fs = require('fs');
-const { join, relative, resolve, sep } = require('path');
-
-const highchartsDir = resolve(require('./../../config.json').highchartsDir);
-const samplesDir = join(highchartsDir, 'samples');
+const { join, relative, sep } = require('path');
+const { samplesDir } = require('../../lib/arguments.js');
 
 /**
  * Creates a serializable representation of a sample.

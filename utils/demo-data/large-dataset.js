@@ -5,10 +5,10 @@
  * ../../highcharts/samples/data/large-dataset.json
  */
 
-const Config = require('../../config.json');
 const FS = require('fs');
 const Path = require('path');
 const Request = require('request');
+const { samplesDir } = require('../../lib/arguments.js');
 
 const url = 'http://vikjavev.no/ver/history.json.php?year=';
 
@@ -67,7 +67,7 @@ const loadVikTemperatureForYear = function (year) {
 const saveAsJs = function (json) {
     return new Promise((resolve, reject) => {
         FS.appendFile(
-            Path.join(Config['highchartsDir'], 'samples/data/large-dataset.js'),
+            Path.join(samplesDir, 'data/large-dataset.js'),
             (
                 '/* eslint no-unused-vars: 0 */\nvar temperatures = ' +
                 JSON.stringify(json, undefined, '    ') +
@@ -88,7 +88,7 @@ const saveAsJs = function (json) {
 const saveAsJson = function (json) {
     return new Promise((resolve, reject) => {
         FS.appendFile(
-            Path.join(Config['highchartsDir'], 'samples/data/large-dataset.json'),
+            Path.join(samplesDir, 'data/large-dataset.json'),
             JSON.stringify(json),
             { encoding: 'utf8', flag: 'w' },
             (error) => {

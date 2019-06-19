@@ -7,13 +7,13 @@
 var app = require('../app');
 var debug = require('debug')('highcharts-utils:server');
 var http = require('http');
-var cfg = require('../config.json');
+const { utilsPort } = require('../lib/arguments.js');
 
 /**
  * Get port from environment and store in Express.
  */
 
-var port = normalizePort(process.env.PORT || cfg.utilsPort);
+const port = normalizePort(process.env.PORT || utilsPort);
 app.set('port', port);
 
 /**
