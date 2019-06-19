@@ -6,11 +6,11 @@
  * ../../highcharts/samples/data/world-population.json
  */
 
-const Config = require('../../config.json');
 const FS = require('fs');
 const JSZip = require('jszip');
 const Path = require('path');
 const Request = require('request');
+const { samplesDir } = require('../../lib/arguments.js');
 
 const countries = require(Path.join(__dirname, 'countries.json'));
 const csvParser = new RegExp('(?:^|\\s+|\\,)(?:\\"([^\\"]*?)\\")+', 'gm');
@@ -132,7 +132,7 @@ const generateWorldPopulationDensityJson = function (fileInZip) {
         .then(json => {
             return new Promise((resolve, reject) => {
                 FS.appendFile(
-                    Path.join(Config['highchartsDir'], 'samples/data/world-population-density.json'),
+                    Path.join(samplesDir, 'data/world-population-density.json'),
                     JSON.stringify(json, undefined, '\t'),
                     { encoding: 'utf8', flag: 'w' },
                     (error) => {
@@ -153,7 +153,7 @@ const generateWorldPopulationHistoryCsv = function (zipFile) {
         .then(csv => {
             return new Promise((resolve, reject) => {
                 FS.appendFile(
-                    Path.join(Config['highchartsDir'], 'samples/data/world-population-history.csv'),
+                    Path.join(samplesDir, 'data/world-population-history.csv'),
                     csv.replace(new RegExp('[\\r\\n]+\\"Last Updated Date\\"[\\d\\,\\-\\"]+'), ''),
                     { encoding: 'utf8', flag: 'w' },
                     (error) => {
@@ -322,7 +322,7 @@ const generateWorldPopulationJson = function (fileInZip) {
         .then(json => {
             return new Promise((resolve, reject) => {
                 FS.appendFile(
-                    Path.join(Config['highchartsDir'], 'samples/data/world-population.json'),
+                    Path.join(samplesDir, 'data/world-population.json'),
                     JSON.stringify(json, undefined, '\t'),
                     { encoding: 'utf8', flag: 'w' },
                     (error) => {

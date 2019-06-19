@@ -6,7 +6,7 @@ const express = require('express');
 const f = require('./../../lib/functions.js');
 const fs = require('fs');
 const router = express.Router();
-const cfg = require('../../config.json');
+const { emulateKarma, samplesDir } = require('../../lib/arguments.js');
 const { join } = require('path');
 
 const getHTML = (req, codePath) => {
@@ -35,7 +35,7 @@ router.get('/', function(req, res) {
 	}
 
 	let tpl = {
-		html: cfg.emulateKarma ? 
+		html: emulateKarma ? 
 			f.getKarmaHTML() :
 			getHTML(req, codePath),
 		css: f.getCSS(path, codePath),
@@ -62,7 +62,7 @@ router.get('/', function(req, res) {
 
 	// Add-hoc unit tests in visual samples. Bad practice, should be undone.
 	let unitTestsFile =
-		join(cfg.highchartsDir, 'samples', path, 'unit-tests.js');
+		join(samplesDir, path, 'unit-tests.js');
 	if (fs.existsSync(unitTestsFile)) {
 		tpl.scripts.push(
 			'/javascripts/vendor/qunit-2.0.1.js'
@@ -74,7 +74,7 @@ router.get('/', function(req, res) {
 	}
 
 	// Add test.js
-	let testFile = join(cfg.highchartsDir, 'samples', path, 'tests.js');
+	let testFile = join(samplesDir, path, 'tests.js');
 	if (fs.existsSync(testFile)) {
 		tpl.testFile = fs.readFileSync(testFile);
 	}

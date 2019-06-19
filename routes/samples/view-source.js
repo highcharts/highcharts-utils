@@ -1,26 +1,22 @@
 const express = require('express');
 const fs = require('fs');
 const router = express.Router();
-const cfg = require('../../config.json');
-const f = require('./../../lib/functions.js');
 const path = require('path');
+const { samplesDir } = require('../../lib/arguments.js');
 
-router.get('/', function(req, res, next) {
+router.get('/', function(req, res) {
 	let html = path.join(
-		cfg.highchartsDir,
-		'samples',
+		samplesDir,
 		req.query.path,
 		'demo.html'
 	);
 	let css = path.join(
-		cfg.highchartsDir,
-		'samples',
+		samplesDir,
 		req.query.path,
 		'demo.css'
 	);
 	let js = path.join(
-		cfg.highchartsDir,
-		'samples',
+		samplesDir,
 		req.query.path,
 		'demo.js'
 	);

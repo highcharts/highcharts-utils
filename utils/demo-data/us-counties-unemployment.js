@@ -4,10 +4,10 @@
  * ../../highcharts/samples/data/us-counties-unemployment.json
  */
 
-const Config = require('../../config.json');
 const FS = require('fs');
 const Path = require('path');
 const Request = require('request');
+const { samplesDir } = require('../../lib/arguments.js');
 
 const txtParser = new RegExp('(\\w+)\\s\\|\\s+(\\d+)\\s+\\|\\s+(\\d+)\\s+\\|\\s+([\\s\\w]+)\\,\\s(\\w{2,2})\\s+\\|\\s+(\\w\\w\\w)-(\\d\\d)\\s+\\|\\s+([\\d\\,]+)\\s+\\|\\s+([\\d\\,]+)\\s+\\|\\s+([\\d\\,]+)\\s+\\|\\s+([\\d\\.]+)', 'gm');
 const url = 'https://www.bls.gov/web/metro/laucntycur14.txt';
@@ -36,7 +36,7 @@ module.exports = function () {
             }
 
             FS.appendFile(
-                Path.join(Config['highchartsDir'], 'samples/data/us-counties-unemployment.json'),
+                Path.join(samplesDir, 'data/us-counties-unemployment.json'),
                 JSON.stringify(json, undefined, '\t'),
                 { encoding: 'utf8', flag: 'w' },
                 (error) => {

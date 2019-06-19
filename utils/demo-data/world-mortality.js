@@ -19,12 +19,12 @@
  * ../../highcharts/samples/data/world-mortality.json
  */
 
-const Config = require('../../config.json');
 const FS = require('fs');
 const Path = require('path');
+const { samplesDir } = require('../../lib/arguments.js');
 
 const csvParser = new RegExp('(\\"[^\\"]*?\\"|[^\\,]*?)([\\r\\n]+|\\,)', 'g');
-const targetFilePath = Path.join(Config['highchartsDir'], 'samples/data/world-mortality.json');
+const targetFilePath = Path.join(samplesDir, 'data/world-mortality.json');
 //const xlsUrl = 'http://www.who.int/entity/healthinfo/global_burden_disease/GHE2015_Deaths-2015-country.xls?ua=1';
 const xlsExportedCsvFile = '/Users/torstein/Downloads/GHE2015_Deaths-2015-country.csv';
 
@@ -131,7 +131,7 @@ module.exports = function () {
             }
 
             FS.appendFile(
-                Path.join(Config['highchartsDir'], 'samples/data/world-mortality.json'),
+                Path.join(samplesDir, 'data/world-mortality.json'),
                 JSON.stringify(finalJson, undefined, '\t'),
                 { encoding: 'utf8', flag: 'w' },
                 (error) => {
