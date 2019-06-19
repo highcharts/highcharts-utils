@@ -16,11 +16,12 @@ const git = cmd => new Promise((resolve, reject) => {
 	if (process.env.SUDO_UID) {
 		options.uid = parseInt(process.env.SUDO_UID, 10);
 	}
-
-	const p = spawn('git', cmd, options);
+    const p = spawn('git', cmd, options);
 	let data = '';
 
-	p.stderr.on('data', reject);
+	p.stderr.on('data', (e) => {
+        reject('git ' + cmd.join(' ') + ':\n' + e);
+    });
 
 	p.stdout.on('data', d => {
 		data += d.toString();
@@ -55,6 +56,11 @@ router.get('/', async (req, res, next) => {
 	};
 
 	const handleStep = (result) => {
+
+        if (!result) {
+            res.render('bisect/bisect', tpl);
+            return;
+        }
 
 		req.session.steps.forEach((step) => {
 			step.showButtons = false;
@@ -125,14 +131,31 @@ router.get('/', async (req, res, next) => {
 
   		req.session.steps = [];
 
-  		await git(['bisect', 'start']).catch(next);
-	  	await git(['bisect', 'good', tpl.good]).catch(next);
+  		try {
+            await git(['bisect', 'start']);
+        } catch (e) {
+            tpl.error = e;
+            return handleStep();
+        }
+
+        try {
+	  	    await git(['bisect', 'good', tpl.good]);
+        } catch (e) {
+            tpl.error = e;
+            return handleStep();
+        }
 	  	let cmd = ['bisect', 'bad'];
 		if (req.session.bad) {
 			cmd.push(req.session.bad);
 		}
-		let result = await git(cmd).catch(next);
-		handleStep(result);
+
+        try {
+		    let result = await git(cmd).catch(next);
+		    handleStep(result);
+        } catch (e) {
+            tpl.error = e;
+            handleStep()
+        }
 
 	// Mark good or bad
 	} else {
