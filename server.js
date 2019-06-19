@@ -8,6 +8,7 @@ const cfg = require('./config.json');
 const fs = require('fs');
 const ip = require('ip');
 const path = require('path');
+require('colors');
 
 const topDomain = argv.topdomain || 'local';
 
@@ -61,6 +62,15 @@ const httpsOptions = {
   key: fs.existsSync(pemFile) && fs.readFileSync(pemFile, 'utf-8'),
   cert: fs.existsSync(crtFile) && fs.readFileSync(crtFile, 'utf-8')
 };
+
+
+let hcPackage = require(`${cfg.highchartsDir}/package.json`);
+if (hcPackage.name !== 'highcharts') {
+  console.error(`
+    Highcharts repo not found, plase set "highchartsDir" in config.json
+  `.red);
+  return;
+}
 
 // Start utils.highcharts.local
 require('./bin/www');
