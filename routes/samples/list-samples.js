@@ -11,13 +11,13 @@ const samplesDir = join(highchartsDir, 'samples');
 /**
  * Creates a serializable representation of a sample.
  *
- * @param {string} path Absolute file path to sample directory
+ * @param {string} path An relative path to sample directory
  * @returns {object} Return sample
  */
 const getSample = (path) => {
 	let sample = {
 		// path is a url relative to sample directory
-		path: relative(samplesDir, path).split(sep).join('/'),
+		path,
 		details: f.getDetails(path),
 		files: {}
 	};
@@ -55,7 +55,9 @@ const getSamples = () => {
 							fs.lstatSync(path).isDirectory() &&
 							fs.existsSync(join(path, 'demo.html'))
 						) {
-							samples.push(getSample(path));
+							const relativePath = relative(samplesDir, path)
+								.split(sep).join('/');
+							samples.push(getSample(relativePath));
 						}
 					});
 				}
