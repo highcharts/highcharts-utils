@@ -40,12 +40,7 @@ const log = () => {
   SSL enabled: ${sslEnabled}
 
   Parameters:
-  --no-proxy
-    Add this if port 80 is taken and you want to run the code or utils server
-    directly by its IP adress and port number.
-  --topdomain
-    Defaults to "local", defines the top domain for utils.highcharts.* and
-    code.highcharts.* for debugging over network and virtual machines.
+  All settings in config.json can be set as command line parameters.
 
   Development:
   While developing highcharts-utils, run 'nodemon ./bin/www' and point your

@@ -320,13 +320,11 @@ function onBothLoad() {
 	if (leftSVG && rightSVG) {
 		leftSVG = leftSVG
 			.replace(/which=left/g, "")
-			.replace(/Created with [a-zA-Z0-9\.@\- ]+/, "Created with ___")
-			.replace(/highcharts-[a-z0-9]{7}-/, 'highcharts-uniqueid-'),
+			.replace(/Created with [a-zA-Z0-9\.@\- ]+/, "Created with ___"),
 
 		rightSVG = rightSVG
 			.replace(/which=right/g, "")
-			.replace(/Created with [a-zA-Z0-9\.@\- ]+/, "Created with ___")
-			.replace(/highcharts-[a-z0-9]{7}-/, 'highcharts-uniqueid-');
+			.replace(/Created with [a-zA-Z0-9\.@\- ]+/, "Created with ___");
 	}
 
 	if (leftSVG === rightSVG && !FORCE_VISUAL_COMPARE) {

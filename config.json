@@ -7,5 +7,6 @@
 	"pemFile": "./certs/highcharts.local.key.pem",
 	"crtFile": "./certs/highcharts.local.crt",
 	"proxy": true,
-	"topdomain": "local"
+	"topdomain": "local",
+    "useSourceCode": true
 }
