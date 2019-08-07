@@ -40,7 +40,7 @@ const log = () => {
   SSL enabled: ${sslEnabled}
 
   Parameters:
-  All settings in config.json can be set as command line parameters.
+  Run --help to list parameters
 
   Development:
   While developing highcharts-utils, run 'nodemon ./bin/www' and point your
