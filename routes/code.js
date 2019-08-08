@@ -2,21 +2,7 @@ const express = require('express');
 const router = express.Router();
 const f = require('../lib/functions');
 const fs = require('fs');
-const { codeWatch, highchartsDir } = require('../lib/arguments');
-
-
-router.get('/poll', (req, res) => {
-
-    let libProcess = '';
-    try {
-        libProcess = fs.readFileSync(`${highchartsDir}/node_modules/_gulptasks_lib_process.json`);
-    } catch (e) {}
-
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    res.setHeader('Cache-Control', 'no-cache');
-    res.type('application/json');
-    res.send(libProcess);
-});
+const { codeWatch } = require('../lib/arguments');
 
 router.get(/[a-z\/\-\.]/, function(req, res) {
     let file = f.getCodeFile(req.path);
@@ -35,12 +21,18 @@ router.get(/[a-z\/\-\.]/, function(req, res) {
     ].includes(req.path)) {
         js += `
         (() => {
+            let socket = new WebSocket("ws://${req.headers.host}");
             let isProcessing = false;
-            const poll = async () => {
-                try {
-                    const response = await fetch('//${req.headers.host}/code/poll');
-                    const data = await response.json();
 
+            socket.onopen = function(e) {
+                console.log("WebSocket connection established");
+            };
+
+            socket.onmessage = function(event) {
+                try {
+                    const data = JSON.parse(event.data);
+                
+                    console.log('@onmessage', data, data && data.isRunning)
                     if (data && data.isRunning) {
                         // Started processing on the server
                         if (data.isRunning['scripts-js'] && !isProcessing) {
@@ -59,9 +51,19 @@ router.get(/[a-z\/\-\.]/, function(req, res) {
                         }
                     }
                 } catch (e) {};
-                setTimeout(poll, 1000);
             };
-            setTimeout(poll, 1000);
+
+            socket.onclose = function(event) {
+                if (event.wasClean) {
+                    console.log('Websocket connection closed cleanly', event.code, event.reason);
+                } else {
+                   console.log('Websocket connection died');
+                }
+            };
+
+            socket.onerror = function(error) {
+                console.log('Websocket Error', error.message);
+            };
         })();
         `;
     }
