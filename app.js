@@ -69,12 +69,12 @@ app.use('/bisect/main', require('./routes/bisect/main'));
 app.use('/bisect/main-post', require('./routes/bisect/main-post'));
 app.use('/bisect/view', require('./routes/bisect/view'));
 
-
 // Samples
 app.use('/samples/', require('./routes/samples/index'));
 app.use('/samples/data', require('./routes/samples/data'));
 app.use('/samples/contents', require('./routes/samples/contents'));
 app.use('/samples/mobile', require('./routes/samples/mobile'));
+app.use('/samples/nightly', require('./routes/samples/nightly'));
 app.use('/samples/list-samples', require('./routes/samples/list-samples'));
 app.use('/samples/server-env', require('./routes/samples/server-env'));
 app.use('/samples/readme', require('./routes/samples/readme'));
