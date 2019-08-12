@@ -27,8 +27,13 @@ window.TestController = function (chart) {
      *         Array of touches including required internal methods.
      */
     function createTouchList(arr) {
+        var offset = Highcharts.offset(chart.container);
         arr.item = function (i) {
-            return this[i];
+            var chartPos = this[i];
+            return {
+                pageX: offset.left + chartPos.chartX,
+                pageY: offset.top + chartPos.chartY
+            };
         };
         return arr;
     }
@@ -358,8 +363,8 @@ window.TestController = function (chart) {
                 extra = {
                     relatedTarget: target,
                     touches: createTouchList([
-                        { pageX: movePoint1[0], pageY: movePoint1[1] },
-                        { pageX: movePoint2[0], pageY: movePoint2[1] }
+                        { chartX: movePoint1[0], chartY: movePoint1[1] },
+                        { chartX: movePoint2[0], chartY: movePoint2[1] }
                     ])
                 };
 
@@ -570,12 +575,12 @@ window.TestController = function (chart) {
 
             if (twoFingers === true) {
                 extra.touches = (extra.touches || createTouchList([
-                    { pageX: (chartX - 11), pageY: (chartY - 11) },
-                    { pageX: (chartX + 11), pageY: (chartY + 11) }
+                    { chartX: (chartX - 11), chartY: (chartY - 11) },
+                    { chartX: (chartX + 11), chartY: (chartY + 11) }
                 ]));
             } else {
                 extra.touches = (extra.touches || createTouchList([
-                    { pageX: chartX, pageY: chartY }
+                    { chartX: chartX, chartY: chartY }
                 ]));
             }
 
