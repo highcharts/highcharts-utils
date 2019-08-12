@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const f = require('../lib/functions');
 const fs = require('fs');
+const path = require('path');
 const { codeWatch } = require('../lib/arguments');
 
 router.get(/[a-z\/\-\.]/, function(req, res) {
@@ -12,65 +13,75 @@ router.get(/[a-z\/\-\.]/, function(req, res) {
 		return;
 	}
 
-    let js = fs.readFileSync(file.success);
+    if (codeWatch) {
+        let code = fs.readFileSync(file.success);
 
-    if (codeWatch && [
-        '/highcharts.js',
-        '/stock/highstock.js',
-        '/maps/highmaps.js'
-    ].includes(req.path)) {
-        js += `
-        (() => {
-            let socket = new WebSocket("ws://${req.headers.host}");
-            let isProcessing = false;
+        if ([
+            '/highcharts.js',
+            '/stock/highstock.js',
+            '/maps/highmaps.js'
+        ].includes(req.path)) {
+            code += `
+            (() => {
+                let socket = new WebSocket("ws://${req.headers.host}");
+                let isProcessing = false;
 
-            socket.onopen = function(e) {
-                console.log("WebSocket connection established");
-            };
+                socket.onopen = function(e) {
+                    console.log("WebSocket connection established");
+                };
 
-            socket.onmessage = function(event) {
-                try {
-                    const data = JSON.parse(event.data);
-                
-                    console.log('@onmessage', data, data && data.isRunning)
-                    if (data && data.isRunning) {
-                        // Started processing on the server
-                        if (data.isRunning['scripts-js'] && !isProcessing) {
-                            Highcharts.charts.forEach(
-                                chart => chart.showLoading(
-                                    'Building Highcharts on server...<br>' +
-                                    'Page will reload when finished'
-                                )
-                            );
-                            isProcessing = true;
+                socket.onmessage = function(event) {
+                    try {
+                        const data = JSON.parse(event.data);
+                    
+                        console.log('@onmessage', data, data && data.isRunning)
+                        if (data && data.isRunning) {
+                            // Started processing on the server
+                            if (data.isRunning['scripts-js'] && !isProcessing) {
+                                Highcharts.charts.forEach(
+                                    chart => chart.showLoading(
+                                        'Building Highcharts on server...<br>' +
+                                        'Page will reload when finished'
+                                    )
+                                );
+                                isProcessing = true;
+                            }
+
+                            // Ended processing on the server
+                            if (!data.isRunning['scripts-js'] && isProcessing) {
+                                window.location.reload();
+                            }
                         }
+                    } catch (e) {};
+                };
 
-                        // Ended processing on the server
-                        if (!data.isRunning['scripts-js'] && isProcessing) {
-                            window.location.reload();
-                        }
+                socket.onclose = function(event) {
+                    if (event.wasClean) {
+                        console.log('Websocket connection closed cleanly', event.code, event.reason);
+                    } else {
+                       console.log('Websocket connection died');
                     }
-                } catch (e) {};
-            };
+                };
 
-            socket.onclose = function(event) {
-                if (event.wasClean) {
-                    console.log('Websocket connection closed cleanly', event.code, event.reason);
-                } else {
-                   console.log('Websocket connection died');
-                }
-            };
+                socket.onerror = function(error) {
+                    console.log('Websocket Error', error.message);
+                };
+            })();
+            `;
+        }
 
-            socket.onerror = function(error) {
-                console.log('Websocket Error', error.message);
-            };
-        })();
-        `;
+
+        const type = {
+            '.css': 'text/css',
+            '.js': 'text/javascript'
+        }[path.extname(file.success)];
+        
+    	res.setHeader('Content-Disposition', 'inline');
+        res.type(type);
+        res.send(code);
+    } else {
+        res.sendFile(file.success);
     }
-
-    //res.type('text/html');
-	res.setHeader('Content-Disposition', 'inline');
-    res.send(js);
 });
 
 module.exports = router;
