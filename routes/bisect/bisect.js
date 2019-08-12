@@ -127,8 +127,7 @@ router.get('/', async (req, res, next) => {
 
   	// Start a new bisect
   	} else if (!req.session.current) {
-
-  		req.session.steps = [];
+        req.session.steps = [];
 
   		try {
             await git(['bisect', 'start']);
@@ -149,11 +148,11 @@ router.get('/', async (req, res, next) => {
 		}
 
         try {
-		    let result = await git(cmd).catch(next);
+		    let result = await git(cmd);
 		    handleStep(result);
         } catch (e) {
             tpl.error = e;
-            handleStep()
+            handleStep();
         }
 
 	// Mark good or bad
