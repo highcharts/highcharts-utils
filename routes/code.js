@@ -73,11 +73,15 @@ router.get(/[a-z\/\-\.]/, function(req, res) {
 
         const type = {
             '.css': 'text/css',
-            '.js': 'text/javascript'
+            '.js': 'text/javascript',
+            '.svg': 'image/svg+xml'
         }[path.extname(file.success)];
+
+        if (type) {
+            res.type(type);
+        }
         
     	res.setHeader('Content-Disposition', 'inline');
-        res.type(type);
         res.send(code);
     } else {
         res.sendFile(file.success);
