@@ -2,7 +2,7 @@
 
 const BUCKET = 'https://s3.eu-central-1.amazonaws.com/staging-code.highcharts.com';
 
-
+let compareToggleInterval;
 const compare = (sample, date) => { // eslint-disable-line no-unused-vars
 
     const dateString = Highcharts.dateFormat('%Y-%m-%d', date);
@@ -22,10 +22,11 @@ const compare = (sample, date) => { // eslint-disable-line no-unused-vars
         
     }
     
-    let interval = setInterval(toggle, 500);
+    clearInterval(compareToggleInterval); // Clear previous runs
+    compareToggleInterval = setInterval(toggle, 500);
 
     document.getElementById('candidate').addEventListener('click', () => {
-        clearInterval(interval);
+        clearInterval(compareToggleInterval);
         toggle();
     });
 
@@ -33,7 +34,7 @@ const compare = (sample, date) => { // eslint-disable-line no-unused-vars
 
 (async () => {
     const startDate = Date.UTC(2019, 7, 8);
-    const endDate = Date.UTC(2019, 7, 12);
+    const endDate = Date.UTC(2019, 7, 13);
     const results = {};
     const samples = {};
     for (let date = startDate; date <= endDate; date += 24 * 36e5) {
