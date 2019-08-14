@@ -33,8 +33,9 @@ const compare = (sample, date) => { // eslint-disable-line no-unused-vars
 };
 
 (async () => {
-    const startDate = Date.UTC(2019, 7, 8);
-    const endDate = Date.UTC(2019, 7, 13);
+    const endDate = Date.now();
+    const startDate = Math.max(Date.UTC(2019, 7, 8), endDate - 90 * 24 * 36e5);
+    
     const results = {};
     const samples = {};
     for (let date = startDate; date <= endDate; date += 24 * 36e5) {
