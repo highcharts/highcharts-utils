@@ -1,4 +1,4 @@
-/* global $, Highcharts */
+/* global $, jQuery, Highcharts */
 if (window.console) {
 //	console.clear();
 }
@@ -9,6 +9,7 @@ var controller = window.parent && window.parent.controller,
 	sample = controller && controller.samples[path];
 
 (function () {
+	var $ = jQuery;
 	if (!controller) {
 
 		function getQueryParameters (win) {
@@ -126,6 +127,7 @@ if ($) {
 
 window.setUp = function () {
 
+	var $ = jQuery;
 	$(window).bind('keydown', parent.keyDown);
 	
 	/*

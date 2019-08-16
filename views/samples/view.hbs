@@ -1,6 +1,10 @@
 
 {{> nav }}
 
+<script>
+jQuery.noConflict();
+</script>
+
 <style type="text/css">
 	{{{css}}}
 </style>
@@ -26,7 +30,7 @@
 		}
 
 		// Override and point to local resources
-		$.getJSON = controller.getJSON;
+		//$.getJSON = controller.getJSON;
 	}
 	{{{js}}}
 	</script>

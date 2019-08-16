@@ -1,5 +1,6 @@
 /* global $, controller, Highcharts */
 $(window).bind('load', function () {
+	var $ = window.$ || window.jQuery;
 	if (controller) {
 		$('#bisect', document).click(function () {
 			controller.toggleBisect()

@@ -34,7 +34,7 @@ const compare = (sample, date) => { // eslint-disable-line no-unused-vars
 
 (async () => {
     const endDate = Date.now();
-    const startDate = Math.max(Date.UTC(2019, 7, 8), endDate - 90 * 24 * 36e5);
+    const startDate = Math.max(Date.UTC(2019, 7, 15), endDate - 90 * 24 * 36e5);
     
     const results = {};
     const samples = {};
@@ -80,6 +80,9 @@ const compare = (sample, date) => { // eslint-disable-line no-unused-vars
                 let diff = results[date][sample];
                 if (diff > 0) {
                     diff = `<a href="javascript:compare('${sample}', ${date})">${diff}</a>`;
+                }
+                if (diff === undefined) {
+                    diff = '';
                 }
                 tr += `<td>${diff}</td>`;
             }

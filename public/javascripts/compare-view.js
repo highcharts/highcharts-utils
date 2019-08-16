@@ -303,7 +303,7 @@ function activateOverlayCompare(isCanvas) {
 var report = '';
 function onBothLoad() {
 
-	var FORCE_VISUAL_COMPARE = true;
+	var FORCE_VISUAL_COMPARE = false;
 
 	var out,
 		identical;
