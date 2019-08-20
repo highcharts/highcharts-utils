@@ -7,7 +7,10 @@ router.get('/', function(req, res) {
         scripts: [
             'https://code.highcharts.com/highcharts.js',
             '/javascripts/samples/nightly.js'
-        ]
+        ],
+        styles: [
+            '/stylesheets/vendor/font-awesome-4.7.0/css/font-awesome.css'
+        ],
     });
 });
 

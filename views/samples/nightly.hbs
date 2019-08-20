@@ -2,10 +2,14 @@
 table {
     border-collapse: collapse;
 }
-table td, table th {
+table td {
     border: 1px solid silver;
     text-align: left;
-    padding: 0.5em
+    padding: 0.1em 0.5em;
+    text-align: right;
+}
+table td.active {
+    cursor: pointer;
 }
 img {
     position: absolute;
@@ -18,13 +22,18 @@ img {
 }
 
 #comparison {
-    height: 50%;
+    height: 500px;
+    width: 600px;
     position: fixed;
-    top: 50%;
-    overflow-y: auto;
-    width: 100%;
-    border-top: 1px solid silver;
+    bottom: 1em;
+    left: 5em;
     background: white;
+    padding: 2em;
+    box-shadow: 0 0 16px #888888, 0 0 16px #888888;
+    display: none;
+}
+#close-comparison {
+    float: right;
 }
 </style>
 
@@ -36,7 +45,12 @@ img {
 </div>
 
 <div id="comparison">
+    <a id="close-comparison" href="javascript:;">
+        <i class="fa fa-times fa-2x"></i>
+    </a>
     <p id="image-status"></p>
-    <img id="reference" style="z-index: 1"/>
-    <img id="candidate" style="z-index: 2"/>
+    <div id="images">
+        <img id="reference" style="z-index: 1"/>
+        <img id="candidate" style="z-index: 2"/>
+    </div>
 </div>

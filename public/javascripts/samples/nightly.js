@@ -6,29 +6,38 @@ let compareToggleInterval;
 const compare = (sample, date) => { // eslint-disable-line no-unused-vars
 
     const dateString = Highcharts.dateFormat('%Y-%m-%d', date);
-    document.getElementById('reference').src = 
-        `${BUCKET}/test/visualtests/reference/latest/${sample}/reference.svg`
-    document.getElementById('candidate').src = 
-        `${BUCKET}/test/visualtests/diffs/${dateString}/${sample}/candidate.svg`;
-        
         
     let showingCandidate = false;
     const toggle = () => {
         showingCandidate = !showingCandidate;
         document.getElementById('candidate').style.opacity = showingCandidate ? 1 : 0.001;
         document.getElementById('image-status').innerHTML = showingCandidate ?
-            '<h4>Showing candidate</h4><small>Click image to show reference</small>' :
-            '<h4>Showing reference</h4><small>Click image to show candidate</small>';
+            '<b>Showing candidate</b> <small>Click image to swap manually</small>' :
+            '<b>Showing reference</b> <small>Click image to swap manually</small>';
         
     }
+
+    document.getElementById('reference').src = 
+        `${BUCKET}/test/visualtests/reference/latest/${sample}/reference.svg`
+    document.getElementById('candidate').src = 
+        `${BUCKET}/test/visualtests/diffs/${dateString}/${sample}/candidate.svg`;
+    toggle();
     
     clearInterval(compareToggleInterval); // Clear previous runs
     compareToggleInterval = setInterval(toggle, 500);
 
-    document.getElementById('candidate').addEventListener('click', () => {
+    document.getElementById('comparison').style.display = 'block';
+    document.getElementById('images').addEventListener('click', () => {
         clearInterval(compareToggleInterval);
         toggle();
     });
+
+
+    // Bind close button
+    document.getElementById('close-comparison').onclick = () => {
+        document.getElementById('comparison').style.display = 'none';
+        clearInterval(compareToggleInterval);
+    }
 
 };
 
@@ -61,7 +70,7 @@ const compare = (sample, date) => { // eslint-disable-line no-unused-vars
     let tr = `<tr><th></th>`;
     for (let date = startDate; date <= endDate; date += 24 * 36e5) {
         if (results[date]) {
-            const dateString = Highcharts.dateFormat('%Y-%m-%d', date);
+            const dateString = Highcharts.dateFormat('%d', date);
             tr += `<th>${dateString}</th>`;
         }
     }
@@ -75,16 +84,30 @@ const compare = (sample, date) => { // eslint-disable-line no-unused-vars
             <tr>
                 <th>${sample}</th>
         `;
+        let maxDiff = 0;
+        for (let date = startDate; date <= endDate; date += 24 * 36e5) {
+            if (results[date] && typeof results[date][sample] === 'number') {
+                maxDiff = Math.max(maxDiff, results[date][sample]);
+            }
+        }
         for (let date = startDate; date <= endDate; date += 24 * 36e5) {
             if (results[date]) {
-                let diff = results[date][sample];
-                if (diff > 0) {
-                    diff = `<a href="javascript:compare('${sample}', ${date})">${diff}</a>`;
+                const dateString = Highcharts.dateFormat('%Y-%m-%d', date);
+                let diff = '';
+                let onclick = '';
+                let className = '';
+                let opacity = 0;
+                if (results[date][sample] !== undefined) {
+                    diff = results[date][sample];
+                    onclick = `compare('${sample}', ${date})`;
+                    className = 'active';
+                    opacity = (diff / maxDiff).toPrecision(2);
                 }
-                if (diff === undefined) {
-                    diff = '';
-                }
-                tr += `<td>${diff}</td>`;
+                tr += `
+                <td onclick="${onclick}" title="${dateString}\n${sample}"
+                        class="${className}" style="background-color: rgba(241, 92, 128, ${opacity}">
+                    ${diff}
+                </td>`;
             }
         }
         tr += '</tr>';
