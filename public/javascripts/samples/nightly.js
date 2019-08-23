@@ -10,7 +10,10 @@ const compare = (sample, date) => { // eslint-disable-line no-unused-vars
     let showingCandidate = false;
     const toggle = () => {
         showingCandidate = !showingCandidate;
-        document.getElementById('candidate').style.opacity = showingCandidate ? 1 : 0.001;
+        document.getElementById('candidate').style.visibility =
+            showingCandidate ? 'visible' : 'hidden';
+        document.getElementById('reference').style.visibility =
+            showingCandidate ? 'hidden' : 'visible';
         document.getElementById('image-status').innerHTML = showingCandidate ?
             '<b>Showing candidate</b> <small>Click image to swap manually</small>' :
             '<b>Showing reference</b> <small>Click image to swap manually</small>';
