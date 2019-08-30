@@ -6,13 +6,16 @@ let compareToggleInterval;
 const compare = (sample, date) => { // eslint-disable-line no-unused-vars
 
     const dateString = Highcharts.dateFormat('%Y-%m-%d', date);
+    const reference = document.getElementById('reference');
+    const candidate = document.getElementById('candidate');
         
     let showingCandidate = false;
+
     const toggle = () => {
         showingCandidate = !showingCandidate;
-        document.getElementById('candidate').style.visibility =
+        candidate.style.visibility =
             showingCandidate ? 'visible' : 'hidden';
-        document.getElementById('reference').style.visibility =
+        reference.style.visibility =
             showingCandidate ? 'hidden' : 'visible';
         document.getElementById('image-status').innerHTML = showingCandidate ?
             '<b>Showing candidate</b> <small>Click image to swap manually</small>' :
@@ -20,10 +23,13 @@ const compare = (sample, date) => { // eslint-disable-line no-unused-vars
         
     }
 
-    document.getElementById('reference').src = 
+    reference.src = 
         `${BUCKET}/test/visualtests/reference/latest/${sample}/reference.svg`
-    document.getElementById('candidate').src = 
+    candidate.src = 
         `${BUCKET}/test/visualtests/diffs/${dateString}/${sample}/candidate.svg`;
+
+
+
     toggle();
     
     clearInterval(compareToggleInterval); // Clear previous runs
@@ -70,22 +76,22 @@ const compare = (sample, date) => { // eslint-disable-line no-unused-vars
     }
     
     // Render header
-    let tr = `<tr><th></th>`;
+    let table = `<tr><th></th>`;
     for (let date = startDate; date <= endDate; date += 24 * 36e5) {
         if (results[date]) {
             const dateString = Highcharts.dateFormat('%d', date);
-            tr += `<th>${dateString}</th>`;
+            table += `<th>${dateString}</th>`;
         }
     }
-    tr += '</tr>';
+    table += '</tr>';
 
-    document.getElementById('table').innerHTML = tr;
     
     // Render results
     Object.keys(samples).sort().forEach(sample => {
+        
         let tr = `
             <tr>
-                <th>${sample}</th>
+                <th class="path"><span>${sample}</span></th>
         `;
         let maxDiff = 0;
         for (let date = startDate; date <= endDate; date += 24 * 36e5) {
@@ -107,15 +113,17 @@ const compare = (sample, date) => { // eslint-disable-line no-unused-vars
                     opacity = (diff / maxDiff).toPrecision(2);
                 }
                 tr += `
-                <td onclick="${onclick}" title="${dateString}\n${sample}"
+                <td onclick="${onclick}" title="${dateString}\n${sample}\n${diff} pixels are different"
                         class="${className}" style="background-color: rgba(241, 92, 128, ${opacity}">
-                    ${diff}
+                    <span>${diff}</span>
                 </td>`;
             }
         }
         tr += '</tr>';
         
-        document.getElementById('table').innerHTML += tr;
+        table += tr;
+        
     });
+    document.getElementById('table').innerHTML = table;
     
 })();
