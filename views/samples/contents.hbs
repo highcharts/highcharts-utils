@@ -65,28 +65,16 @@
 
 			
 		});
-		/*
-		$("#slider").slider({
-			min: 0,
-			max: 1,
-			step: 0.01,
-			slide: function (ui, e) {
-				diffThreshold = e.value;
-				$('#slider-value').html(e.value);
-				$('a.dissimilarity-index').each(function (i, a) {
-					var $a = $(a),
-						$li = $a.parent(),
-						diff = parseFloat($a.attr('data-diff'));
 
-					if (diff >= e.value && $li.hasClass('identical')) {
-						$li.removeClass('identical').addClass('different');
-					} else if (diff < e.value && $li.hasClass('different')) {
-						$li.removeClass('different').addClass('identical');
-					}
-				});
-			}
+		$('a.button', document).each(function () {
+			$(this).click(function () {
+				
+				var route = this.href.split('/samples/')[1];
+				if (route) {
+					window.parent.location.hash = '#' + route;
+				}
+			});
 		});
-		*/
 
 		$('#main-nav', document).css({
 			'margin-top': $('#top-nav', document).height() + 30,
@@ -280,7 +268,7 @@
 	<a class="button" id="batch-stop" title="Stop comparing">
 		<i class="fa fa-pause"></i>
 	</a>
-	<a class="button" href="compare-report" title="View compare history for all browsers" target="main">
+	<a class="button" href="/samples/compare-report" title="View compare history for all browsers" target="main">
 		<i class="fa fa-list"></i>
 	</a>
 	<a class="button" id="reset" title="Clear test history for all browsers">
