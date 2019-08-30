@@ -5,6 +5,8 @@
 const express = require('express');
 const f = require('./../../lib/functions.js');
 const fs = require('fs');
+const glob = require('glob');
+const path = require('path');
 const router = express.Router();
 const { emulateKarma, samplesDir } = require('../../lib/arguments.js');
 const { join } = require('path');
@@ -22,6 +24,16 @@ const getHTML = (req, codePath) => {
 		`;
 	}
 	return html;
+}
+
+const getTemplates = () => {
+	return glob.sync(
+		path.join(
+			__dirname,
+			'../..',
+			'public/javascripts/test-templates/**/*.js'
+		)
+	).map(filename => '/' + filename.split('/public/')[1]);
 }
 
 router.get('/', function(req, res) {
@@ -48,13 +60,8 @@ router.get('/', function(req, res) {
 			'/javascripts/test-utilities.js'
 		].concat(resources.scripts),
 		deferredScripts: [
-			'/javascripts/test-template.js',
-			'/javascripts/test-templates/highcharts/area.js',
-			'/javascripts/test-templates/highcharts/column.js',
-			'/javascripts/test-templates/highcharts/line.js',
-			'/javascripts/test-templates/highcharts/scatter.js',
-			'/javascripts/test-templates/highstock/line.js'
-		],
+			'/javascripts/test-template.js'
+		].concat(getTemplates()),
 		styles: resources.styles,
 		path: path,
 		which: which
