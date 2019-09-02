@@ -31,7 +31,6 @@ img {
 }
 
 #comparison {
-    height: 500px;
     width: 600px;
     position: fixed;
     bottom: 1em;
@@ -41,8 +40,16 @@ img {
     box-shadow: 0 0 16px #888888, 0 0 16px #888888;
     display: none;
 }
+#comparison h1 {
+    margin-top: 0;
+    padding-top: 0;
+}
 #close-comparison {
     float: right;
+}
+#comparison #images {
+    height: 400px;
+    width: 600px;
 }
 </style>
 
@@ -57,6 +64,8 @@ img {
     <a id="close-comparison" href="javascript:;">
         <i class="fa fa-times fa-2x"></i>
     </a>
+
+    <h1 id="comparison-path"></h1>
     <p id="image-status"></p>
     <div id="images">
         <img id="reference" style="z-index: 1"/>

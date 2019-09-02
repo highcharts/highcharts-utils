@@ -44,7 +44,7 @@ const compare = (sample, date) => { // eslint-disable-line no-unused-vars
         `${BUCKET}/test/visualtests/diffs/${dateString}/${sample}/candidate.svg`;
 
 
-
+    document.getElementById('comparison-path').innerHTML = sample;
     toggle();
     
     clearInterval(compareToggleInterval); // Clear previous runs
