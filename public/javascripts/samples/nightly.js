@@ -23,6 +23,21 @@ const compare = (sample, date) => { // eslint-disable-line no-unused-vars
         
     }
 
+    const openPopup = () => {
+        document.getElementById('comparison').style.display = 'block';
+
+
+        document.querySelectorAll('tr.active').forEach((tr) => 
+            tr.classList.remove('active')
+        );
+        document.getElementById(`tr-${sample}`).classList.add('active');
+    }
+
+    const closePopup = () => {
+        document.getElementById('comparison').style.display = 'none';
+        document.getElementById(`tr-${sample}`).classList.remove('active');
+    }
+
     reference.src = 
         `${BUCKET}/test/visualtests/reference/latest/${sample}/reference.svg`
     candidate.src = 
@@ -35,16 +50,18 @@ const compare = (sample, date) => { // eslint-disable-line no-unused-vars
     clearInterval(compareToggleInterval); // Clear previous runs
     compareToggleInterval = setInterval(toggle, 500);
 
-    document.getElementById('comparison').style.display = 'block';
     document.getElementById('images').addEventListener('click', () => {
         clearInterval(compareToggleInterval);
         toggle();
     });
 
 
+    // Open window
+    openPopup();
+
     // Bind close button
     document.getElementById('close-comparison').onclick = () => {
-        document.getElementById('comparison').style.display = 'none';
+        closePopup();
         clearInterval(compareToggleInterval);
     }
 
@@ -88,9 +105,8 @@ const compare = (sample, date) => { // eslint-disable-line no-unused-vars
     
     // Render results
     Object.keys(samples).sort().forEach(sample => {
-        
         let tr = `
-            <tr>
+            <tr id="tr-${sample}">
                 <th class="path"><span>${sample}</span></th>
         `;
         let maxDiff = 0;
