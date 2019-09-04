@@ -1,4 +1,4 @@
-/* global Highcharts */
+/* global Highcharts, latestReleaseDate */
 
 const BUCKET = 'https://s3.eu-central-1.amazonaws.com/staging-code.highcharts.com';
 
@@ -67,9 +67,12 @@ const compare = (sample, date) => { // eslint-disable-line no-unused-vars
 
 };
 
-(async () => {
+document.addEventListener('DOMContentLoaded', async () => {
     const endDate = Date.now();
-    const startDate = Math.max(Date.UTC(2019, 7, 15), endDate - 90 * 24 * 36e5);
+    const startDate = Math.max(
+        latestReleaseDate + 24 * 36e5,
+        endDate - 90 * 24 * 36e5
+    );
     
     const results = {};
     const samples = {};
@@ -142,4 +145,4 @@ const compare = (sample, date) => { // eslint-disable-line no-unused-vars
     });
     document.getElementById('table').innerHTML = table;
     
-})();
+});
