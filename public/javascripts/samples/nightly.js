@@ -1,6 +1,7 @@
 /* global Highcharts, latestReleaseDate */
 
 const BUCKET = 'https://s3.eu-central-1.amazonaws.com/staging-code.highcharts.com';
+const results = {};
 
 let compareToggleInterval;
 const compare = (sample, date) => { // eslint-disable-line no-unused-vars
@@ -8,18 +9,26 @@ const compare = (sample, date) => { // eslint-disable-line no-unused-vars
     const dateString = Highcharts.dateFormat('%Y-%m-%d', date);
     const reference = document.getElementById('reference');
     const candidate = document.getElementById('candidate');
-        
-    let showingCandidate = false;
+    const diff = results[date][sample];
+
+    let showingCandidate = true;
 
     const toggle = () => {
+        let innerHTML;
         showingCandidate = !showingCandidate;
         candidate.style.visibility =
             showingCandidate ? 'visible' : 'hidden';
         reference.style.visibility =
             showingCandidate ? 'hidden' : 'visible';
-        document.getElementById('image-status').innerHTML = showingCandidate ?
-            '<b>Showing candidate</b> <small>Click image to swap manually</small>' :
-            '<b>Showing reference</b> <small>Click image to swap manually</small>';
+
+        if (diff === 0) {
+            innerHTML = '<b style="color:green">Reference and candidate are identical</b>';
+        } else if (showingCandidate) {
+            innerHTML = '<b>Showing candidate</b> <small>Click image to swap manually</small>';
+        } else {
+            innerHTML = '<b>Showing reference</b> <small>Click image to swap manually</small>';
+        }
+        document.getElementById('image-status').innerHTML = innerHTML;
         
     }
 
@@ -38,22 +47,33 @@ const compare = (sample, date) => { // eslint-disable-line no-unused-vars
         document.getElementById(`tr-${sample}`).classList.remove('active');
     }
 
+    reference.onload = candidate.onload = function () {
+        document.getElementById('images').style.height =
+            `${this.naturalHeight}px`;
+    }
+
     reference.src = 
-        `${BUCKET}/test/visualtests/reference/latest/${sample}/reference.svg`
-    candidate.src = 
-        `${BUCKET}/test/visualtests/diffs/${dateString}/${sample}/candidate.svg`;
+        `${BUCKET}/test/visualtests/reference/latest/${sample}/reference.svg`;
+
+    if (diff !== 0) {
+        candidate.src = 
+            `${BUCKET}/test/visualtests/diffs/${dateString}/${sample}/candidate.svg`;
+    }
 
 
     document.getElementById('comparison-path').innerHTML = sample;
     toggle();
     
     clearInterval(compareToggleInterval); // Clear previous runs
-    compareToggleInterval = setInterval(toggle, 500);
 
-    document.getElementById('images').addEventListener('click', () => {
-        clearInterval(compareToggleInterval);
-        toggle();
-    });
+    if (diff !== 0) {
+        compareToggleInterval = setInterval(toggle, 500);
+
+        document.getElementById('images').addEventListener('click', () => {
+            clearInterval(compareToggleInterval);
+            toggle();
+        });
+    }
 
 
     // Open window
@@ -74,7 +94,6 @@ document.addEventListener('DOMContentLoaded', async () => {
         endDate - 90 * 24 * 36e5
     );
     
-    const results = {};
     const samples = {};
     for (let date = startDate; date <= endDate; date += 24 * 36e5) {
         const dateString = Highcharts.dateFormat('%Y-%m-%d', date);
@@ -110,7 +129,13 @@ document.addEventListener('DOMContentLoaded', async () => {
     Object.keys(samples).sort().forEach(sample => {
         let tr = `
             <tr id="tr-${sample}">
-                <th class="path"><span>${sample}</span></th>
+                <th class="path">
+                    <span>${sample}</span>
+                    <a href="/samples/view?path=${sample}" title="View this sample"
+                            target="main">
+                        <i class="fa fa-eye"></i>
+                    </a>
+                </th>
         `;
         let maxDiff = 0;
         for (let date = startDate; date <= endDate; date += 24 * 36e5) {

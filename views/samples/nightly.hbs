@@ -2,6 +2,14 @@
 table {
     border-collapse: collapse;
 }
+/*
+table th *, table td *{
+    display: none;
+}
+table th, table td {
+    height: 3px;
+}
+*/
 table td {
     border: 1px solid silver;
     text-align: left;
@@ -13,6 +21,7 @@ table td.active {
 }
 table th.path {
     text-align: right;
+    padding-right: 0.5em;
 }
 table tr:hover {
     background: #eee;
@@ -50,6 +59,7 @@ img {
 #comparison #images {
     height: 400px;
     width: 600px;
+    transition: height 250ms;
 }
 </style>
 
