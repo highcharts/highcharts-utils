@@ -118,7 +118,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     let table = `<tr><th></th>`;
     for (let date = startDate; date <= endDate; date += 24 * 36e5) {
         if (results[date]) {
-            const dateString = Highcharts.dateFormat('%d', date);
+            const dateString = Highcharts.dateFormat('%e', date);
             table += `<th>${dateString}</th>`;
         }
     }
@@ -150,15 +150,23 @@ document.addEventListener('DOMContentLoaded', async () => {
                 let onclick = '';
                 let className = '';
                 let opacity = 0;
+                let backgroundColor = 'none';
                 if (results[date][sample] !== undefined) {
                     diff = results[date][sample];
                     onclick = `compare('${sample}', ${date})`;
                     className = 'active';
                     opacity = (diff / maxDiff).toPrecision(2);
+
+                    backgroundColor = diff === 0 ?
+                        '#a4edba' :
+                        `rgba(241, 92, 128, ${opacity})`;
+                    if (diff > 999) {
+                        diff = Math.round(diff / 1000) + 'k';
+                    }
                 }
                 tr += `
                 <td onclick="${onclick}" title="${dateString}\n${sample}\n${diff} pixels are different"
-                        class="${className}" style="background-color: rgba(241, 92, 128, ${opacity}">
+                        class="${className}" style="background-color: ${backgroundColor}">
                     <span>${diff}</span>
                 </td>`;
             }
