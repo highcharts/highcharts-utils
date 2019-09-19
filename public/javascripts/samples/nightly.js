@@ -1,7 +1,6 @@
-/* global Highcharts, latestReleaseDate */
+/* global Highcharts, results */
 
 const BUCKET = 'https://s3.eu-central-1.amazonaws.com/staging-code.highcharts.com';
-const results = {};
 
 let compareToggleInterval;
 const compare = (sample, date) => { // eslint-disable-line no-unused-vars
@@ -87,95 +86,3 @@ const compare = (sample, date) => { // eslint-disable-line no-unused-vars
 
 };
 
-document.addEventListener('DOMContentLoaded', async () => {
-    const endDate = Date.now();
-    const startDate = Math.max(
-        latestReleaseDate + 24 * 36e5,
-        endDate - 90 * 24 * 36e5
-    );
-    
-    const samples = {};
-    for (let date = startDate; date <= endDate; date += 24 * 36e5) {
-        const dateString = Highcharts.dateFormat('%Y-%m-%d', date);
-
-        try {
-            const result = await fetch(
-                `${BUCKET}/test/visualtests/diffs/${dateString}/visual-test-results.json`
-            );
-            const data = await result.json();
-            results[date] = data;
-            Object.keys(data).forEach(key => {
-                if (key !== 'meta') {
-                    samples[key] = true
-                }
-            });
-        } catch (e) {
-            console.warn(`Failed loading ${dateString}`, e);
-        }
-    }
-    
-    // Render header
-    let table = `<tr><th></th>`;
-    for (let date = startDate; date <= endDate; date += 24 * 36e5) {
-        if (results[date]) {
-            const dateString = Highcharts.dateFormat('%e', date);
-            table += `<th>${dateString}</th>`;
-        }
-    }
-    table += '</tr>';
-
-    
-    // Render results
-    Object.keys(samples).sort().forEach(sample => {
-        let tr = `
-            <tr id="tr-${sample}">
-                <th class="path">
-                    <span>${sample}</span>
-                    <a href="/samples/view?path=${sample}" title="View this sample"
-                            target="main">
-                        <i class="fa fa-eye"></i>
-                    </a>
-                </th>
-        `;
-        let maxDiff = 0;
-        for (let date = startDate; date <= endDate; date += 24 * 36e5) {
-            if (results[date] && typeof results[date][sample] === 'number') {
-                maxDiff = Math.max(maxDiff, results[date][sample]);
-            }
-        }
-        for (let date = startDate; date <= endDate; date += 24 * 36e5) {
-            if (results[date]) {
-                const dateString = Highcharts.dateFormat('%Y-%m-%d', date);
-                let diff = '';
-                let onclick = '';
-                let className = '';
-                let opacity = 0;
-                let backgroundColor = 'none';
-                if (results[date][sample] !== undefined) {
-                    diff = results[date][sample];
-                    onclick = `compare('${sample}', ${date})`;
-                    className = 'active';
-                    opacity = (diff / maxDiff).toPrecision(2);
-
-                    backgroundColor = diff === 0 ?
-                        '#a4edba' :
-                        `rgba(241, 92, 128, ${opacity})`;
-                    if (diff > 999) {
-                        diff = Math.round(diff / 1000) + 'k';
-                    }
-                }
-                tr += `
-                <td onclick="${onclick}" title="${dateString}\n${sample}\n${diff} pixels are different"
-                        class="${className}" style="background-color: ${backgroundColor}">
-                    <span>${diff}</span>
-                </td>`;
-            }
-        }
-        tr += '</tr>';
-        
-        table += tr;
-        
-    });
-    document.getElementById('table').innerHTML = table;
-    
-});

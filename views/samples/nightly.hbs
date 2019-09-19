@@ -16,11 +16,27 @@ table td {
     padding: 0.1em 0.5em;
     text-align: right;
     font-size: 8px;
-    max-width: 1em;
+    max-width: 16px;
     overflow-x: hidden;
 }
 table td.active {
     cursor: pointer;
+}
+table th {
+    font-weight: normal;
+}
+table thead th {
+    height: 140px;
+    white-space: nowrap;
+}
+table thead th > div {
+    transform: translate(18px, 51px) rotate(315deg);
+    width: 30px;
+}
+table thead th > div > span {
+    border-bottom: 1px solid #ccc;
+    padding: 5px 10px;
+    font-size: 12px;
 }
 table th.path {
     text-align: right;
@@ -68,12 +84,43 @@ img {
 
 <script>
 const latestReleaseDate = {{latestReleaseDate}};
+const results = {{{results}}};
 </script>
 
 <div id="main">
     <h1>Nightly build comparison table (WIP)</h1>
     <table id="table">
+        <thead>
+            <tr>
+                <th></th>
+                {{#each table.header}}
+                <th><div><span>{{dateString}} ({{fails}} fails)</span></div></th>
+                {{/each}}
+            </tr>
+        </thead>
+        <tbody>
+            {{#each table.body}}
+            <tr id="tr-{{sample}}">
+                <th class="path">
+                    <span>{{sample}}</span>
+                    <a href="/samples/view?path={{sample}}" title="View this sample"
+                            target="main">
+                        <i class="fa fa-eye"></i>
+                    </a>
+                </th>
 
+                {{#each tds}}
+                <td id="diff-{{sample}}-{{datestring}}"
+                        onclick="{{onclick}}"
+                        title="{{dateString}}\n{{sample}}\n{{diff}} pixels are different"
+                        class="{{className}}"
+                        style="background-color: {{backgroundColor}}">
+                    <span>{{diff}}</span>
+                </td>
+                {{/each}}
+            </tr>
+            {{/each}}
+        </tbody>
     </table>
 </div>
 

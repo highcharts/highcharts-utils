@@ -36,6 +36,7 @@
     "less-middleware": "~2.2.0",
     "lint-staged": "^6.1.1",
     "marked": "^0.3.19",
+    "moment": "^2.24.0",
     "morgan": "~1.8.1",
     "nodemon": "^1.19.1",
     "serve-favicon": "~2.4.2",
