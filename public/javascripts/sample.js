@@ -240,6 +240,9 @@ controller.Sample = function (options, index) {
      * Set the diff and report back to the server.
      */
     function setDiff(newDiff) {
+        if (controller.compareMode === 'nightly') {
+            return;
+        }
         if (newDiff.toString() !== diff) {
             
             diff = newDiff.toString();

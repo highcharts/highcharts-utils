@@ -30,12 +30,16 @@ const getJSON = async (url) => new Promise ((resolve, reject) => {
     });
 });
 
-const getNightlyResult = async (date, next) => {
+const getNightlyResult = async (date) => {
     const dateString = moment(date).format('YYYY-MM-DD');
-    const json = await getJSON(
-        `${BUCKET}/test/visualtests/diffs/${dateString}/visual-test-results.json`
-    ).catch(next);
-    return json;
+    try {
+        const json = await getJSON(
+            `${BUCKET}/test/visualtests/diffs/${dateString}/visual-test-results.json`
+        );
+        return json;
+    } catch (e) {
+        console.warn(e);
+    }
 }
 
 let latestReleaseDate = Date.parse(f.getLatestTag().date);
@@ -51,7 +55,9 @@ const getResults = async () => {
 
     for (let date = startDate; date <= endDate; date += 24 * 36e5) {
         const data = await getNightlyResult(date).catch(console.warn);
-        results[date] = data;
+        if (data) {
+            results[date] = data;
+        }
     }
     return results;
 }

@@ -81,6 +81,19 @@
 			'margin-bottom': '30px'
 		});
 
+		// Set compare mode
+		document.getElementById('comparemode-' + controller.compareMode).checked = true;
+		document.querySelectorAll('.comparing input').forEach(function () {
+			this.addEventListener('change', function (e) {
+				if (e.target.value !== controller.compareMode) {
+					controller.compareMode = e.target.value;
+					controller.loadCompare();
+					window.location.reload();
+				};
+			});
+		});
+		document.getElementById('comparemode-local-label').title = controller.server.branch;
+
 		countFails();
 		
 	});
@@ -292,18 +305,18 @@
 
 	<div class="text" id="test-status"></div>
 
-	<!--
-	<div class="text">
-		View results for <a href="?"><?php echo $browser['name'] ?></a>, <a href="?browserKey=Safari">Safari</a>, <a href="?browserKey=PhantomJS">PhantomJS</a>
-	</div>
-	-->
 
-	<!--
-	<div style="margin-top: 1em">
-		<div style="width: 45%; float:left">Diff limit: <span id="slider-value">0</span></div>
-		<div id="slider" style="width: 45%; float:left"></div>
+	<div class="comparing" style="padding-top: 0.5em">
+		<form id="comparemode">
+			Comparing:
+			<label id="comparemode-local-label">
+				<input type="radio" name="comparemode" id="comparemode-local" value="local"> Local branch
+			</label>
+			<label>
+				<input type="radio" name="comparemode" id="comparemode-nightly" value="nightly"> Nightly
+			</label>
+		</form>
 	</div>
-	-->
 </div>
 
 
