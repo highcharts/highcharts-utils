@@ -136,7 +136,8 @@ router.get('/', async (req, res, next) => {
             '/javascripts/samples/nightly.js'
         ],
         styles: [
-            '/stylesheets/vendor/font-awesome-4.7.0/css/font-awesome.css'
+            '/stylesheets/vendor/font-awesome-4.7.0/css/font-awesome.css',
+            '/stylesheets/nightly.css'
         ],
         results: JSON.stringify(results),
         table: getTable(results, next)

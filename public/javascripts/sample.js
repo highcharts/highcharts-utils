@@ -93,13 +93,27 @@ controller.Sample = function (options, index) {
                         diff = (Math.round(diff * 100) / 100).toString();
                     }
                     testAnchor.setAttribute('data-diff', diff);
-                    testAnchor.innerHTML = diff;
+                    var innerHTML = diff;
+                    if (diff >= 1000) {
+                        innerHTML = Math.round(diff / 1000) + 'k';
+                    }
+                    testAnchor.innerHTML = innerHTML;
                 }
             }
         }
         li.appendChild(testAnchor);
     }
 
+    function addNightlyAnchor() {
+        var icon = '<i class="fa fa-moon-o" title="Nightly test"></i>';
+
+        var anchor = contentsDoc.createElement('a');
+        anchor.className = 'nightly-single';
+        anchor.target = 'main';
+        anchor.href = '/samples/nightly-single?path=' + options.path;
+        anchor.innerHTML = icon;
+        li.appendChild(anchor);
+    }
 
     function addCommentAnchor() {
         var commentIcon = '<i class="fa fa-pencil" title="Add comment"></i>',
@@ -223,6 +237,9 @@ controller.Sample = function (options, index) {
 
         // Render test anchor
         addTestAnchor();
+
+        // Render nightly anchor
+        addNightlyAnchor();
 
         // Add comment anchor
         addCommentAnchor();

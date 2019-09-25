@@ -8,7 +8,7 @@ const compare = (sample, date) => { // eslint-disable-line no-unused-vars
     const dateString = Highcharts.dateFormat('%Y-%m-%d', date);
     const reference = document.getElementById('reference');
     const candidate = document.getElementById('candidate');
-    const diff = results[date][sample];
+    const diff = window.results && results[date][sample];
 
     let showingCandidate = true;
 
@@ -55,6 +55,11 @@ const compare = (sample, date) => { // eslint-disable-line no-unused-vars
         `${BUCKET}/test/visualtests/reference/latest/${sample}/reference.svg`;
 
     if (diff !== 0) {
+        candidate.onerror = function () {
+            document.getElementById('image-status').innerHTML =
+                'Error loading candidate, indicating that it is identical to the reference and therefore not saved.';
+            clearInterval(compareToggleInterval);
+        }
         candidate.src = 
             `${BUCKET}/test/visualtests/diffs/${dateString}/${sample}/candidate.svg`;
     }
