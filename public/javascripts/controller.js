@@ -53,7 +53,8 @@ var controller = { // eslint-disable-line no-unused-vars
 
     loadCompare: function () {
         var url,
-            success;
+            success,
+            error;
 
         if (controller.compareMode === 'nightly') {
             var dateString = (new Date()).toISOString().split('T')[0]
@@ -65,6 +66,14 @@ var controller = { // eslint-disable-line no-unused-vars
                     controller.compare[path] = { diff: compare[path].toString() };
                 });
                 controller.runLoad();
+            };
+            error = function (e) {
+                alert('Error loading the nightly for ' + dateString + '\n' +
+                    e.status + ' ' + e.statusText + '\n' +
+                    url
+                );
+                controller.compare = {};
+                controller.runLoad();
             }
         } else {
             url = '/temp/compare.' + controller.server.branch.replace('/', '-') + '.' +
@@ -74,17 +83,18 @@ var controller = { // eslint-disable-line no-unused-vars
                 controller.compare = compare;
                 controller.runLoad();
             };
+            error = function (e) {
+                console.error('Error loading compare', e);
+                controller.compare = {};
+                controller.runLoad();
+            };
         }
 
         $.ajax({
             dataType: 'json',
             url: url,
             success: success,
-            error: function (e) {
-                console.error('Error loading compare', e);
-                controller.compare = {};
-                controller.runLoad();
-            }
+            error: error
         });
     },
 
