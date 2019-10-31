@@ -65,33 +65,34 @@
 
 			
 		});
-		/*
-		$("#slider").slider({
-			min: 0,
-			max: 1,
-			step: 0.01,
-			slide: function (ui, e) {
-				diffThreshold = e.value;
-				$('#slider-value').html(e.value);
-				$('a.dissimilarity-index').each(function (i, a) {
-					var $a = $(a),
-						$li = $a.parent(),
-						diff = parseFloat($a.attr('data-diff'));
 
-					if (diff >= e.value && $li.hasClass('identical')) {
-						$li.removeClass('identical').addClass('different');
-					} else if (diff < e.value && $li.hasClass('different')) {
-						$li.removeClass('different').addClass('identical');
-					}
-				});
-			}
+		$('a.button', document).each(function () {
+			$(this).click(function () {
+				
+				var route = this.href.split('/samples/')[1];
+				if (route) {
+					window.parent.location.hash = '#' + route;
+				}
+			});
 		});
-		*/
 
 		$('#main-nav', document).css({
 			'margin-top': $('#top-nav', document).height() + 30,
 			'margin-bottom': '30px'
 		});
+
+		// Set compare mode
+		document.getElementById('comparemode-' + controller.compareMode).checked = true;
+		document.querySelectorAll('.comparing input').forEach(function () {
+			this.addEventListener('change', function (e) {
+				if (e.target.value !== controller.compareMode) {
+					controller.compareMode = e.target.value;
+					controller.loadCompare();
+					window.location.reload();
+				};
+			});
+		});
+		document.getElementById('comparemode-local-label').title = controller.server.branch;
 
 		countFails();
 		
@@ -233,9 +234,13 @@
 	#batch-stop {
 		display: none;
 	}
-	.comment {
+	.nightly-single {
 		position: absolute;
 		right: 3em;
+	}	
+	.comment {
+		position: absolute;
+		right: 5em;
 	}	
 	.comment-title {
 		display: none;
@@ -280,7 +285,7 @@
 	<a class="button" id="batch-stop" title="Stop comparing">
 		<i class="fa fa-pause"></i>
 	</a>
-	<a class="button" href="compare-report" title="View compare history for all browsers" target="main">
+	<a class="button" href="/samples/compare-report" title="View compare history for all browsers" target="main">
 		<i class="fa fa-list"></i>
 	</a>
 	<a class="button" id="reset" title="Clear test history for all browsers">
@@ -304,18 +309,18 @@
 
 	<div class="text" id="test-status"></div>
 
-	<!--
-	<div class="text">
-		View results for <a href="?"><?php echo $browser['name'] ?></a>, <a href="?browserKey=Safari">Safari</a>, <a href="?browserKey=PhantomJS">PhantomJS</a>
-	</div>
-	-->
 
-	<!--
-	<div style="margin-top: 1em">
-		<div style="width: 45%; float:left">Diff limit: <span id="slider-value">0</span></div>
-		<div id="slider" style="width: 45%; float:left"></div>
+	<div class="comparing" style="padding-top: 0.5em">
+		<form id="comparemode">
+			Comparing:
+			<label id="comparemode-local-label">
+				<input type="radio" name="comparemode" id="comparemode-local" value="local"> Local branch
+			</label>
+			<label>
+				<input type="radio" name="comparemode" id="comparemode-nightly" value="nightly"> Nightly
+			</label>
+		</form>
 	</div>
-	-->
 </div>
 
 

@@ -71,7 +71,7 @@ var controller = window.parent && window.parent.controller,
 	}
 
 	controller.addResources(document, sample.options.details.resources);
-	if (sample.isUnitTest()) { 
+	if (sample.isUnitTest()) {
 		controller.addResources(document, ['test-controller.js']);
 		controller.addResources(document, ['test-template.js']);
 		//controller.addResources(document, ['test-templates/highcharts/scatter.js']);
@@ -80,20 +80,19 @@ var controller = window.parent && window.parent.controller,
 
 	if (typeof $ === 'undefined') {
 		window.onload = function () {
-			document.getElementById('container').innerHTML = 
+			document.getElementById('container').innerHTML =
 				'<div style="margin-top: 150px; text-align: center"><h3 style="font-size: 2em; color: red">' +
 				'jQuery is missing</h3><p>Check your settings in <code>settings.php</code>.</div>';
 		};
 		return;
 	}
 
-	
-	$(function() {
 
+	$(function() {
 
 		if (typeof Highcharts === 'undefined' && !document.getElementById('container')) {
 			window.onload = function () {
-				document.body.innerHTML = 
+				document.body.innerHTML =
 					'<div style="margin-top: 150px; text-align: center"><h3 style="font-size: 2em; color: red">' +
 					'Highcharts and container are missing</h3><p>Most likely this sample does not exist.</div>';
 			};
@@ -123,13 +122,13 @@ if ($) {
 		throw error;
 	};
 }
-// Wrappers for recording mouse events in order to write automatic tests 
+// Wrappers for recording mouse events in order to write automatic tests
 
 window.setUp = function () {
 
 	var $ = jQuery;
 	$(window).bind('keydown', parent.keyDown);
-	
+
 	/*
 	var checkbox = $('#record')[0],
 		pre = $('pre#recording')[0];
@@ -138,8 +137,8 @@ window.setUp = function () {
 			if (checkbox.checked) {
 				pre.innerHTML += "chart.pointer.onContainerMouseDown({\n"+
 					"	type: 'mousedown',\n" +
-					"	pageX: " + e.pageX + ",\n" + 
-					"	pageY: " + e.pageY + "\n" + 
+					"	pageX: " + e.pageX + ",\n" +
+					"	pageY: " + e.pageY + "\n" +
 					"});\n\n";
 			}
 			return proceed.call(this, e);
@@ -148,9 +147,9 @@ window.setUp = function () {
 			if (checkbox.checked) {
 				pre.innerHTML += "chart.pointer.onContainerMouseMove({\n"+
 					"	type: 'mousemove',\n" +
-					"	pageX: " + e.pageX + ",\n" + 
-					"	pageY: " + e.pageY + ",\n" +  
-					"	target: chart.container\n" + 
+					"	pageX: " + e.pageX + ",\n" +
+					"	pageY: " + e.pageY + ",\n" +
+					"	target: chart.container\n" +
 					"});\n\n";
 			}
 			return proceed.call(this, e);
@@ -158,7 +157,7 @@ window.setUp = function () {
 		Highcharts.wrap(Highcharts.Pointer.prototype, 'onDocumentMouseUp', function (proceed, e) {
 			if (checkbox.checked) {
 				pre.innerHTML += "chart.pointer.onContainerMouseMove({\n"+
-					"	type: 'mouseup'\n" + 
+					"	type: 'mouseup'\n" +
 					"});\n\n";
 			}
 			return proceed.call(this, e);
@@ -189,7 +188,7 @@ window.setUp = function () {
 			if (window.console && console.profileEnd) {
 				console.profile(sample.path);
 			}
-			
+
 			chart = proceed.apply(this, Array.prototype.slice.call(arguments, 1));
 
 			if (window.console && console.profileEnd) {
@@ -220,7 +219,7 @@ window.setUp = function () {
 			} else if (window.console) {
 				console.log(sample.path + ': ' + (new Date() - start) + 'ms');
 			}
-			
+
 		 	return chart;
 
 		});
@@ -265,7 +264,7 @@ window.setUp = function () {
 						}
 					);
 				});
-				
+
 			}
 		};
 		if (typeof Highcharts !== 'undefined') {
@@ -282,7 +281,7 @@ window.setUp = function () {
 						container,
 						{ attributes: true, childList: true, subtree: true }
 					);
-				}			
+				}
 			});
 		}
 	}());

@@ -73,6 +73,20 @@ Highcharts.SparkLine = function (renderTo, data) {
             column: {
                 negativeColor: '#910000',
                 borderColor: 'silver'
+            },
+            // We cannot use it in plotOptions.series because treemap
+            // has the same layout option: layoutAlgorithm.
+            networkgraph: {
+                layoutAlgorithm: {
+                    enableSimulation: false,
+                    maxIterations: 10
+                }
+            },
+            packedbubble: {
+                layoutAlgorithm: {
+                    enableSimulation: false,
+                    maxIterations: 10
+                }
             }
         },
         series: [{

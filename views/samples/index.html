@@ -34,6 +34,13 @@
 			window.onkeydown = keyDown;
 
 			if (hash) {
+
+				// General (nightly, report, settings)
+				match = hash.match(/^#[a-z\-]+/);
+				if (match) {
+					main = '/samples/' + match[0].replace('#', '');
+				}
+
 				// View
 				match = hash.match(/^#view\//);
 				if (match) {
@@ -53,7 +60,6 @@
 					main = '/samples/compare-view?path=' +
 						hash.replace(match[0], '');
 				}
-				
 				document.getElementById('main').contentWindow
 					.location.href = main;
 

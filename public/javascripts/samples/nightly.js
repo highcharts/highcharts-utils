@@ -1,4 +1,4 @@
-/* global Highcharts */
+/* global Highcharts, results */
 
 const BUCKET = 'https://s3.eu-central-1.amazonaws.com/staging-code.highcharts.com';
 
@@ -6,90 +6,88 @@ let compareToggleInterval;
 const compare = (sample, date) => { // eslint-disable-line no-unused-vars
 
     const dateString = Highcharts.dateFormat('%Y-%m-%d', date);
-    document.getElementById('reference').src = 
-        `${BUCKET}/test/visualtests/reference/latest/${sample}/reference.svg`
-    document.getElementById('candidate').src = 
-        `${BUCKET}/test/visualtests/diffs/${dateString}/${sample}/candidate.svg`;
-        
-        
-    let showingCandidate = false;
+    const reference = document.getElementById('reference');
+    const candidate = document.getElementById('candidate');
+    const diff = window.results && results[date][sample];
+
+    let showingCandidate = true;
+
     const toggle = () => {
+        let innerHTML;
         showingCandidate = !showingCandidate;
-        document.getElementById('candidate').style.opacity = showingCandidate ? 1 : 0.001;
-        document.getElementById('image-status').innerHTML = showingCandidate ?
-            '<h4>Showing candidate</h4><small>Click image to show reference</small>' :
-            '<h4>Showing reference</h4><small>Click image to show candidate</small>';
+        candidate.style.visibility =
+            showingCandidate ? 'visible' : 'hidden';
+        reference.style.visibility =
+            showingCandidate ? 'hidden' : 'visible';
+
+        if (diff === 0) {
+            innerHTML = '<b style="color:green">Reference and candidate are identical</b>';
+        } else if (showingCandidate) {
+            innerHTML = '<b>Showing candidate</b> <small>Click image to swap manually</small>';
+        } else {
+            innerHTML = '<b>Showing reference</b> <small>Click image to swap manually</small>';
+        }
+        document.getElementById('image-status').innerHTML = innerHTML;
         
     }
+
+    const openPopup = () => {
+        document.getElementById('comparison').style.display = 'block';
+
+
+        document.querySelectorAll('tr.active').forEach((tr) => 
+            tr.classList.remove('active')
+        );
+        document.getElementById(`tr-${sample}`).classList.add('active');
+    }
+
+    const closePopup = () => {
+        document.getElementById('comparison').style.display = 'none';
+        document.getElementById(`tr-${sample}`).classList.remove('active');
+    }
+
+    reference.onload = candidate.onload = function () {
+        document.getElementById('images').style.height =
+            `${this.naturalHeight}px`;
+    }
+
+    reference.src = 
+        `${BUCKET}/test/visualtests/reference/latest/${sample}/reference.svg`;
+
+    if (diff !== 0) {
+        candidate.onerror = function () {
+            document.getElementById('image-status').innerHTML =
+                'Error loading candidate, indicating that it is identical to the reference and therefore not saved.';
+            clearInterval(compareToggleInterval);
+        }
+        candidate.src = 
+            `${BUCKET}/test/visualtests/diffs/${dateString}/${sample}/candidate.svg`;
+    }
+
+
+    document.getElementById('comparison-path').innerHTML = sample;
+    toggle();
     
     clearInterval(compareToggleInterval); // Clear previous runs
-    compareToggleInterval = setInterval(toggle, 500);
 
-    document.getElementById('candidate').addEventListener('click', () => {
+    if (diff !== 0) {
+        compareToggleInterval = setInterval(toggle, 500);
+
+        document.getElementById('images').addEventListener('click', () => {
+            clearInterval(compareToggleInterval);
+            toggle();
+        });
+    }
+
+
+    // Open window
+    openPopup();
+
+    // Bind close button
+    document.getElementById('close-comparison').onclick = () => {
+        closePopup();
         clearInterval(compareToggleInterval);
-        toggle();
-    });
+    }
 
 };
 
-(async () => {
-    const endDate = Date.now();
-    const startDate = Math.max(Date.UTC(2019, 7, 15), endDate - 90 * 24 * 36e5);
-    
-    const results = {};
-    const samples = {};
-    for (let date = startDate; date <= endDate; date += 24 * 36e5) {
-        const dateString = Highcharts.dateFormat('%Y-%m-%d', date);
-
-        try {
-            const result = await fetch(
-                `${BUCKET}/test/visualtests/diffs/${dateString}/visual-test-results.json`
-            );
-            const data = await result.json();
-            results[date] = data;
-            Object.keys(data).forEach(key => {
-                if (key !== 'meta') {
-                    samples[key] = true
-                }
-            });
-        } catch (e) {
-            console.warn(`Failed loading ${dateString}`, e);
-        }
-    }
-    
-    // Render header
-    let tr = `<tr><th></th>`;
-    for (let date = startDate; date <= endDate; date += 24 * 36e5) {
-        if (results[date]) {
-            const dateString = Highcharts.dateFormat('%Y-%m-%d', date);
-            tr += `<th>${dateString}</th>`;
-        }
-    }
-    tr += '</tr>';
-
-    document.getElementById('table').innerHTML = tr;
-    
-    // Render results
-    Object.keys(samples).sort().forEach(sample => {
-        let tr = `
-            <tr>
-                <th>${sample}</th>
-        `;
-        for (let date = startDate; date <= endDate; date += 24 * 36e5) {
-            if (results[date]) {
-                let diff = results[date][sample];
-                if (diff > 0) {
-                    diff = `<a href="javascript:compare('${sample}', ${date})">${diff}</a>`;
-                }
-                if (diff === undefined) {
-                    diff = '';
-                }
-                tr += `<td>${diff}</td>`;
-            }
-        }
-        tr += '</tr>';
-        
-        document.getElementById('table').innerHTML += tr;
-    });
-    
-})();

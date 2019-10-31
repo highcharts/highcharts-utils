@@ -1,42 +1,55 @@
-<style>
-table {
-    border-collapse: collapse;
-}
-table td, table th {
-    border: 1px solid silver;
-    text-align: left;
-    padding: 0.5em
-}
-img {
-    position: absolute;
-    border: 1px dotted silver;
-}
-
-#main {
-    height: 50%;
-    overflow-y: auto;
-}
-
-#comparison {
-    height: 50%;
-    position: fixed;
-    top: 50%;
-    overflow-y: auto;
-    width: 100%;
-    border-top: 1px solid silver;
-    background: white;
-}
-</style>
+<script>
+const latestReleaseDate = {{latestReleaseDate}};
+const results = {{{results}}};
+</script>
 
 <div id="main">
     <h1>Nightly build comparison table (WIP)</h1>
     <table id="table">
+        <thead>
+            <tr>
+                <th></th>
+                {{#each table.header}}
+                <th><div><span>{{dateString}} ({{fails}} fails)</span></div></th>
+                {{/each}}
+            </tr>
+        </thead>
+        <tbody>
+            {{#each table.body}}
+            <tr id="tr-{{sample}}">
+                <th class="path">
+                    <span>{{sample}}</span>
+                    <a href="/samples/view?path={{sample}}" title="View this sample"
+                            target="main">
+                        <i class="fa fa-eye"></i>
+                    </a>
+                </th>
 
+                {{#each tds}}
+                <td id="diff-{{sample}}-{{datestring}}"
+                        onclick="{{onclick}}"
+                        title="{{dateString}}\n{{sample}}\n{{diff}} pixels are different"
+                        class="{{className}}"
+                        style="background-color: {{backgroundColor}}">
+                    <span>{{diff}}</span>
+                </td>
+                {{/each}}
+            </tr>
+            {{/each}}
+        </tbody>
     </table>
 </div>
 
 <div id="comparison">
+    <a id="close-comparison" href="javascript:;">
+        <i class="fa fa-times fa-2x"></i>
+    </a>
+
+    <h1 id="comparison-path"></h1>
     <p id="image-status"></p>
-    <img id="reference" style="z-index: 1"/>
-    <img id="candidate" style="z-index: 2"/>
+    <div id="images">
+        <img id="reference" style="z-index: 1"/>
+        <img id="candidate" style="z-index: 2"/>
+    </div>
+    <pre id="bisect"></pre>
 </div>

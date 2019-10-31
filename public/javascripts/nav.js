@@ -57,7 +57,7 @@ $(window).bind('load', function () {
 			$('<iframe>', document).appendTo($sourceBox)
 				.attr({
 					id: 'view-source-iframe',
-					src: 'view-source?path=' + controller.currentSample.path
+					src: 'view-source?path=' + window.path
 				})
 				.css({
 					width: '100%',

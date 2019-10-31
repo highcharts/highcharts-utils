@@ -1,0 +1,18 @@
+<div id="main">
+    <div id="comparison">
+        <a id="close-comparison" href="javascript:;">
+            <i class="fa fa-times fa-2x"></i>
+        </a>
+
+        <h1 id="comparison-path"></h1>
+        <p id="image-status"></p>
+        <div id="images">
+            <img id="reference" style="z-index: 1"/>
+            <img id="candidate" style="z-index: 2"/>
+        </div>
+        <pre id="bisect"></pre>
+    </div>
+</div>
+<script>
+    compare('{{path}}', Date.now());
+</script>

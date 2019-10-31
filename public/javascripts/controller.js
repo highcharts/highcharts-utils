@@ -10,6 +10,7 @@ var controller = { // eslint-disable-line no-unused-vars
     server: null,
 
     batchRuns: 0,
+    compareMode: 'local',
 
     onLoad: [function () {
         controller.samples.forEach(function (sample) {
@@ -51,19 +52,49 @@ var controller = { // eslint-disable-line no-unused-vars
     },
 
     loadCompare: function () {
-        $.ajax({
-            dataType: 'json',
-            url: '/temp/compare.' + controller.server.branch.replace('/', '-') + '.' +
-                controller.getBrowser().toLowerCase() +
-                '.json',
-            success: function (compare) {
-                controller.compare = compare;
+        var url,
+            success,
+            error;
+
+        if (controller.compareMode === 'nightly') {
+            var dateString = (new Date()).toISOString().split('T')[0]
+            url = 'https://s3.eu-central-1.amazonaws.com/staging-code.highcharts.com' +
+                '/test/visualtests/diffs/' + dateString + '/visual-test-results.json';
+            success = function (compare) {
+                controller.compare = {};
+                Object.keys(compare).forEach(function (path) {
+                    controller.compare[path] = { diff: compare[path].toString() };
+                });
                 controller.runLoad();
-            },
-            error: function () {
+            };
+            error = function (e) {
+                alert('Error loading the nightly for ' + dateString + '\n' +
+                    e.status + ' ' + e.statusText + '\n' +
+                    url
+                );
                 controller.compare = {};
                 controller.runLoad();
             }
+        } else {
+            url = '/temp/compare.' + controller.server.branch.replace('/', '-') + '.' +
+                controller.getBrowser().toLowerCase() +
+                '.json';
+            success = function (compare) {
+                controller.compare = compare;
+                controller.runLoad();
+            };
+            error = function (e) {
+                console.error('Error loading compare', e);
+                controller.compare = {};
+                controller.runLoad();
+            };
+        }
+
+        $.ajax({
+            dataType: 'json',
+            url: url,
+            success: success,
+            error: error
         });
     },
 
