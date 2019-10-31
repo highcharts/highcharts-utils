@@ -2,30 +2,35 @@
  * This is the app for code.highcharts.local
  */
 
-const http = require('http');
-const fs = require('fs');
-const f = require('./lib/functions');
+// Modules sorted by names alphabetically
+const express = require('express');
 const { codePort } = require('./lib/arguments.js');
+const { getCodeFile } = require('./lib/functions');
 
-http.createServer(function(req, res) {
+/**
+ * Create express application
+ */
+const app = express();
+const options = {
+	headers: {
+		'Access-Control-Allow-Origin': '*',
+		'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept'
+	}
+};
 
-	
-	res.setHeader('Access-Control-Allow-Origin', '*');
-	res.setHeader('Access-Control-Request-Method', '*');
-	res.setHeader('Access-Control-Allow-Methods', 'OPTIONS, GET');
-	res.setHeader('Access-Control-Allow-Headers', '*');
-	let url = req.url.replace(/^\/(gantt|maps|stock)\//g, '/');
+// Serve content of code directory
+app.use('/', (req, res) => {
+	const url = req.url.replace(/^\/(gantt|maps|stock)\//g, '/');
+	const { error, success: path } = getCodeFile(url);
 
-	let file = f.getCodeFile(url);
-
-	if (file.error) {
-		res.end(file.error);
+	if (error) {
+		res.end(error);
 		return;
 	}
+	res.sendFile(path, options);
+});
 
-	if (/\.js$/.test(file.success)) {
-		res.setHeader('Content-Type', 'text/javascript');
-	}
-	res.end(fs.readFileSync(file.success));
-    
-}).listen(codePort);
+/**
+ * Create HTTP server.
+ */
+app.listen(codePort);
