@@ -1,6 +1,6 @@
 /* global Highcharts, results */
 
-const BUCKET = 'https://s3.eu-central-1.amazonaws.com/staging-code.highcharts.com';
+const BUCKET = 'https://s3.eu-central-1.amazonaws.com/staging-vis-dev.highcharts.com';
 
 let compareToggleInterval;
 const compare = (sample, date) => { // eslint-disable-line no-unused-vars
@@ -28,14 +28,14 @@ const compare = (sample, date) => { // eslint-disable-line no-unused-vars
             innerHTML = '<b>Showing reference</b> <small>Click image to swap manually</small>';
         }
         document.getElementById('image-status').innerHTML = innerHTML;
-        
+
     }
 
     const openPopup = () => {
         document.getElementById('comparison').style.display = 'block';
 
 
-        document.querySelectorAll('tr.active').forEach((tr) => 
+        document.querySelectorAll('tr.active').forEach((tr) =>
             tr.classList.remove('active')
         );
         document.getElementById(`tr-${sample}`).classList.add('active');
@@ -51,8 +51,8 @@ const compare = (sample, date) => { // eslint-disable-line no-unused-vars
             `${this.naturalHeight}px`;
     }
 
-    reference.src = 
-        `${BUCKET}/test/visualtests/reference/latest/${sample}/reference.svg`;
+    reference.src =
+        `${BUCKET}/visualtests/reference/latest/${sample}/reference.svg`;
 
     if (diff !== 0) {
         candidate.onerror = function () {
@@ -60,14 +60,14 @@ const compare = (sample, date) => { // eslint-disable-line no-unused-vars
                 'Error loading candidate, indicating that it is identical to the reference and therefore not saved.';
             clearInterval(compareToggleInterval);
         }
-        candidate.src = 
-            `${BUCKET}/test/visualtests/diffs/${dateString}/${sample}/candidate.svg`;
+        candidate.src =
+            `${BUCKET}/visualtests/diffs/nightly/${dateString}/${sample}/candidate.svg`;
     }
 
 
     document.getElementById('comparison-path').innerHTML = sample;
     toggle();
-    
+
     clearInterval(compareToggleInterval); // Clear previous runs
 
     if (diff !== 0) {

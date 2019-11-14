@@ -5,7 +5,7 @@ const moment = require('moment'); // Using dateFormat
 
 const router = express.Router();
 
-const BUCKET = 'https://s3.eu-central-1.amazonaws.com/staging-code.highcharts.com';
+const BUCKET = 'https://s3.eu-central-1.amazonaws.com/staging-vis-dev.highcharts.com';
 
 const getJSON = async (url) => new Promise ((resolve, reject) => {
     https.get(url, (resp) => {
@@ -34,7 +34,7 @@ const getNightlyResult = async (date) => {
     const dateString = moment(date).format('YYYY-MM-DD');
     try {
         const json = await getJSON(
-            `${BUCKET}/test/visualtests/diffs/${dateString}/visual-test-results.json`
+            `${BUCKET}/visualtests/diffs/nightly/${dateString}/visual-test-results.json`
         );
         return json;
     } catch (e) {
@@ -102,7 +102,7 @@ const getTable = (results) => {
                 diff = results[date][sample];
                 onclick = `compare('${sample}', ${date})`;
                 className = 'active';
-            
+
                 backgroundColor = diff === 0 ?
                     '#a4edba' :
                     `rgba(241, 92, 128)`;
@@ -127,7 +127,7 @@ const getTable = (results) => {
 
 router.get('/', async (req, res, next) => {
     const results = await getResults(next).catch(next);
-    
+
   	res.render('samples/nightly', {
         bodyClass: 'page',
         latestReleaseDate,
