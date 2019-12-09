@@ -144,4 +144,12 @@ router.get('/', async (req, res, next) => {
     });
 });
 
+router.get('/latest.json', async (req, res, next) => {
+    const json = await getNightlyResult(Date.now()).catch(next);
+
+    res.type('application/json');
+    res.send(json);
+
+});
+
 module.exports = router;

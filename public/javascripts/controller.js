@@ -57,9 +57,7 @@ var controller = { // eslint-disable-line no-unused-vars
             error;
 
         if (controller.compareMode === 'nightly') {
-            var dateString = (new Date()).toISOString().split('T')[0]
-            url = 'https://s3.eu-central-1.amazonaws.com/staging-vis-dev.highcharts.com' +
-                '/visualtests/diffs/nightly/' + dateString + '/visual-test-results.json';
+            url = '/samples/nightly/latest.json';
             success = function (compare) {
                 controller.compare = {};
                 Object.keys(compare).forEach(function (path) {
@@ -68,7 +66,7 @@ var controller = { // eslint-disable-line no-unused-vars
                 controller.runLoad();
             };
             error = function (e) {
-                alert('Error loading the nightly for ' + dateString + '\n' +
+                alert('Error loading latest nightly\n' +
                     e.status + ' ' + e.statusText + '\n' +
                     url
                 );
