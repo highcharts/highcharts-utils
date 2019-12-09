@@ -58,8 +58,8 @@ var controller = { // eslint-disable-line no-unused-vars
 
         if (controller.compareMode === 'nightly') {
             var dateString = (new Date()).toISOString().split('T')[0]
-            url = 'https://s3.eu-central-1.amazonaws.com/staging-code.highcharts.com' +
-                '/test/visualtests/diffs/' + dateString + '/visual-test-results.json';
+            url = 'https://s3.eu-central-1.amazonaws.com/staging-vis-dev.highcharts.com' +
+                '/visualtests/diffs/nightly/' + dateString + '/visual-test-results.json';
             success = function (compare) {
                 controller.compare = {};
                 Object.keys(compare).forEach(function (path) {
@@ -212,20 +212,20 @@ var controller = { // eslint-disable-line no-unused-vars
                 '<a href="javascript:controller&&controller.filter()">' +
                     controller.samples.length + '</a>';
 
-            
+
             controller.docTitle();
 
         }
 
         // Click good or bad
-        var bisectButton = 
+        var bisectButton =
             controller.frames().commits &&
-            controller.frames().commits.contentDocument && 
-            controller.frames().commits.contentDocument.querySelector('input.automatic').checked && 
+            controller.frames().commits.contentDocument &&
+            controller.frames().commits.contentDocument.querySelector('input.automatic').checked &&
             controller.frames().commits.contentDocument.getElementById(
                 'current-' + { success: 'good', error: 'bad' }[status]
             );
-        
+
         if (bisectButton) {
             bisectButton.click();
         }
@@ -235,7 +235,7 @@ var controller = { // eslint-disable-line no-unused-vars
         if (controller.continueBatch && controller.currentSample) {
             document.title =
                 controller.currentSample.index + ' - ' +
-                '\u2713 ' + controller.testStatus.success.length + ' - ' + 
+                '\u2713 ' + controller.testStatus.success.length + ' - ' +
                 '\u2716 ' + controller.testStatus.error.length + ' - ' +
                 controller.samples.length;
         } else {
@@ -296,7 +296,7 @@ var controller = { // eslint-disable-line no-unused-vars
                 )
             ) {
                 sample.getLi().style.display = 'none';
-            
+
             } else {
                 sample.getLi().style.display = '';
             }
@@ -359,7 +359,7 @@ var controller = { // eslint-disable-line no-unused-vars
         while (index++ && index <= controller.samples.length) {
             nextSample = controller.samples[index];
             if (nextSample.getLi().style.display !== 'none') {
-                controller.frames().main.contentWindow.location.href = 
+                controller.frames().main.contentWindow.location.href =
                     controller.frames().main.contentWindow.location.href
                         .replace(controller.currentSample.path, nextSample.path);
                 break;
@@ -371,7 +371,7 @@ var controller = { // eslint-disable-line no-unused-vars
         // No + 1 because .index is 1-based
         var prevSample = controller.samples[controller.currentSample.index - 2];
         if (prevSample) {
-            controller.frames().main.contentWindow.location.href = 
+            controller.frames().main.contentWindow.location.href =
                 controller.frames().main.contentWindow.location.href
                     .replace(controller.currentSample.path, prevSample.path);
         }
@@ -387,7 +387,7 @@ var controller = { // eslint-disable-line no-unused-vars
 
     runBatch: function() {
         controller.continueBatch = true;
-        controller.frames().main.contentWindow.location.href = 
+        controller.frames().main.contentWindow.location.href =
             '/samples/compare-view?path=' +
             (controller.currentSample || controller.samples[0]).path;
         controller.batchMode();
