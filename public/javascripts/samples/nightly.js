@@ -57,7 +57,11 @@ const compare = (sample, date) => { // eslint-disable-line no-unused-vars
     if (diff !== 0) {
         candidate.onerror = function () {
             document.getElementById('image-status').innerHTML =
-                'Error loading candidate, indicating that it is identical to the reference and therefore not saved.';
+                'Error loading candidate. The reason may be that' +
+                '<ul>' +
+                '<li>The sample is new, or</li>' +
+                '<li>The candidate is identical to the reference and therefore not saved.</li>' +
+                '</ul>';
             clearInterval(compareToggleInterval);
         }
         candidate.src =
