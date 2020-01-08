@@ -15,6 +15,8 @@ var controller = { // eslint-disable-line no-unused-vars
     onLoad: [function () {
         controller.samples.forEach(function (sample) {
             controller.compare[sample.path] = controller.compare[sample.path] || {};
+
+            sample.reset(); // When switching from local to nightly
             sample.options.compare = controller.compare[sample.path];
             sample.renderList();
         });
@@ -53,18 +55,10 @@ var controller = { // eslint-disable-line no-unused-vars
 
     loadCompare: function () {
         var url,
-            success,
             error;
 
         if (controller.compareMode === 'nightly') {
             url = '/samples/nightly/latest.json';
-            success = function (compare) {
-                controller.compare = {};
-                Object.keys(compare).forEach(function (path) {
-                    controller.compare[path] = { diff: compare[path].toString() };
-                });
-                controller.runLoad();
-            };
             error = function (e) {
                 alert('Error loading latest nightly\n' +
                     e.status + ' ' + e.statusText + '\n' +
@@ -77,10 +71,6 @@ var controller = { // eslint-disable-line no-unused-vars
             url = '/temp/compare.' + controller.server.branch.replace('/', '-') + '.' +
                 controller.getBrowser().toLowerCase() +
                 '.json';
-            success = function (compare) {
-                controller.compare = compare;
-                controller.runLoad();
-            };
             error = function (e) {
                 console.error('Error loading compare', e);
                 controller.compare = {};
@@ -91,7 +81,10 @@ var controller = { // eslint-disable-line no-unused-vars
         $.ajax({
             dataType: 'json',
             url: url,
-            success: success,
+            success: function success (compare) {
+                controller.compare = compare;
+                controller.runLoad();
+            },
             error: error
         });
     },

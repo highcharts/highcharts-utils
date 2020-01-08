@@ -19,7 +19,7 @@ const getJSON = async (url) => new Promise ((resolve, reject) => {
         // The whole response has been received. Print out the result.
         resp.on('end', () => {
             try {
-                resolve(JSON.parse(data))
+                resolve(data)
             } catch (e) {
                 reject(e);
             }
@@ -36,7 +36,36 @@ const getNightlyResult = async (date) => {
         const json = await getJSON(
             `${BUCKET}/visualtests/diffs/nightly/${dateString}/visual-test-results.json`
         );
-        return json;
+
+        const compare = JSON.parse(json);
+        Object.keys(compare).forEach(path => {
+            if (path !== 'meta') {
+                compare[path] = { diff: compare[path].toString() };
+            }
+        });
+
+        // Handle
+        const approvalsJSON = await getJSON('https://vrevs.highsoft.com/api/reviews/latest');
+        const approvals = JSON.parse(approvalsJSON);
+        Object.keys(approvals.samples).forEach(path => {
+            if (path !== 'meta') {
+                approvals.samples[path].forEach(approval => {
+                    if (
+                        compare[path].diff > 0 &&
+                        compare[path].diff.toString() === approval.diff.toString()
+                    ) {
+                        compare[path].comment = {
+                            symbol: 'check',
+                            diff: approval.diff,
+                            title: approval.comment
+                        };
+                    }
+                });
+            }
+        });
+
+
+        return JSON.stringify(compare, null, '  ');
     } catch (e) {
         console.warn(e);
     }

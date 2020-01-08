@@ -32,13 +32,16 @@ const compare = (sample, date) => { // eslint-disable-line no-unused-vars
     }
 
     const openPopup = () => {
+        const activeTr = document.getElementById(`tr-${sample}`);
         document.getElementById('comparison').style.display = 'block';
-
 
         document.querySelectorAll('tr.active').forEach((tr) =>
             tr.classList.remove('active')
         );
-        document.getElementById(`tr-${sample}`).classList.add('active');
+
+        if (activeTr) {
+            activeTr.classList.add('active');
+        }
     }
 
     const closePopup = () => {

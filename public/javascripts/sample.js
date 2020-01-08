@@ -50,7 +50,7 @@ controller.Sample = function (options, index) {
             requiresManualTesting = options.details &&
                 options.details.requiresManualTesting,
             skipTest = options.details && options.details.skipTest;
-        
+
         if (requiresManualTesting) {
             testAnchor = contentsDoc.createElement('input');
             testAnchor.type = 'checkbox';
@@ -89,7 +89,7 @@ controller.Sample = function (options, index) {
                 if (
                     (/^[0-9\.\/]+$/.test(diff) || diff > 0 || diff === 'Err') && diff !== '0'
                 ) {
-                    if (diff.indexOf('.') > -1) {
+                    if (diff.toString().indexOf('.') > -1) {
                         diff = (Math.round(diff * 100) / 100).toString();
                     }
                     testAnchor.setAttribute('data-diff', diff);
@@ -191,7 +191,7 @@ controller.Sample = function (options, index) {
         // Add list
         var ul = mainNav.querySelector('ul#' + ulId),
             innerHTML = options.path;
-        
+
         if (!ul) {
             ul = contentsDoc.createElement('ul');
             ul.id = ulId;
@@ -233,8 +233,6 @@ controller.Sample = function (options, index) {
                 diff = '';
             }
         }
-        
-
         // Render test anchor
         addTestAnchor();
 
@@ -261,7 +259,7 @@ controller.Sample = function (options, index) {
             return;
         }
         if (newDiff.toString() !== diff) {
-            
+
             diff = newDiff.toString();
             options.compare.diff = diff;
             save();
@@ -272,6 +270,10 @@ controller.Sample = function (options, index) {
                 status
             );
         }
+    }
+
+    function reset() {
+        diff = undefined;
     }
 
     /**
@@ -317,6 +319,7 @@ controller.Sample = function (options, index) {
         options: options,
         path: options.path,
         renderList: renderList,
+        reset: reset,
         save: save,
         setClassName: setClassName,
         setCurrent: setCurrent,
