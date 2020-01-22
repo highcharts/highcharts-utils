@@ -51,6 +51,7 @@ const getNightlyResult = async (date) => {
             if (path !== 'meta') {
                 approvals.samples[path].forEach(approval => {
                     if (
+                        compare[path] &&
                         compare[path].diff > 0 &&
                         compare[path].diff.toString() === approval.diff.toString()
                     ) {
