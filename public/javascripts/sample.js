@@ -110,7 +110,7 @@ controller.Sample = function (options, index) {
         var anchor = contentsDoc.createElement('a');
         anchor.className = 'nightly-single';
         anchor.target = 'main';
-        anchor.href = '/samples/nightly-single?path=' + options.path;
+        anchor.href = '/samples/nightly/single?path=' + options.path;
         anchor.innerHTML = icon;
         li.appendChild(anchor);
     }

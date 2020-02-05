@@ -32,12 +32,13 @@ const getJSON = async (url) => new Promise ((resolve, reject) => {
 
 const getNightlyResult = async (date) => {
     const dateString = moment(date).format('YYYY-MM-DD');
-    try {
-        const json = await getJSON(
-            `${BUCKET}/visualtests/diffs/nightly/${dateString}/visual-test-results.json`
-        );
+    const url = `${BUCKET}/visualtests/diffs/nightly/${dateString}/visual-test-results.json`;
 
-        const compare = JSON.parse(json);
+    let rawJSON;
+    try {
+        rawJSON = await getJSON(url);
+
+        const compare = JSON.parse(rawJSON);
         Object.keys(compare).forEach(path => {
             if (path !== 'meta') {
                 compare[path] = { diff: compare[path].toString() };
@@ -68,7 +69,8 @@ const getNightlyResult = async (date) => {
 
         return JSON.stringify(compare, null, '  ');
     } catch (e) {
-        console.warn(e);
+
+        return url + '\n\n' + rawJSON;
     }
 }
 
@@ -171,6 +173,26 @@ router.get('/', async (req, res, next) => {
         ],
         results: JSON.stringify(results),
         table: getTable(results, next)
+    });
+});
+
+router.get('/single', async (req, res) => {
+
+    const path = req.query.path,
+        result = await getNightlyResult(Date.now()),
+        nightlyResult = JSON.parse(result)[path];
+console.log(nightlyResult);
+    res.render('samples/nightly-single', {
+        bodyClass: 'page',
+        scripts: [
+            'https://code.highcharts.com/highcharts.js',
+            '/javascripts/samples/nightly.js'
+        ],
+        styles: [
+            '/stylesheets/nightly.css'
+        ],
+        path,
+        nightlyResult
     });
 });
 

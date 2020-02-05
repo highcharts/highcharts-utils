@@ -12,6 +12,15 @@
         </div>
         <pre id="bisect"></pre>
     </div>
+
+    {{#if nightlyResult}}
+    <div class="nightly-result">
+        {{#if nightlyResult.comment}}
+        <h4><i class="fa fa-{{nightlyResult.comment.symbol}}"></i> {{nightlyResult.comment.diff}}</h4>
+        <p class="title">{{nightlyResult.comment.title}}</p>
+        {{/if}}
+    </div>
+    {{/if}}
 </div>
 <script>
     compare('{{path}}', Date.now());
