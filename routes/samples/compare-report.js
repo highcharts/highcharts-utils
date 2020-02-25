@@ -1,27 +1,37 @@
 const express = require('express');
-const f = require('../../lib/functions.js');
+const {
+	getBranch,
+	getNightlyResult
+} = require('../../lib/functions.js');
 const fs = require('fs');
 const path = require('path');
 const router = express.Router();
 const ip = require('ip');
 
-const browsers = ['Chrome', 'Safari', 'Firefox', 'Edge', 'MSIE'];
+const browsers = ['Nightly', 'Chrome', 'Safari', 'Firefox', 'Edge', 'MSIE'];
 
 
-
-
-router.get('/', function(req, res) {
+router.get('/', async (req, res) => {
 	let compare = {};
+
+	const nightlyResult = JSON.parse(await getNightlyResult(Date.now()));
+
 	browsers.forEach(browser => {
 		const file = path.join(
 			__dirname,
 			'../..',
 			'temp',
-			'compare.' + f.getBranch() + '.' + browser.toLowerCase() + '.json'
+			'compare.' + getBranch() + '.' + browser.toLowerCase() + '.json'
 		);
-		
-		if (fs.existsSync(file)) {
-			let results = require(file);
+
+		let results;
+		if (browser === 'Nightly') {
+			results = nightlyResult;
+		} else if (fs.existsSync(file)) {
+			results = require(file);
+		}
+
+		if (results) {
 			Object.keys(results).forEach((path) => {
 				let sample = results[path];
 				//let range = [sample.diff];

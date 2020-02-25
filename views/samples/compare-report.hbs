@@ -103,7 +103,7 @@ Highcharts.SparkLine = function (renderTo, data) {
 
 		$('#results').find('tr').each(function () {
 			var range = [], diff, className;
-		
+
 			$(this).find('td.value').each(function (i, td) {
 				if (td.innerHTML !== '') {
 					var diff = +td.innerHTML;
@@ -157,17 +157,17 @@ Highcharts.SparkLine = function (renderTo, data) {
 	}
 	.top-bar {
 		color: white;
-		font-family: Arial, sans-serif; 
-		font-size: 0.8em; 
-		padding: 0.5em; 
+		font-family: Arial, sans-serif;
+		font-size: 0.8em;
+		padding: 0.5em;
 		height: 3.5em;
 		background: #57544A;
-		background: -webkit-linear-gradient(top, #57544A, #37342A); 
+		background: -webkit-linear-gradient(top, #57544A, #37342A);
 		background: -moz-linear-gradient(top, #57544A, #37342A);
 		box-shadow: 0px 0px 8px #888;
 	}
 
-	
+
 	.top-bar a {
 		color: white;
 		text-decoration: none;
@@ -205,16 +205,16 @@ Highcharts.SparkLine = function (renderTo, data) {
 
 
 <div class="top-bar">
-	
-	<h2 style="margin: 0">Comparison report</h2> 
+
+	<h2 style="margin: 0">Comparison report</h2>
 </div>
 
 <div style="margin: 10px">
-	
+
 	<div>
 		<h3>Test results</h3>
 		<table id="results" data-browsers="{{browsers}}">
-			
+
 			{{#each compare}}
 
 			{{#if showHeader}}

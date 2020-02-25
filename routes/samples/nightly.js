@@ -1,80 +1,14 @@
 const express = require('express');
-const f = require('../../lib/functions');
-const https = require('https');
+const {
+    getLatestTag,
+    getNightlyResult
+} = require('../../lib/functions');
 const moment = require('moment'); // Using dateFormat
 
 const router = express.Router();
 
-const BUCKET = 'https://s3.eu-central-1.amazonaws.com/staging-vis-dev.highcharts.com';
 
-const getJSON = async (url) => new Promise ((resolve, reject) => {
-    https.get(url, (resp) => {
-        let data = '';
-
-        // A chunk of data has been recieved.
-        resp.on('data', (chunk) => {
-            data += chunk;
-        });
-
-        // The whole response has been received. Print out the result.
-        resp.on('end', () => {
-            try {
-                resolve(data)
-            } catch (e) {
-                reject(e);
-            }
-        });
-
-    }).on("error", (err) => {
-        reject(err);
-    });
-});
-
-const getNightlyResult = async (date) => {
-    const dateString = moment(date).format('YYYY-MM-DD');
-    const url = `${BUCKET}/visualtests/diffs/nightly/${dateString}/visual-test-results.json`;
-
-    let rawJSON;
-    try {
-        rawJSON = await getJSON(url);
-
-        const compare = JSON.parse(rawJSON);
-        Object.keys(compare).forEach(path => {
-            if (path !== 'meta') {
-                compare[path] = { diff: compare[path].toString() };
-            }
-        });
-
-        // Handle
-        const approvalsJSON = await getJSON('https://vrevs.highsoft.com/api/reviews/latest');
-        const approvals = JSON.parse(approvalsJSON);
-        Object.keys(approvals.samples).forEach(path => {
-            if (path !== 'meta') {
-                approvals.samples[path].forEach(approval => {
-                    if (
-                        compare[path] &&
-                        compare[path].diff > 0 &&
-                        compare[path].diff.toString() === approval.diff.toString()
-                    ) {
-                        compare[path].comment = {
-                            symbol: 'check',
-                            diff: approval.diff,
-                            title: approval.comment
-                        };
-                    }
-                });
-            }
-        });
-
-
-        return JSON.stringify(compare, null, '  ');
-    } catch (e) {
-
-        return url + '\n\n' + rawJSON;
-    }
-}
-
-let latestReleaseDate = Date.parse(f.getLatestTag().date);
+let latestReleaseDate = Date.parse(getLatestTag().date);
 latestReleaseDate -= latestReleaseDate % (24 * 36e5); // Round down to midnight
 
 const getResults = async () => {
@@ -181,7 +115,7 @@ router.get('/single', async (req, res) => {
     const path = req.query.path,
         result = await getNightlyResult(Date.now()),
         nightlyResult = JSON.parse(result)[path];
-console.log(nightlyResult);
+
     res.render('samples/nightly-single', {
         bodyClass: 'page',
         scripts: [

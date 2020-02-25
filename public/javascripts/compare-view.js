@@ -59,7 +59,7 @@ function setUpElements() {
 	}
 
 	// The body elements
-	if (skipTest) { 
+	if (skipTest) {
 		onIdentical('skip');
 		document.getElementById('skip-test-info').style
 			.display = 'block';
@@ -271,7 +271,7 @@ function activateOverlayCompare(isCanvas) {
 					});
 
 				$leftImage.css('position', 'absolute');
-				
+
 
 				$button.html('Showing right. Click to show left');
 				showingRight = true;
@@ -413,6 +413,7 @@ function onBothLoad() {
 				};
 
 				// compares 2 canvas images
+				/*
 				function compare(data1, data2) {
 					var	i = data1.length,
 						diff = 0,
@@ -431,6 +432,26 @@ function onBothLoad() {
 					diff = Math.round(diff * 100) / 100;
 					return diff;
 				}
+				*/
+
+				// compares 2 canvas images
+				function compare(data1, data2) {
+					var i = data1.length,
+						diff = 0,
+						pixels = [],
+						pixel;
+
+					// loops over all reds, greens, blues and alphas
+					while (i--) {
+						pixel = Math.floor(i / 4);
+						if (Math.abs(data1[i] - data2[i]) !== 0 && !pixels[pixel]) {
+							pixels[pixel] = true;
+							diff++;
+						}
+					}
+
+					return diff;
+				}
 
 				// called after converting svgs to canvases
 				function startCompare(data) {
@@ -447,8 +468,21 @@ function onBothLoad() {
 							report += '<div>Canvas Comparison Failed</div>';
 							onDifferent('Err');
 						} else {
-							report += '<div>The exported images are different (dissimilarity index: '+ diff.toFixed(2) +')</div>';
+							report += '<div>The rasterized images are different - ' +
+								'<b>' + diff + '</b> changed pixels</div>' +
+								'<div id="nightly-diff"></div>';
 							onDifferent(diff);
+
+							$.getJSON('/samples/nightly/latest.json', function (nightly) {
+								if (nightly[path]) {
+									document.getElementById('nightly-diff').innerHTML +=
+										'Nightly: <b>' + nightly[path].diff + '</b> changed pixels. ' +
+										(nightly[path].comment ? nightly[path].comment.title : '');
+								} else {
+									document.getElementById('nightly-diff').innerHTML =
+										'Nightly: No difference found'
+								}
+							});
 						}
 
 						// lower section to overlay images to visually compare the differences

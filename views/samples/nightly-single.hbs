@@ -1,3 +1,5 @@
+<link href="/stylesheets/vendor/font-awesome-4.7.0/css/font-awesome.css" rel="stylesheet">
+
 <div id="main">
     <div id="comparison">
         <a id="close-comparison" href="javascript:;">
@@ -16,8 +18,12 @@
     {{#if nightlyResult}}
     <div class="nightly-result">
         {{#if nightlyResult.comment}}
-        <h4><i class="fa fa-{{nightlyResult.comment.symbol}}"></i> {{nightlyResult.comment.diff}}</h4>
-        <p class="title">{{nightlyResult.comment.title}}</p>
+        <h3>Nightly test result</h3>
+        <p>
+            <b><i class="fa fa-{{nightlyResult.comment.symbol}}"></i>
+            {{nightlyResult.comment.diff}} changed pixels</b>.
+            {{nightlyResult.comment.title}}
+        </p>
         {{/if}}
     </div>
     {{/if}}

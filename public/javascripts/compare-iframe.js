@@ -35,7 +35,7 @@ function compareHTML() {
 				if (!details.result ) {
 					var loc = details.module + ": " + details.name + ": ",
 					output = "FAILED: " + loc + ( details.message ? details.message + ". " : "" );
-				 
+
 					if (details.actual) {
 						output += "Expected: " + details.expected + ", actual: " + details.actual;
 					}
@@ -85,12 +85,12 @@ function compareHTML() {
 			// Compare chart objects
 			if (chart) {
 				clearInterval(interval);
-				
+
 				// Automatically click buttons with classname "autocompare"
 				tryToRun(function () {
 					$('.autocompare', document).click();
 				});
-				window.parent.onLoadTest(which, $(chart.container).html());
+				window.parent.onLoadTest(which, getSVG(chart));
 
 			// Compare renderers
 			} else if (window.renderer) {
@@ -103,11 +103,9 @@ function compareHTML() {
 
 				// Create a mock chart object with a getSVG method
 				chart = {
-					getSVG: function () {
-						return window.renderer.box.parentNode.innerHTML;
-					}
+					container: window.renderer.box.parentNode
 				};
-				window.parent.onLoadTest(which, window.renderer.box.parentNode.innerHTML);
+				window.parent.onLoadTest(which, getSVG(chart));
 
 			} else if (new Date() - start > 2000) {
 				clearInterval(interval);
@@ -120,9 +118,76 @@ function compareHTML() {
 
 }
 
+/*
+ * Display the tooltip so it gets part of the comparison
+ */
+function prepareShot (chart) {
+    if (
+        chart &&
+        chart.series &&
+        chart.series[0]
+    ) {
+        var points = chart.series[0].nodes || // Network graphs, sankey etc
+            chart.series[0].points;
+
+        if (points) {
+            for (var i = 0; i < points.length; i++) {
+                if (
+                    points[i] &&
+                    !points[i].isNull &&
+                    !( // Map point with no extent, like Aruba
+                        points[i].shapeArgs &&
+                        points[i].shapeArgs.d &&
+                        points[i].shapeArgs.d.length === 0
+                    ) &&
+                    typeof points[i].onMouseOver === 'function'
+                ) {
+                    points[i].onMouseOver();
+                    break;
+                }
+            }
+        }
+    }
+};
+
+
+/**
+ * Get the SVG of a chart, or the first SVG in the page
+ * @param  {Object} chart The chart
+ * @return {String}       The SVG
+ */
+function getSVG(chart) {
+	var svg;
+	if (chart) {
+        var container = chart.container;
+        prepareShot(chart);
+        svg = container.querySelector('svg')
+            .outerHTML
+            .replace(
+                /<svg /,
+                '<svg xmlns:xlink="http://www.w3.org/1999/xlink" '
+            );
+
+        if (chart.styledMode) {
+            svg = svg.replace(
+                '</style>',
+                '* { fill: rgba(0, 0, 0, 0.1); stroke: black; stroke-width: 1px; } '
+                + 'text, tspan { fill: blue; stroke: none; } </style>'
+            );
+        }
+
+    // Renderer samples
+    } else {
+        if (document.getElementsByTagName('svg').length) {
+            svg = document.getElementsByTagName('svg')[0].outerHTML;
+        }
+    }
+    return svg;
+}
+
 window.compareSVG = function () {
 	console.log('@compareSVG', which)
-	window.parent.onLoadTest(which, (chart.getSVGForExport || chart.getSVG).call(chart));
+	window.parent.onLoadTest(which, getSVG(chart));
 }
 
 function error(e) {
@@ -150,7 +215,7 @@ function tryToRun(proceed) {
 }
 
 /**
- * Do the required overrides and options for the charts to compare 
+ * Do the required overrides and options for the charts to compare
  * nicely.
  */
 window.setUpHighcharts = function () {
@@ -173,7 +238,7 @@ window.setUpHighcharts = function () {
 	});
 
 	if (window.Highcharts) {
-		var animation = sample.details && sample.details.requiresManualTesting ? 
+		var animation = sample.details && sample.details.requiresManualTesting ?
 			undefined :
 			false;
 
@@ -264,7 +329,7 @@ window.setUpHighcharts = function () {
 
 			});
 		}
-		
+
 		if (
 			sample.options.details.exportInnerHTML ||
 			sample.options.details.compareTooltips
