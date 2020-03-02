@@ -3,8 +3,8 @@ var controller = window.parent && window.parent.controller,
 	query = controller.getQueryParameters(window),
 	diff,
 	path = query.path,
-	commentHref = '/samples/compare-comment?browser=' + controller.getBrowser +
-		'&path=' + path + '=',
+	commentHref = '/samples/compare-comment?browser=' + controller.getBrowser() +
+		'&path=' + path,
 	commentFrame,
 	leftSVG,
 	rightSVG,
@@ -23,15 +23,17 @@ var controller = window.parent && window.parent.controller,
 	diffString = window.parent.diffString,
 	canvg = window.parent.canvg;
 
-function showCommentBox() {
-	commentHref = commentHref.replace('diff=', 'diff=' + (typeof diff !== 'function' ? diff : '') + '&focus=false');
+function showCommentBox(diff) {
+
 	if (!commentFrame) {
-		commentFrame = $('<iframe>', document)
-			.attr({
-				id: 'comment-iframe',
-				src: commentHref
-			})
-			.appendTo('#comment-placeholder');
+		commentFrame = document.createElement('iframe');
+		commentFrame.setAttribute('id', 'comment-iframe');
+		commentFrame.setAttribute(
+			'src',
+			commentHref+ '&diff=' + diff + '&focus=false'
+		);
+		console.log(commentHref+ '&diff=' + diff + '&focus=false')
+		document.getElementById('comment-placeholder').appendChild(commentFrame);
 	}
 }
 
@@ -105,9 +107,8 @@ window.addEventListener('load', function () {
 
 	controller.samples[path].setCurrent();
 
-
 	if (isManual) {
-		showCommentBox();
+		showCommentBox(diff);
 	}
 
 	if ((isUnitTest || isManual) && rightcommit) {
@@ -333,8 +334,13 @@ function onBothLoad() {
 	}
 
 	if (mode === 'images') {
-		if (/[^a-zA-Z]NaN[^a-zA-Z]/.test(rightSVG)) {
+		var regNaN = /[^a-zA-Z]NaN[^a-zA-Z]/;
+		if (regNaN.test(rightSVG)) {
 			report += "<div>The generated SVG contains NaN</div>";
+			var index = rightSVG.indexOf('NaN');
+			report += '<pre>' + rightSVG.substr(index - 100, 200)
+				.replace(/</g, '&lt;')
+				.replace(/>/g, '&gt;\n') + '</pre>';
 			$('#report', document).html(report)
 				.css('background', '#f15c80');
 			onDifferent('Err');
@@ -455,6 +461,7 @@ function onBothLoad() {
 
 				// called after converting svgs to canvases
 				function startCompare(data) {
+					var nightly = controller.nightly;
 					converted.push(data);
 					// only compare if both have been converted
 					if (converted.length == 2) {
@@ -469,20 +476,26 @@ function onBothLoad() {
 							onDifferent('Err');
 						} else {
 							report += '<div>The rasterized images are different - ' +
-								'<b>' + diff + '</b> changed pixels</div>' +
-								'<div id="nightly-diff"></div>';
-							onDifferent(diff);
+								'<b>' + diff + '</b> changed pixels</div>';
 
-							$.getJSON('/samples/nightly/latest.json', function (nightly) {
-								if (nightly[path]) {
-									document.getElementById('nightly-diff').innerHTML +=
-										'Nightly: <b>' + nightly[path].diff + '</b> changed pixels. ' +
-										(nightly[path].comment ? nightly[path].comment.title : '');
-								} else {
-									document.getElementById('nightly-diff').innerHTML =
-										'Nightly: No difference found'
-								}
-							});
+							if (nightly[path]) {
+								report +=
+									'<div>Nightly: <b>' + nightly[path].diff + '</b> changed pixels. ' +
+									(nightly[path].comment ? nightly[path].comment.title : '') +
+									'</div>';
+							} else {
+								report += '<div>Nightly: No difference found</div>';
+							}
+
+							if (sample.isTolerated()) {
+								report += '<div><i class="fa fa-check"></i> ' +
+									'Sample is tolerated and marked green, diff is close to nightly diff</div>'
+							}
+
+							onDifferent(diff);
+							showCommentBox(diff);
+
+
 						}
 
 						// lower section to overlay images to visually compare the differences

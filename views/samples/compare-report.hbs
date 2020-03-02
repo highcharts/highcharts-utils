@@ -96,20 +96,39 @@ Highcharts.SparkLine = function (renderTo, data) {
 };
 </script>
 <script>
+	var controller = window.parent && window.parent.controller;
 	/* eslint-disable */
 	function updateDiff() {
 		var checked = [],
 			browsers = $('#results').data('browsers').split(',');
 
 		$('#results').find('tr').each(function () {
-			var range = [], diff, className;
+			var range = [], diff, className,
+				$valueCells = $(this).find('td.value'),
+				nightlyDiff;
 
-			$(this).find('td.value').each(function (i, td) {
+			if ($valueCells[0]) {
+				var s = $valueCells[0].innerHTML;
+				if (/^[0-9]+$/.test(s)) {
+					nightlyDiff = parseInt(s, 10);
+				}
+			}
+
+			$valueCells.each(function (i, td) {
 				if (td.innerHTML !== '') {
 					var diff = +td.innerHTML;
 
 					if (!isNaN(diff)) {
 						range.push(diff);
+					}
+
+					// Highlight cell if the diff is very different from nightly
+					if (typeof nightlyDiff === 'number') {
+						var change = diff - nightlyDiff;
+						var relativeChange = Math.abs(change / nightlyDiff);
+						if (relativeChange > controller.tolerance) {
+							td.className = 'different';
+						}
 					}
 				}
 			});

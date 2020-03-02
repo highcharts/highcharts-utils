@@ -6,13 +6,13 @@
 		<script src="/javascripts/vendor/jsdiff.js"></script>
 		<script src="/javascripts/vendor/rgbcolor.js"></script>
 		<script src="/javascripts/vendor/canvg.js"></script>
-			
+
 
 		<script src="/javascripts/controller.js"></script>
 		<script src="/javascripts/sample.js"></script>
 		<script>
 
-		
+
 		/* eslint-disable */
 		function keyDown(e) {
 			if (e.keyCode === 39) {
@@ -52,7 +52,7 @@
 				if (match) {
 					main = '/samples/compare-view?path=' + hash.replace(match[0], '');
 				}
-				
+
 				// Batch test
 				match = hash.match(/^#batch\//);
 				if (match) {
@@ -68,14 +68,14 @@
 
 		var commits = [];
 
-
+		controller.loadNightly();
 		$.getJSON('/samples/server-env', function (data) {
 			controller.server = data;
 			controller.loadCompare();
 		});
 
 		</script>
-	</head>	
+	</head>
 
 	<frameset cols="400, *" bordercolor="gray">
 		<frame src="/samples/contents" name="contents" id="contents">

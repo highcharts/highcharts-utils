@@ -56,6 +56,9 @@ router.get('/', async (req, res) => {
 
 
 				if (sample.comment) {
+					if (sample.comment.title && sample.comment.indexOf(browser) !== 0) {
+						sample.comment.title = `${browser}: ${sample.comment.title}`;
+					}
 					compare[path].comment = sample.comment;
 				}
 			})

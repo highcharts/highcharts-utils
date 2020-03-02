@@ -238,11 +238,6 @@ window.setUpHighcharts = function () {
 	});
 
 	if (window.Highcharts) {
-		var animation = sample.details && sample.details.requiresManualTesting ?
-			undefined :
-			false;
-
-
 		if (window.demoError) {
 			parent.window.error = window.demoError;
 			parent.window.onDifferent('Err');
@@ -251,34 +246,114 @@ window.setUpHighcharts = function () {
 		Highcharts.setOptions({
 			exporting: {
 				libURL: 'https://code.highcharts.com/lib' // Avoid the '../x.y.z-modified/lib' issue to allow for testing
-			},
-			chart: {
-				animation: animation
-			},
-			plotOptions: {
-				series: {
-					animation: animation,
-					kdNow: true,
-					dataLabels: {
-						defer: false
-					},
-					states: {
-						normal: {
-							animation: animation
-						},
-						hover: {
-							animation: animation
-						},
-						inactive: {
-							animation: animation
-						}
-					}
-				}
-			},
-			tooltip: {
-				animation: animation
 			}
 		});
+
+		if (!(sample.details && sample.details.requiresManualTesting)) {
+
+			/*
+			Experimental plugin to replace fonts for pixel-perfect comparison
+			between browsers
+			*/
+			/*
+			(function (H) {
+				H.wrap(H.SVGElement.prototype, 'init', function (proceed, renderer, nodeName) {
+
+					if (nodeName === 'text') {
+						nodeName = 'rect';
+					}
+
+					proceed.call(this, renderer, nodeName);
+
+				});
+
+				H.SVGRenderer.prototype.buildText = function (wrapper) {
+					let fontSize = wrapper.element.style.fontSize,
+						height,
+						width;
+
+					const lines = wrapper.textStr.split(/<br.*?>/g);
+					const maxLen = lines.reduce(function(maxLen, s) {
+						return Math.max(maxLen, s.length);
+					}, 0);
+
+					// The font size and lineHeight is based on empirical values, copied from
+					// the SVGRenderer.fontMetrics function in Highcharts.
+					if (/px/.test(fontSize)) {
+						fontSize = parseInt(fontSize, 10);
+					} else {
+						fontSize = /em/.test(fontSize) ? parseFloat(fontSize) * 12 : 12;
+					}
+					height = fontSize < 24 ? fontSize + 3 : Math.round(fontSize * 1.2);
+					height *= lines.length;
+
+					width = Math.round(maxLen * fontSize * 0.55);
+
+					wrapper.element.setAttribute('width', width);
+					wrapper.element.setAttribute('height', height);
+				}
+			}(Highcharts));
+			// */
+
+			// Disable animation over all (same as in karma-setup.js)
+			Highcharts.setOptions({
+				chart: {
+					animation: false,
+					style: {
+						//fontFamily: "'Arial', sans-serif"
+					}
+				},
+				plotOptions: {
+					series: {
+						animation: false,
+						kdNow: true,
+						dataLabels: {
+							defer: false
+						},
+						states: {
+							hover: {
+								animation: false
+							},
+							select: {
+								animation: false
+							},
+							inactive: {
+								animation: false
+							},
+							normal: {
+								animation: false
+							}
+						}
+					},
+					// We cannot use it in plotOptions.series because treemap
+					// has the same layout option: layoutAlgorithm.
+					networkgraph: {
+						layoutAlgorithm: {
+							enableSimulation: false,
+							maxIterations: 10
+						}
+					},
+					packedbubble: {
+						layoutAlgorithm: {
+							enableSimulation: false,
+							maxIterations: 10
+						}
+					}
+
+				},
+				// Stock's Toolbar decreases width of the chart. At the same time, some
+				// tests have hardcoded x/y positions for events which cuases them to fail.
+				// For these tests, let's disable stockTools.gui globally.
+				stockTools: {
+					gui: {
+						enabled: false
+					}
+				},
+				tooltip: {
+					animation: false
+				}
+			});
+		}
 
 
 		// Wrap constructors in order to catch JS errors

@@ -41,7 +41,8 @@
 <script>
 
 var controller = window.parent && window.parent.controller;
-var path = controller.getQueryParameters(document).path;
+var query = controller.getQueryParameters(document);
+var path = query.path;
 var sample = controller.samples[path];
 var $ = window.parent.$;
 $(window).load(function () {
@@ -55,10 +56,12 @@ $(window).load(function () {
 		);
 	});
 
-	$('#title', document)[0].focus();
+	if (query.focus !== 'false') {
+		$('#title', document)[0].focus();
+	}
 
 	document.getElementsByTagName('form')[0].onsubmit = function submit() {
-		
+
 		// Set options and save to disk
 		sample.setOptions({
 			compare: {

@@ -138,6 +138,19 @@ controller.Sample = function (options, index) {
         li.appendChild(commentAnchor);
     }
 
+    function isTolerated() {
+        var nightlyResult = controller.nightly[options.path];
+        if (nightlyResult) {
+            var nightlyDiff = +nightlyResult.diff;
+            var change = diff - nightlyDiff;
+            var relativeChange = Math.abs(change / nightlyDiff);
+            if (relativeChange < controller.tolerance) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     function setClassName() {
         var className = '',
             comment = options.compare && options.compare.comment;
@@ -172,10 +185,13 @@ controller.Sample = function (options, index) {
             }
         }
 
-        if (
-            options.path ===
-            (controller.currentSample && controller.currentSample.path)
-        ) {
+        // Sample is different but within tolerance
+        if (isTolerated()) {
+            className = 'approved tolerated';
+            status = 'success';
+        }
+
+        if (options.path === (controller.currentSample && controller.currentSample.path)) {
             className += ' hilighted';
         }
         li.className = className;
@@ -315,6 +331,7 @@ controller.Sample = function (options, index) {
 
     return {
         index: index,
+        isTolerated: isTolerated,
         isUnitTest: isUnitTest,
         options: options,
         path: options.path,

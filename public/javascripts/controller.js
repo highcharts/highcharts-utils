@@ -12,6 +12,10 @@ var controller = { // eslint-disable-line no-unused-vars
     batchRuns: 0,
     compareMode: 'local',
 
+    // How much relative difference do we tolerate between the nightly diff and
+    // the local pixel diff before we mark a visual test red.
+    tolerance: 0.15,
+
     onLoad: [function () {
         controller.samples.forEach(function (sample) {
             controller.compare[sample.path] = controller.compare[sample.path] || {};
@@ -26,11 +30,18 @@ var controller = { // eslint-disable-line no-unused-vars
     }],
 
     runLoad: function () {
-        if (controller.samples && controller.compare) {
+        if (controller.samples && controller.compare && controller.nightly) {
             controller.onLoad.forEach(function (fn) {
                 fn();
             });
         }
+    },
+
+    loadNightly: function () {
+        $.getJSON('/samples/nightly/latest.json', function (nightly) {
+            controller.nightly = nightly;
+            controller.runLoad();
+        });
     },
 
     loadSamples: function () {
