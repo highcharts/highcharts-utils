@@ -26,6 +26,24 @@ const getHTML = (req, codePath) => {
 	return html;
 }
 
+const getJS = (path, req) => {
+
+	let js = f.getJS(path, req);
+
+	if (path.indexOf('unit-tests/') !== 0) {
+
+		// Don't do intervals (typically for gauge samples, add point etc)
+		js = js.replace('setInterval', 'Highcharts.noop');
+
+		// Force enableSimulation: false
+		js = js.replace('enableSimulation: true','enableSimulation: false');
+
+		js = js.replace('animation:','_animation:');
+	}
+
+	return js;
+}
+
 const getTemplates = () => {
 	return glob.sync(
 		path.join(
@@ -47,11 +65,11 @@ router.get('/', function(req, res) {
 	}
 
 	let tpl = {
-		html: emulateKarma ? 
+		html: emulateKarma ?
 			f.getKarmaHTML() :
 			getHTML(req, codePath),
 		css: f.getCSS(path, codePath),
-		js: f.getJS(path, req),
+		js: getJS(path, req),
 		scripts: [
 			'/javascripts/vendor/jquery-1.11.1.js',
 			'/javascripts/vendor/lolex.js',

@@ -122,32 +122,41 @@ function compareHTML() {
  * Display the tooltip so it gets part of the comparison
  */
 function prepareShot (chart) {
-    if (
-        chart &&
-        chart.series &&
-        chart.series[0]
-    ) {
-        var points = chart.series[0].nodes || // Network graphs, sankey etc
-            chart.series[0].points;
+	try {
+		if (
+			chart &&
+			!chart.preparedForShot &&
+			chart.series &&
+			chart.series[0]
+		) {
+			var points = chart.series[0].nodes || // Network graphs, sankey etc
+				chart.series[0].points;
 
-        if (points) {
-            for (var i = 0; i < points.length; i++) {
-                if (
-                    points[i] &&
-                    !points[i].isNull &&
-                    !( // Map point with no extent, like Aruba
-                        points[i].shapeArgs &&
-                        points[i].shapeArgs.d &&
-                        points[i].shapeArgs.d.length === 0
-                    ) &&
-                    typeof points[i].onMouseOver === 'function'
-                ) {
-                    points[i].onMouseOver();
-                    break;
-                }
-            }
-        }
-    }
+			if (points) {
+				for (var i = 0; i < points.length; i++) {
+					if (
+						points[i] &&
+						!points[i].isNull &&
+						!( // Map point with no extent, like Aruba
+							points[i].shapeArgs &&
+							points[i].shapeArgs.d &&
+							points[i].shapeArgs.d.length === 0
+						) &&
+						typeof points[i].onMouseOver === 'function'
+					) {
+						points[i].onMouseOver();
+						chart.preparedForShot = true;
+						break;
+					}
+				}
+			}
+		}
+	} catch(e) {
+		if (which === 'right') {
+			parent.window.error = e;
+			parent.window.onDifferent('Err');
+		}
+	}
 };
 
 
@@ -405,6 +414,7 @@ window.setUpHighcharts = function () {
 			});
 		}
 
+		/*
 		if (
 			sample.options.details.exportInnerHTML ||
 			sample.options.details.compareTooltips
@@ -415,6 +425,7 @@ window.setUpHighcharts = function () {
 					.replace(/<\/svg>.*?$/, '</svg>'); // strip useHTML
 			};
 		}
+		*/
 
 	}
 
