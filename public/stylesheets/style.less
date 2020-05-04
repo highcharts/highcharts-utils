@@ -91,12 +91,16 @@ input {
 	color: white;
 	margin-bottom: 0.5em;
 	border: 1px solid silver;
-	font-size: 0.8em; 
-	padding: 0.5em; 
+	font-size: 0.8em;
+	padding: 0.5em;
 }
 
 #frame-row {
 	width: 1360px;
+	visibility: hidden;
+	position: absolute;
+	height: 0;
+	transition: height 500ms;
 }
 #comment-iframe {
 	height: 85px;
@@ -104,8 +108,8 @@ input {
 	border: 1px solid silver;
 }
 #preview {
-	overflow: auto; 
-	width: 1000px; 
+	overflow: auto;
+	width: 1000px;
 	position: relative
 }
 
@@ -113,11 +117,11 @@ pre#svg {
 	padding: 1em;
 	border: 1px solid silver;
 	background-color: #F8F8F8;
-	overflow: hidden; 
-	width: 1000px; 
-	height: 10px; 
-	cursor: pointer;
+	overflow: hidden;
+	width: 1000px;
 	overflow-x: auto;
+	display: none;
+	height: 0;
 }
 del {
 	color: white;
@@ -133,13 +137,18 @@ ins {
 }
 body.visual iframe {
 	display: inline-block;
-	width: 500px;
+	width: 600px;
 	height: 400px;
 	border: 1px dotted gray;
 }
 
+body.single-col #button-row {
+	display: none;
+}
 body.single-col #frame-row {
 	width: auto;
+	visibility: visible;
+	position: static;
 }
 body.unit iframe {
 	width: 100%;
@@ -201,17 +210,17 @@ body.manual #comment-placeholder {
 #qunit-tests li ol li.fail {
 	background-color: inherit !important;
 }
-#qunit-tests .fail .test-actual { 
-	color: #f15c80 !important; 
+#qunit-tests .fail .test-actual {
+	color: #f15c80 !important;
 }
-#qunit-banner.qunit-fail { 
-	background-color: #f15c80 !important; 
+#qunit-banner.qunit-fail {
+	background-color: #f15c80 !important;
 }
 #qunit-tests li li.pass {
 	border-left: 26px solid #a4edba !important;
 }
-#qunit-banner.qunit-pass { 
-	background-color: #a4edba !important; 
+#qunit-banner.qunit-pass {
+	background-color: #a4edba !important;
 }
 
 .highcharts-stocktools-wrapper {

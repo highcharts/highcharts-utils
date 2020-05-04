@@ -118,11 +118,25 @@ $(window).load(function () {
 					<input type="submit" id="submit" name="submit"
 						class="button" value="OK" />
 
-					{{#if hasDiffChanged}}
+
 					<input type='submit' name='submit-actual' id='submit-actual'
 						data-diff='{{computedDiff}}' class='button'
+						{{#unless hasDiffChanged}}style="display: none"{{/unless}}
 						value='Approve {{computedDiff}}' />
-					{{/if}}
+
+					<script>
+					var computedDiffElement = window.parent &&
+						window.parent.document.getElementById('computed-diff');
+					if (computedDiffElement) {
+						var computedDiff = computedDiffElement.innerHTML;
+						if (computedDiff !== document.getElementById('diff').value) {
+							var submitActualButton = document.getElementById('submit-actual');
+							submitActualButton.setAttribute('data-diff', computedDiff);
+							submitActualButton.setAttribute('value', 'Approve ' + computedDiff);
+							submitActualButton.style.display = '';
+						}
+					}
+					</script>
 				</td>
 			</tr>
 		</table>

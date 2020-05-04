@@ -98,10 +98,17 @@ window.addEventListener('load', function () {
 
 	$(window).bind('keydown', parent.keyDown);
 
-	$('#svg', document).click(function () {
-		$(this).css({
-			height: 'auto',
-			cursor: 'default'
+	$('#view-frame-row', document).click(function () {
+		$('#frame-row', document).css({
+			visibility: 'visible',
+			position: 'static',
+			height: '400px'
+		});
+	});
+	$('#view-svg', document).click(function () {
+		$('#svg', document).css({
+			display: 'block',
+			height: 'auto'
 		});
 	});
 
@@ -476,7 +483,7 @@ function onBothLoad() {
 							onDifferent('Err');
 						} else {
 							report += '<div>The rasterized images are different - ' +
-								'<b>' + diff + '</b> changed pixels</div>';
+								'<b id="computed-diff">' + diff + '</b> changed pixels</div>';
 
 							if (nightly[path]) {
 								report +=
@@ -504,7 +511,6 @@ function onBothLoad() {
 						$('#report', document).html(report).css('background', identical ? "#a4edba" : '#f15c80');
 					}
 				}
-
 
 				$('#preview canvas', document)
 					.attr({
@@ -589,7 +595,7 @@ function onBothLoad() {
 				leftSVG.replace(/>/g, '>\n'),
 				rightSVG.replace(/>/g, '>\n')
 			);
-			$("#svg", document).html('<h4 style="margin:0 auto 1em 0">Generated SVG (click to view)</h4>' + wash(out));
+			$("#svg", document).html('<h4 style="margin:0 auto 1em 0">Generated SVG</h4>' + wash(out));
 		} catch (e) {
 			$("#svg", document).html(previewSVG || 'Error diffing SVG');
 		}
