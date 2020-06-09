@@ -113,7 +113,6 @@ var controller = { // eslint-disable-line no-unused-vars
     toggleBisect: function (active) {
         var frames = controller.frames(),
             frame = frames.commits,
-            frameset = frames.frameset,
             checked,
             $button = $('#bisect', frames.main.contentDocument),
             commitsFrame;
@@ -133,21 +132,23 @@ var controller = { // eslint-disable-line no-unused-vars
             window.parent.commits = {};
 
             if (!frame) {
-                frame = window.parent.document.createElement('frame');
+                frame = window.parent.document.createElement('iframe');
                 frame.setAttribute('id', 'commits-frame');
                 frame.setAttribute('src', '/bisect/bisect');
             } else {
                 frame.contentWindow.location.reload();
             }
 
-            frameset.setAttribute('cols', '400, *, 400');
-            frameset.appendChild(frame);
+            window.parent.document.body.classList.add('bisect');
+            window.parent.document.getElementById('bisect-div')
+                .appendChild(frame);
         } else {
             commitsFrame = window.parent.document
                 .getElementById('commits-frame');
             if (commitsFrame) {
-                frameset.removeChild(commitsFrame);
-                frameset.setAttribute('cols', '400, *');
+                window.parent.document.getElementById('bisect-div')
+                    .removeChild(commitsFrame);
+                window.parent.document.body.classList.remove('bisect');
             }
         }
     },
