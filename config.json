@@ -8,5 +8,5 @@
 	"crtFile": "./certs/highcharts.local.crt",
 	"proxy": true,
 	"topdomain": "local",
-    "useSourceCode": true
+	"useSourceCode": true
 }

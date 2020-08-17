@@ -24,13 +24,16 @@ router.get('/', function(req, res) {
 		}
 	});
 
+    const es6Context = {};
+
 	let tpl = {
 		title: req.query.path,
 		path: req.query.path,
 		mobile: req.query.mobile,
 		html: f.getHTML(req, codePath),
 		css: f.getCSS(req.query.path, codePath),
-		js: f.getJS(req.query.path, req),
+		js: f.getJS(req.query.path, req, es6Context),
+        es6Context,
 		preJS: req.session.preJS,
 		consoleClear: true,
 		bodyClass: req.query.mobile ? 'mobile' : '',

@@ -23,7 +23,7 @@ jQuery.noConflict();
 
 	{{{preJS}}}
 
-	<script>
+	<script{{#if es6Context.isModule}} type="module"{{/if}}>
 	if (controller) {
 		if (typeof setUp === 'function') {
 			setUp();
