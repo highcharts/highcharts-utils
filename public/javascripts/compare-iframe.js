@@ -317,7 +317,10 @@ window.setUpHighcharts = function () {
 						animation: false,
 						kdNow: true,
 						dataLabels: {
-							defer: false
+							defer: false,
+							animation: {
+								defer: 0
+							}
 						},
 						states: {
 							hover: {
@@ -332,6 +335,12 @@ window.setUpHighcharts = function () {
 							normal: {
 								animation: false
 							}
+						}
+					},
+					column: {
+						animation: {
+							defer: 0,
+							duration: 0
 						}
 					},
 					// We cannot use it in plotOptions.series because treemap
@@ -360,6 +369,14 @@ window.setUpHighcharts = function () {
 				},
 				tooltip: {
 					animation: false
+				},
+				yAxis: {
+					stackLabels: {
+						animation: {
+							defer: 0,
+							duration: 0
+						}
+					}
 				}
 			});
 		}

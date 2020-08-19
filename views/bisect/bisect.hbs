@@ -1,6 +1,6 @@
 <script>
 
-var mainFrame = window.parent.document.querySelector('frame#main'),
+var mainFrame = window.parent.document.querySelector('iframe#main'),
 	mainLocation = mainFrame && mainFrame.contentWindow.location.href,
 	isComparing = mainLocation && mainLocation.indexOf('view') > -1;
 
@@ -42,9 +42,9 @@ document.addEventListener('DOMContentLoaded', function () {
 	ul {
 		margin: 150px 1em 1em 1em;
 		padding-left: 10px;
-		
+
 	}
-	
+
 	a {
 		text-decoration: none;
 	}
@@ -59,7 +59,7 @@ document.addEventListener('DOMContentLoaded', function () {
 	li.active {
 		background: linear-gradient(to right, rgba(255,255,255,0), rgb(124,181,236));
 	}
-	
+
 	body {
 		margin: 0;
 	}
@@ -141,7 +141,7 @@ document.addEventListener('DOMContentLoaded', function () {
 		font-size: 2em;
 		padding: 0 0.5em;
 	}
-	
+
 	.compare .automatic {
 		display: inline;
 	}
@@ -178,8 +178,8 @@ document.addEventListener('DOMContentLoaded', function () {
 <div id="topnav">
 
 	<button id="close">&times;</button>
-	
-	
+
+
 	<label>
 	Last known <strong>good</strong> tag or commit
 	</label>
@@ -191,14 +191,14 @@ document.addEventListener('DOMContentLoaded', function () {
 	<input type="text" name="bad" value="{{bad}}" />
 
 	<br>
-	
+
 	<label for="automatic" class="automatic">
 		<input type="checkbox" id="automatic" name="automatic" {{automaticChecked}} class="automatic" />
 		Automatic
 	</label>
-	
+
 	<input type="submit" value="Start bisect" />
-	
+
 	<br>
 	<br>
 	<a id="setdata" class="button" href="main" target="main">Change test data</a>
@@ -226,7 +226,7 @@ document.addEventListener('DOMContentLoaded', function () {
 			<input type="submit" id="current-good" name="current-good" value="Good" />
 			<input type="submit" id="current-bad" name="current-bad" value="Bad" />
 
-			<input type="submit" class="light" id="skip" name="skip" value="Skip" 
+			<input type="submit" class="light" id="skip" name="skip" value="Skip"
 				title="If this commit doesn't build, skip to the next"/>
 			<input type="submit" class="light" id="cancel" name="cancel" value="Cancel" />
 			{{/if}}
@@ -236,7 +236,7 @@ document.addEventListener('DOMContentLoaded', function () {
 			<a target="_blank" href="https://github.com/highcharts/highcharts/commit/{{commit}}">
 				View on GitHub
 			</a>
-			
+
 			{{/if}}
 		</li>
 
