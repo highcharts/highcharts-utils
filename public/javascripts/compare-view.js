@@ -151,63 +151,7 @@ function pad(s, length, left) {
 
 function proceed() {
 	updateHash(); // Batch may be stopped
-	if (controller.continueBatch) {
-		var contentDoc = window.parent.frames[0].document,
-			href,
-			next,
-			nextIndex = sample.index;
-
-		if (!contentDoc || !contentDoc.getElementById('i' + sample.index)) {
-			return;
-		}
-
-		while (nextIndex++) {
-			next = contentDoc.getElementById('i' + nextIndex);
-			if (next) {
-				href = next.href;
-			} else {
-				window.parent.location = '/samples';
-				return;
-			}
-
-			if (
-				(
-					!contentDoc.getElementById('i' + nextIndex) ||
-					/batch/.test(
-						contentDoc.getElementById('i' + nextIndex).className
-					)
-				) && contentDoc.getElementById('i' + nextIndex).parentNode.style.display !== 'none'
-
-			) {
-				break;
-			}
-		}
-
-		href = href.replace("/view?", "/compare-view?");
-
-		controller.batchRuns++;
-		// Clear memory build-up from time to time by reloading the
-		// whole thing.
-		if (controller.batchRuns > 90) {
-			window.top.location.hash = '#batch/' + controller.samples[nextIndex].path;
-			window.top.location.reload();
-		} else {
-			window.location.href = href;
-		}
-
-	// Else, log the result. This is picked up when running in PhantomJS (phantomtest.js script).
-	} else {
-		if (typeof diff === 'function') { // leaks from jsDiff
-			diff = 0;
-		}
-		/*
-		console.log([
-			'@proceed',
-			pad(path, 60, false),
-			diff ? pad(String(diff), 5, true) : '    .' // Only a dot when success
-		].join(' '));
-		*/
-	}
+	controller.proceedBatch();
 }
 
 function onIdentical(diff) {

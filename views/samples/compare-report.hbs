@@ -103,7 +103,10 @@ Highcharts.SparkLine = function (renderTo, data) {
 			browsers = $('#results').data('browsers').split(',');
 
 		$('#results').find('tr').each(function () {
-			var range = [], diff, className,
+			var tr = this,
+				range = [],
+				diff,
+				className,
 				$valueCells = $(this).find('td.value'),
 				nightlyDiff;
 
@@ -112,6 +115,15 @@ Highcharts.SparkLine = function (renderTo, data) {
 				if (/^[0-9]+$/.test(s)) {
 					nightlyDiff = parseInt(s, 10);
 				}
+
+				$valueCells[0].style.cursor = 'pointer';
+				$valueCells[0].title = 'View comparison for nightly';
+				$valueCells[0].onclick = function () {
+					window.open(
+						'/samples/nightly/single?path=' +
+						tr.querySelector('th.path a').textContent
+					);
+				};
 			}
 
 			$valueCells.each(function (i, td) {

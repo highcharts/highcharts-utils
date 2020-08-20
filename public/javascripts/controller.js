@@ -396,6 +396,81 @@ var controller = { // eslint-disable-line no-unused-vars
         controller.batchMode();
     },
 
+    proceedBatch: function () {
+        if (controller.continueBatch) {
+            var contentDoc = controller.frames().contents.contentDocument,
+                href,
+                next,
+                nextIndex = controller.currentSample.index;
+
+            while (nextIndex++) {
+                next = contentDoc.getElementById('i' + nextIndex);
+                if (next) {
+                    href = next.href;
+                } else {
+                    window.parent.location = '/samples';
+                    return;
+                }
+
+                // If the next sample is skipTest, just mark it yellow and
+                // proceed without opening the compare view
+                var nextSample = controller.samples[nextIndex];
+                if (
+                    nextSample &&
+                    nextSample.options.details &&
+                    nextSample.options.details.skipTest
+                ) {
+                    nextSample.setDiff('skip');
+                    nextSample.setClassName();
+                    continue;
+                }
+                // Skip unit tests in batch mode, they're only there for visual
+                // debugging
+                if (nextSample && nextSample.isUnitTest()) {
+                    continue;
+                }
+                if (
+                    nextSample &&
+                    nextSample.options.details &&
+                    nextSample.options.details.requiresManualTesting
+                ) {
+                    continue;
+                }
+
+                // We have a match, break out and use this sample
+                if (
+                    (
+                        !contentDoc.getElementById('i' + nextIndex) ||
+                        /batch/.test(
+                            contentDoc.getElementById('i' + nextIndex).className
+                        )
+                    ) && contentDoc.getElementById('i' + nextIndex).parentNode.style.display !== 'none'
+
+                ) {
+                    break;
+                }
+            }
+
+            href = href.replace("/view?", "/compare-view?");
+
+            controller.batchRuns++;
+            // Clear memory build-up from time to time by reloading the
+            // whole thing.
+            if (controller.batchRuns > 90) {
+                window.top.location.hash = '#batch/' + controller.samples[nextIndex].path;
+                window.top.location.reload();
+            } else {
+                controller.frames().main.contentWindow.location.href = href;
+            }
+
+        // Else, log the result
+        } else {
+            if (typeof diff === 'function') { // leaks from jsDiff
+                //diff = 0;
+            }
+        }
+    },
+
     stopBatch: function() {
         var contentsDoc = controller.frames().contents.contentDocument;
         controller.continueBatch = false;

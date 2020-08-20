@@ -50,8 +50,8 @@ router.get('/', async (req, res, next) => {
 		delete req.session.good;
 		delete req.session.bad;
 		delete req.session.cancel;
-		
-		await git(['bisect', 'reset']).catch(next);
+
+		await git(['bisect', 'reset']).catch(e => console.log(e));
 	};
 
 	const handleStep = (result) => {
@@ -121,13 +121,18 @@ router.get('/', async (req, res, next) => {
 	  		// Propose latest tag as the good commit
 	  		tpl.good = tags.pop();
 	  	}
-  		
+
   		res.render('bisect/bisect', tpl);
 
 
   	// Start a new bisect
   	} else if (!req.session.current) {
-        req.session.steps = [];
+		req.session.steps = [];
+
+		const log = await git(['bisect', 'log']);
+		if (log !== 'We are not bisectiong.') {
+			await reset();
+		}
 
   		try {
             await git(['bisect', 'start']);
@@ -175,7 +180,7 @@ router.post('/', function(req, res) {
 	} else if (req.body['current-bad']) {
 		req.session.current = 'bad';
 	}
-	
+
 	res.redirect('/bisect/bisect');
 });
 
