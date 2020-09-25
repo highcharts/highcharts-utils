@@ -51,7 +51,9 @@ router.get('/', async (req, res, next) => {
 		delete req.session.bad;
 		delete req.session.cancel;
 
-		await git(['bisect', 'reset']).catch(e => console.log(e));
+		await git(['bisect', 'reset']).catch(e => {
+			console.log('Reset error', e);
+		});
 	};
 
 	const handleStep = (result) => {
@@ -129,7 +131,8 @@ router.get('/', async (req, res, next) => {
   	} else if (!req.session.current) {
 		req.session.steps = [];
 
-		const log = await git(['bisect', 'log']);
+		const log = await git(['bisect', 'log']).catch(() => {});
+
 		if (log !== 'We are not bisectiong.') {
 			await reset();
 		}
