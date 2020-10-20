@@ -144,18 +144,20 @@ router.get('/', async (req, res, next) => {
             return handleStep();
         }
 
+		// Good
         try {
 	  	    await git(['bisect', 'good', tpl.good]);
         } catch (e) {
             tpl.error = e;
             return handleStep();
         }
-	  	let cmd = ['bisect', 'bad'];
+
+		// Bad
+        let cmd = ['bisect', 'bad'];
 		if (req.session.bad) {
 			cmd.push(req.session.bad);
 		}
-
-        try {
+		try {
 		    let result = await git(cmd);
 		    handleStep(result);
         } catch (e) {
