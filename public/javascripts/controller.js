@@ -406,10 +406,10 @@ var controller = { // eslint-disable-line no-unused-vars
             var contentDoc = controller.frames().contents.contentDocument,
                 href,
                 next,
-                nextIndex = controller.currentSample.index;
+                nextIndex = controller.currentSample.index - 1;
 
             while (nextIndex++) {
-                next = contentDoc.getElementById('i' + nextIndex);
+                next = contentDoc.getElementById('i' + (nextIndex + 1));
                 if (next) {
                     href = next.href;
                 } else {
@@ -445,11 +445,10 @@ var controller = { // eslint-disable-line no-unused-vars
                 // We have a match, break out and use this sample
                 if (
                     (
-                        !contentDoc.getElementById('i' + nextIndex) ||
-                        /batch/.test(
-                            contentDoc.getElementById('i' + nextIndex).className
+                        !next ||
+                        /batch/.test(next.className
                         )
-                    ) && contentDoc.getElementById('i' + nextIndex).parentNode.style.display !== 'none'
+                    ) && next.parentNode.style.display !== 'none'
 
                 ) {
                     break;
@@ -462,7 +461,7 @@ var controller = { // eslint-disable-line no-unused-vars
             // Clear memory build-up from time to time by reloading the
             // whole thing.
             if (controller.batchRuns > 90) {
-                window.top.location.hash = '#batch/' + controller.samples[nextIndex].path;
+                window.top.location.hash = '#batch/' + controller.samples[nextIndex - 1].path;
                 window.top.location.reload();
             } else {
                 controller.frames().main.contentWindow.location.href = href;
