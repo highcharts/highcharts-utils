@@ -167,6 +167,12 @@ router.get('/', async (req, res, next) => {
 
 	// Mark good or bad
 	} else {
+
+		const lastStep = req.session.steps[req.session.steps.length - 1];
+		if (lastStep) {
+			lastStep.result = req.session.current;
+		}
+
 		let result = await git(['bisect', req.session.current]).catch(next);
 		handleStep(result);
 	}

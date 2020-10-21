@@ -155,6 +155,10 @@ document.addEventListener('DOMContentLoaded', function () {
 		border-radius: 2px;
 		padding: 0 0.7em;
 	}
+	li {
+		list-style: none;
+		margin: 1em 0;
+	}
 	li.culprit {
 		border: 2px solid red;
 		border-radius: 5px;
@@ -171,6 +175,20 @@ document.addEventListener('DOMContentLoaded', function () {
 	}
 	input.light {
 		border-color: transparent;
+	}
+	.dot {
+		width: 0.8em;
+		height: 0.8em;
+		margin-right: 0.5em;
+		border-radius: 50%;
+		display: inline-block;
+		border: 1px solid silver;
+	}
+	.dot-good {
+		background-color: rgb(164, 237, 186);
+	}
+	.dot-bad {
+		background-color: red;
 	}
 </style>
 
@@ -212,10 +230,13 @@ document.addEventListener('DOMContentLoaded', function () {
 	<pre class="error-message">{{error}}</pre>
 	{{/if}}
 
-	<ol id="steps">
+	<ul id="steps">
 	{{#each steps}}
 
 		<li class="step {{className}}">
+
+			<span class="dot dot-{{result}}"></span>
+
 			<a class="test-anchor" href="/bisect/view?hash={{commit}}" target="main">
 				{{message}}
 			</a>
@@ -242,7 +263,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 	{{/each}}
-	</ol>
+	</ul>
 
 </div>
 
