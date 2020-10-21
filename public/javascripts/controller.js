@@ -25,6 +25,10 @@ var controller = { // eslint-disable-line no-unused-vars
             sample.renderList();
         });
 
+        controller.unitTestCount = controller.samples.filter(function (sample) {
+            return sample.isUnitTest();
+        }).length;
+
         controller.loaded = true;
         controller.updateStatus()
     }],
@@ -182,21 +186,21 @@ var controller = { // eslint-disable-line no-unused-vars
         if (controller.loaded) {
 
             var totalWidth = 99;
+            var total = controller.samples.length - controller.unitTestCount;
             var remaining = (
-                controller.samples.length -
+                total -
                 testStatus.success.length -
                 testStatus.error.length
             );
             var successWidth = (
-                (testStatus.success.length / controller.samples.length) *
+                (testStatus.success.length / total) *
                 totalWidth
             );
             var errorWidth = (
-                (testStatus.error.length / controller.samples.length) *
+                (testStatus.error.length / total) *
                 totalWidth
             );
-            var remainingWidth =
-                (remaining / controller.samples.length) * totalWidth;
+            var remainingWidth = (remaining / total) * totalWidth;
             var table = '<div class="progress">' +
                 '<div class="success" style="width:' + successWidth + '%"></div>' +
                 '<div class="error" style="width:' + errorWidth + '%"></div>' +
@@ -213,7 +217,7 @@ var controller = { // eslint-disable-line no-unused-vars
                 '<a class="remaining" href="javascript:controller&&controller.filter(\'remaining\')">' +
                 'Remaining: ' + remaining + '</a> of ' +
                 '<a href="javascript:controller&&controller.filter()">' +
-                    controller.samples.length + '</a>';
+                    total + '</a>';
 
 
             controller.docTitle();
@@ -295,7 +299,8 @@ var controller = { // eslint-disable-line no-unused-vars
                 status === 'remaining' &&
                 (
                     error.indexOf(sample.path) !== -1 ||
-                    success.indexOf(sample.path) !== -1
+                    success.indexOf(sample.path) !== -1 ||
+                    sample.isUnitTest()
                 )
             ) {
                 sample.getLi().style.display = 'none';
