@@ -19,12 +19,10 @@ const getSample = (path) => {
 		details: f.getDetails(path),
 		files: {}
 	};
-	
+
 	// Get extra files
 	[
 		'demo.css',
-		'unit-tests.js',
-		'test.js',
 		'test-notes.html'
 
 	].forEach(extraFile => {

@@ -4,12 +4,10 @@
 
 const express = require('express');
 const f = require('./../../lib/functions.js');
-const fs = require('fs');
 const glob = require('glob');
 const path = require('path');
 const router = express.Router();
-const { emulateKarma, samplesDir } = require('../../lib/arguments.js');
-const { join } = require('path');
+const { emulateKarma } = require('../../lib/arguments.js');
 
 const getHTML = (req, codePath) => {
 	let html = f.getHTML(req, codePath);
@@ -84,26 +82,6 @@ router.get('/', function(req, res) {
 		path: path,
 		which: which
 	};
-
-	// Add-hoc unit tests in visual samples. Bad practice, should be undone.
-	let unitTestsFile =
-		join(samplesDir, path, 'unit-tests.js');
-	if (fs.existsSync(unitTestsFile)) {
-		tpl.scripts.push(
-			'/javascripts/vendor/qunit-2.0.1.js'
-		);
-		tpl.styles.push(
-			'/stylesheets/vendor/qunit-2.0.1.css'
-		);
-		tpl.unitTestsFile = fs.readFileSync(unitTestsFile);
-	}
-
-	// Add test.js
-	let testFile = join(samplesDir, path, 'tests.js');
-	if (fs.existsSync(testFile)) {
-		tpl.testFile = fs.readFileSync(testFile);
-	}
-
 
 	res.render('samples/compare-iframe', tpl);
 });

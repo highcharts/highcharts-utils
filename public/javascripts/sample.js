@@ -34,13 +34,10 @@ controller.Sample = function (options, index) {
     }
 
     function isUnitTest() {
-        return Boolean(
-            options.files['unit-tests.js'] ||
-            (
-                options.details &&
-                options.details.resources &&
-                options.details.resources.toString().indexOf('qunit') !== -1
-            )
+        return (
+            options.details &&
+            options.details.resources &&
+            options.details.resources.toString().indexOf('qunit') !== -1
         );
     }
 

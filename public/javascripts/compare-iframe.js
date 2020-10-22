@@ -417,20 +417,6 @@ window.setUpHighcharts = function () {
 			});
 		}
 
-		if (typeof window.test === 'function') {
-			Highcharts.Chart.prototype.callbacks.push(function (chart) {
-				try {
-					window.test(chart);
-				} catch (e) {
-					e = 'ERROR in test.js (' + which + ' frame): ' + e.message;
-					console.error(e);
-					parent.window.error = e;
-					parent.window.onDifferent('Err');
-				}
-
-			});
-		}
-
 		/*
 		if (
 			sample.options.details.exportInnerHTML ||
