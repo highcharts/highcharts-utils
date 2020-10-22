@@ -408,7 +408,7 @@ var controller = { // eslint-disable-line no-unused-vars
                 next,
                 nextIndex = controller.currentSample.index - 1;
 
-            while (nextIndex++) {
+            while (nextIndex++ < controller.samples.length) {
                 next = contentDoc.getElementById('i' + (nextIndex + 1));
                 if (next) {
                     href = next.href;
