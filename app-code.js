@@ -20,7 +20,7 @@ const options = {
 
 // Serve content of code directory
 app.use('/', (req, res) => {
-	const url = req.url.replace(/^\/(gantt|maps|stock)\//g, '/');
+	const url = req.url.replace(/^\/(data-grid|gantt|maps|stock)\//g, '/');
 	const { error, success: path } = getCodeFile(url);
 
 	if (error) {
