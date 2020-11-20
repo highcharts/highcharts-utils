@@ -12,9 +12,21 @@
 		<script src="/javascripts/sample.js"></script>
 		<script>
 
+		function getActiveElement() {
+			var activeElement = document.activeElement;
+			if (activeElement.contentWindow) {
+				return activeElement.contentWindow.document.activeElement;
+			}
+			return activeElement;
+		}
 
 		/* eslint-disable */
 		function keyDown(e) {
+
+			if (getActiveElement().tagName === 'INPUT') {
+				return true;
+			}
+
 			if (e.keyCode === 39) {
 				controller.next();
 			}
