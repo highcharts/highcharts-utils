@@ -24,9 +24,9 @@ const getHTML = (req, codePath) => {
 	return html;
 }
 
-const getJS = (path, req) => {
+const getJS = (path, req, codePath) => {
 
-	let js = f.getJS(path, req);
+	let js = f.getJS(path, req, codePath);
 
 	if (path.indexOf('unit-tests/') !== 0) {
 
@@ -67,7 +67,7 @@ router.get('/', function(req, res) {
 			f.getKarmaHTML() :
 			getHTML(req, codePath),
 		css: f.getCSS(path, codePath),
-		js: getJS(path, req),
+		js: getJS(path, req, codePath),
 		scripts: [
 			'/javascripts/vendor/jquery-1.11.1.js',
 			'/javascripts/vendor/lolex.js',

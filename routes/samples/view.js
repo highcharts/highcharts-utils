@@ -32,7 +32,7 @@ router.get('/', function(req, res) {
 		mobile: req.query.mobile,
 		html: f.getHTML(req, codePath),
 		css: f.getCSS(req.query.path, codePath),
-		js: f.getJS(req.query.path, req, es6Context),
+		js: f.getJS(req.query.path, req, codePath, es6Context),
         es6Context,
 		preJS: req.session.preJS,
 		consoleClear: true,
