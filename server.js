@@ -22,6 +22,7 @@ let sslEnabled = false;
 let utilsDomainLine = '';
 let codeDomainLine = '';
 let apiDomainLine = '';
+let proxyError = '';
 
 const log = () => {
   const ipAddress = ip.address();
@@ -46,7 +47,8 @@ const log = () => {
   While developing highcharts-utils, run 'nodemon ./bin/www' and point your
   browser to http://localhost:3030. It watches source file changes and restarts
   automatically.
-  `.cyan);
+  `.cyan +
+  proxyError);
 }
 
 const httpsOptions = {
@@ -91,14 +93,14 @@ if (useProxy) {
     	proxy.web(req, res, {
       	target: redirects[host]
     	});
-  })
+  });
 
 
   server.on('error', () => {
-    console.error(`
-  Could not start proxy server, virtual hosts will not be available.
-  Do you have another server running on port 80?
-  `.red)
+    proxyError = `
+  Could not start proxy server, do you have another server running on port 80?
+  Virtual hosts will not be available, but IP adress and localhost will work.
+  `.yellow;
     log();
   });
 
@@ -145,7 +147,7 @@ if (useProxy) {
     `;
     apiDomainLine = `- ${protocol}://${domains[2]}
     `;
-    
+
     domains.forEach(domain => {
       hostile.set('127.0.0.1', domain);
     });
