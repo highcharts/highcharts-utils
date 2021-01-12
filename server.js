@@ -89,10 +89,18 @@ const redirects = {
 }
 if (useProxy) {
   const server = http.createServer((req, res) => {
-  	let host = req.headers.host.replace(/\.[a-z]+$/, '.*');
-    	proxy.web(req, res, {
-      	target: redirects[host]
-    	});
+    const host = req.headers.host.replace(/\.[a-z]+$/, '.*');
+
+    if (redirects[host])  {
+      proxy.web(req, res, {
+        target: redirects[host]
+      });
+    } else {
+      res.writeHead(500, {
+        'Content-Type': 'text/html'
+      });
+      res.end(`Unknown host <b>${host}</b> in <b>${__filename}</b>`);
+    }
   });
 
 
