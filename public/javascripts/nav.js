@@ -16,13 +16,13 @@ $(window).bind('load', function () {
 			controller.currentSample &&
 			contentsDoc.getElementById('i' + (controller.currentSample.index + 1))
 		) {
-			
+
 			$('#next', document).click(function() {
 				controller.next();
 			});
 			$('#next', document)[0].disabled = false;
 		}
-		
+
 	}
 
 	// Activate view source button
@@ -33,7 +33,7 @@ $(window).bind('load', function () {
 		$(this).toggleClass('active');
 
 		checked = $(this).hasClass('active')
-		
+
 		$sourceBox.css({
 			width: checked ? '50%' : 0
 		});

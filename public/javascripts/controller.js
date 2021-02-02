@@ -502,6 +502,13 @@ var controller = { // eslint-disable-line no-unused-vars
         }
 
         match = url.match(
+            /https:\/\/demo-live-data\.highcharts\.com\/(.+)\.json/
+        )
+        if (match) {
+            path = '/samples/data/' + match[1] + '.json';
+        }
+
+        match = url.match(
             /https:\/\/cdn\.rawgit\.com\/highcharts\/highcharts\/[a-z0-9\.]+\/samples\/data\/(.+)\.json/
         )
         if (match) {
