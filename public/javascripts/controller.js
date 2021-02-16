@@ -404,15 +404,12 @@ var controller = { // eslint-disable-line no-unused-vars
     proceedBatch: function () {
         if (controller.continueBatch) {
             var contentDoc = controller.frames().contents.contentDocument,
-                href,
                 next,
                 nextIndex = controller.currentSample.index - 1;
 
             while (nextIndex++ < controller.samples.length) {
                 next = contentDoc.getElementById('i' + (nextIndex + 1));
-                if (next) {
-                    href = next.href;
-                } else {
+                if (!next) {
                     window.parent.location = '/samples';
                     return;
                 }
@@ -444,27 +441,23 @@ var controller = { // eslint-disable-line no-unused-vars
 
                 // We have a match, break out and use this sample
                 if (
-                    (
-                        !next ||
-                        /batch/.test(next.className
-                        )
-                    ) && next.parentNode.style.display !== 'none'
-
+                    /batch/.test(next.className)
+                    && next.parentNode.style.display !== 'none'
                 ) {
                     break;
                 }
             }
 
-            href = href.replace("/view?", "/compare-view?");
-
             controller.batchRuns++;
+
             // Clear memory build-up from time to time by reloading the
             // whole thing.
             if (controller.batchRuns > 90) {
-                window.top.location.hash = '#batch/' + controller.samples[nextIndex - 1].path;
+                window.top.location.hash = '#batch/' + nextSample.path;
                 window.top.location.reload();
             } else {
-                controller.frames().main.contentWindow.location.href = href;
+                controller.frames().main.contentWindow.location.href =
+                    next.href.replace("/view?", "/compare-view?");
             }
 
         // Else, log the result
