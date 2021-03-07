@@ -1,3 +1,5 @@
+.env
+
 /certs
 /node_modules
 /temp

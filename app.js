@@ -13,6 +13,8 @@ var hbs = require('hbs');
 var session = require('express-session');
 var { highchartsDir } = require('./lib/arguments.js');
 
+require('dotenv').config();
+
 var app = express();
 
 hbs.registerPartials(__dirname + '/views/partials');
@@ -59,6 +61,7 @@ app.use(session({
 app.use('/', require('./routes/index'));
 app.use('/code', require('./routes/code'));
 app.use('/draft', require('./routes/draft'));
+app.use('/pulls', require('./routes/pulls'));
 
 // Bisect
 app.use('/bisect/', require('./routes/bisect/index'));
