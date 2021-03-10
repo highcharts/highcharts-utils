@@ -1,3 +1,23 @@
 <script type="module" src="/modules/pulls.js"></script>
 
-<div id="pulls"></div>
+<style>
+    #main {
+        max-width: 1000px;
+        padding: 1em;
+        margin: 0 auto;
+    }
+    .draft {
+        opacity: 0.5;
+    }
+    .pull a {
+        text-decoration: none;
+        color: #333;
+        font-weight: 600;
+    }
+
+</style>
+
+<div id="main">
+    <h4>Open pulls with new actions</h4>
+    <ul id="pulls" class="list-group"></ul>
+</div>
