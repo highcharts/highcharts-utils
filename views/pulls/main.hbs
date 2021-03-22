@@ -2,9 +2,16 @@
 
 <style>
     #main {
-        max-width: 1000px;
         padding: 1em;
         margin: 0 auto;
+    }
+    #canban {
+        display: flex;
+    }
+    .column {
+        width: 33%;
+        padding: 1em;
+        box-sizing: border-box;
     }
     .draft {
         opacity: 0.5;
@@ -18,6 +25,23 @@
 </style>
 
 <div id="main">
-    <h4>Open pulls with new actions</h4>
-    <ul id="pulls" class="list-group"></ul>
+    <button id="refresh" type="button" class="btn btn-primary" disabled>
+        <i class="fa fa-refresh"></i> Refresh
+    </button>
+    <div id="canban">
+        <div class="column">
+            <h4 class="mt-1">Drafts</h4>
+            <ul id="drafts" class="list-group"></ul>
+        </div>
+
+        <div class="column">
+            <h4 class="mt-1">Read pulls</h4>
+            <ul id="pulls-read" class="list-group"></ul>
+        </div>
+
+        <div class="column">
+            <h4 class="mt-1">Unread pulls</h4>
+            <ul id="pulls" class="list-group"></ul>
+        </div>
+    </div>
 </div>
