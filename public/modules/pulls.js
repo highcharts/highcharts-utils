@@ -1,5 +1,5 @@
 /* global timeago */
-import { createOAuthAppAuth } from "https://cdn.skypack.dev/@octokit/auth-oauth-app";
+import { createOAuthAppAuth } from "https://cdn.skypack.dev/@octokit/auth-oauth-app@3";
 import { Octokit } from "https://cdn.skypack.dev/@octokit/rest";
 import auth from '/pulls/auth';
 
@@ -102,6 +102,8 @@ const renderPull = pull => {
     timeago().render(document.querySelectorAll('.timeago'));
 }
 
+const globalPulls = [];
+
 const runUpdate = async () => {
 
     console.clear();
@@ -121,18 +123,21 @@ const runUpdate = async () => {
     let i = 0;
     for (let pull of pulls.data) {
 
+        const existingPull = globalPulls.find(p => p.number === pull.number);
+        if (!existingPull) {
+            globalPulls.push(pull);
+        }
+
         pull.read = Date.parse(pull.updated_at) <= lastUpdate;
+
+        // Preserve decoration
+        if (pull.read && existingPull) {
+            pull = existingPull;
+        }
 
         if (!pull.draft && !pull.read) {
 
             let myLastInteraction = 0;
-
-            // Progress bar
-            document.title = docTitle + ' ' +
-                new Array(Math.round(i * 6 / per_page)).fill('█').join('') +
-                new Array(Math.round((per_page - i) * 6 / per_page)).fill('▁').join('') +
-                ' ' + i + '/' + per_page;
-
 
             const comments = await octokit.issues.listComments({
                 ...repo,
@@ -233,12 +238,19 @@ const runUpdate = async () => {
 
             if (pull.newInteractions === 0) {
                 pull.read = true;
+
+                // Replace the old item in globalPulls so that the `read` status
+                // is picked up and the item placed in the correct column
+                const index = globalPulls.findIndex(
+                    p => p.number === pull.number
+                );
+                if (index > -1) {
+                    globalPulls[index] = pull;
+                }
             }
         }
 
         renderPull(pull);
-
-        console.log(pull.number, pull.title, pull);
 
         i++;
     }
@@ -250,12 +262,16 @@ const runUpdate = async () => {
         [...document.querySelectorAll('li.pull')]
             .sort((a, b) => b.dataset.datetime - a.dataset.datetime)
             .forEach(li => {
-                const pull = pulls.data.find(p =>
-                    p.number == li.dataset.number
-                );
-                if (!pull) {
+
+                // If the pull is not part of the last fetch, it is closed
+                if (!pulls.data.find(p => p.number == li.dataset.number)) {
                     li.remove();
+
+                // Append to the appropriate column
                 } else {
+                    const pull = globalPulls.find(p =>
+                        p.number == li.dataset.number
+                    )
                     // Re-insert in sorted order in updated column
                     getUl(pull).appendChild(li);
                 }
