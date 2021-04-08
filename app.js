@@ -8,6 +8,7 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var cors = require('cors');
 var lessMiddleware = require('less-middleware');
 var hbs = require('hbs');
 var session = require('express-session');
@@ -22,6 +23,8 @@ hbs.registerPartials(__dirname + '/views/partials');
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
+
+app.use(cors());
 
 app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
@@ -81,7 +84,6 @@ app.use('/samples/nightly', require('./routes/samples/nightly'));
 app.use('/samples/list-samples', require('./routes/samples/list-samples'));
 app.use('/samples/server-env', require('./routes/samples/server-env'));
 app.use('/samples/readme', require('./routes/samples/readme'));
-app.use('/samples/set-theme', require('./routes/samples/set-theme'));
 app.use('/samples/settings', require('./routes/samples/settings'));
 app.use('/samples/settings-post', require('./routes/samples/settings-post'));
 app.use('/samples/view', require('./routes/samples/view'));

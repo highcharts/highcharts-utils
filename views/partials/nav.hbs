@@ -21,21 +21,21 @@
 			<i class="fa fa-refresh"></i>
 			<span class="button-text">Reload</span>
 		</a>
-		
+
 		{{#if styled}}
-		<a class="button active" title="View this sample with CSS and no inline styling"
+		<!--a class="button active" title="View this sample with CSS and no inline styling"
 				href="view?path={{path}}&amp;styled=false">
 			<i class="fa fa-css3"></i>
 			<span class="button-text">Styled</span>
-		</a>
+		</a-->
 		{{else}}
-		<a class="button" title="View this sample with CSS and no inline styling"
+		<!--a class="button" title="View this sample with CSS and no inline styling"
 			href="view?path={{path}}&amp;styled=true">
 			<i class="fa fa-css3"></i>
 			<span class="button-text">Styled</span>
-		</a>
+		</a-->
 		{{/if}}
-		
+
 		<a class="button {{compareClass}} mobile-hide"
 				href="compare-view?path={{path}}">
 			<i class="fa fa-columns"></i>
@@ -44,7 +44,7 @@
 			<i class="fa fa-code-fork"></i>
 			<span class="button-text">Bisect</span>
 		</a>
-		
+
 
 		<a class="button mobile-hide"
 			href="view?path={{path}}&amp;profile=1">
@@ -54,7 +54,7 @@
 			href="view?path={{path}}&amp;time=1">
 			<i class="fa fa-clock-o"></i>
 			<span class="button-text">Time</span></a>
-		
+
 
 		<a id="view-source" class="button mobile-hide" href="javascript:;">
 			<i class="fa fa-code"></i>
@@ -81,8 +81,17 @@
 			<i class="fa fa-mobile"></i>
 			<span class="button-text">Mobile</span></a>
 
+		<!-- if themes, means we have a mini form control -->
 		{{#if themes}}
-		<form method="post" action="/samples/set-theme" style="display:inline">
+		<form method="post" action="/samples/settings-post" style="display:inline">
+
+			<label title="When enabled, samples are rewritten to load ES6 modules for faster debugging.
+> npx tsc -b ts --watch">
+				<input type="checkbox" name="rewriteSamplesToES6"
+					onchange="this.form.submit()" {{rewriteSamplesToES6Checked}}>
+				ES6
+			</label>
+
 			<select name="theme" onchange="this.form.submit()">
 			{{#each themes}}
 				<option value="{{@key}}" {{selected}}>
@@ -92,7 +101,6 @@
 			</select>
 		</form>
 		{{/if}}
-		
-		
+
 	</div>
 </div>

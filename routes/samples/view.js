@@ -67,6 +67,8 @@ router.get('/', function(req, res) {
 				selected: req.session.theme === 'grid-light' && 'selected'
 			}
 		},
+		rewriteSamplesToES6Checked: req.session.rewriteSamplesToES6 ?
+			'checked' : '',
 		styled: false // @todo: implement
 	};
 
