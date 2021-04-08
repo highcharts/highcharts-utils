@@ -44,7 +44,7 @@
     "lint-staged": "^6.1.1",
     "marked": "^0.3.19",
     "moment": "^2.29.1",
-    "morgan": "~1.8.1",
+    "morgan": "~1.9.1",
     "nodemon": "^1.19.4",
     "serve-favicon": "~2.4.2",
     "simple-git": "^1.132.0",
