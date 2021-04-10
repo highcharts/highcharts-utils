@@ -49,13 +49,13 @@ export const jsToESM = (
 ) => {
 
     let maps = [];
-    const mapRegex = /(http|https):\/\/code\.highcharts\.(com|local)\/mapdata\/([a-z\-\/]+)\.js/;
+    const mapRegex = /\/mapdata\/([a-z\-\/]+)\.js/;
 
     const files = scripts
         .map(script => {
             const match = script.match(mapRegex);
             if (match) {
-                maps.push(match[3]);
+                maps.push(match[1]);
                 return;
             }
             return script

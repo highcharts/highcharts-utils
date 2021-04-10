@@ -8,6 +8,8 @@ const octokit = new Octokit({
     auth
 });
 
+const globalPulls = [];
+
 const per_page = 20;
 const docTitle = document.title;
 
@@ -42,6 +44,7 @@ const checkForUpdates = async () => {
     if (hasUpdates) {
         await runUpdate();
     }
+    document.getElementById('refresh').disabled = false;
 }
 
 const getUl = pull => {
@@ -49,13 +52,127 @@ const getUl = pull => {
         return ulDrafts;
     }
 
-    if (pull.read) {
+    if (pull.decoration?.read) {
         return ulPullsRead;
     }
 
     return ulPulls;
 }
 
+const decoratePull = async (pull) => {
+    console.log('@decoratePull', pull.title);
+    const decoration = {};
+
+    let myLastInteraction = 0;
+
+    const comments = await octokit.issues.listComments({
+        ...repo,
+        issue_number: pull.number
+    }).catch(e => console.error(e));
+
+    const reviews = await octokit.pulls.listReviews({
+        ...repo,
+        pull_number: pull.number
+    }).catch(e => console.error(e));
+
+    const reviewComments = await octokit.pulls.listReviewComments({
+        ...repo,
+        pull_number: pull.number
+    }).catch(e => console.error(e));
+
+    decoration.comments = comments.data
+        .concat(reviews.data)
+        .concat(reviewComments.data);
+        decoration.comments.sort((a, b) =>
+        Date.parse(a.created_at || a.submitted_at) -
+        Date.parse(b.created_at || b.submitted_at)
+    );
+
+    if (decoration.comments.length) {
+        decoration.lastComment = decoration.comments[decoration.comments.length - 1];
+        decoration.myLastComment = decoration.comments.slice().reverse()
+            .find(c => c.user.login === 'TorsteinHonsi');
+        if (decoration.myLastComment) {
+            myLastInteraction = Math.max(
+                myLastInteraction,
+                Date.parse(
+                    decoration.myLastComment.created_at ||
+                    decoration.myLastComment.submitted_at
+                )
+            );
+        }
+    }
+
+    /*
+    // Events like assigned, tagged, review_requested
+    const { data: events } = await octokit.issues.listEvents({
+        owner: 'highcharts',
+        repo: 'highcharts',
+        issue_number: pull.number
+    }).catch(e => console.error(e));
+    pull.events = events;
+    */
+
+
+    const commits = await octokit.pulls.listCommits({
+        ...repo,
+        pull_number: pull.number
+    }).catch(e => console.error(e));
+    decoration.commits = commits.data;
+
+    if (decoration.commits.length) {
+        decoration.lastCommit = decoration.commits[decoration.commits.length - 1];
+        decoration.myLastCommit = decoration.commits.slice().reverse()
+            .find(c => c.author.login === 'TorsteinHonsi');
+        if (decoration.myLastCommit) {
+            myLastInteraction = Math.max(
+                myLastInteraction,
+                Date.parse(decoration.myLastCommit.commit.author.date)
+            );
+        }
+    }
+
+    /* Must have checks:read permission
+    if (pull.lastCommit) {
+        const checks = await octokit.checks.listForRef({
+            ...repo,
+            ref: pull.lastCommit.sha,
+        }).catch(e => console.error(e));
+        pull.checks = checks.data;
+    }
+    */
+
+    // Count new interactions since myLastInteraction
+    let newComments =  (decoration.comments || []).filter(
+        c =>
+        Date.parse(c.created_at || c.submitted_at) > myLastInteraction
+    );
+    let newCommits = (decoration.commits || []).filter(
+        c => Date.parse(c.commit.author.date) > myLastInteraction
+    );
+
+    decoration.newInteractions = newComments.length + newCommits.length;
+
+    decoration.newInteractionsTitle =
+        newComments.map(c =>
+            '@' + c.user.login + ': ' + c.body.substr(0, 60)
+        ).join('\n') +
+        '\n' +
+        newCommits.map(c =>
+            '@' + c.author.login + ': ' + c.commit.message
+        ).join('\n');
+
+    if (decoration.newInteractions === 0) {
+        decoration.read = true;
+    }
+    pull.decoration = decoration;
+}
+
+const updatePageTitle = () => {
+    // Update page status
+    const openPulls = document.getElementById('pulls').children.length;
+    document.title = openPulls ? `${docTitle} (${openPulls})` : docTitle;
+}
 
 // Render
 const renderPull = pull => {
@@ -78,11 +195,11 @@ const renderPull = pull => {
         </a>
     `;
 
-    if (pull.newInteractions) { // !undefined or > 0
+    if (pull.decoration?.newInteractions) { // !undefined or > 0
         li.innerHTML += `
         <span class="badge bg-primary rounded-pill"
-            title="${pull.newInteractionsTitle}">
-            ${pull.newInteractions}
+            title="${pull.decoration.newInteractionsTitle}">
+            ${pull.decoration.newInteractions}
         </span>
     `;
     }
@@ -100,13 +217,11 @@ const renderPull = pull => {
     `;
 
     timeago().render(document.querySelectorAll('.timeago'));
+
+    updatePageTitle();
 }
 
-const globalPulls = [];
-
 const runUpdate = async () => {
-
-    console.clear();
 
     document.getElementById('refresh').disabled = true;
 
@@ -120,14 +235,19 @@ const runUpdate = async () => {
 
     const dateNow = Date.now();
 
-    let i = 0;
-    for (let pull of pulls.data) {
-
+    // for (let pull of pulls.data) {
+    pulls.data.forEach(pull => {
+        // Add to global pulls
         const existingPull = globalPulls.find(p => p.number === pull.number);
         if (!existingPull) {
+            console.log('@runUpdate', 'Added item ', pull.title);
+            pull.decoration = {
+                newlyLoaded: true
+            };
             globalPulls.push(pull);
         }
 
+        /*
         pull.read = Date.parse(pull.updated_at) <= lastUpdate;
 
         // Preserve decoration
@@ -136,124 +256,43 @@ const runUpdate = async () => {
         }
 
         if (!pull.draft && !pull.read) {
-
-            let myLastInteraction = 0;
-
-            const comments = await octokit.issues.listComments({
-                ...repo,
-                issue_number: pull.number
-            }).catch(e => console.error(e));
-
-            const reviews = await octokit.pulls.listReviews({
-                ...repo,
-                pull_number: pull.number
-            }).catch(e => console.error(e));
-
-            const reviewComments = await octokit.pulls.listReviewComments({
-                ...repo,
-                pull_number: pull.number
-            }).catch(e => console.error(e));
-
-            pull.comments = comments.data
-                .concat(reviews.data)
-                .concat(reviewComments.data);
-            pull.comments.sort((a, b) =>
-                Date.parse(a.created_at || a.submitted_at) -
-                Date.parse(b.created_at || b.submitted_at)
-            );
-
-            if (pull.comments.length) {
-                pull.lastComment = pull.comments[pull.comments.length - 1];
-                pull.myLastComment = pull.comments.slice().reverse()
-                    .find(c => c.user.login === 'TorsteinHonsi');
-                if (pull.myLastComment) {
-                    myLastInteraction = Math.max(
-                        myLastInteraction,
-                        Date.parse(
-                            pull.myLastComment.created_at ||
-                            pull.myLastComment.submitted_at
-                        )
-                    );
-                }
-            }
-
-            /*
-            // Events like assigned, tagged, review_requested
-            const { data: events } = await octokit.issues.listEvents({
-                owner: 'highcharts',
-                repo: 'highcharts',
-                issue_number: pull.number
-            }).catch(e => console.error(e));
-            pull.events = events;
-            */
-
-
-            const commits = await octokit.pulls.listCommits({
-                ...repo,
-                pull_number: pull.number
-            }).catch(e => console.error(e));
-            pull.commits = commits.data;
-
-            if (pull.commits.length) {
-                pull.lastCommit = pull.commits[pull.commits.length - 1];
-                pull.myLastCommit = pull.commits.slice().reverse()
-                    .find(c => c.author.login === 'TorsteinHonsi');
-                if (pull.myLastCommit) {
-                    myLastInteraction = Math.max(
-                        myLastInteraction,
-                        Date.parse(pull.myLastCommit.commit.author.date)
-                    );
-                }
-            }
-
-            /* Must have checks:read permission
-            if (pull.lastCommit) {
-                const checks = await octokit.checks.listForRef({
-                    ...repo,
-                    ref: pull.lastCommit.sha,
-                }).catch(e => console.error(e));
-                pull.checks = checks.data;
-            }
-            */
-
-            // Count new interactions since myLastInteraction
-            let newComments =  (pull.comments || []).filter(
-                c =>
-                Date.parse(c.created_at || c.submitted_at) > myLastInteraction
-            );
-            let newCommits = (pull.commits || []).filter(
-                c => Date.parse(c.commit.author.date) > myLastInteraction
-            );
-
-            pull.newInteractions = newComments.length + newCommits.length;
-
-            pull.newInteractionsTitle =
-                newComments.map(c =>
-                    '@' + c.user.login + ': ' + c.body.substr(0, 60)
-                ).join('\n') +
-                '\n' +
-                newCommits.map(c =>
-                    '@' + c.author.login + ': ' + c.commit.message
-                ).join('\n');
-
-            if (pull.newInteractions === 0) {
-                pull.read = true;
-
-                // Replace the old item in globalPulls so that the `read` status
-                // is picked up and the item placed in the correct column
-                const index = globalPulls.findIndex(
-                    p => p.number === pull.number
-                );
-                if (index > -1) {
-                    globalPulls[index] = pull;
-                }
-            }
+            decoratePull(pull);
         }
 
         renderPull(pull);
 
         i++;
+        */
+    });
+
+    // Remove closed pulls from globalPulls
+    globalPulls.forEach((pull, i) => {
+        const updatedPull = pulls.data.find(p => p.number === pull.number);
+        if (!updatedPull) {
+            console.log('@runUpdate', 'Removed item ', pull.title);
+            globalPulls.splice(i, 1);
+        }
+    });
+
+
+    // Decorate new pulls and render
+    for (let pull of globalPulls) {
+        if (Date.parse(pull.updated_at) > lastUpdate) {
+            console.log('@runUpdate', 'Updated item', pull.title);
+        }
+        if (pull.draft) {
+            delete pull.decoration;
+
+        } else if (
+            pull.decoration?.newlyLoaded ||
+            Date.parse(pull.updated_at) > lastUpdate
+        ) {
+            await decoratePull(pull);
+        }
+
+        renderPull(pull);
     }
+
 
     if (lastUpdate > 0) {
         // Loop over the visible elements. If the corresponding pull doesn't
@@ -278,8 +317,7 @@ const runUpdate = async () => {
             });
     }
 
-    const openPulls = document.getElementById('pulls').children.length;
-    document.title = openPulls ? `${docTitle} (${openPulls})` : docTitle;
+    updatePageTitle();
 
     lastUpdate = dateNow;
 
@@ -294,6 +332,6 @@ const runUpdate = async () => {
 
     document.getElementById('refresh').addEventListener('click', async () => {
         nextUpdate = 60000;
-        await runUpdate();
+        await checkForUpdates();
     });
 })();
