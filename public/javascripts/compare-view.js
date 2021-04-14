@@ -38,14 +38,22 @@ function showCommentBox(diff) {
 }
 
 function updateHash() {
-	if (window.parent && window.parent.frames[0] && window.parent.history.pushState) {
-		var hash = controller.continueBatch ? '#batch' : '#test';
-		hash += '/' + path;
-		if (hash !== window.parent.location.hash) {
-			window.parent.history.pushState(null, null, hash);
+	var parent = window.parent, history = parent.history;
+	if (parent && parent.frames[0] && history.pushState) {
+		if (controller.continueBatch) {
+			var hash = '#batch/' + path;
+			if (parent.location.hash.indexOf('#batch') === -1) {
+				// browsers ignore history replacements for security reasons,
+                // so only create one entry for each batch cycle
+				history.pushState(null, null, hash);
+			}
+		} else {
+			var hash = '#test/' + path;
+			if (hash !== parent.location.hash) {
+				history.pushState(null, null, hash);
+			}
 		}
 	}
-
 }
 
 function setUpElements() {
