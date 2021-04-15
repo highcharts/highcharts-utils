@@ -44,7 +44,7 @@ function updateHash() {
 			var hash = '#batch/' + path;
 			if (parent.location.hash.indexOf('#batch') === -1) {
 				// browsers ignore history replacements for security reasons,
-                // so only create one entry for each batch cycle
+				// so only create one entry for each batch cycle
 				history.pushState(null, null, hash);
 			}
 		} else {
