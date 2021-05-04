@@ -93,7 +93,7 @@ function compareHTML() {
 				window.parent.onLoadTest(which, getSVG(chart));
 
 			// Compare renderers
-			} else if (window.renderer) {
+			} else if (document.querySelector('svg')) {
 				clearInterval(interval);
 
 				// Automatically click buttons with classname "autocompare"
@@ -103,7 +103,7 @@ function compareHTML() {
 
 				// Create a mock chart object with a getSVG method
 				chart = {
-					container: window.renderer.box.parentNode
+					container: document.querySelector('svg').parentNode
 				};
 				window.parent.onLoadTest(which, getSVG(chart));
 

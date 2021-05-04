@@ -25,8 +25,8 @@
 		color: #666;
 	}
 
-	input[type=text] {
-		min-width: 200px;
+	#diff {
+		width: 30px;
 	}
 	textarea {
 		vertical-align: top;
@@ -74,6 +74,10 @@ $(window).load(function () {
 		});
 		return false;
 	};
+
+	if (window.parent && window.parent.parent) {
+		$(window).bind('keydown', window.parent.parent.keyDown);
+	}
 });
 
 </script>

@@ -202,62 +202,63 @@ function wash(svg) {
 }
 
 function activateOverlayCompare(isCanvas) {
-
 	var isCanvas = isCanvas || false,
-		$button = $('button#overlay-compare', document),
+		// $button = $('button#overlay-compare', document),
+		$previewWhat = $('span#preview-what', document),
 		$leftImage = isCanvas ? $('#cnvLeft', document) : $('#left-image', document),
 		$rightImage = isCanvas ? $('#cnvRight', document) : $('#right-image', document),
 		showingRight,
 		toggle = function () {
 
-			// Initiate
-			if (showingRight === undefined) {
-
-				$('#preview', document).css({
-					height: $('#preview', document).height()
-				});
-
-				$rightImage
-					.css({
-						left: $rightImage.offset().left,
-						position: 'absolute'
-					})
-					.animate({
-						left: 0
-					}, {
-						complete: function () {
-							$leftImage.hide();
-						}
-					});
-
-				$leftImage.css('position', 'absolute');
-
-
-				$button.html('Showing right. Click to show left');
-				showingRight = true;
-
 			// Show left
-			} else if (showingRight) {
+			if (showingRight) {
 				$rightImage.hide();
 				$leftImage.show();
-				$button.html('Showing left. Click to show right');
+				// $button.html('Showing left. Click to show right');
+				$previewWhat.html('Reference');
 				showingRight = false;
 			} else {
 				$rightImage.show();
 				$leftImage.hide();
-				$button.html('Showing right. Click to show left.');
+				// $button.html('Showing right. Click to show left.');
+				$previewWhat.html('Candidate');
 				showingRight = true;
 			}
 		};
 	$('#preview', document).css({
-		width: 2 * chartWidth + 20
+		width: chartWidth
 	});
 
-	$button
+	// Initialize
+	$('#preview', document).css({
+		height: $('#preview', document).height()
+	});
+
+	$rightImage
+		.css({
+			left: 0,
+			position: 'absolute'
+		});
+
+	$leftImage.hide().css('position', 'absolute');
+
+
+	//$button.html('Showing right. Click to show left');
+	$previewWhat.html('Candidate');
+	showingRight = true;
+
+	/*$button
 		.css('display', '')
-		.click(toggle);
-	$leftImage.click(toggle);
-	$rightImage.click(toggle);
+		.click(toggle);*/
+
+	var interval = setInterval(toggle, 1000);
+	function manualToggle() {
+		clearInterval(interval);
+		toggle();
+	}
+	$leftImage.click(manualToggle);
+	$rightImage.click(manualToggle);
+
 }
 
 var report = '';
@@ -356,7 +357,7 @@ function onBothLoad() {
 					image.onload = function() {
 						try {
 							context.drawImage(image, 0, 0, canvasWidth, canvasHeight);
-							data = context.getImageData(0, 0, canvasWidth, canvasHeight).data;
+							data = context.getImageData(0, 0, canvasWidth, canvasHeight);
 							if (useBlob) {
 								domurl.revokeObjectURL(svgurl);
 							}
@@ -400,20 +401,43 @@ function onBothLoad() {
 				*/
 
 				// compares 2 canvas images
+				// var diffData = [];
+
 				function compare(data1, data2) {
-					var i = data1.length,
+					var i = data1.data.length,
 						diff = 0,
 						pixels = [],
 						pixel;
 
+
 					// loops over all reds, greens, blues and alphas
 					while (i--) {
 						pixel = Math.floor(i / 4);
-						if (Math.abs(data1[i] - data2[i]) !== 0 && !pixels[pixel]) {
+						if (Math.abs(data1.data[i] - data2.data[i]) !== 0 && !pixels[pixel]) {
 							pixels[pixel] = true;
 							diff++;
+
+						}
+						// A paler version of the new image
+						data2.data[i] = Math.round(
+							255 - 0.2 * (255 - data2.data[i])
+						);
+					}
+
+					// Mark the changed pixels red
+					i = pixels.length;
+					while (i--) {
+						if (pixels[i]) {
+							data2.data[4 * i + 1] = 0;
+							data2.data[4 * i + 2] = 0;
 						}
 					}
+
+					// Render diff
+					const cnvDiff = document.getElementById('cnvDiff');
+					cnvDiff.width = canvasWidth;
+					cnvDiff.height = canvasHeight;
+					cnvDiff.getContext('2d').putImageData(data2, 0, 0);
 
 					return diff;
 				}
@@ -440,7 +464,12 @@ function onBothLoad() {
 							if (nightly[path]) {
 								report +=
 									'<div>Nightly: <b>' + nightly[path].diff + '</b> changed pixels. ' +
-									(nightly[path].comment ? nightly[path].comment.title : '') +
+									(nightly[path].comment ?
+										nightly[path].comment.title :
+										nightly[path].diff !== '0' ?
+											'(No comment filed)' :
+											''
+									) +
 									'</div>';
 							} else {
 								report += '<div>Nightly: No difference found</div>';
@@ -482,12 +511,12 @@ function onBothLoad() {
 							scaleWidth: canvasWidth,
 							scaleHeight: canvasHeight
 						});
-						startCompare(document.getElementById(canvas1).getContext('2d').getImageData(0, 0, canvasWidth, canvasHeight).data);
+						startCompare(document.getElementById(canvas1).getContext('2d').getImageData(0, 0, canvasWidth, canvasHeight));
 						canvg(canvas2, source2, {
 							scaleWidth: canvasWidth,
 							scaleHeight: canvasHeight
 						});
-						startCompare(document.getElementById(canvas2).getContext('2d').getImageData(0, 0, canvasWidth, canvasHeight).data);
+						startCompare(document.getElementById(canvas2).getContext('2d').getImageData(0, 0, canvasWidth, canvasHeight));
 					} catch (e) {
 						onDifferent('Err');
 						report += '<div>Error in canvg, try Chrome or Safari.</div>';

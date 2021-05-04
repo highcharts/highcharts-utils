@@ -40,7 +40,12 @@ const checkForUpdates = async () => {
     timeout = setTimeout(checkForUpdates, nextUpdate);
 
     const hasUpdates = Date.parse(pulls.data[0].updated_at) > lastUpdate;
-    console.log('@checkForUpdates', hasUpdates)
+    console.log(
+        '@checkForUpdates',
+        'hasUpdates:', hasUpdates,
+        'lastUpdate:', new Date(lastUpdate),
+        // 'pull:', pulls.data[0]
+    )
     if (hasUpdates) {
         await runUpdate();
     }

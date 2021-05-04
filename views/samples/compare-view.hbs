@@ -13,24 +13,38 @@
 			test or	another visual sample.</p>
 		</div>
 
+		<div style="display: flex">
+			<div id="report" class="test-report" style="width: 30%"></div>
 
-		<div id="report" class="test-report"></div>
+			<div id="comment-placeholder" style="width: 65%"></div>
+		</div>
 
-		<div id="comment-placeholder"></div>
+
+		<div id="preview-row">
+			<div class="preview-cell">
+				<p>Displaying <span id="preview-what"></span> - (Click to toggle comparison)</p>
+				<div id="preview">
+					<canvas id="cnvLeft" style="display:none"></canvas>
+					<canvas id="cnvRight" style="display:none"></canvas>
+				</div>
+			</div>
+			<div class="preview-cell">
+				<p>Computed difference</p>
+				<div id="diff-preview">
+					<canvas id="cnvDiff"></canvas>
+				</div>
+			</div>
+		</div>
+
 
 		<div id="frame-row"></div>
 		<pre id="svg"></pre>
 
 		<div style="margin: 1rem 0" id="button-row">
-			<button id="view-frame-row">View active charts</button>
-			<button id="view-svg">View SVG</button>
+			<button id="view-frame-row">Show active charts</button>
+			<button id="view-svg">Show file diff</button>
 		</div>
 
-		<div id="preview">
-			<canvas id="cnvLeft" style="display:none"></canvas>
-			<canvas id="cnvRight" style="display:none"></canvas>
-		</div>
-		<button id="overlay-compare" style="display:none">Compare overlaid</button>
 
 	</div>
 </div>

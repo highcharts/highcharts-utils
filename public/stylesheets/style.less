@@ -105,12 +105,23 @@ input {
 #comment-iframe {
 	height: 85px;
 	width: calc(100% - 2px);
-	border: 1px solid silver;
+	border: none;
 }
-#preview {
-	overflow: auto;
-	width: 1000px;
-	position: relative
+#preview-row {
+	width: 1280px;
+	display: flex;
+}
+.preview-cell {
+	position: relative;
+	min-width: 600px;
+	min-height: 400px;
+}
+.preview-cell:first-child {
+	padding-right: 10px;
+}
+.preview-cell:last-child {
+	padding-left: 10px;
+	border-left: 1px solid silver;
 }
 
 pre#svg {
