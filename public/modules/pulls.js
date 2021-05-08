@@ -1,16 +1,17 @@
 /* global timeago */
-import { createOAuthAppAuth } from "https://cdn.skypack.dev/@octokit/auth-oauth-app@3";
-import { Octokit } from "https://cdn.skypack.dev/@octokit/rest";
-import auth from '/pulls/auth';
+// import { createOAuthAppAuth } from "https://cdn.skypack.dev/@octokit/auth-oauth-app@3";
+// import { Octokit } from "https://cdn.skypack.dev/@octokit/rest";
+// import auth from '/pulls/auth';
 
+/*
 const octokit = new Octokit({
     authStrategy: createOAuthAppAuth,
     auth
 });
+*/
 
 const globalPulls = [];
 
-const per_page = 20;
 const docTitle = document.title;
 
 const ulDrafts = document.getElementById('drafts');
@@ -18,28 +19,34 @@ const ulPullsRead = document.getElementById('pulls-read');
 const ulPulls = document.getElementById('pulls');
 
 let lastUpdate = 0;
+let nextUpdate = 60000;
+let timeout;
+
+let authenticatedUser = 'TorsteinHonsi';
 
 const repo = {
     owner: 'highcharts',
     repo: 'highcharts'
 };
 
-let nextUpdate = 60000;
-let timeout;
+
+const getUser = async () => {
+    const response = await fetch('/pulls/authenticated-user');
+
+    console.log(response.data);
+
+}
+
 const checkForUpdates = async () => {
-    const pulls = await octokit.pulls.list({
-        ...repo,
-        state: 'open',
-        sort: 'updated',
-        direction: 'desc',
-        per_page: 1
-    }).catch(e => console.error(e));
+    document.getElementById('refresh').disabled = true;
+    const result = await fetch('/pulls/last-update');
+    const { updatedAt } = await result.json();
 
     // Increasingly longer intervals as time goes without action
     nextUpdate *= 1.1;
     timeout = setTimeout(checkForUpdates, nextUpdate);
 
-    const hasUpdates = Date.parse(pulls.data[0].updated_at) > lastUpdate;
+    const hasUpdates = Date.parse(updatedAt) > lastUpdate;
     console.log(
         '@checkForUpdates',
         'hasUpdates:', hasUpdates,
@@ -70,24 +77,16 @@ const decoratePull = async (pull) => {
 
     let myLastInteraction = 0;
 
-    const comments = await octokit.issues.listComments({
-        ...repo,
-        issue_number: pull.number
-    }).catch(e => console.error(e));
+    let result = await fetch(`/pulls/list-comments/${pull.number}`);
+    const { comments } = await result.json();
+    result = await fetch(`/pulls/list-reviews/${pull.number}`);
+    const { reviews } = await result.json();
+    result = await fetch(`/pulls/list-review-comments/${pull.number}`);
+    const { reviewComments } = await result.json();
 
-    const reviews = await octokit.pulls.listReviews({
-        ...repo,
-        pull_number: pull.number
-    }).catch(e => console.error(e));
-
-    const reviewComments = await octokit.pulls.listReviewComments({
-        ...repo,
-        pull_number: pull.number
-    }).catch(e => console.error(e));
-
-    decoration.comments = comments.data
-        .concat(reviews.data)
-        .concat(reviewComments.data);
+    decoration.comments = comments
+        .concat(reviews)
+        .concat(reviewComments);
         decoration.comments.sort((a, b) =>
         Date.parse(a.created_at || a.submitted_at) -
         Date.parse(b.created_at || b.submitted_at)
@@ -96,7 +95,7 @@ const decoratePull = async (pull) => {
     if (decoration.comments.length) {
         decoration.lastComment = decoration.comments[decoration.comments.length - 1];
         decoration.myLastComment = decoration.comments.slice().reverse()
-            .find(c => c.user.login === 'TorsteinHonsi');
+            .find(c => c.user.login === authenticatedUser);
         if (decoration.myLastComment) {
             myLastInteraction = Math.max(
                 myLastInteraction,
@@ -119,16 +118,14 @@ const decoratePull = async (pull) => {
     */
 
 
-    const commits = await octokit.pulls.listCommits({
-        ...repo,
-        pull_number: pull.number
-    }).catch(e => console.error(e));
-    decoration.commits = commits.data;
+    result = await fetch(`/pulls/list-commits/${pull.number}`);
+    const { commits } = await result.json();
+    decoration.commits = commits;
 
     if (decoration.commits.length) {
         decoration.lastCommit = decoration.commits[decoration.commits.length - 1];
         decoration.myLastCommit = decoration.commits.slice().reverse()
-            .find(c => c.author.login === 'TorsteinHonsi');
+            .find(c => c.author.login === authenticatedUser);
         if (decoration.myLastCommit) {
             myLastInteraction = Math.max(
                 myLastInteraction,
@@ -146,6 +143,11 @@ const decoratePull = async (pull) => {
         pull.checks = checks.data;
     }
     */
+    if (decoration.lastCommit) {
+        result = await fetch(`/pulls/list-checks/${decoration.lastCommit.sha}`);
+        const { checks } = await result.json();
+        console.log('checks', checks)
+    }
 
     // Count new interactions since myLastInteraction
     let newComments =  (decoration.comments || []).filter(
@@ -228,20 +230,13 @@ const renderPull = pull => {
 
 const runUpdate = async () => {
 
-    document.getElementById('refresh').disabled = true;
-
-    const pulls = await octokit.pulls.list({
-        ...repo,
-        state: 'open',
-        sort: 'updated',
-        direction: 'desc',
-        per_page
-    }).catch(e => console.error(e));
+    const result = await fetch('/pulls/list');
+    const { pulls } = await result.json();
 
     const dateNow = Date.now();
 
     // for (let pull of pulls.data) {
-    pulls.data.forEach(pull => {
+    pulls.forEach(pull => {
         // Add to global pulls
         const existingPull = globalPulls.find(p => p.number === pull.number);
         if (!existingPull) {
@@ -250,29 +245,19 @@ const runUpdate = async () => {
                 newlyLoaded: true
             };
             globalPulls.push(pull);
+
+        // If it exists, but is updated, replace it in globalPulls
+        } else if (
+            Date.parse(pull.updated_at) > Date.parse(existingPull.updated_at)
+        ) {
+            console.log('@runUpdate', 'Updated item', pull.title);
+            globalPulls[globalPulls.indexOf(existingPull)] = pull;
         }
-
-        /*
-        pull.read = Date.parse(pull.updated_at) <= lastUpdate;
-
-        // Preserve decoration
-        if (pull.read && existingPull) {
-            pull = existingPull;
-        }
-
-        if (!pull.draft && !pull.read) {
-            decoratePull(pull);
-        }
-
-        renderPull(pull);
-
-        i++;
-        */
     });
 
     // Remove closed pulls from globalPulls
     globalPulls.forEach((pull, i) => {
-        const updatedPull = pulls.data.find(p => p.number === pull.number);
+        const updatedPull = pulls.find(p => p.number === pull.number);
         if (!updatedPull) {
             console.log('@runUpdate', 'Removed item ', pull.title);
             globalPulls.splice(i, 1);
@@ -282,9 +267,6 @@ const runUpdate = async () => {
 
     // Decorate new pulls and render
     for (let pull of globalPulls) {
-        if (Date.parse(pull.updated_at) > lastUpdate) {
-            console.log('@runUpdate', 'Updated item', pull.title);
-        }
         if (pull.draft) {
             delete pull.decoration;
 
@@ -306,18 +288,17 @@ const runUpdate = async () => {
         [...document.querySelectorAll('li.pull')]
             .sort((a, b) => b.dataset.datetime - a.dataset.datetime)
             .forEach(li => {
-
-                // If the pull is not part of the last fetch, it is closed
-                if (!pulls.data.find(p => p.number == li.dataset.number)) {
-                    li.remove();
+                const pull = globalPulls.find(p =>
+                    p.number == li.dataset.number
+                );
 
                 // Append to the appropriate column
-                } else {
-                    const pull = globalPulls.find(p =>
-                        p.number == li.dataset.number
-                    )
+                if (pull) {
                     // Re-insert in sorted order in updated column
                     getUl(pull).appendChild(li);
+                } else {
+                    // Closed pull
+                    li.remove();
                 }
             });
     }
@@ -329,14 +310,26 @@ const runUpdate = async () => {
     clearTimeout(timeout);
     timeout = setTimeout(checkForUpdates, nextUpdate);
 
-    document.getElementById('refresh').disabled = false;
 }
 
 (async () => {
+
+    // authenticatedUser = await getUser();
+
     await runUpdate();
 
-    document.getElementById('refresh').addEventListener('click', async () => {
+    document.getElementById('refresh').disabled = false;
+
+    const checkNow = async () => {
         nextUpdate = 60000;
         await checkForUpdates();
+    }
+
+    document.getElementById('refresh').addEventListener('click', checkNow);
+    document.addEventListener('visibilitychange', async () => {
+        if (document.visibilityState === 'visible') {
+            await checkNow();
+        }
     });
+
 })();

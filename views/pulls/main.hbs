@@ -21,12 +21,23 @@
         color: #333;
         font-weight: 600;
     }
+    button#refresh i.state-disabled {
+        display: none;
+    }
+    button#refresh:disabled i.state-disabled {
+        display: inline-block;
+    }
+    button#refresh:disabled i.state-enabled {
+        display: none;
+    }
 
 </style>
 
 <div id="main">
     <button id="refresh" type="button" class="btn btn-primary" disabled>
-        <i class="fa fa-refresh"></i> Refresh
+        <i class="state-enabled fa fa-refresh"></i>
+        <i class="state-disabled fa fa-refresh fa-spin"></i>
+        Refresh
     </button>
     <div id="canban">
         <div class="column">

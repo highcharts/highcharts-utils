@@ -1,6 +1,18 @@
 const express = require('express');
 const router = express.Router();
 
+const { Octokit } = require('@octokit/rest');
+
+const octokit = new Octokit({
+    // https://github.com/settings/tokens
+    auth: process.env.GH_PERSONAL_ACCESS_TOKEN
+});
+
+const per_page = 20;
+const repo = {
+    owner: 'highcharts',
+    repo: 'highcharts'
+};
 
 router.get('/', async (req, res) => {
     res.render('pulls/main', {
@@ -15,6 +27,7 @@ router.get('/', async (req, res) => {
     });
 });
 
+/*
 router.get('/auth', async (req, res) => {
     res.type('text/javascript');
     res.send(`export default {
@@ -22,6 +35,104 @@ router.get('/auth', async (req, res) => {
         clientSecret: '${process.env.GH_CLIENT_SECRET}'
     }`);
 });
+*/
+
+router.get('/authenticated-user', async (req, res) => {
+    const response = await octokit.users.getAuthenticated()
+        .catch(e => console.error(e));
+
+    res.type('text/json');
+    res.send(JSON.stringify(response));
+});
+
+router.get('/last-update', async (req, res) => {
+    const pulls = await octokit.pulls.list({
+        ...repo,
+        state: 'all',
+        sort: 'updated',
+        direction: 'desc',
+        per_page: 1
+    }).catch(e => console.error(e));
+
+    res.type('text/json');
+    res.send(JSON.stringify({
+        updatedAt: pulls.data[0].updated_at
+    }));
+});
+
+router.get('/list', async (req, res, next) => {
+    const result = await octokit.pulls.list({
+        ...repo,
+        state: 'open',
+        sort: 'updated',
+        direction: 'desc',
+        per_page
+    }).catch(e => console.error(e));
+
+    res.type('text/json');
+    res.send(JSON.stringify({
+        pulls: result.data
+    }));
+});
+
+router.get('/list-comments/:number', async (req, res) => {
+    const result = await octokit.issues.listComments({
+        ...repo,
+        issue_number: req.params.number
+    }).catch(e => console.error(e));
+
+    res.json({
+        comments: result.data
+    });
+});
+
+router.get('/list-reviews/:number', async (req, res) => {
+    const result = await octokit.pulls.listReviews({
+        ...repo,
+        pull_number: req.params.number
+    }).catch(e => console.error(e));
+
+    res.json({
+        reviews: result.data
+    });
+});
+
+router.get('/list-review-comments/:number', async (req, res) => {
+    const result = await octokit.pulls.listReviewComments({
+        ...repo,
+        pull_number: req.params.number
+    }).catch(e => console.error(e));
+
+    res.json({
+        reviewComments: result.data
+    });
+});
+
+router.get('/list-commits/:number', async (req, res) => {
+    const result = await octokit.pulls.listCommits({
+        ...repo,
+        pull_number: req.params.number
+    }).catch(e => console.error(e));
+
+    res.json({
+        commits: result.data
+    });
+});
+
+/*
+router.get('/list-checks/:ref', async (req, res) => {
+    const result = await octokit.checks.listForRef({
+        ...repo,
+        ref: req.params.ref
+    }).catch(e => console.error(e));
+
+    res.json({
+        checks: result.data
+    });
+});
+*/
+
+
 module.exports = router;
 
 
