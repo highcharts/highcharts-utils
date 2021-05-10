@@ -30,6 +30,15 @@
     button#refresh:disabled i.state-enabled {
         display: none;
     }
+    #error {
+        display: none;
+        background: red;
+        margin: 5em;
+        padding: 5em;
+    }
+    #error, #error * {
+        color: white;
+    }
 
 </style>
 
@@ -55,4 +64,5 @@
             <ul id="pulls" class="list-group"></ul>
         </div>
     </div>
+    <div id="error"></div>
 </div>

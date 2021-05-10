@@ -22,7 +22,7 @@ let lastUpdate = 0;
 let nextUpdate = 60000;
 let timeout;
 
-let authenticatedUser = 'TorsteinHonsi';
+let authenticatedUser;
 
 const repo = {
     owner: 'highcharts',
@@ -32,8 +32,16 @@ const repo = {
 
 const getUser = async () => {
     const response = await fetch('/pulls/authenticated-user');
+    const user = response.ok && await response.json().catch(e => {
+        document.getElementById('error').innerHTML =
+            `Error retrieving current user. Bad access token? Get a token
+            from <a href="https://github.com/settings/tokens">https://github.com/settings/tokens</a>
+            and set it as GH_PERSONAL_ACCESS_TOKEN in <code>.env</code>`;
+        document.getElementById('error').style.display = 'block';
+        document.getElementById('canban').style.display = 'none';
+    });
 
-    console.log(response.data);
+    authenticatedUser = user.data.login;
 
 }
 
@@ -134,20 +142,11 @@ const decoratePull = async (pull) => {
         }
     }
 
-    /* Must have checks:read permission
-    if (pull.lastCommit) {
-        const checks = await octokit.checks.listForRef({
-            ...repo,
-            ref: pull.lastCommit.sha,
-        }).catch(e => console.error(e));
-        pull.checks = checks.data;
-    }
-    */
-    if (decoration.lastCommit) {
+    /* if (decoration.lastCommit) {
         result = await fetch(`/pulls/list-checks/${decoration.lastCommit.sha}`);
         const { checks } = await result.json();
-        console.log('checks', checks)
-    }
+        console.log('checks', decoration.lastCommit.sha, checks)
+    } */
 
     // Count new interactions since myLastInteraction
     let newComments =  (decoration.comments || []).filter(
@@ -314,7 +313,7 @@ const runUpdate = async () => {
 
 (async () => {
 
-    // authenticatedUser = await getUser();
+    authenticatedUser = await getUser();
 
     await runUpdate();
 
