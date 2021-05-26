@@ -41,7 +41,7 @@ const getUser = async () => {
         document.getElementById('canban').style.display = 'none';
     });
 
-    authenticatedUser = user.data.login;
+    return user.data.login;
 
 }
 
@@ -142,12 +142,6 @@ const decoratePull = async (pull) => {
         }
     }
 
-    /* if (decoration.lastCommit) {
-        result = await fetch(`/pulls/list-checks/${decoration.lastCommit.sha}`);
-        const { checks } = await result.json();
-        console.log('checks', decoration.lastCommit.sha, checks)
-    } */
-
     // Count new interactions since myLastInteraction
     let newComments =  (decoration.comments || []).filter(
         c =>
@@ -168,9 +162,31 @@ const decoratePull = async (pull) => {
             '@' + c.author.login + ': ' + c.commit.message
         ).join('\n');
 
+
     if (decoration.newInteractions === 0) {
         decoration.read = true;
+    } else if (decoration.lastCommit) {
+        result = await fetch(`/pulls/list-checks/${decoration.lastCommit.sha}`);
+        const { checks } = await result.json();
+        const latestChecks = checks.reduce((acc, cur) => {
+            const key = cur.context;
+            if (!acc[key]) {
+                acc[key] = cur.state;
+            }
+            return acc;
+        }, {});
+        const values = Object.values(latestChecks);
+
+        let state = 'pending';
+        if (values.length > 0) {
+            state =
+                values.indexOf('failure') !== -1 ? 'failure' :
+                    values.indexOf('pending') !== -1 ? 'pending' :
+                        'success';
+        }
+        decoration.state = state;
     }
+
     pull.decoration = decoration;
 }
 
@@ -198,6 +214,7 @@ const renderPull = pull => {
         <a href="https://github.com/highcharts/highcharts/pull/${pull.number}"
                 target="_blank">
             ${pull.title}
+            <span class="state state-${pull.decoration?.state}"></span>
         </a>
     `;
 

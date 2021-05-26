@@ -39,6 +39,24 @@
     #error, #error * {
         color: white;
     }
+    .state {
+        width: 1em;
+        padding-right: 1em;
+        font-size: 0.5em;
+        vertical-align: middle;
+    }
+    .state-pending:before {
+        content: "🟠";
+    }
+    .state-failure:before {
+        content: "❌";
+    }
+    .state-success {
+        color: green;
+    }
+    .state-success:before {
+        content: "✔️";
+    }
 
 </style>
 

@@ -119,7 +119,7 @@ router.get('/list-commits/:number', async (req, res) => {
     });
 });
 
-/* router.get('/list-checks/:ref', async (req, res) => {
+router.get('/list-checks/:ref', async (req, res) => {
     const result = await octokit.repos.listCommitStatusesForRef({
         ...repo,
         ref: req.params.ref
@@ -128,7 +128,7 @@ router.get('/list-commits/:number', async (req, res) => {
     res.json({
         checks: result.data
     });
-}); */
+});
 
 
 module.exports = router;
