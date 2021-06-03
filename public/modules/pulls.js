@@ -52,6 +52,7 @@ const checkForUpdates = async () => {
 
     // Increasingly longer intervals as time goes without action
     nextUpdate *= 1.1;
+    clearTimeout(timeout);
     timeout = setTimeout(checkForUpdates, nextUpdate);
 
     const hasUpdates = Date.parse(updatedAt) > lastUpdate;
@@ -206,9 +207,9 @@ const renderPull = pull => {
         li.id = id;
         li.className = 'pull list-group-item';
         li.dataset.number = pull.number;
-        li.dataset.datetime = Date.parse(pull.updated_at);
         getUl(pull).appendChild(li);
     }
+    li.dataset.datetime = Date.parse(pull.updated_at);
 
     li.innerHTML = `
         <a href="https://github.com/highcharts/highcharts/pull/${pull.number}"
@@ -311,10 +312,22 @@ const runUpdate = async () => {
                 // Append to the appropriate column
                 if (pull) {
                     // Re-insert in sorted order in updated column
-                    getUl(pull).appendChild(li);
+                    setTimeout(() => {
+                        getUl(pull).appendChild(li);
+                    }, 600);
                 } else {
-                    // Closed pull
-                    li.remove();
+                    // Closed pull, squeeze out
+                    li.style.height = li.offsetHeight + 'px';
+                    li.style.overflow = 'hidden';
+                    li.style.transition = 'height 500ms, opacity 500ms, padding-top 500ms, padding-bottom 500ms';
+                    li.style.height = 0;
+                    li.style.opacity = 0;
+                    li.style.paddingTop = 0;
+                    li.style.paddingBottom = 0;
+                    setTimeout(() => {
+                        li.remove();
+                        updatePageTitle();
+                    }, 500);
                 }
             });
     }
