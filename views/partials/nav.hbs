@@ -1,8 +1,8 @@
 <div class="top-bar">
 
-	<div id="version" style="float:right; color: silver; font-size: 0.8em; line-height: 3em; padding-right: 1em"></div>
+	<div id="version"></div>
 
-	<h2 style="margin: 0">{{path}}</h2>
+	<h2 class="sample-name">{{path}}</h2>
 
 	<div class="top-bar-menu">
 		{{#if mobile}}
@@ -83,7 +83,7 @@
 
 		<!-- if themes, means we have a mini form control -->
 		{{#if themes}}
-		<form method="post" action="/samples/settings-post" style="display:inline">
+		<form method="post" action="/samples/settings-post" id="settings-form">
 
 			<label title="When enabled, samples are rewritten to load ES6 modules for faster debugging.
 > npx tsc -b ts --watch">

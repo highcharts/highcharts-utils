@@ -24,15 +24,19 @@ router.get('/', function(req, res) {
 		}
 	});
 
-    const es6Context = {};
+	const es6Context = {};
+	const js = f.getJS(req.query.path, req, codePath, es6Context);
 
+	const styledMode = js.indexOf('styledMode: true') !== -1;
+
+console.log('styledMode', styledMode)
 	let tpl = {
 		title: req.query.path,
 		path: req.query.path,
 		mobile: req.query.mobile,
 		html: f.getHTML(req, codePath),
 		css: f.getCSS(req.query.path, codePath),
-		js: f.getJS(req.query.path, req, codePath, es6Context),
+		js,
         es6Context,
 		preJS: req.session.preJS,
 		consoleClear: true,
@@ -69,7 +73,7 @@ router.get('/', function(req, res) {
 		},
 		rewriteSamplesToES6Checked: req.session.rewriteSamplesToES6 ?
 			'checked' : '',
-		styled: false // @todo: implement
+		styledMode
 	};
 
 	res.render('samples/view', tpl);
