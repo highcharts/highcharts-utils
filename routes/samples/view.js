@@ -29,7 +29,6 @@ router.get('/', function(req, res) {
 
 	const styledMode = js.indexOf('styledMode: true') !== -1;
 
-console.log('styledMode', styledMode)
 	let tpl = {
 		title: req.query.path,
 		path: req.query.path,
