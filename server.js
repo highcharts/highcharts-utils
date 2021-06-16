@@ -1,3 +1,6 @@
+
+require = require("esm")(module);
+
 const http = require('http');
 const https = require('https');
 const httpProxy = require('http-proxy');

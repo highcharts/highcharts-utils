@@ -177,11 +177,35 @@ function getSVG(chart) {
                 '<svg xmlns:xlink="http://www.w3.org/1999/xlink" '
             );
 
-        if (chart.styledMode) {
+		if (chart.styledMode) {
+			var cssRule;
+			[].some.call(document.styleSheets, function (sheet) {
+				cssRule = [].find.call(sheet.cssRules, function (rule) {
+					return /highcharts.css$/.test(rule.href);
+				});
+				if (cssRule) {
+					return true;
+				}
+			});
+			var cssText = '* { fill: #90ed7d; stroke: #90ed7d; stroke-width: 1px; fill-opacity: 0.1 } ' +
+				'rect { fill: #7cb5ec; stroke: #7cb5ec } ' +
+				'path { fill: #434348; stroke: #434348 } ' +
+				'text, tspan { fill: black; fill-opacity: 1; stroke: none; } ';
+
+			if (cssRule) {
+				cssText = [].map.call(cssRule.styleSheet.cssRules, function (innerCSSRule) {
+					return innerCSSRule.cssText;
+				})
+				.join('\n')
+				.replace('.highcharts-container', '.highcharts-root');
+			}
+
             svg = svg.replace(
-                '</style>',
-                '* { fill: rgba(0, 0, 0, 0.1); stroke: black; stroke-width: 1px; } '
-                + 'text, tspan { fill: blue; stroke: none; } </style>'
+                '</defs>',
+                '<style>' +
+				cssText +
+				'</style>' +
+				'</defs>'
             );
         }
 
