@@ -134,7 +134,7 @@ const decoratePull = async (pull) => {
     if (decoration.commits.length) {
         decoration.lastCommit = decoration.commits[decoration.commits.length - 1];
         decoration.myLastCommit = decoration.commits.slice().reverse()
-            .find(c => c.author.login === authenticatedUser);
+            .find(c => c.author && c.author.login === authenticatedUser);
         if (decoration.myLastCommit) {
             myLastInteraction = Math.max(
                 myLastInteraction,
@@ -156,11 +156,11 @@ const decoratePull = async (pull) => {
 
     decoration.newInteractionsTitle =
         newComments.map(c =>
-            '@' + c.user.login + ': ' + c.body.substr(0, 60)
+            '@' + c.user.login + ': ' + c.body.substr(0, 60).replace(/</g, '&lt;').replace(/>/g, '&gt;')
         ).join('\n') +
         '\n' +
         newCommits.map(c =>
-            '@' + c.author.login + ': ' + c.commit.message
+            '@' + c.author.login + ': ' + c.commit.message.replace(/</g, '&lt;').replace(/>/g, '&gt;')
         ).join('\n');
 
 
