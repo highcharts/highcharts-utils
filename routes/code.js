@@ -8,10 +8,13 @@ const { codeWatch } = require('../lib/arguments');
 router.get(/[a-z\/\-\.]/, function(req, res) {
     let file = f.getCodeFile(req.path);
 
-	if (file.error) {
-		res.status(404).end(file.error);
-		return;
-	}
+    if (file.error) {
+        res.status(404).end(file.error);
+        return;
+    }
+
+    res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+    res.setHeader('Access-Control-Allow-Origin', '*');
 
     if (codeWatch) {
         let code = fs.readFileSync(file.success);
@@ -70,7 +73,6 @@ router.get(/[a-z\/\-\.]/, function(req, res) {
             `;
         }
 
-
         const type = {
             '.css': 'text/css',
             '.js': 'text/javascript',
@@ -80,8 +82,8 @@ router.get(/[a-z\/\-\.]/, function(req, res) {
         if (type) {
             res.type(type);
         }
-        
-    	res.setHeader('Content-Disposition', 'inline');
+
+        res.setHeader('Content-Disposition', 'inline');
         res.send(code);
     } else {
         res.sendFile(file.success);
