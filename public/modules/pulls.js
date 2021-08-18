@@ -135,7 +135,7 @@ const decoratePull = async (pull) => {
         decoration.lastCommit = decoration.commits[decoration.commits.length - 1];
         decoration.myLastCommit = decoration.commits.slice().reverse()
             .find(c => c.author && c.author.login === authenticatedUser);
-        if (decoration.myLastCommit) {
+        if (decoration.myLastCommit) {f
             myLastInteraction = Math.max(
                 myLastInteraction,
                 Date.parse(decoration.myLastCommit.commit.author.date)

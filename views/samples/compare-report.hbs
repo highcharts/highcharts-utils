@@ -155,7 +155,12 @@ Highcharts.SparkLine = function (renderTo, data) {
 					className = 'diff';
                 } else {
 					className = 'diff different';
-					diff = Math.round(diff * 100) / 100;
+
+					// The difference in changed pixels, as a percentage of the max
+					// different browser. So if browsers have [300, 300, 400]
+					// changed pixels, the difference in changed pixels is 100,
+					// which is 25% of the max different browser.
+					diff = Math.round(diff / Math.max.apply(0, range) * 100) + '%';
 				}
 			}
 			$(this).find('td.diff')
@@ -254,8 +259,8 @@ Highcharts.SparkLine = function (renderTo, data) {
 				{{#each this.browsers}}
 				<th>{{@key}}</th>
 				{{/each}}
-				<th class='sparkline'>Variance</th>
-				<th class='diff'>Diff</th>
+				<th class='sparkline' colspan="2">Variance</th>
+				<!-- th class='diff'>Diff</th -->
 				<th class='comment'>Comment</th>
 			</tr>
 			{{/if}}
