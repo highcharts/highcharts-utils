@@ -24,15 +24,10 @@ let timeout;
 
 let authenticatedUser;
 
-const repo = {
-    owner: 'highcharts',
-    repo: 'highcharts'
-};
-
 
 const getUser = async () => {
     const response = await fetch('/pulls/authenticated-user');
-    const user = response.ok && await response.json().catch(e => {
+    const user = response.ok && await response.json().catch(() => {
         document.getElementById('error').innerHTML =
             `Error retrieving current user. Bad access token? Get a token
             from <a href="https://github.com/settings/tokens">https://github.com/settings/tokens</a>
@@ -135,7 +130,7 @@ const decoratePull = async (pull) => {
         decoration.lastCommit = decoration.commits[decoration.commits.length - 1];
         decoration.myLastCommit = decoration.commits.slice().reverse()
             .find(c => c.author && c.author.login === authenticatedUser);
-        if (decoration.myLastCommit) {f
+        if (decoration.myLastCommit) {
             myLastInteraction = Math.max(
                 myLastInteraction,
                 Date.parse(decoration.myLastCommit.commit.author.date)
