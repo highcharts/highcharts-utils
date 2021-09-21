@@ -38,7 +38,7 @@ const getSample = (path) => {
 const getSamples = () => {
 	let samples = [];
 	[
-		'highcharts', 'stock', 'maps', 'gantt', 'unit-tests', 'issues', 'cloud', 'data-grid'
+		'highcharts', 'stock', 'maps', 'gantt', 'unit-tests', 'issues', 'cloud', 'dashboard', 'data-grid'
 	].forEach(group => {
 		const groupDir = join(samplesDir, group);
 		if (fs.existsSync(groupDir) && fs.lstatSync(groupDir).isDirectory()) {
