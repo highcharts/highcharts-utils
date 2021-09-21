@@ -39,24 +39,45 @@
     #error, #error * {
         color: white;
     }
-    .state {
-        width: 1em;
-        padding-right: 1em;
-        font-size: 0.5em;
-        vertical-align: middle;
+    .state-pending {
+        color: orange;
     }
-    .state-pending:before {
-        content: "🟠";
-    }
-    .state-failure:before {
-        content: "❌";
+    .state-failure {
+        color: red;
     }
     .state-success {
         color: green;
     }
-    .state-success:before {
-        content: "✔️";
+
+    .reviews {
+        margin-left: 1em;
+        border: 1px solid silver;
+        border-radius: 50rem;
+        font-size: .8em;
+        padding: .35em .65em 0.5em 0.65em;
+        white-space: nowrap;
+        color: gray;
     }
+    .review {
+        vertical-align: middle;
+        margin: 0.3em;
+        position: relative
+    }
+    .review-mine-marker {
+        position: absolute;
+        top: 0.5em;
+        left: 0.25em;
+    }
+    .reviews:hover .review-pending {
+        color: orange;
+    }
+    .reviews:hover .review-changes-requested {
+        color: red;
+    }
+    .reviews:hover .review-approved {
+        color: green;
+    }
+
 
 </style>
 
