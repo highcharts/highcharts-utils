@@ -24,15 +24,10 @@ let timeout;
 
 let authenticatedUser;
 
-const repo = {
-    owner: 'highcharts',
-    repo: 'highcharts'
-};
-
 
 const getUser = async () => {
     const response = await fetch('/pulls/authenticated-user');
-    const user = response.ok && await response.json().catch(e => {
+    const user = response.ok && await response.json().catch(() => {
         document.getElementById('error').innerHTML =
             `Error retrieving current user. Bad access token? Get a token
             from <a href="https://github.com/settings/tokens">https://github.com/settings/tokens</a>
@@ -100,6 +95,37 @@ const decoratePull = async (pull) => {
         Date.parse(a.created_at || a.submitted_at) -
         Date.parse(b.created_at || b.submitted_at)
     );
+
+    decoration.reviews = reviews.reduce((results, review) => {
+        if (review.state === 'APPROVED' || review.state === 'CHANGES_REQUESTED') {
+            if (!results[review.user.login]) {
+                results[review.user.login] = {
+                    user: review.user.login
+                };
+            }
+            // Last state
+            results[review.user.login].state = review.state;
+        }
+        return results;
+    }, {});
+
+    // Requested review (may be after previous change request or comment)
+    if (pull.requested_reviewers) {
+        pull.requested_reviewers.forEach(reviewer => {
+            decoration.reviews[reviewer.login] = {
+                user: reviewer.login,
+                state: 'pending'
+            }
+        });
+    }
+    const myReview = decoration.reviews[authenticatedUser];
+    if (myReview) {
+        myReview.mine = true;
+    }
+    if (Object.keys(decoration.reviews).length === 0) {
+        delete decoration.reviews;
+    }
+
 
     if (decoration.comments.length) {
         decoration.lastComment = decoration.comments[decoration.comments.length - 1];
@@ -211,11 +237,19 @@ const renderPull = pull => {
     }
     li.dataset.datetime = Date.parse(pull.updated_at);
 
+    const state = pull.decoration?.state;
+    const stateIcon = {
+        success: 'check',
+        failure: 'times',
+        pending: 'circle'
+    }[state];
     li.innerHTML = `
         <a href="https://github.com/highcharts/highcharts/pull/${pull.number}"
                 target="_blank">
             ${pull.title}
-            <span class="state state-${pull.decoration?.state}"></span>
+            <span class="state state-${state}">
+                <i class="fa fa-${stateIcon}"></i>
+            </span>
         </a>
     `;
 
@@ -226,6 +260,39 @@ const renderPull = pull => {
             ${pull.decoration.newInteractions}
         </span>
     `;
+    }
+
+    if (pull.decoration?.reviews) {
+        let html = ''
+        Object.keys(pull.decoration?.reviews).forEach(user => {
+            const review = pull.decoration?.reviews[user];
+            const state = {
+                pending: {
+                    icon: 'circle',
+                    className: 'pending'
+                },
+                CHANGES_REQUESTED: {
+                    icon: 'plus-square',
+                    className: 'changes-requested'
+                },
+                APPROVED: {
+                    icon: 'check',
+                    className: 'approved'
+                }
+            }[review.state];
+
+            const mineMarker = review.mine ?
+                '<span class="review-mine-marker">•</span>'
+                : '';
+            html += `
+            <span class="review review-${state.className} ${review.className}"
+                    title="${review.user}: ${review.state}">
+                <i class="fa fa-${state.icon}"></i>
+                ${mineMarker}
+            </span>
+            `;
+        });
+        li.innerHTML += `<span class="reviews">${html}</span>`;
     }
 
     li.innerHTML += `
@@ -289,6 +356,7 @@ const runUpdate = async () => {
 
         } else if (
             pull.decoration?.newlyLoaded ||
+            pull.decoration?.state === 'pending' || // Changing state doesn't trigger updated_at
             Date.parse(pull.updated_at) > lastUpdate
         ) {
             await decoratePull(pull);
