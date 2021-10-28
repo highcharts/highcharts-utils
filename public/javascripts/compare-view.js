@@ -230,9 +230,11 @@ function activateOverlayCompare(isCanvas) {
 	});
 
 	// Initialize
+	/*
 	$('#preview', document).css({
 		height: $('#preview', document).height()
 	});
+	*/
 
 	$rightImage
 		.css({

@@ -86,9 +86,12 @@ const proxy = httpProxy.createProxy();
 proxy.on('error', console.error);
 
 const redirects = {
-  'utils.highcharts.*': `http://localhost:${utilsPort}`,
-  'code.highcharts.*': `http://localhost:${codePort}`,
-  'api.highcharts.*': `http://localhost:${apiPort}`
+  'utils.highcharts.*': `http://127.0.0.1:${utilsPort}`,
+  'utils.highcharts.*': `http://[::1]:${utilsPort}`,
+  'code.highcharts.*': `http://127.0.0.1:${codePort}`,
+  'code.highcharts.*': `http://[::1]:${codePort}`,
+  'api.highcharts.*': `http://127.0.0.1:${apiPort}`,
+  'api.highcharts.*': `http://[::1]:${apiPort}`
 }
 if (useProxy) {
   const server = http.createServer((req, res) => {

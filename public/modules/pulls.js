@@ -186,7 +186,9 @@ const decoratePull = async (pull) => {
         ).join('\n') +
         '\n' +
         newCommits.map(c =>
-            '@' + c.author.login + ': ' + c.commit.message.replace(/</g, '&lt;').replace(/>/g, '&gt;')
+            c.author ?
+                '@' + c.author.login + ': ' + c.commit.message.replace(/</g, '&lt;').replace(/>/g, '&gt;') :
+                ''
         ).join('\n');
 
 

@@ -233,6 +233,10 @@ window.setUp = function () {
 		var notified = {};
 		var checkStyledMode = function () {
 
+			if (!Highcharts.charts[0]) {
+				return;
+			}
+
 			container = Highcharts.charts[0].container;
 			var blacklist = [
 				'fill',
