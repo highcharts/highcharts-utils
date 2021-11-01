@@ -4,7 +4,6 @@ require = require("esm")(module);
 const http = require('http');
 const https = require('https');
 const httpProxy = require('http-proxy');
-const hostile = require('hostile');
 const exitHook = require('async-exit-hook');
 const fs = require('fs');
 const ip = require('ip');
@@ -15,6 +14,7 @@ const {
   codePort,
   crtFile,
   highchartsDir,
+  localOnly,
   pemFile,
   proxy: useProxy,
   topdomain: topDomain,
@@ -159,17 +159,21 @@ if (useProxy) {
     apiDomainLine = `- ${protocol}://${domains[2]}
     `;
 
-    domains.forEach(domain => {
-      hostile.set('127.0.0.1', domain);
-    });
-
-    // Remove domains from hosts file on exit
-    exitHook(callback => {
+    if (!localOnly) {
+      const hostile = require('hostile');
+      // Add domains to hosts file
       domains.forEach(domain => {
-        hostile.remove('127.0.0.1', domain);
+        hostile.set('127.0.0.1', domain);
       });
-      callback();
-    });
+      // Remove domains from hosts file on exit
+      exitHook(callback => {
+        domains.forEach(domain => {
+          hostile.remove('127.0.0.1', domain);
+        });
+        callback();
+      });
+    }
+
     log();
   });
 
