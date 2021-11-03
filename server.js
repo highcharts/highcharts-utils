@@ -12,6 +12,7 @@ require('colors');
 const {
   apiPort,
   codePort,
+  codesPort,
   crtFile,
   highchartsDir,
   localOnly,
@@ -36,12 +37,15 @@ const log = () => {
     - http://${ipAddress}:${utilsPort}
   Code server available at:
     ${codeDomainLine}- http://localhost:${codePort}
-    - http://${ipAddress}:${codePort}
+    - http://${ipAddress}:${codePort}${
+    codesPort ? `
+    ${codeDomainLine}- https://localhost:${codesPort}
+    - https://${ipAddress}:${codesPort}` : ''}
   API server available at:
     ${apiDomainLine}- http://localhost:${apiPort}
     - http://${ipAddress}:${apiPort}
 
-  SSL enabled: ${sslEnabled}
+  Proxy SSL enabled: ${sslEnabled}
 
   Parameters:
   Run --help to list parameters
