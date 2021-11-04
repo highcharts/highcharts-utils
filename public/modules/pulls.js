@@ -91,13 +91,13 @@ const decoratePull = async (pull) => {
     decoration.comments = comments
         .concat(reviews)
         .concat(reviewComments);
-        decoration.comments.sort((a, b) =>
+    decoration.comments.sort((a, b) =>
         Date.parse(a.created_at || a.submitted_at) -
         Date.parse(b.created_at || b.submitted_at)
     );
 
     decoration.reviews = reviews.reduce((results, review) => {
-        if (review.state === 'APPROVED' || review.state === 'CHANGES_REQUESTED') {
+        if (review.state === 'APPROVED' || review.state === 'CHANGES_REQUESTED') {
             if (!results[review.user.login]) {
                 results[review.user.login] = {
                     user: review.user.login
@@ -170,9 +170,9 @@ const decoratePull = async (pull) => {
     }
 
     // Count new interactions since myLastInteraction
-    let newComments =  (decoration.comments || []).filter(
+    let newComments = (decoration.comments || []).filter(
         c =>
-        Date.parse(c.created_at || c.submitted_at) > myLastInteraction
+            Date.parse(c.created_at || c.submitted_at) > myLastInteraction
     );
     let newCommits = (decoration.commits || []).filter(
         c => Date.parse(c.commit.author.date) > myLastInteraction
@@ -332,7 +332,7 @@ const runUpdate = async () => {
             };
             globalPulls.push(pull);
 
-        // If it exists, but is updated, replace it in globalPulls
+            // If it exists, but is updated, replace it in globalPulls
         } else if (
             Date.parse(pull.updated_at) > Date.parse(existingPull.updated_at)
         ) {
