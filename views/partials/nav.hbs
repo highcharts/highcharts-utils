@@ -2,11 +2,17 @@
 
 	<div id="version"></div>
 
+	<div class="burger">
+		<button id="burger-button" title="Show menu and chrome below demo">
+			<i class="fa fa-bars"></i>
+		</button>
+	</div>
+
 	<h2 class="sample-name">{{path}}</h2>
 
-	<div class="top-bar-menu">
+	<div class="top-bar-menu topframe-hidden">
 		{{#if mobile}}
-		<a class="button" href="/samples/mobile">
+		<a class="button" id="mobile-home" href="/samples/mobile">
 			<i class="fa fa-home"></i>
 			<span class="button-text">Overview</span>
 		</a>

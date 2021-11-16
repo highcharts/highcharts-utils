@@ -43,6 +43,8 @@ Run `cd certs && chmod 755 osx.create.ssl.certs.sh && ./osx.create.ssl.certs.sh`
 
 Next you need to whitelist the certificate. Open the `/certs` folder, and double click the `highcharts.local.csr`. For the Keychain (nøkkelring) option, select _System_, then Add. Note that the change only takes effect after the next system login.
 
+If you're having problems running the secure server on the Mac, see [this Stack Overflow question](https://stackoverflow.com/questions/58802767/no-proceed-anyway-option-on-neterr-cert-invalid-in-chrome-on-macos).
+
 #### Windows
 
 Run `cd certs && ./win.create.ssl.certs.sh` from the project directory. Requires that OpenSSL is installed.
