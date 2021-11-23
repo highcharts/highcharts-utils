@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html>
   	<head>
+      {{#if consoleClear}}
+      <script>console.clear()</script>
+      {{/if}}
     	<title>{{title}}</title>
 		{{#if styledMode}}
 		<meta http-equiv="Content-Security-Policy" content="
@@ -12,9 +15,6 @@
 		{{/if}}
     	<meta name="viewport" content="width=device-width, initial-scale=1">
     	<link rel='stylesheet' href='/stylesheets/style.css' />
-      {{#if consoleClear}}
-      <script>console.clear()</script>
-      {{/if}}
 
     	{{#each scripts}}
     	<script src="{{this}}"></script>

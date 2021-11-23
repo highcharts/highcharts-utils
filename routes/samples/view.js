@@ -11,6 +11,7 @@ const f = require('./../../lib/functions.js');
 const fs = require('fs');
 const ip = require('ip');
 const { join } = require('path');
+const { trustedTypes } = require('../../lib/arguments.js');
 
 router.get('/', async (req, res) => {
 	let resources = f.getResources(req.query.path);
@@ -45,7 +46,7 @@ router.get('/', async (req, res) => {
 		ipAddress: ip.address(),
 		branch: f.getBranch(),
 		latestCommit: f.getLatestCommit(),
-		scripts: [
+		scripts: trustedTypes ? [] : [
 			'/javascripts/vendor/jquery-1.11.1.js',
 			'/javascripts/view.js',
 			'/javascripts/nav.js'
@@ -60,6 +61,13 @@ router.get('/', async (req, res) => {
 			'checked' : '',
 		styledMode
 	};
+
+	if (trustedTypes) {
+		res.set(
+			'Content-Security-Policy-Report-Only',
+			`require-trusted-types-for 'script'; report-uri //${req.hostname}/samples/trusted-types`
+		);
+	}
 
 	res.render('samples/view', tpl);
 });

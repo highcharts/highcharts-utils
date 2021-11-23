@@ -2,7 +2,9 @@
 {{> nav }}
 
 <script>
-jQuery.noConflict();
+if (window.jQuery) {
+	jQuery.noConflict();
+}
 </script>
 
 <style type="text/css" nonce="mynoncehash">
@@ -24,7 +26,7 @@ jQuery.noConflict();
 		{{{preJS}}}
 
 		<script{{#if es6Context.isModule}} type="module"{{/if}}>
-		if (controller && typeof setUp === 'function') {
+		if (typeof controller !== 'undefined' && typeof setUp === 'function') {
 			setUp();
 		}
 		{{{js}}}

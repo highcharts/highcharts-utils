@@ -55,9 +55,14 @@ router.get('/last-update', async (req, res) => {
     }).catch(e => console.error(e));
 
     res.type('text/json');
-    res.send(JSON.stringify({
-        updatedAt: pulls.data[0].updated_at
-    }));
+
+    if (pulls) {
+        res.send(JSON.stringify({
+            updatedAt: pulls.data[0].updated_at
+        }));
+    } else {
+        res.send('');
+    }
 });
 
 router.get('/list', async (req, res, next) => {

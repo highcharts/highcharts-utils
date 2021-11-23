@@ -45,20 +45,25 @@ const checkForUpdates = async () => {
     const result = await fetch('/pulls/last-update');
     const { updatedAt } = await result.json();
 
-    // Increasingly longer intervals as time goes without action
-    nextUpdate *= 1.1;
-    clearTimeout(timeout);
-    timeout = setTimeout(checkForUpdates, nextUpdate);
+    if (typeof updatedAt === 'string') {
 
-    const hasUpdates = Date.parse(updatedAt) > lastUpdate;
-    console.log(
-        '@checkForUpdates',
-        'hasUpdates:', hasUpdates,
-        'lastUpdate:', new Date(lastUpdate),
-        // 'pull:', pulls.data[0]
-    )
-    if (hasUpdates) {
-        await runUpdate();
+        // Increasingly longer intervals as time goes without action
+        nextUpdate *= 1.1;
+        clearTimeout(timeout);
+        timeout = setTimeout(checkForUpdates, nextUpdate);
+
+        const hasUpdates = Date.parse(updatedAt) > lastUpdate;
+        console.log(
+            '@checkForUpdates',
+            'hasUpdates:', hasUpdates,
+            'lastUpdate:', new Date(lastUpdate),
+            // 'pull:', pulls.data[0]
+        )
+        if (hasUpdates) {
+            await runUpdate();
+        }
+    } else {
+        window.location.reload();
     }
     document.getElementById('refresh').disabled = false;
 }
