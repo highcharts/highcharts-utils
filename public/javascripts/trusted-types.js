@@ -27,7 +27,10 @@ if (
 			},
 			createScript: function(s) {
 				return s;
-			}
+			},
+            createScriptURL: function(s) {
+                return s;
+            }
 		}
 	);
 }
