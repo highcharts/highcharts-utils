@@ -56,18 +56,12 @@ router.get('/', async (req, res) => {
 		].concat(resources.styles),
 		readme: f.getReadme(req.query.path),
 		testNotes: f.getTestNotes(req.query.path),
+		trustedTypes,
 		themes,
 		rewriteSamplesToES6Checked: req.session.rewriteSamplesToES6 ?
 			'checked' : '',
 		styledMode
 	};
-
-	if (trustedTypes) {
-		res.set(
-			'Content-Security-Policy-Report-Only',
-			`require-trusted-types-for 'script'; report-uri //${req.hostname}/samples/trusted-types`
-		);
-	}
 
 	res.render('samples/view', tpl);
 });

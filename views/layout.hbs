@@ -13,6 +13,12 @@
 			style-src 'nonce-mynoncehash' http://localhost:3030/ http://*:3030 http://utils.highcharts.local https://utils.highcharts.local https://www.highcharts.com;
 		">
 		{{/if}}
+    	{{#if trustedTypes}}
+		<meta http-equiv="Content-Security-Policy" content="
+			trusted-types highcharts;
+			require-trusted-types-for 'script'
+		">
+		{{/if}}
     	<meta name="viewport" content="width=device-width, initial-scale=1">
     	<link rel='stylesheet' href='/stylesheets/style.css' />
 

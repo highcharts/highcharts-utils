@@ -92,7 +92,6 @@ app.use('/samples/server-env', require('./routes/samples/server-env'));
 app.use('/samples/readme', require('./routes/samples/readme'));
 app.use('/samples/settings', require('./routes/samples/settings'));
 app.use('/samples/settings-post', require('./routes/samples/settings-post'));
-app.use('/samples/trusted-types', require('./routes/samples/trusted-types'));
 app.use('/samples/view', require('./routes/samples/view'));
 app.use('/samples/view-source', require('./routes/samples/view-source'));
 app.use(
