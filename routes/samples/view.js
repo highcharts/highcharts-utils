@@ -11,7 +11,6 @@ const f = require('./../../lib/functions.js');
 const fs = require('fs');
 const ip = require('ip');
 const { join } = require('path');
-const { trustedTypes } = require('../../lib/arguments.js');
 
 router.get('/', async (req, res) => {
 	let resources = f.getResources(req.query.path);
@@ -46,7 +45,8 @@ router.get('/', async (req, res) => {
 		ipAddress: ip.address(),
 		branch: f.getBranch(),
 		latestCommit: f.getLatestCommit(),
-		scripts: trustedTypes ? [] : [
+		isView: true,
+		scripts: [
 			'/javascripts/vendor/jquery-1.11.1.js',
 			'/javascripts/view.js',
 			'/javascripts/nav.js'
@@ -56,7 +56,6 @@ router.get('/', async (req, res) => {
 		].concat(resources.styles),
 		readme: f.getReadme(req.query.path),
 		testNotes: f.getTestNotes(req.query.path),
-		trustedTypes,
 		themes,
 		rewriteSamplesToES6Checked: req.session.rewriteSamplesToES6 ?
 			'checked' : '',
