@@ -26,7 +26,7 @@ if (window.jQuery) {
 		{{{preJS}}}
 
 		<script{{#if es6Context.isModule}} type="module"{{/if}}>
-		if (typeof controller !== 'undefined' && typeof setUp === 'function') {
+		if (typeof setUp === 'function') {
 			setUp();
 		}
 		{{{js}}}
