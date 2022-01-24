@@ -67,6 +67,10 @@ function compareHTML() {
 		};
 
 		QUnit.done(function (e) {
+			const qunitBox = document.getElementById('qunit');
+			if (qunitBox) {
+				qunitBox.style.display = 'block';
+			}
 			if (e.passed === e.total) {
 				window.parent.onIdentical();
 			} else {
