@@ -12,7 +12,7 @@ const fs = require('fs');
 const ip = require('ip');
 const { join } = require('path');
 
-router.get('/', function(req, res) {
+router.get('/', async (req, res) => {
 	let resources = f.getResources(req.query.path);
 
 	let codePath = req.query.rightcommit ?
@@ -29,6 +29,8 @@ router.get('/', function(req, res) {
 
 	const styledMode = js.indexOf('styledMode: true') !== -1;
 
+	const themes = await f.getThemes(req);
+
 	let tpl = {
 		title: req.query.path,
 		path: req.query.path,
@@ -43,7 +45,9 @@ router.get('/', function(req, res) {
 		ipAddress: ip.address(),
 		branch: f.getBranch(),
 		latestCommit: f.getLatestCommit(),
+		isView: true,
 		scripts: [
+			'/javascripts/trusted-types.js',
 			'/javascripts/vendor/jquery-1.11.1.js',
 			'/javascripts/view.js',
 			'/javascripts/nav.js'
@@ -53,23 +57,7 @@ router.get('/', function(req, res) {
 		].concat(resources.styles),
 		readme: f.getReadme(req.query.path),
 		testNotes: f.getTestNotes(req.query.path),
-		themes: {
-			'': {
-				name: 'Default theme'
-			},
-			'sand-signika': {
-				name: 'Sand Signika',
-				selected: req.session.theme === 'sand-signika' && 'selected'
-			},
-			'dark-unica': {
-				name: 'Dark Unica',
-				selected: req.session.theme === 'dark-unica' && 'selected'
-			},
-			'grid-light': {
-				name: 'Grid Light',
-				selected: req.session.theme === 'grid-light' && 'selected'
-			}
-		},
+		themes,
 		rewriteSamplesToES6Checked: req.session.rewriteSamplesToES6 ?
 			'checked' : '',
 		styledMode

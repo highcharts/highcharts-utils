@@ -129,41 +129,6 @@ window.setUp = function () {
 	var $ = jQuery;
 	$(window).bind('keydown', parent.keyDown);
 
-	/*
-	var checkbox = $('#record')[0],
-		pre = $('pre#recording')[0];
-	if (typeof Highcharts !== 'undefined') {
-		Highcharts.wrap(Highcharts.Pointer.prototype, 'onContainerMouseDown', function (proceed, e) {
-			if (checkbox.checked) {
-				pre.innerHTML += "chart.pointer.onContainerMouseDown({\n"+
-					"	type: 'mousedown',\n" +
-					"	pageX: " + e.pageX + ",\n" +
-					"	pageY: " + e.pageY + "\n" +
-					"});\n\n";
-			}
-			return proceed.call(this, e);
-		});
-		Highcharts.wrap(Highcharts.Pointer.prototype, 'onContainerMouseMove', function (proceed, e) {
-			if (checkbox.checked) {
-				pre.innerHTML += "chart.pointer.onContainerMouseMove({\n"+
-					"	type: 'mousemove',\n" +
-					"	pageX: " + e.pageX + ",\n" +
-					"	pageY: " + e.pageY + ",\n" +
-					"	target: chart.container\n" +
-					"});\n\n";
-			}
-			return proceed.call(this, e);
-		});
-		Highcharts.wrap(Highcharts.Pointer.prototype, 'onDocumentMouseUp', function (proceed, e) {
-			if (checkbox.checked) {
-				pre.innerHTML += "chart.pointer.onContainerMouseMove({\n"+
-					"	type: 'mouseup'\n" +
-					"});\n\n";
-			}
-			return proceed.call(this, e);
-		});
-	}
-	*/
 
 	if (typeof Highcharts !== 'undefined') {
 		Highcharts.setOptions({
@@ -180,7 +145,7 @@ window.setUp = function () {
 		});
 	}
 
-	if (query.profile && typeof Highcharts !== 'undefined') {
+	if (query && query.profile && typeof Highcharts !== 'undefined') {
 		Highcharts.wrap(Highcharts.Chart.prototype, 'init', function (proceed) {
 			var chart;
 
@@ -199,7 +164,7 @@ window.setUp = function () {
 
 		});
 	}
-	if (query.time && typeof Highcharts !== 'undefined') {
+	if (query && query.time && typeof Highcharts !== 'undefined') {
 		Highcharts.wrap(Highcharts.Chart.prototype, 'init', function (proceed) {
 			var chart,
 				start;
@@ -232,6 +197,10 @@ window.setUp = function () {
 		var container;
 		var notified = {};
 		var checkStyledMode = function () {
+
+			if (!Highcharts.charts[0]) {
+				return;
+			}
 
 			container = Highcharts.charts[0].container;
 			var blacklist = [

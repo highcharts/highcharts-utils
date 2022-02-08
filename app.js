@@ -47,6 +47,12 @@ app.use('/reference', express.static(
 ));
 app.use('/mapdata', express.static(
   path.dirname(require.resolve('@highcharts/map-collection/package.json')),
+  /*
+  path.dirname(require.resolve(path.join(
+    __dirname,
+    '../map-collection/Export/1.1.4'
+  ))),
+  // */
   { maxAge: '10m' }
 ));
 app.use('/samples/graphics', express.static(

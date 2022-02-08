@@ -33,6 +33,18 @@ body.page h1 {
 .top-bar .sample-name {
 	margin: 0;
 }
+.top-bar .burger {
+	float: right;
+	display: none;
+}
+
+.topframe .topframe-hidden {
+	display: none;
+}
+.topframe .top-bar .burger {
+	display: block;
+}
+
 #version {
 	float:right;
 	color: silver;
@@ -51,10 +63,10 @@ body.page h1 {
 	width: 100%;
 	transition: width 500ms;
 }
-#main-content-inner {
+#demo-content {
 	margin: 1em;
 }
-.top-bar, .top-nav {
+.top-bar, .top-nav, #samples-nav, #button-row {
 	input {
 		line-height: 2em;
 	}

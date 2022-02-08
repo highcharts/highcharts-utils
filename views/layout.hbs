@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html>
   	<head>
+      {{#if consoleClear}}
+      <script>console.clear()</script>
+      {{/if}}
     	<title>{{title}}</title>
 		{{#if styledMode}}
 		<meta http-equiv="Content-Security-Policy" content="
@@ -9,14 +12,18 @@
 			script-src-elem 'unsafe-inline' http://localhost:3030/ http://*:3030 http://utils.highcharts.local https://utils.highcharts.local https://www.highcharts.com;
 			style-src 'nonce-mynoncehash' http://localhost:3030/ http://*:3030 http://utils.highcharts.local https://utils.highcharts.local https://www.highcharts.com;
 		">
+		{{else}}
+		{{#if isView}}
+		<meta http-equiv="Content-Security-Policy" content="
+			trusted-types highcharts default;
+			require-trusted-types-for 'script'
+		">
+		{{/if}}
 		{{/if}}
     	<meta name="viewport" content="width=device-width, initial-scale=1">
     	<link rel='stylesheet' href='/stylesheets/style.css' />
-      {{#if consoleClear}}
-      <script>console.clear()</script>
-      {{/if}}
 
-    	{{#each scripts}}
+		{{#each scripts}}
     	<script src="{{this}}"></script>
     	{{/each}}
       {{#each styles}}

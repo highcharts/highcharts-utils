@@ -45,20 +45,25 @@ const checkForUpdates = async () => {
     const result = await fetch('/pulls/last-update');
     const { updatedAt } = await result.json();
 
-    // Increasingly longer intervals as time goes without action
-    nextUpdate *= 1.1;
-    clearTimeout(timeout);
-    timeout = setTimeout(checkForUpdates, nextUpdate);
+    if (typeof updatedAt === 'string') {
 
-    const hasUpdates = Date.parse(updatedAt) > lastUpdate;
-    console.log(
-        '@checkForUpdates',
-        'hasUpdates:', hasUpdates,
-        'lastUpdate:', new Date(lastUpdate),
-        // 'pull:', pulls.data[0]
-    )
-    if (hasUpdates) {
-        await runUpdate();
+        // Increasingly longer intervals as time goes without action
+        nextUpdate *= 1.1;
+        clearTimeout(timeout);
+        timeout = setTimeout(checkForUpdates, nextUpdate);
+
+        const hasUpdates = Date.parse(updatedAt) > lastUpdate;
+        console.log(
+            '@checkForUpdates',
+            'hasUpdates:', hasUpdates,
+            'lastUpdate:', new Date(lastUpdate),
+            // 'pull:', pulls.data[0]
+        )
+        if (hasUpdates) {
+            await runUpdate();
+        }
+    } else {
+        window.location.reload();
     }
     document.getElementById('refresh').disabled = false;
 }
@@ -91,13 +96,13 @@ const decoratePull = async (pull) => {
     decoration.comments = comments
         .concat(reviews)
         .concat(reviewComments);
-        decoration.comments.sort((a, b) =>
+    decoration.comments.sort((a, b) =>
         Date.parse(a.created_at || a.submitted_at) -
         Date.parse(b.created_at || b.submitted_at)
     );
 
     decoration.reviews = reviews.reduce((results, review) => {
-        if (review.state === 'APPROVED' || review.state === 'CHANGES_REQUESTED') {
+        if (review.state === 'APPROVED' || review.state === 'CHANGES_REQUESTED') {
             if (!results[review.user.login]) {
                 results[review.user.login] = {
                     user: review.user.login
@@ -170,9 +175,9 @@ const decoratePull = async (pull) => {
     }
 
     // Count new interactions since myLastInteraction
-    let newComments =  (decoration.comments || []).filter(
+    let newComments = (decoration.comments || []).filter(
         c =>
-        Date.parse(c.created_at || c.submitted_at) > myLastInteraction
+            Date.parse(c.created_at || c.submitted_at) > myLastInteraction
     );
     let newCommits = (decoration.commits || []).filter(
         c => Date.parse(c.commit.author.date) > myLastInteraction
@@ -186,7 +191,9 @@ const decoratePull = async (pull) => {
         ).join('\n') +
         '\n' +
         newCommits.map(c =>
-            '@' + c.author.login + ': ' + c.commit.message.replace(/</g, '&lt;').replace(/>/g, '&gt;')
+            c.author ?
+                '@' + c.author.login + ': ' + c.commit.message.replace(/</g, '&lt;').replace(/>/g, '&gt;') :
+                ''
         ).join('\n');
 
 
@@ -330,7 +337,7 @@ const runUpdate = async () => {
             };
             globalPulls.push(pull);
 
-        // If it exists, but is updated, replace it in globalPulls
+            // If it exists, but is updated, replace it in globalPulls
         } else if (
             Date.parse(pull.updated_at) > Date.parse(existingPull.updated_at)
         ) {

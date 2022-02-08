@@ -1,5 +1,40 @@
+document.addEventListener('DOMContentLoaded', function () {
+	if (window.parent === window && !document.getElementById('mobile-home')) {
+		document.body.classList.add('topframe');
+
+		if (window.location.hash.indexOf('show-chrome') !== -1) {
+			[].forEach.call(
+				document.querySelectorAll('.topframe-hidden'),
+				function (elem) {
+					elem.style.display = 'block';
+				}
+			);
+		}
+	}
+});
+
 /* global $, controller, Highcharts */
 $(window).bind('load', function () {
+
+	document.querySelector('.top-bar .burger').addEventListener(
+		'click',
+		function() {
+			[].forEach.call(
+				document.querySelectorAll('.topframe-hidden'),
+				function (elem) {
+					if (elem.style.display === 'block') {
+						elem.style.display = '';
+						window.location.hash = window.location.hash
+							.replace('show-chrome', '');
+					} else {
+						elem.style.display = 'block';
+						window.location.hash = 'show-chrome';
+					}
+				}
+			);
+		}
+	)
+
 	var $ = window.$ || window.jQuery;
 	if (controller) {
 		$('#bisect', document).click(function () {

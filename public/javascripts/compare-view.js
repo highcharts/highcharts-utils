@@ -230,9 +230,11 @@ function activateOverlayCompare(isCanvas) {
 	});
 
 	// Initialize
+	/*
 	$('#preview', document).css({
 		height: $('#preview', document).height()
 	});
+	*/
 
 	$rightImage
 		.css({
@@ -343,9 +345,10 @@ function onBothLoad() {
 
 					source = source.replace(/<foreignObject .*?<\/foreignObject>/g, '')
 
-					// Firefox runs Blob. Safari requires the data: URL. Chrome accepts both
-					// but seems to be slightly faster with data: URL.
-					useBlob = ['Chrome', 'Edge', 'Firefox']
+					// Firefox runs Blob. Safari apparently from v15 requires
+					// Blob. Chrome accepts both but seems to be slightly faster
+					// with data: URL.
+					useBlob = ['Chrome', 'Edge', 'Firefox', 'Safari']
 						.indexOf(controller.getBrowser()) !== -1;
 					if (useBlob) {
 						domurl = window.URL || window.webkitURL || window;

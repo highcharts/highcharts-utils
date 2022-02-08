@@ -2,7 +2,9 @@
 {{> nav }}
 
 <script>
-jQuery.noConflict();
+if (window.jQuery) {
+	jQuery.noConflict();
+}
 </script>
 
 <style type="text/css" nonce="mynoncehash">
@@ -11,50 +13,46 @@ jQuery.noConflict();
 
 <div id="source-box"></div>
 <div id="main-content">
-	<div id="main-content-inner">
+	<div id="demo-content">
 
 	{{{html}}}
 	</div>
 
+	<div class="topframe-hidden">
+		{{#if readme}}
+		<div class="description" id="description">{{{readme}}}</div>
+		{{/if}}
 
-	{{#if readme}}
-	<div class="description" id="description">{{{readme}}}</div>
-	{{/if}}
+		{{{preJS}}}
 
-	{{{preJS}}}
-
-	<script{{#if es6Context.isModule}} type="module"{{/if}}>
-	if (controller) {
+		<script{{#if es6Context.isModule}} type="module"{{/if}}>
 		if (typeof setUp === 'function') {
 			setUp();
 		}
-
-		// Override and point to local resources
-		//$.getJSON = controller.getJSON;
-	}
-	{{{js}}}
-	</script>
+		{{{js}}}
+		</script>
 
 
-	{{#if testNotes}}
-	<section class="test-notes">
-		<header>Test notes</header>
-		<div class="test-notes-content">
-			{{{testNotes}}}
+		{{#if testNotes}}
+		<section class="test-notes">
+			<header>Test notes</header>
+			<div class="test-notes-content">
+				{{{testNotes}}}
+			</div>
+		</section>
+		{{else}}
+		<hr/>
+		{{/if}}
+
+		{{#if mobile}}
+		<div style="margin: 1em">
+			<p>
+				<b>Mobile shortcut - </b>
+				<a href="http://{{ipAddress}}:3030/draft">http://{{ipAddress}}:3030/draft</a>
+			</p>
 		</div>
-	</section>
-	{{else}}
-	<hr/>
-	{{/if}}
-
-	{{#if mobile}}
-	<div style="margin: 1em">
-		<p>
-			<b>Mobile shortcut - </b>
-			<a href="http://{{ipAddress}}:3030/draft">http://{{ipAddress}}:3030/draft</a>
-		</p>
+		{{/if}}
 	</div>
-	{{/if}}
 
 
 </div>
