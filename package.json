@@ -1,5 +1,5 @@
 {
-  "name": "highcharts-utils",
+  "name": "@highcharts/highcharts-utils",
   "version": "0.0.0",
   "private": true,
   "scripts": {
