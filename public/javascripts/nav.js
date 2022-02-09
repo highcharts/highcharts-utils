@@ -13,8 +13,8 @@ document.addEventListener('DOMContentLoaded', function () {
 	}
 });
 
-/* global $, controller, Highcharts */
-$(window).bind('load', function () {
+/* global controller, Highcharts */
+window.addEventListener('load', function () {
 
 	document.querySelector('.top-bar .burger').addEventListener(
 		'click',

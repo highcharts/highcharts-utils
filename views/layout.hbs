@@ -2,23 +2,24 @@
 <html>
   	<head>
       {{#if consoleClear}}
-      <script>console.clear()</script>
+      <script>
+	  // Clearing the console is only useful when running in sequense inside
+	  // frames
+	  if (window.parent !== window) {
+	    console.clear();
+	  }
+	  </script>
       {{/if}}
     	<title>{{title}}</title>
-		{{#if styledMode}}
+		{{#if isView}}
 		<meta http-equiv="Content-Security-Policy" content="
-			default-src 'self';
+			trusted-types highcharts default;
+			require-trusted-types-for 'script';
+			default-src 'self' https://demo-live-data.highcharts.com;
 			script-src 'unsafe-inline' http://localhost:3030/ http://*:3030 http://utils.highcharts.local https://utils.highcharts.local https://www.highcharts.com;
 			script-src-elem 'unsafe-inline' http://localhost:3030/ http://*:3030 http://utils.highcharts.local https://utils.highcharts.local https://www.highcharts.com;
 			style-src 'nonce-mynoncehash' http://localhost:3030/ http://*:3030 http://utils.highcharts.local https://utils.highcharts.local https://www.highcharts.com;
 		">
-		{{else}}
-		{{#if isView}}
-		<meta http-equiv="Content-Security-Policy" content="
-			trusted-types highcharts default;
-			require-trusted-types-for 'script'
-		">
-		{{/if}}
 		{{/if}}
     	<meta name="viewport" content="width=device-width, initial-scale=1">
     	<link rel='stylesheet' href='/stylesheets/style.css' />

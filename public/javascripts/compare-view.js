@@ -1,10 +1,9 @@
-var controller = window.parent && window.parent.controller,
-	$ = window.parent && window.parent.$,
-	query = controller.getQueryParameters(window),
+var controller,
+	$,
+	query,
 	diff,
-	path = query.path,
-	commentHref = '/samples/compare-comment?browser=' + controller.getBrowser() +
-		'&path=' + path,
+	path,
+	commentHref,
 	commentFrame,
 	leftSVG,
 	rightSVG,
@@ -13,15 +12,32 @@ var controller = window.parent && window.parent.controller,
 	chartWidth,
 	chartHeight,
 	error,
-	mode = query.mode,
-	sample = controller.samples[path],
-	skipTest = sample.options.details.skipTest,
-	isManual = sample.options.details.requiresManualTesting,
-	rightcommit = query.rightcommit || false,
-	isUnitTest = sample.isUnitTest(),
+	mode,
+	sample,
+	skipTest,
+	isManual,
+	rightcommit,
+	isUnitTest,
 	previewSVG,
-	diffString = window.parent.diffString,
-	canvg = window.parent.canvg;
+	diffString,
+	canvg;
+
+function assign(win) {
+	controller = win.controller;
+	$ = win.$;
+	query = controller.getQueryParameters(window);
+	path = query.path;
+	commentHref = '/samples/compare-comment?browser=' + controller.getBrowser() +
+		'&path=' + path;
+	mode = query.mode;
+	sample = controller.samples[path];
+	skipTest = sample.options.details.skipTest;
+	isManual = sample.options.details.requiresManualTesting;
+	rightcommit = query.rightcommit || false;
+	isUnitTest = sample.isUnitTest();
+	diffString = win.diffString;
+	canvg = win.canvg;
+}
 
 function showCommentBox(diff) {
 
@@ -91,7 +107,7 @@ function setUpElements() {
 	}
 }
 
-window.addEventListener('load', function () {
+function main () {
 	updateHash();
 	setUpElements();
 
@@ -132,6 +148,13 @@ window.addEventListener('load', function () {
 			color: 'gray',
 			display: 'block'
 		}).html(report);
+	}
+};
+
+window.addEventListener('load', function () {
+	if (window.parent) {
+		assign(window.parent);
+		main();
 	}
 });
 
