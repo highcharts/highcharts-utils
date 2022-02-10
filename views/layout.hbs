@@ -13,12 +13,36 @@
     	<title>{{title}}</title>
 		{{#if isView}}
 		<meta http-equiv="Content-Security-Policy" content="
-			trusted-types highcharts default;
-			require-trusted-types-for 'script';
-			default-src 'self' https://demo-live-data.highcharts.com;
-			script-src 'unsafe-inline' http://localhost:3030/ http://*:3030 http://utils.highcharts.local https://utils.highcharts.local https://www.highcharts.com;
-			script-src-elem 'unsafe-inline' http://localhost:3030/ http://*:3030 http://utils.highcharts.local https://utils.highcharts.local https://www.highcharts.com;
-			style-src 'nonce-mynoncehash' http://localhost:3030/ http://*:3030 http://utils.highcharts.local https://utils.highcharts.local https://www.highcharts.com;
+			trusted-types
+				highcharts
+				default;
+			require-trusted-types-for
+				'script';
+			default-src
+				'self'
+				https://demo-live-data.highcharts.com;
+			script-src
+				'unsafe-inline'
+				http://localhost:3030/
+				http://*:3030
+				http://utils.highcharts.local
+				https://utils.highcharts.local
+				https://www.highcharts.com;
+			script-src-elem
+				'unsafe-inline'
+				http://localhost:3030/
+				http://*:3030
+				http://utils.highcharts.local
+				https://utils.highcharts.local
+				https://www.highcharts.com;
+			style-src
+				'nonce-mynoncehash'
+				http://localhost:3030/
+				http://*:3030
+				http://utils.highcharts.local
+				https://utils.highcharts.local
+				https://www.highcharts.com
+				https://cdn.jsdelivr.net;
 		">
 		{{/if}}
     	<meta name="viewport" content="width=device-width, initial-scale=1">
