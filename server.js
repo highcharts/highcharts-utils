@@ -12,7 +12,7 @@ require('colors');
 const {
   apiPort,
   codePort,
-  codesPort,
+  codeSecurePort,
   crtFile,
   highchartsDir,
   localOnly,
@@ -38,9 +38,9 @@ const log = () => {
   Code server available at:
     ${codeDomainLine}- http://localhost:${codePort}
     - http://${ipAddress}:${codePort}${
-    codesPort ? `
-    ${codeDomainLine}- https://localhost:${codesPort}
-    - https://${ipAddress}:${codesPort}` : ''}
+    codeSecurePort ? `
+    ${codeDomainLine}- https://localhost:${codeSecurePort}
+    - https://${ipAddress}:${codeSecurePort}` : ''}
   API server available at:
     ${apiDomainLine}- http://localhost:${apiPort}
     - http://${ipAddress}:${apiPort}
@@ -158,27 +158,35 @@ if (useProxy) {
       `code.highcharts.${topDomain}`,
       `api.highcharts.${topDomain}`
     ];
-    const protocol = sslEnabled ? 'https' : 'http';
-    utilsDomainLine = `- ${protocol}://${domains[0]}
-    `;
-    codeDomainLine = `- ${protocol}://${domains[1]}
-    `;
-    apiDomainLine = `- ${protocol}://${domains[2]}
-    `;
 
+    let domainsEnabled = !localOnly;
     if (!localOnly) {
       const hostile = require('hostile');
-      // Add domains to hosts file
-      domains.forEach(domain => {
-        hostile.set('127.0.0.1', domain);
-      });
-      // Remove domains from hosts file on exit
-      exitHook(callback => {
+      try {
+        // Add domains to hosts file
         domains.forEach(domain => {
-          hostile.remove('127.0.0.1', domain);
+          hostile.set('127.0.0.1', domain);
         });
-        callback();
-      });
+        // Remove domains from hosts file on exit
+        exitHook(callback => {
+          domains.forEach(domain => {
+            hostile.remove('127.0.0.1', domain);
+          });
+          callback();
+        });
+      } catch (e) {
+        domainsEnabled = false;
+      }
+    }
+
+    if (domainsEnabled) {
+      const protocol = sslEnabled ? 'https' : 'http';
+      utilsDomainLine = `- ${protocol}://${domains[0]}
+      `;
+      codeDomainLine = `- ${protocol}://${domains[1]}
+      `;
+      apiDomainLine = `- ${protocol}://${domains[2]}
+      `;
     }
 
     log();
