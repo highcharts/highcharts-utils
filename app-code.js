@@ -4,7 +4,7 @@
 
 // Modules sorted by names alphabetically
 const express = require('express');
-const { crtFile, codePort, codesPort, pemFile } = require('./lib/arguments.js');
+const { crtFile, codePort, codeSecurePort, pemFile } = require('./lib/arguments.js');
 const { getCodeFile } = require('./lib/functions');
 
 /**
@@ -38,7 +38,7 @@ app.listen(codePort);
 /**
  * Create HTTPS server.
  */
-if (codesPort) {
+if (codeSecurePort) {
     const fs = require('fs');
     const https = require('https');
 
@@ -48,6 +48,6 @@ if (codesPort) {
     };
 
     if (httpsOptions.cert && httpsOptions.key) {
-        https.createServer(httpsOptions, app).listen(codesPort);
+        https.createServer(httpsOptions, app).listen(codeSecurePort);
     }
 }

@@ -2,6 +2,7 @@
 	"highchartsDir": "./../highcharts/",
 	"utilsPort": 3030,
 	"codePort": 3031,
+	"codeSecurePort": 3041,
 	"apiPort": 3032,
 	"emulateKarma": false,
 	"pemFile": "./certs/highcharts.local.key.pem",
