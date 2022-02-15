@@ -27,8 +27,6 @@ function compareHTML() {
 
 	// If running QUnit, use the built-in callback
 	if (QUnit) {
-		// Catch the error if batch mode, otherwise let it go.
-		QUnit.config.notrycatch = !controller.continueBatch;
 
 		if (navigator.userAgent.indexOf('PhantomJS') !== -1) {
 			QUnit.log(function( details ) {
