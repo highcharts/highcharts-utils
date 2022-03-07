@@ -20,11 +20,16 @@
 				'script';
 			default-src
 				'self'
+				blob:
+				data:
+				https://api.met.no
 				https://demo-live-data.highcharts.com
 				https://www.highcharts.com
 				https://cdn.jsdelivr.net
 				https://ajax.googleapis.com
-				https://netdna.bootstrapcdn.com;
+				https://netdna.bootstrapcdn.com
+				https://sheets.googleapis.com
+				https://upload.wikimedia.org;
 			script-src
 				'unsafe-inline'
 				http://localhost:3030/
@@ -36,12 +41,15 @@
 				'unsafe-inline'
 				http://localhost:3030/
 				http://*:3030
+				http://code.highcharts.com
+				http://code.highcharts.local
 				http://utils.highcharts.local
 				https://utils.highcharts.local
 				https://www.highcharts.com
 				https://cdnjs.cloudflare.com
 				https://d3js.org
 				https://code.jquery.com
+				https://cdn.jsdelivr.net
 				https://ajax.googleapis.com
 				https://netdna.bootstrapcdn.com;
 			style-src

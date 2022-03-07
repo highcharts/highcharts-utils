@@ -321,7 +321,7 @@ function onBothLoad() {
 	if (mode === 'images') {
 		var regNaN = /[^a-zA-Z]NaN[^a-zA-Z]/;
 		if (regNaN.test(rightSVG)) {
-			report += "<div>The generated SVG contains NaN</div>";
+			report += "<div>Right: The generated SVG contains NaN</div>";
 			var index = rightSVG.indexOf('NaN');
 			report += '<pre>' + rightSVG.substr(index - 100, 200)
 				.replace(/</g, '&lt;')
