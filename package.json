@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "kill": "sudo kill -9 $(sudo lsof -t -i:3030)",
+    "dev": "nodemon -r esm ./bin/www",
     "start": "sudo node ./server",
     "precommit": "lint-staged",
     "demodata": "node ./utils/demo-data"

@@ -51,7 +51,7 @@ const log = () => {
   Run --help to list parameters
 
   Development:
-  While developing highcharts-utils, run 'nodemon ./bin/www' and point your
+  While developing highcharts-utils, run 'npm run dev' and point your
   browser to http://localhost:3030. It watches source file changes and restarts
   automatically.
   `.cyan +
