@@ -11,6 +11,7 @@ controller.Sample = function (options, index) {
         dirs = options.path.split('/'),
         ulId = ('ul-' + dirs[0] + '-' + dirs[1]).replace(/\./g, '-'),
         li = mainNav && mainNav.querySelector('li#li' + index),
+        iconDiv = li && li.querySelector('.icons'),
         diff,
         status;
 
@@ -101,8 +102,23 @@ controller.Sample = function (options, index) {
                 }
             }
         }
-        li.appendChild(testAnchor);
+        iconDiv.appendChild(testAnchor);
     }
+
+    // Render nightly anchor
+    function addStandaloneAnchor() {
+        var icon = '<i class="fa fa-external-link" title="Standalone window"></i>';
+
+        var anchor = contentsDoc.createElement('a');
+        anchor.className = 'standalone';
+        anchor.target = '_blank';
+        anchor.href = isUnitTest() ?
+            '/samples/compare-iframe?path=' + options.path :
+            '/samples/view?path=' + options.path;
+        anchor.innerHTML = icon;
+        iconDiv.appendChild(anchor);
+    }
+
 
     function addNightlyAnchor() {
         var icon = '<i class="fa fa-moon-o" title="Nightly test"></i>';
@@ -112,7 +128,7 @@ controller.Sample = function (options, index) {
         anchor.target = 'main';
         anchor.href = '/samples/nightly/single?path=' + options.path;
         anchor.innerHTML = icon;
-        li.appendChild(anchor);
+        iconDiv.appendChild(anchor);
     }
 
     function addCommentAnchor() {
@@ -135,7 +151,7 @@ controller.Sample = function (options, index) {
             '&diff=' + diff + '&browser=' + controller.getBrowser().toLowerCase();
         commentAnchor.innerHTML =
             commentIcon;
-        li.appendChild(commentAnchor);
+        iconDiv.appendChild(commentAnchor);
     }
 
     function isTolerated() {
@@ -220,7 +236,7 @@ controller.Sample = function (options, index) {
             li.id = 'li' + index;
             ul.appendChild(li);
         }
-        li.innerHTML = index + '. '; // Flushes previous content
+        li.innerHTML = ''; // Flushes previous content
 
         // No capital
         if (/[A-Z]/.test(innerHTML)) {
@@ -239,7 +255,12 @@ controller.Sample = function (options, index) {
         if (!(options.details && options.details.requiresManualTesting)) {
             anchor.className = 'batch';
         }
+        anchor.title = options.path;
         li.appendChild(anchor);
+
+        iconDiv = contentsDoc.createElement('div');
+        iconDiv.className = 'icons';
+        li.appendChild(iconDiv);
 
         // Set the diff
         if (typeof diff === 'undefined') {
@@ -249,14 +270,21 @@ controller.Sample = function (options, index) {
                 diff = '';
             }
         }
-        // Render test anchor
-        addTestAnchor();
-
-        // Render nightly anchor
-        addNightlyAnchor();
 
         // Add comment anchor
         addCommentAnchor();
+
+        addStandaloneAnchor();
+
+        // Render nightly anchor
+        if (!isUnitTest()) {
+            addNightlyAnchor();
+        }
+
+        // Render test anchor
+        addTestAnchor();
+
+
 
         // Add the class name
         setClassName();

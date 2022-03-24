@@ -7,7 +7,7 @@
 
 	function countFails() {
 		$('#count-fails', document).html(
-			'(' + ($('#main-nav li', document).length - 
+			'(' + ($('#main-nav li', document).length -
 			$('#main-nav li.identical, #main-nav li.approved', document).length) + ')');
 	}
 
@@ -21,7 +21,7 @@
 			controller.toggleBisect(false);
 		});
 
-		
+
 		$("#batch-compare", document).click(function (e) {
 			e.stopPropagation();
 			controller.runBatch();
@@ -54,21 +54,21 @@
 			if (fails === 1) { // Hide passed tests
 				$('#filtered', document).css('display', 'block');
 				$('#main-nav h2, #main-nav h4, #main-nav li.identical, #main-nav li.approved', document).css('display', 'none');
-			
+
 			} else if (fails === 2) { // Hide manual tests
 				$('#main-nav li.manual', document).css('display', 'none');
-			
+
 			} else if (fails === 0) { // Reset
 				$('#filtered', document).css('display', 'none');
-				$('#main-nav li', document).css('display', '');	
+				$('#main-nav li', document).css('display', '');
 			}
 
-			
+
 		});
 
 		$('a.button', document).each(function () {
 			$(this).click(function () {
-				
+
 				var route = this.href.split('/samples/')[1];
 				if (route) {
 					window.parent.location.hash = '#' + route;
@@ -95,9 +95,9 @@
 		document.getElementById('comparemode-local-label').title = controller.server.branch;
 
 		countFails();
-		
+
 	});
-	
+
 </script>
 <style type="text/css">
 	* {
@@ -124,7 +124,7 @@
 	a {
 		text-decoration: none;
 	}
-	
+
 	h2 {
 		border-bottom: 1px solid gray;
 		text-transform: uppercase;
@@ -147,7 +147,7 @@
 	li.visited a {
 		color: gray;
 	}
-	
+
 	.progress {
 		margin: 0 -10px 30px -10px;
 	}
@@ -192,8 +192,8 @@
 		color: #039;
 		font-weight: normal;
 	}
-	
-	
+
+
 	li.hilighted {
 		border-color: black;
 		border-left-width: 1em;
@@ -202,9 +202,9 @@
 		margin: 0;
 	}
 	#top-nav {
-		color: white; 
-		font-family: Arial, sans-serif; 
-		padding: 10px; 
+		color: white;
+		font-family: Arial, sans-serif;
+		padding: 10px;
 		background: #34343e;
 		box-shadow: 0px 0px 8px #888;
 		position: fixed;
@@ -234,14 +234,39 @@
 	#batch-stop {
 		display: none;
 	}
+	.icons {
+		position: absolute;
+		right: 2px;
+		top: 0;
+		background: inherit;
+	}
+	.icons a {
+		margin: 0.3em;
+	}
 	.nightly-single {
+		/*
 		position: absolute;
 		right: 3em;
-	}	
+		*/
+	}
+	.standalone {
+		/*
+		position: absolute;
+		right: 7em;
+		*/
+	}
+	.dissimilarity-index {
+		/*
+		position: absolute;
+		right: 0.2em;
+		*/
+	}
 	.comment {
+		/*
 		position: absolute;
 		right: 5em;
-	}	
+		*/
+	}
 	.comment-title {
 		display: none;
 		position: absolute;
@@ -256,10 +281,6 @@
 	.comment:hover .comment-title {
 		display: block;
 	}
-	.dissimilarity-index {
-		position: absolute;
-		right: 0.2em;
-	}
 	#filtered {
 		display: none;
 		margin: 1em 0;
@@ -272,9 +293,9 @@
 	}
 
 </style>
-		
-	
-		
+
+
+
 <div id="top-nav">
 	<a class="button" href="/samples/readme" target="main">
 		<i class="fa fa-home"></i>
