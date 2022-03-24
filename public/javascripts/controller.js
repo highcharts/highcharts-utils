@@ -11,6 +11,7 @@ var controller = { // eslint-disable-line no-unused-vars
 
     batchRuns: 0,
     compareMode: 'local',
+    nightly: {},
 
     // How much relative difference do we tolerate between the nightly diff and
     // the local pixel diff before we mark a visual test red.
@@ -48,7 +49,7 @@ var controller = { // eslint-disable-line no-unused-vars
         });
     },
 
-    loadSamples: function () {
+    loadSamples: function (callback) {
         $.getJSON('/samples/list-samples', function (samples) {
 
             // Create Sample instances
@@ -65,6 +66,10 @@ var controller = { // eslint-disable-line no-unused-vars
             });
 
             controller.runLoad();
+
+            if (callback) {
+                callback();
+            }
         });
     },
 

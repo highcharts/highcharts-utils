@@ -1,13 +1,16 @@
 /* eslint-env browser */
-/* global $, controller, window */
+/* global $, controller */
 /* eslint require-jsdoc: 0, valid-jsdoc: 0 */
 controller.Sample = function (options, index) {
 
-    var contentsDoc = controller.frames().contents.contentDocument,
-        mainNav = contentsDoc.getElementById('main-nav'),
+    var contentsDoc = (
+            controller.frames().contents &&
+            controller.frames().contents.contentDocument
+        ),
+        mainNav = contentsDoc && contentsDoc.getElementById('main-nav'),
         dirs = options.path.split('/'),
         ulId = ('ul-' + dirs[0] + '-' + dirs[1]).replace(/\./g, '-'),
-        li = mainNav.querySelector('li#li' + index),
+        li = mainNav && mainNav.querySelector('li#li' + index),
         diff,
         status;
 

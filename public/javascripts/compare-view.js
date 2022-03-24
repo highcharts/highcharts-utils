@@ -77,11 +77,11 @@ function setUpElements() {
 
 	// The body class
 	if (isUnitTest) {
-		document.body.className = 'single-col unit';
+		document.body.className += ' single-col unit';
 	} else if (isManual) {
-		document.body.className = 'single-col manual';
+		document.body.className += ' single-col manual';
 	} else {
-		document.body.className = 'visual';
+		document.body.className += ' visual';
 	}
 
 	// The body elements
@@ -136,7 +136,9 @@ function main () {
 		});
 	});
 
-	controller.samples[path].setCurrent();
+	if (window !== window.parent) {
+		controller.samples[path].setCurrent();
+	}
 
 	if (isManual) {
 		showCommentBox(diff);
@@ -152,9 +154,40 @@ function main () {
 };
 
 window.addEventListener('load', function () {
-	if (window.parent) {
+
+	// Running inside the frameset
+	if (window.parent !== window) {
 		assign(window.parent);
 		main();
+
+	// Running in a separate window
+	} else {
+		var scripts = [
+			'/javascripts/controller.js',
+			'/javascripts/sample.js'
+		];
+
+		function loadScriptSequencial(callback) {
+			var script = document.createElement('script');
+			document.getElementsByTagName('head')[0].appendChild(script);
+			script.onload = function () {
+				if (scripts.length) {
+					loadScriptSequencial(callback);
+				} else {
+					callback();
+				}
+			}
+			if (scripts[0]) {
+				script.src = scripts.shift();
+			}
+		}
+
+		loadScriptSequencial(function () {
+			controller.loadSamples(function () {
+				assign(window);
+				main();
+			});
+		});
 	}
 });
 
@@ -186,13 +219,17 @@ function proceed() {
 }
 
 function onIdentical(diff) {
-	sample.setDiff(diff || 0);
-	proceed();
+	if (window !== window.parent) {
+		sample.setDiff(diff || 0);
+		proceed();
+	}
 }
 
 function onDifferent(diff) {
-	sample.setDiff(diff);
-	proceed();
+	if (window !== window.parent) {
+		sample.setDiff(diff);
+		proceed();
+	}
 }
 
 function onLoadTest(which, svg) { // eslint-disable-line no-unused-vars
