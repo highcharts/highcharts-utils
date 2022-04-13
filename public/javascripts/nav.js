@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', function () {
+window.addEventListener('bodyload', function () {
 	if (window.parent === window && !document.getElementById('mobile-home')) {
 		document.body.classList.add('topframe');
 

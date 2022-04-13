@@ -79,6 +79,9 @@
       {{/each}}
   	</head>
   	<body class="{{bodyClass}}">
+	  <script>
+		  window.dispatchEvent(new Event('bodyload'));
+	  </script>
     	{{{body}}}
 
 
