@@ -2,23 +2,71 @@
 <html>
   	<head>
       {{#if consoleClear}}
-      <script>console.clear()</script>
+      <script>
+	  // Clearing the console is only useful when running in sequense inside
+	  // frames
+	  if (window.parent !== window) {
+	    console.clear();
+	  }
+	  </script>
       {{/if}}
     	<title>{{title}}</title>
-		{{#if styledMode}}
-		<meta http-equiv="Content-Security-Policy" content="
-			default-src 'self';
-			script-src 'unsafe-inline' http://localhost:3030/ http://*:3030 http://utils.highcharts.local https://utils.highcharts.local https://www.highcharts.com;
-			script-src-elem 'unsafe-inline' http://localhost:3030/ http://*:3030 http://utils.highcharts.local https://utils.highcharts.local https://www.highcharts.com;
-			style-src 'nonce-mynoncehash' http://localhost:3030/ http://*:3030 http://utils.highcharts.local https://utils.highcharts.local https://www.highcharts.com;
-		">
-		{{else}}
 		{{#if isView}}
 		<meta http-equiv="Content-Security-Policy" content="
-			trusted-types highcharts default;
-			require-trusted-types-for 'script'
+			trusted-types
+				highcharts
+				default;
+			require-trusted-types-for
+				'script';
+			default-src
+				'self'
+				blob:
+				data:
+				https://a.tile.openstreetmap.org
+				https://a.tile.opentopomap.org
+				https://api.met.no
+				https://demo-live-data.highcharts.com
+				https://www.highcharts.com
+				https://cdn.jsdelivr.net
+				https://ajax.googleapis.com
+				https://netdna.bootstrapcdn.com
+				https://opencache.statkart.no
+				https://sheets.googleapis.com
+				https://upload.wikimedia.org;
+			script-src
+				'unsafe-inline'
+				http://localhost:3030/
+				http://*:3030
+				http://utils.highcharts.local
+				https://utils.highcharts.local
+				https://www.highcharts.com;
+			script-src-elem
+				'unsafe-inline'
+				http://localhost:3030/
+				http://*:3030
+				http://code.highcharts.com
+				http://code.highcharts.local
+				http://utils.highcharts.local
+				https://utils.highcharts.local
+				https://www.highcharts.com
+				https://cdnjs.cloudflare.com
+				https://d3js.org
+				https://code.jquery.com
+				https://cdn.jsdelivr.net
+				https://ajax.googleapis.com
+				https://netdna.bootstrapcdn.com;
+			style-src
+				'nonce-mynoncehash'
+				http://localhost:3030/
+				http://*:3030
+				http://utils.highcharts.local
+				https://utils.highcharts.local
+				https://www.highcharts.com
+				https://cdn.jsdelivr.net
+				https://fonts.googleapis.com
+				https://ajax.googleapis.com
+				https://netdna.bootstrapcdn.com;
 		">
-		{{/if}}
 		{{/if}}
     	<meta name="viewport" content="width=device-width, initial-scale=1">
     	<link rel='stylesheet' href='/stylesheets/style.css' />
@@ -31,6 +79,9 @@
       {{/each}}
   	</head>
   	<body class="{{bodyClass}}">
+	  <script>
+		  window.dispatchEvent(new Event('bodyload'));
+	  </script>
     	{{{body}}}
 
 

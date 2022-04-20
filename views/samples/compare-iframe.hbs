@@ -22,8 +22,10 @@ setUpHighcharts();
 try {
 
 // Override and point to local resources
-$.getJSON = controller.getJSON;
-Highcharts.getJSON = controller.getJSON;
+if (controller) {
+	$.getJSON = controller.getJSON;
+	Highcharts.getJSON = controller.getJSON;
+}
 
 {{{js}}}
 

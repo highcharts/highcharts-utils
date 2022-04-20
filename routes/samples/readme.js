@@ -8,7 +8,7 @@ const ip = require('ip');
 
 router.get('/', function(req, res) {
 	res.render('samples/readme', {
-		readme: marked(
+		readme: marked.parse(
 			fs.readFileSync(path.join(__dirname, '../../lib/readme.md'))
 				.toString()
 		),

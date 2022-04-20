@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', function () {
+window.addEventListener('bodyload', function () {
 	if (window.parent === window && !document.getElementById('mobile-home')) {
 		document.body.classList.add('topframe');
 
@@ -13,8 +13,8 @@ document.addEventListener('DOMContentLoaded', function () {
 	}
 });
 
-/* global $, controller, Highcharts */
-$(window).bind('load', function () {
+/* global controller, Highcharts */
+window.addEventListener('load', function () {
 
 	document.querySelector('.top-bar .burger').addEventListener(
 		'click',

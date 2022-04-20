@@ -12,6 +12,7 @@ require('colors');
 const {
   apiPort,
   codePort,
+  codeSecurePort,
   crtFile,
   highchartsDir,
   localOnly,
@@ -36,18 +37,21 @@ const log = () => {
     - http://${ipAddress}:${utilsPort}
   Code server available at:
     ${codeDomainLine}- http://localhost:${codePort}
-    - http://${ipAddress}:${codePort}
+    - http://${ipAddress}:${codePort}${
+    codeSecurePort ? `
+    ${codeDomainLine}- https://localhost:${codeSecurePort}
+    - https://${ipAddress}:${codeSecurePort}` : ''}
   API server available at:
     ${apiDomainLine}- http://localhost:${apiPort}
     - http://${ipAddress}:${apiPort}
 
-  SSL enabled: ${sslEnabled}
+  Proxy SSL enabled: ${sslEnabled}
 
   Parameters:
   Run --help to list parameters
 
   Development:
-  While developing highcharts-utils, run 'nodemon ./bin/www' and point your
+  While developing highcharts-utils, run 'npm run dev' and point your
   browser to http://localhost:3030. It watches source file changes and restarts
   automatically.
   `.cyan +
@@ -154,27 +158,35 @@ if (useProxy) {
       `code.highcharts.${topDomain}`,
       `api.highcharts.${topDomain}`
     ];
-    const protocol = sslEnabled ? 'https' : 'http';
-    utilsDomainLine = `- ${protocol}://${domains[0]}
-    `;
-    codeDomainLine = `- ${protocol}://${domains[1]}
-    `;
-    apiDomainLine = `- ${protocol}://${domains[2]}
-    `;
 
+    let domainsEnabled = !localOnly;
     if (!localOnly) {
       const hostile = require('hostile');
-      // Add domains to hosts file
-      domains.forEach(domain => {
-        hostile.set('127.0.0.1', domain);
-      });
-      // Remove domains from hosts file on exit
-      exitHook(callback => {
+      try {
+        // Add domains to hosts file
         domains.forEach(domain => {
-          hostile.remove('127.0.0.1', domain);
+          hostile.set('127.0.0.1', domain);
         });
-        callback();
-      });
+        // Remove domains from hosts file on exit
+        exitHook(callback => {
+          domains.forEach(domain => {
+            hostile.remove('127.0.0.1', domain);
+          });
+          callback();
+        });
+      } catch (e) {
+        domainsEnabled = false;
+      }
+    }
+
+    if (domainsEnabled) {
+      const protocol = sslEnabled ? 'https' : 'http';
+      utilsDomainLine = `- ${protocol}://${domains[0]}
+      `;
+      codeDomainLine = `- ${protocol}://${domains[1]}
+      `;
+      apiDomainLine = `- ${protocol}://${domains[2]}
+      `;
     }
 
     log();

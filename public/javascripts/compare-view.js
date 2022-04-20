@@ -1,10 +1,9 @@
-var controller = window.parent && window.parent.controller,
-	$ = window.parent && window.parent.$,
-	query = controller.getQueryParameters(window),
+var controller,
+	$,
+	query,
 	diff,
-	path = query.path,
-	commentHref = '/samples/compare-comment?browser=' + controller.getBrowser() +
-		'&path=' + path,
+	path,
+	commentHref,
 	commentFrame,
 	leftSVG,
 	rightSVG,
@@ -13,15 +12,32 @@ var controller = window.parent && window.parent.controller,
 	chartWidth,
 	chartHeight,
 	error,
-	mode = query.mode,
-	sample = controller.samples[path],
-	skipTest = sample.options.details.skipTest,
-	isManual = sample.options.details.requiresManualTesting,
-	rightcommit = query.rightcommit || false,
-	isUnitTest = sample.isUnitTest(),
+	mode,
+	sample,
+	skipTest,
+	isManual,
+	rightcommit,
+	isUnitTest,
 	previewSVG,
-	diffString = window.parent.diffString,
-	canvg = window.parent.canvg;
+	diffString,
+	canvg;
+
+function assign(win) {
+	controller = win.controller;
+	$ = win.$;
+	query = controller.getQueryParameters(window);
+	path = query.path;
+	commentHref = '/samples/compare-comment?browser=' + controller.getBrowser() +
+		'&path=' + path;
+	mode = query.mode;
+	sample = controller.samples[path];
+	skipTest = sample.options.details.skipTest;
+	isManual = sample.options.details.requiresManualTesting;
+	rightcommit = query.rightcommit || false;
+	isUnitTest = sample.isUnitTest();
+	diffString = win.diffString;
+	canvg = win.canvg;
+}
 
 function showCommentBox(diff) {
 
@@ -61,11 +77,11 @@ function setUpElements() {
 
 	// The body class
 	if (isUnitTest) {
-		document.body.className = 'single-col unit';
+		document.body.className += ' single-col unit';
 	} else if (isManual) {
-		document.body.className = 'single-col manual';
+		document.body.className += ' single-col manual';
 	} else {
-		document.body.className = 'visual';
+		document.body.className += ' visual';
 	}
 
 	// The body elements
@@ -91,7 +107,7 @@ function setUpElements() {
 	}
 }
 
-window.addEventListener('load', function () {
+function main () {
 	updateHash();
 	setUpElements();
 
@@ -120,7 +136,9 @@ window.addEventListener('load', function () {
 		});
 	});
 
-	controller.samples[path].setCurrent();
+	if (window !== window.parent) {
+		controller.samples[path].setCurrent();
+	}
 
 	if (isManual) {
 		showCommentBox(diff);
@@ -132,6 +150,44 @@ window.addEventListener('load', function () {
 			color: 'gray',
 			display: 'block'
 		}).html(report);
+	}
+};
+
+window.addEventListener('load', function () {
+
+	// Running inside the frameset
+	if (window.parent !== window) {
+		assign(window.parent);
+		main();
+
+	// Running in a separate window
+	} else {
+		var scripts = [
+			'/javascripts/controller.js',
+			'/javascripts/sample.js'
+		];
+
+		function loadScriptSequencial(callback) {
+			var script = document.createElement('script');
+			document.getElementsByTagName('head')[0].appendChild(script);
+			script.onload = function () {
+				if (scripts.length) {
+					loadScriptSequencial(callback);
+				} else {
+					callback();
+				}
+			}
+			if (scripts[0]) {
+				script.src = scripts.shift();
+			}
+		}
+
+		loadScriptSequencial(function () {
+			controller.loadSamples(function () {
+				assign(window);
+				main();
+			});
+		});
 	}
 });
 
@@ -163,13 +219,17 @@ function proceed() {
 }
 
 function onIdentical(diff) {
-	sample.setDiff(diff || 0);
-	proceed();
+	if (window !== window.parent) {
+		sample.setDiff(diff || 0);
+		proceed();
+	}
 }
 
 function onDifferent(diff) {
-	sample.setDiff(diff);
-	proceed();
+	if (window !== window.parent) {
+		sample.setDiff(diff);
+		proceed();
+	}
 }
 
 function onLoadTest(which, svg) { // eslint-disable-line no-unused-vars
@@ -298,7 +358,7 @@ function onBothLoad() {
 	if (mode === 'images') {
 		var regNaN = /[^a-zA-Z]NaN[^a-zA-Z]/;
 		if (regNaN.test(rightSVG)) {
-			report += "<div>The generated SVG contains NaN</div>";
+			report += "<div>Right: The generated SVG contains NaN</div>";
 			var index = rightSVG.indexOf('NaN');
 			report += '<pre>' + rightSVG.substr(index - 100, 200)
 				.replace(/</g, '&lt;')
