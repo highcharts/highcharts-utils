@@ -73,6 +73,7 @@ router.get('/', function(req, res) {
 			'/javascripts/vendor/lolex.js',
 			'/javascripts/compare-iframe.js',
 			'/javascripts/test-controller.js',
+			'/javascripts/test-touch.js',
 			'/javascripts/test-utilities.js'
 		].concat(resources.scripts),
 		deferredScripts: [
