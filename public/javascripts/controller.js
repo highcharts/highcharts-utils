@@ -211,9 +211,11 @@ var controller = { // eslint-disable-line no-unused-vars
                 '<div class="success" style="width:' + successWidth + '%"></div>' +
                 '<div class="error" style="width:' + errorWidth + '%"></div>' +
                 '<div class="remaining" style="width:' + remainingWidth +'%"></div>' +
+                /*
                 '<div class="time-elapsed" style="left:' + (successWidth + errorWidth) +'%">' +
                     Math.round(testStatus.timeElapsed / 1000) +
                 's</div>' +
+                */
                 '</div>';
 
             this.frames().contents.contentDocument.getElementById('test-status')
