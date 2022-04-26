@@ -165,7 +165,8 @@ var controller = { // eslint-disable-line no-unused-vars
     testStatus: {
         success: [],
         skipped: [],
-        error: []
+        error: [],
+        timeElapsed: 0
     },
 
     updateStatus: function (path, status) {
@@ -210,6 +211,9 @@ var controller = { // eslint-disable-line no-unused-vars
                 '<div class="success" style="width:' + successWidth + '%"></div>' +
                 '<div class="error" style="width:' + errorWidth + '%"></div>' +
                 '<div class="remaining" style="width:' + remainingWidth +'%"></div>' +
+                '<div class="time-elapsed" style="left:' + (successWidth + errorWidth) +'%">' +
+                    Math.round(testStatus.timeElapsed / 1000) +
+                's</div>' +
                 '</div>';
 
             this.frames().contents.contentDocument.getElementById('test-status')
@@ -404,6 +408,7 @@ var controller = { // eslint-disable-line no-unused-vars
             '/samples/compare-view?path=' +
             (controller.currentSample || controller.samples[0]).path;
         controller.batchMode();
+        controller.batchStartTime = Date.now();
     },
 
     proceedBatch: function () {
@@ -464,6 +469,9 @@ var controller = { // eslint-disable-line no-unused-vars
                 controller.frames().main.contentWindow.location.href =
                     next.href.replace("/view?", "/compare-view?");
             }
+
+            this.testStatus.timeElapsed += Date.now() - this.batchStartTime;
+            this.batchStartTime = Date.now();
 
         // Else, log the result
         } else {
