@@ -8,7 +8,7 @@ const octokit = new Octokit({
     auth: process.env.GH_PERSONAL_ACCESS_TOKEN
 });
 
-const per_page = 20;
+const per_page = 30;
 const repo = {
     owner: 'highcharts',
     repo: 'highcharts'
@@ -77,6 +77,7 @@ router.get('/list', async (req, res, next) => {
     res.type('text/json');
     res.send(JSON.stringify({
         pulls: result.data
+            .filter(p => !p.labels.find(l => l.name == 'Status: Stale'))
     }));
 });
 
