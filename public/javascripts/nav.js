@@ -1,15 +1,10 @@
 window.addEventListener('bodyload', function () {
-	if (window.parent === window && !document.getElementById('mobile-home')) {
+	if (
+		window.parent === window &&
+		window.location.hash.indexOf('mobile=true') !== -1 &&
+		window.location.hash.indexOf('show-chrome') === -1
+	) {
 		document.body.classList.add('topframe');
-
-		if (window.location.hash.indexOf('show-chrome') !== -1) {
-			[].forEach.call(
-				document.querySelectorAll('.topframe-hidden'),
-				function (elem) {
-					elem.style.display = 'block';
-				}
-			);
-		}
 	}
 });
 
@@ -19,6 +14,15 @@ window.addEventListener('load', function () {
 	document.querySelector('.top-bar .burger').addEventListener(
 		'click',
 		function() {
+			if (document.body.classList.contains('topframe')) {
+				document.body.classList.remove('topframe');
+				window.location.hash = 'show-chrome';
+			} else {
+				document.body.classList.add('topframe');
+				window.location.hash = window.location.hash
+					.replace('show-chrome', '');
+			}
+			/*
 			[].forEach.call(
 				document.querySelectorAll('.topframe-hidden'),
 				function (elem) {
@@ -32,6 +36,7 @@ window.addEventListener('load', function () {
 					}
 				}
 			);
+			*/
 		}
 	)
 
