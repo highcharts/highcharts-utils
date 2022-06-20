@@ -7,6 +7,7 @@ const httpProxy = require('http-proxy');
 const exitHook = require('async-exit-hook');
 const fs = require('fs');
 const ip = require('ip');
+const path = require('path');
 require('colors');
 
 const {
@@ -46,8 +47,8 @@ const log = () => {
     - http://${ipAddress}:${apiPort}
 
   Proxy SSL enabled: ${sslEnabled}
+  Highcharts folder: ${path.relative(process.cwd(), highchartsDir)}
 
-  Parameters:
   Run --help to list parameters
 
   Development:
