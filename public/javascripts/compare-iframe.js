@@ -127,7 +127,7 @@ function compareHTML() {
  */
 function prepareShot (chart) {
 	try {
-		if (chart) {
+		if (chart && chart.renderer) {
 			// Causes paint canvas failure when < and > in title content
 			chart.renderer.boxWrapper.element.removeAttribute('aria-label');
 		}
