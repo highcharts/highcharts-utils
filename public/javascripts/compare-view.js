@@ -403,7 +403,8 @@ function onBothLoad() {
 						blob,
 						svgurl;
 
-					source = source.replace(/<foreignObject .*?<\/foreignObject>/g, '')
+					source = source
+						.replace(/<foreignObject .*?<\/foreignObject>/g, '');
 
 					// Firefox runs Blob. Safari apparently from v15 requires
 					// Blob. Chrome accepts both but seems to be slightly faster

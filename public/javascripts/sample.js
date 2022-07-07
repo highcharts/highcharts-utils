@@ -113,7 +113,7 @@ controller.Sample = function (options, index) {
         anchor.className = 'standalone';
         anchor.target = '_blank';
         anchor.href = isUnitTest() ?
-            '/samples/compare-iframe?path=' + options.path :
+            '/samples/compare-iframe?which=right&path=' + options.path :
             '/samples/view?path=' + options.path;
         anchor.innerHTML = icon;
         iconDiv.appendChild(anchor);
