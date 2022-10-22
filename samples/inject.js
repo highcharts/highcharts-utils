@@ -1,6 +1,8 @@
 
-window.onload = function () {
-    
+const post = {};
+
+window.onload = function async () {
+
     // Settings
     var params;
     var parent = document.getElementById('demo');
@@ -41,11 +43,31 @@ window.onload = function () {
     function onLoadAll() {
         var jsFiddle = document.getElementById('jsfiddle');
         if (jsFiddle) {
-            jsFiddle.href = 'https://jsfiddle.net/gh/get/library/pure/highcharts/highcharts/tree/' +
-                (params.gh || 'master') + '/samples/' + params.sample;
+            jsFiddle.onclick = async (e) => {
+                if (post.js && /demo\.js$/.test(post.js)) {
+                    post.js = await fetch(post.js).then(r => r.text());
+                }
+                if (post.css && /demo\.css$/.test(post.css)) {
+                    post.css = await fetch(post.css).then(r => r.text());
+                }
+
+                const form = document.getElementById('jsfiddle-form');
+                form.innerHTML = '';
+                Object.keys(post).forEach(key => {
+                    const textarea = document.createElement('textarea');
+                    textarea.name = key;
+                    textarea.innerHTML = post[key];
+                    form.appendChild(textarea);
+                });
+
+                form.submit();
+
+                e.preventDefault();
+            }
+
             jsFiddle.style.display = 'inline';
         }
-        
+
     }
 
     function progress(n, total) {
@@ -62,7 +84,7 @@ window.onload = function () {
                 );
             }
             progressBar.style.width = Math.round(100 * n / total) + '%';
-            
+
             if (n === total) {
                 progressBar.style.backgroundColor = 'transparent';
                 onLoadAll();
@@ -92,24 +114,29 @@ window.onload = function () {
                             src = src.replace(
                                 '/code.highcharts.com/',
                                 '/github.highcharts.com/' + params.gh + '/');
+                            script.setAttribute('src', src);
                         }
 
                         scripts.push(src);
                     }
                 );
 
-                scripts.push(
+                const js =
                     'https://cdn.jsdelivr.net/gh/highcharts/highcharts@' +
-                    (params.gh || 'master') + '/samples/' + params.sample + '/demo.js'
-                );
+                    (params.gh || 'master') + '/samples/' + params.sample +
+                    '/demo.js';
+                scripts.push(js);
+                post.js = js;
 
                 progress(1, scripts.length + 1);
 
                 // Load CSS
+                const css = 'https://cdn.jsdelivr.net/gh/highcharts/highcharts@' + (params.gh || 'master') +
+                    '/samples/' + params.sample + '/demo.css';
+                post.css = css;
                 var link = document.createElement('link');
                 link.rel = 'stylesheet';
-                link.href = 'https://cdn.jsdelivr.net/gh/highcharts/highcharts@' + (params.gh || 'master') +
-                    '/samples/' + params.sample + '/demo.css';
+                link.href = css;
                 document.head.appendChild(link);
 
                 // Load details
@@ -117,10 +144,12 @@ window.onload = function () {
                     (params.gh || 'master') + '/samples/' + params.sample +
                     '/demo.details',
                     function (yaml) {
+                        post.details = yaml;
                         handleDetails(parseYAML(yaml));
                     }
                 );
 
+                post.html = parent.innerHTML;
 
                 // Load scripts sequentially
                 loadScript(0);
@@ -137,7 +166,7 @@ window.onload = function () {
         qs = qs.split('/');
 
         keys.forEach(function (key) {
-                
+
             for (
                 var i = qs.indexOf(key) + 1;
                 (i < qs.length && keys.indexOf(qs[i]) === -1); // stop if we're inspecing next key
