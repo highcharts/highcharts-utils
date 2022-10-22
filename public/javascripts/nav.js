@@ -1,7 +1,7 @@
 window.addEventListener('bodyload', function () {
 	if (
 		window.parent === window &&
-		window.location.hash.indexOf('mobile=true') !== -1 &&
+		// window.location.hash.indexOf('mobile=true') !== -1 &&
 		window.location.hash.indexOf('show-chrome') === -1
 	) {
 		document.body.classList.add('topframe');

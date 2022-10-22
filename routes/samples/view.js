@@ -31,8 +31,10 @@ router.get('/', async (req, res) => {
 
 	const themes = await f.getThemes(req);
 
+	const details = f.getDetails(req.query.path);
+
 	let tpl = {
-		title: req.query.path,
+		title: (details && details.name) || req.query.path,
 		path: req.query.path,
 		mobile: req.query.mobile,
 		html: f.getHTML(req, codePath),
