@@ -351,6 +351,9 @@ window.setUpHighcharts = function () {
 						//fontFamily: "'Arial', sans-serif"
 					}
 				},
+				drilldown: {
+					animation: false
+				},
 				plotOptions: {
 					series: {
 						animation: false,

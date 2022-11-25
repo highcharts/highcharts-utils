@@ -39,6 +39,43 @@ function assign(win) {
 	canvg = win.canvg;
 }
 
+function prettifyXml(sourceXml) {
+	var xmlDoc = new DOMParser().parseFromString(sourceXml, 'application/xml');
+    var xsltDoc = new DOMParser().parseFromString([
+        // describes how we want to modify the XML - indent everything
+        '<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform">',
+        '  <xsl:strip-space elements="*"/>',
+        '  <xsl:template match="para[content-style][not(text())]">', // change to just text() to strip space in text nodes
+        '    <xsl:value-of select="normalize-space(.)"/>',
+        '  </xsl:template>',
+        '  <xsl:template match="node()|@*">',
+        '    <xsl:copy><xsl:apply-templates select="node()|@*"/></xsl:copy>',
+        '  </xsl:template>',
+        '  <xsl:output indent="yes"/>',
+        '</xsl:stylesheet>',
+
+    ].join('\n'), 'application/xml');
+
+    var xsltProcessor = new XSLTProcessor();
+    xsltProcessor.importStylesheet(xsltDoc);
+    var resultDoc = xsltProcessor.transformToDocument(xmlDoc);
+    var resultXml = new XMLSerializer().serializeToString(resultDoc);
+	return resultXml;
+
+	/*
+	var lines = resultXml.split('\n');
+
+	var maxLen = 80;
+	for (var i = 0; i < lines.length; i++) {
+		if (lines[i].length > maxLen) {
+			var ind = lines[i].lastIndexOf(' ', 80);
+			lines[i] = lines[i].substring(0, ind);
+		}
+	}
+    return lines.join('\n');
+	*/
+};
+
 function showCommentBox(diff) {
 
 	if (!commentFrame) {
@@ -637,8 +674,8 @@ function onBothLoad() {
 		//out = diffString(wash(leftSVG), wash(rightSVG)).replace(/&gt;/g, '&gt;\n');
 		try {
 			out = diffString(
-				leftSVG.replace(/>/g, '>\n'),
-				rightSVG.replace(/>/g, '>\n')
+				prettifyXml(leftSVG),
+				prettifyXml(rightSVG)
 			);
 			$("#svg", document).html('<h4 style="margin:0 auto 1em 0">Generated SVG</h4>' + wash(out));
 		} catch (e) {
