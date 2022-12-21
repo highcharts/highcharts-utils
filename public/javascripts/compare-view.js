@@ -59,21 +59,30 @@ function prettifyXml(sourceXml) {
     var xsltProcessor = new XSLTProcessor();
     xsltProcessor.importStylesheet(xsltDoc);
     var resultDoc = xsltProcessor.transformToDocument(xmlDoc);
-    var resultXml = new XMLSerializer().serializeToString(resultDoc);
-	return resultXml;
+    var resultXml = new XMLSerializer().serializeToString(resultDoc)
+		.replace(/    /g, '  ');
+	//return resultXml;
 
-	/*
+	//*
 	var lines = resultXml.split('\n');
 
-	var maxLen = 80;
+	var maxLen = 120;
+	var indent = '';
 	for (var i = 0; i < lines.length; i++) {
+		var startMatch = lines[i].match(/^([ ]+)</);
+		if (startMatch) {
+			indent = startMatch[1];
+		}
 		if (lines[i].length > maxLen) {
-			var ind = lines[i].lastIndexOf(' ', 80);
-			lines[i] = lines[i].substring(0, ind);
+			var space = lines[i].lastIndexOf(' ', 80),
+				shortLine = lines[i].substring(0, space),
+				rest = lines[i].substring(space);
+			lines[i] = shortLine;
+			lines.splice(i + 1, 0, indent + '  ' + rest);
 		}
 	}
     return lines.join('\n');
-	*/
+	// */
 };
 
 function showCommentBox(diff) {
