@@ -21,6 +21,12 @@ router.get('/', function(req, res) {
 		'demo.js'
 	);
 
+  let mjs = path.join(
+    samplesDir,
+    req.query.path,
+    'demo.mjs'
+  );
+
 	res.render('samples/view-source', {
 		scripts: [
 			'//cdnjs.cloudflare.com/ajax/libs/codemirror/4.0.3/codemirror.min.js',
@@ -34,7 +40,7 @@ router.get('/', function(req, res) {
 		],
 		html: fs.existsSync(html) && fs.readFileSync(html),
 		css: fs.existsSync(css) && fs.readFileSync(css),
-		js: fs.existsSync(js) && fs.readFileSync(js)
+    js: fs.existsSync(js) ? fs.readFileSync(js) : (fs.existsSync(mjs) && fs.readFileSync(mjs)) 
 	});
 });
 
