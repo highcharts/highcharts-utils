@@ -14,9 +14,10 @@ const globalPulls = [];
 
 const docTitle = document.title;
 
-const ulDrafts = document.getElementById('drafts');
-const ulPullsRead = document.getElementById('pulls-read');
-const ulPulls = document.getElementById('pulls');
+const ulDrafts = document.getElementById('drafts'),
+    ulPullsRead = document.getElementById('pulls-read'),
+    ulPulls = document.getElementById('pulls'),
+    ulFeatureRequests = document.getElementById('feature-requests');
 
 let lastUpdate = 0;
 let nextUpdate = 60000;
@@ -77,11 +78,15 @@ const getUl = pull => {
         return ulPullsRead;
     }
 
+    if (pull.labels.some(l => l.name === 'Type: Feature Request')) {
+        return ulFeatureRequests;
+    }
+
     return ulPulls;
 }
 
 const decoratePull = async (pull) => {
-    console.log('@decoratePull', pull.title);
+    console.log('@decoratePull', pull.title, !pull.pull_request);
     const decoration = {};
 
     let myLastInteraction = 0;
@@ -358,7 +363,7 @@ const runUpdate = async () => {
 
     // Decorate new pulls and render
     for (let pull of globalPulls) {
-        if (pull.draft) {
+        if (pull.draft || !pull.pull_request) {
             delete pull.decoration;
 
         } else if (

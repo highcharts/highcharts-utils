@@ -60,13 +60,13 @@ router.get('/last-update', async (req, res) => {
         res.send(JSON.stringify({
             updatedAt: pulls.data[0].updated_at
         }));
-    } else {
+    } else {
         res.send('');
     }
 });
 
 router.get('/list', async (req, res, next) => {
-    const result = await octokit.pulls.list({
+    const pulls = await octokit.pulls.list({
         ...repo,
         state: 'open',
         sort: 'updated',
@@ -74,10 +74,26 @@ router.get('/list', async (req, res, next) => {
         per_page
     }).catch(e => console.error(e));
 
+    const featureRequests = await octokit.issues.listForRepo({
+        ...repo,
+        state: 'open',
+        sort: 'updated',
+        direction: 'desc',
+        labels: 'Type: Feature Request',
+        per_page: 5
+    }).catch(e => console.error(e));
+
     res.type('text/json');
     res.send(JSON.stringify({
-        pulls: result.data
-            .filter(p => !p.labels.find(l => l.name == 'Status: Stale'))
+        pulls: [
+            ...pulls.data
+                .filter(p => !p.labels.find(l => l.name == 'Status: Stale'))
+                .map(p => {
+                    p.pull_request = true;
+                    return p;
+                }),
+            ...featureRequests.data
+        ]
     }));
 });
 
