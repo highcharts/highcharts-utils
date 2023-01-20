@@ -68,6 +68,7 @@ function prettifyXml(sourceXml) {
 
 	var maxLen = 120;
 	var indent = '';
+	var cap = 500;
 	for (var i = 0; i < lines.length; i++) {
 		var startMatch = lines[i].match(/^([ ]+)</);
 		if (startMatch) {
@@ -77,8 +78,12 @@ function prettifyXml(sourceXml) {
 			var space = lines[i].lastIndexOf(' ', 80),
 				shortLine = lines[i].substring(0, space),
 				rest = lines[i].substring(space);
+
 			lines[i] = shortLine;
 			lines.splice(i + 1, 0, indent + '  ' + rest);
+		}
+		if (i > cap) {
+			break;
 		}
 	}
     return lines.join('\n');
