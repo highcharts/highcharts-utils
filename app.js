@@ -88,6 +88,7 @@ app.use('/samples/contents', require('./routes/samples/contents'));
 app.use('/samples/mobile', require('./routes/samples/mobile'));
 app.use('/samples/nightly', require('./routes/samples/nightly'));
 app.use('/samples/list-samples', require('./routes/samples/list-samples'));
+app.use('/samples/jsfiddle-post', require('./routes/samples/share'));
 app.use('/samples/server-env', require('./routes/samples/server-env'));
 app.use('/samples/readme', require('./routes/samples/readme'));
 app.use('/samples/settings', require('./routes/samples/settings'));
