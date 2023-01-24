@@ -1,0 +1,52 @@
+<style>
+	textarea {
+		display: none;
+		width: 100%;
+		height: 10rem;
+	}
+	.main a.button {
+		border: none;
+		background: rgb(164, 237, 186);
+		border-top: 3px solid transparent;
+		width: auto;
+		text-decoration: none;
+		padding: 0.5rem;
+		border-radius: 0.25rem;
+	}
+</style>
+
+<div class="main">
+
+	<h1>Share, how?</h1>
+
+	<h2>Stable demo (preferred)</h2>
+	<p>
+		Fiddle with demo files from GitHub master branch and Highcharts from latest stable (code.highcharts.com).
+	</p>
+	<a class="button" href="https://jsfiddle.net/gh/get/library/pure/highcharts/highcharts/tree/master/samples/{{path}}/"
+		target="_blank">jsFiddle</a>
+
+
+	<h2>Work in progress</h2>
+	<p>
+		For non-techies, nice and clean preview with no code view, but contains a link to post it further to jsFiddle. Demo files and Highcharts both from latest commit (github.highcharts.com/{{latestCommit}}).
+	</p>
+	<a class="button" href="https://highcharts.github.io/highcharts-utils/samples/#gh/{{latestCommit}}/sample/{{path}}"
+		target="_blank">highcharts.github.io</a>
+	</p>
+
+	<h2>Local work in progress</h2>
+	<form method="post" action="https://jsfiddle.net/api/post/library/pure/"
+			id="jsfiddle-post" target="_blank">
+		<input type="hidden" name="title" value="{{title}}"/>
+		<textarea name="html">{{{html}}}</textarea>
+		<textarea name="js">{{{js}}}</textarea>
+		<textarea name="css">{{{css}}}</textarea>
+	</form>
+	<p>
+		Fiddle with demo files posted from your file system and Highcharts from latest commit (github.highcharts.com/{{latestCommit}}).
+	</p>
+	<a class="button" href="javascript:document.getElementById('jsfiddle-post').submit()">
+		jsFiddle
+	</a>
+</div>
