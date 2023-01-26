@@ -30,9 +30,18 @@ router.get('/', async (req, res) => {
     const js = await fs.readFile(
         join(highchartsDir, 'samples', req.query.path, 'demo.js')
     );
-    const css = await fs.readFile(
-        join(highchartsDir, 'samples', req.query.path, 'demo.css')
+    let css = await fs.readFile(
+        join(highchartsDir, 'samples', req.query.path, 'demo.css'),
+        'utf-8'
     );
+
+    if (css) {
+        css = css
+            .replace(
+                /https:\/\/code.highcharts.com\//g,
+                `https://github.highcharts.com/${latestCommit}/`
+            );
+    }
 
     const details = f.getDetails(req.query.path);
 
