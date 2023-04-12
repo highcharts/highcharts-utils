@@ -64,6 +64,50 @@ function compareHTML() {
 		    this.push(result, number, expected, message);
 		};
 
+		/*
+		* Less than comparison
+		*
+		* @param  {Float} number
+		* @param  {Float} expected
+		* @param  {String} message  Optional
+		*/
+		QUnit.assert.lessThan = function (number, expected, message) {
+			var result = (
+				typeof number === 'number' &&
+				typeof expected === 'number' &&
+				number < expected
+			) || false;
+
+			this.pushResult({
+				result: result,
+				actual: number,
+				expected: expected,
+				message: message
+			});
+		};
+
+		/*
+		 * Greater than comparison
+		 *
+		 * @param  {Float} number
+		 * @param  {Float} expected
+		 * @param  {String} message  Optional
+		 */
+		QUnit.assert.greaterThan = function (number, expected, message) {
+			var result = (
+				typeof number === 'number' &&
+				typeof expected === 'number' &&
+				number > expected
+			) || false;
+
+			this.pushResult({
+				result: result,
+				actual: number,
+				expected: expected,
+				message: message
+			});
+		};
+
 		QUnit.done(function (e) {
 			const qunitBox = document.getElementById('qunit');
 			if (qunitBox) {
