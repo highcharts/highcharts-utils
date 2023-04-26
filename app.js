@@ -50,7 +50,7 @@ app.use('/mapdata', express.static(
   /*
   path.dirname(require.resolve(path.join(
     __dirname,
-    '../map-collection/Export/1.1.4'
+    '../map-collection/Export/2.1.0'
   ))),
   // */
   { maxAge: '10m' }

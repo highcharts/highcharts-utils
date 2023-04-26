@@ -93,13 +93,10 @@ function prettifyXml(sourceXml) {
 function showCommentBox(diff) {
 
 	if (!commentFrame) {
+		const src = commentHref+ '&diff=' + diff; // + '&focus=false'
 		commentFrame = document.createElement('iframe');
 		commentFrame.setAttribute('id', 'comment-iframe');
-		commentFrame.setAttribute(
-			'src',
-			commentHref+ '&diff=' + diff + '&focus=false'
-		);
-		console.log(commentHref+ '&diff=' + diff + '&focus=false')
+		commentFrame.setAttribute('src', src);
 		document.getElementById('comment-placeholder').appendChild(commentFrame);
 	}
 }
