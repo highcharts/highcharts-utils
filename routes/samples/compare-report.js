@@ -14,7 +14,7 @@ const browsers = ['Nightly', 'Chrome', 'Safari', 'Firefox', 'Edge', 'MSIE'];
 router.get('/', async (req, res) => {
 	let compare = {};
 
-	const nightlyResult = JSON.parse(await getNightlyResult(Date.now()));
+	// const nightlyResult = JSON.parse(await getNightlyResult(Date.now()));
 
 	browsers.forEach(browser => {
 		const file = path.join(
@@ -26,7 +26,7 @@ router.get('/', async (req, res) => {
 
 		let results;
 		if (browser === 'Nightly') {
-			results = nightlyResult;
+			// results = nightlyResult;
 		} else if (fs.existsSync(file)) {
 			results = require(file);
 		}

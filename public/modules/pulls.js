@@ -17,6 +17,7 @@ const docTitle = document.title;
 const ulDrafts = document.getElementById('drafts'),
     ulPullsRead = document.getElementById('pulls-read'),
     ulPulls = document.getElementById('pulls'),
+    ulIssues = document.getElementById('issues'),
     ulFeatureRequests = document.getElementById('feature-requests');
 
 let lastUpdate = 0;
@@ -80,6 +81,10 @@ const getUl = pull => {
 
     if (pull.labels.some(l => l.name === 'Type: Feature Request')) {
         return ulFeatureRequests;
+    }
+
+    if (!pull.pull_request) {
+        return ulIssues;
     }
 
     return ulPulls;

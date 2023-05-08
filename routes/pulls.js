@@ -74,6 +74,16 @@ router.get('/list', async (req, res, next) => {
         per_page
     }).catch(e => console.error(e));
 
+    // Note: this also returns pulls
+    const issues = await octokit.issues.listForRepo({
+        ...repo,
+        state: 'open',
+        sort: 'updated',
+        direction: 'desc',
+        per_page: 10
+    }).catch(e => console.error(e));
+    issues.data = issues.data.filter(issue => !issue.pull_request);
+
     const featureRequests = await octokit.issues.listForRepo({
         ...repo,
         state: 'open',
@@ -92,6 +102,7 @@ router.get('/list', async (req, res, next) => {
                     p.pull_request = true;
                     return p;
                 }),
+            ...issues.data,
             ...featureRequests.data
         ]
     }));
