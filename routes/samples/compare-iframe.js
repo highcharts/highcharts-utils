@@ -63,6 +63,7 @@ router.get('/', function(req, res) {
 	}
 
 	let tpl = {
+		title: req.query.path,
 		html: emulateKarma ?
 			f.getKarmaHTML() :
 			getHTML(req, codePath),

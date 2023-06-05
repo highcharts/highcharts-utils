@@ -148,7 +148,7 @@ router.get('/list-commits/:number', async (req, res) => {
     }).catch(e => console.error(e));
 
     res.json({
-        commits: result.data
+        commits: result ? result.data : undefined
     });
 });
 
@@ -158,9 +158,9 @@ router.get('/list-checks/:ref', async (req, res) => {
         ref: req.params.ref
     }).catch(e => console.error(e));
 
-    res.json({
+    res.json(result ? {
         checks: result.data
-    });
+    }: {});
 });
 
 

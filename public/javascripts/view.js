@@ -143,6 +143,12 @@ window.setUp = function () {
 				}
 			}
 		});
+
+		if (Highcharts.Templating) {
+			Highcharts.Templating.helpers.log = function () {
+				console.log(arguments[arguments.length - 1].ctx);
+			}
+		}
 	}
 
 	if (query && query.profile && typeof Highcharts !== 'undefined') {
