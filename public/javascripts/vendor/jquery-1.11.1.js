@@ -4302,10 +4302,6 @@ jQuery.event = {
 			events = elemData.events = {};
 		}
 		if ( !(eventHandle = elemData.handle) ) {
-			// Prevent from adding events to `window`.
-			if (elem === window) {
-				return;
-			}
 			eventHandle = elemData.handle = function( e ) {
 				// Discard the second event of a jQuery.event.trigger() and
 				// when an event is called after a page has unloaded
