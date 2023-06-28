@@ -21,6 +21,7 @@ router.get(/[a-z\/\-\.]/, function(req, res) {
 
         if ([
             '/highcharts.js',
+            '/dashboards/dashboards.js',
             '/stock/highstock.js',
             '/maps/highmaps.js'
         ].includes(req.path)) {
