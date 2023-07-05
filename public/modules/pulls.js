@@ -270,61 +270,69 @@ const renderPull = pull => {
         </a>
     `;
 
-    if (pull.decoration?.newInteractions) { // !undefined or > 0
-        li.innerHTML += `
-        <span class="badge bg-primary rounded-pill"
-            title="${pull.decoration.newInteractionsTitle}">
-            ${pull.decoration.newInteractions}
-        </span>
-    `;
-    }
+    if (!pull.base || pull.base.ref == 'master') {
 
-    if (pull.decoration?.reviews) {
-        let html = ''
-        Object.keys(pull.decoration?.reviews).forEach(user => {
-            const review = pull.decoration?.reviews[user];
-            const state = {
-                pending: {
-                    icon: 'circle',
-                    className: 'pending'
-                },
-                CHANGES_REQUESTED: {
-                    icon: 'plus-square',
-                    className: 'changes-requested'
-                },
-                APPROVED: {
-                    icon: 'check',
-                    className: 'approved'
-                }
-            }[review.state];
-
-            const mineMarker = review.mine ?
-                '<span class="review-mine-marker">•</span>'
-                : '';
-            html += `
-            <span class="review review-${state.className} ${review.className}"
-                    title="${review.user}: ${review.state}">
-                <i class="fa fa-${state.icon}"></i>
-                ${mineMarker}
+        if (pull.decoration?.newInteractions) { // !undefined or > 0
+            li.innerHTML += `
+            <span class="badge bg-primary rounded-pill"
+                title="${pull.decoration.newInteractionsTitle}">
+                ${pull.decoration.newInteractions}
             </span>
-            `;
-        });
-        li.innerHTML += `<span class="reviews">${html}</span>`;
+        `;
+        }
+
+        if (pull.decoration?.reviews) {
+            let html = ''
+            Object.keys(pull.decoration?.reviews).forEach(user => {
+                const review = pull.decoration?.reviews[user];
+                const state = {
+                    pending: {
+                        icon: 'circle',
+                        className: 'pending'
+                    },
+                    CHANGES_REQUESTED: {
+                        icon: 'plus-square',
+                        className: 'changes-requested'
+                    },
+                    APPROVED: {
+                        icon: 'check',
+                        className: 'approved'
+                    }
+                }[review.state];
+
+                const mineMarker = review.mine ?
+                    '<span class="review-mine-marker">•</span>'
+                    : '';
+                html += `
+                <span class="review review-${state.className} ${review.className}"
+                        title="${review.user}: ${review.state}">
+                    <i class="fa fa-${state.icon}"></i>
+                    ${mineMarker}
+                </span>
+                `;
+            });
+            li.innerHTML += `<span class="reviews">${html}</span>`;
+        }
+
+        li.innerHTML += `
+            <div style="width: 100%">
+                <small class="text-muted">
+                    #${pull.number} opened
+                    <span class="timeago" datetime="${pull.created_at}"></span>
+                    by ${pull.user.login}
+                    <i class="fa fa-clock-o"></i> updated
+                    <span class="timeago" datetime="${pull.updated_at}"></span>
+                </small>
+            </div>
+        `;
+
+        timeago().render(document.querySelectorAll('.timeago'));
+
+    } else {
+        li.innerHTML += `<p>
+            <small class="pull-base text-muted">Base: ${pull.base.ref}</small>
+        </p>`;
     }
-
-    li.innerHTML += `
-        <div style="width: 100%">
-            <small class="text-muted">
-                #${pull.number} opened
-                <span class="timeago" datetime="${pull.created_at}"></span>
-                by ${pull.user.login}
-                <i class="fa fa-clock-o"></i> updated
-                <span class="timeago" datetime="${pull.updated_at}"></span>
-            </small>
-        </div>
-    `;
-
-    timeago().render(document.querySelectorAll('.timeago'));
 
     updatePageTitle();
 }
