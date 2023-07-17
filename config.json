@@ -1,5 +1,5 @@
 {
-	"highchartsDir": "./../highcharts/",
+	"highchartsDir": "../highcharts/",
 	"utilsPort": 3030,
 	"codePort": 3031,
 	"codeSecurePort": 3041,
@@ -7,7 +7,7 @@
 	"emulateKarma": false,
 	"pemFile": "./certs/highcharts.local.key.pem",
 	"crtFile": "./certs/highcharts.local.crt",
-	"proxy": true,
+	"proxy": false,
 	"topdomain": "local",
-	"useSourceCode": true
+	"useSourceCode": false
 }

@@ -77,6 +77,7 @@ router.get(/[a-z\/\-\.]/, function(req, res) {
         const type = {
             '.css': 'text/css',
             '.js': 'text/javascript',
+            '.map': 'application/json',
             '.svg': 'image/svg+xml'
         }[path.extname(file.success)];
 
