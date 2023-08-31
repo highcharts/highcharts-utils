@@ -73,11 +73,16 @@
 			<span class="button-text">Share</span></a>
 		</a>
 
-		<a class="button mobile-hide"
+		<!--a class="button mobile-hide"
 			href="http://{{ipAddress}}:3030/samples/view?path={{path}}&mobile=true"
 			target="_blank">
 			<i class="fa fa-mobile"></i>
+			<span class="button-text">Mobile</span></a-->
+
+		<a id="mobile-preview" class="button mobile-hide" href="javascript:;">
+			<i class="fa fa-mobile"></i>
 			<span class="button-text">Mobile</span></a>
+
 
 		<!-- if themes, means we have a mini form control -->
 		{{#if themes}}

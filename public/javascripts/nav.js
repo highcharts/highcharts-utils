@@ -6,6 +6,10 @@ window.addEventListener('bodyload', function () {
 	) {
 		document.body.classList.add('topframe');
 	}
+
+	if (localStorage.getItem('mobile-preview')) {
+		document.body.classList.add('mobile-preview');
+	}
 });
 
 /* global controller, Highcharts */
@@ -106,6 +110,23 @@ window.addEventListener('load', function () {
 				});
 		} else {
 			$('#source-box', document).html('');
+		}
+	});
+
+	// Activate mobile view button
+	const mobilePreviewAnchor = document.getElementById('mobile-preview');
+	if (localStorage.getItem('mobile-preview')) {
+		mobilePreviewAnchor.classList.add('active');
+	}
+	mobilePreviewAnchor.addEventListener('click', () => {
+		if (!document.body.classList.contains('mobile-preview')) {
+			document.body.classList.add('mobile-preview');
+			mobilePreviewAnchor.classList.add('active');
+			localStorage.setItem('mobile-preview', 'true');
+		} else {
+			document.body.classList.remove('mobile-preview');
+			mobilePreviewAnchor.classList.remove('active');
+			localStorage.removeItem('mobile-preview');
 		}
 	});
 });
