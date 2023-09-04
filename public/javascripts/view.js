@@ -125,6 +125,10 @@ if ($) {
 // Wrappers for recording mouse events in order to write automatic tests
 
 window.setUp = function () {
+
+	var $ = jQuery;
+	$(window).bind('keydown', parent.keyDown);
+
 	if (typeof Highcharts !== 'undefined') {
 		Highcharts.setOptions({
 			exporting: {
