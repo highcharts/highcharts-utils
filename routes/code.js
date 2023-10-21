@@ -88,7 +88,12 @@ router.get(/[a-z\/\-\.]/, async function(req, res) {
         res.setHeader('Content-Disposition', 'inline');
         res.send(code);
     } else {
-        res.sendFile(file.success);
+        if (file.js) {
+            res.type('text/javascript');
+            res.send(file.js);
+        } else {
+            res.sendFile(file.success);
+        }
     }
 });
 
