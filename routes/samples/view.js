@@ -60,8 +60,6 @@ router.get('/', async (req, res) => {
 		readme: f.getReadme(req.query.path),
 		testNotes: f.getTestNotes(req.query.path),
 		themes,
-		rewriteSamplesToES6Checked: req.session.rewriteSamplesToES6 ?
-			'checked' : '',
 		styledMode
 	};
 

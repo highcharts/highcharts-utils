@@ -4,11 +4,14 @@
 	"codePort": 3031,
 	"codeSecurePort": 3041,
 	"compileOnDemand": false,
+	"codeWatch": false,
 	"apiPort": 3032,
 	"emulateKarma": false,
+	"localOnly": false,
 	"pemFile": "./certs/highcharts.local.key.pem",
 	"crtFile": "./certs/highcharts.local.crt",
 	"proxy": true,
 	"topdomain": "local",
-	"useMinifiedCode": false
+	"useMinifiedCode": false,
+	"useESModules": false
 }

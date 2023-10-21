@@ -6,7 +6,7 @@ const path = require('path');
 const { codeWatch } = require('../lib/arguments');
 
 router.get(/[a-z\/\-\.]/, async function(req, res) {
-    let file = await f.getCodeFile(req.path);
+    let file = await f.getCodeFile(req.path, req);
 
     if (file.error) {
         res.status(404).end(file.error);

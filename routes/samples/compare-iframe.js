@@ -7,7 +7,7 @@ const f = require('./../../lib/functions.js');
 const glob = require('glob');
 const path = require('path');
 const router = express.Router();
-const { emulateKarma } = require('../../lib/arguments.js');
+const { getSettings } = require('../../lib/arguments.js');
 
 const getHTML = (req, codePath) => {
 	let html = f.getHTML(req, codePath);
@@ -53,6 +53,8 @@ const getTemplates = () => {
 }
 
 router.get('/', function(req, res) {
+
+	const { emulateKarma } = getSettings(req);
 	let path = req.query.path;
 	let which = req.query.which;
 	let resources = f.getResources(req.query.path);

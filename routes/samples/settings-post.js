@@ -1,8 +1,15 @@
 const express = require('express');
 const router = express.Router();
+const config = require('../../config.json');
 
 router.post('/', function(req, res) {
-	req.session.rewriteSamplesToES6 = req.body.rewriteSamplesToES6;
+
+	Object.keys(config).forEach(key => {
+		req.session[key] = req.body[key] === 'on' ?
+			true :
+			req.body[key] ?? config[key];
+	});
+
 	req.session.preJS = req.body.preJS;
 	req.session.theme = req.body.theme;
 
