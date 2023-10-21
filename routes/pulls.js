@@ -95,7 +95,7 @@ router.get('/list', async (req, res, next) => {
 
     res.type('text/json');
     res.send(JSON.stringify({
-        pulls: [
+        pulls: pulls ? [
             ...pulls.data
                 .filter(p => !p.labels.find(l => l.name == 'Status: Stale'))
                 .map(p => {
@@ -104,7 +104,7 @@ router.get('/list', async (req, res, next) => {
                 }),
             ...issues.data,
             ...featureRequests.data
-        ]
+        ] : []
     }));
 });
 
@@ -115,7 +115,7 @@ router.get('/list-comments/:number', async (req, res) => {
     }).catch(e => console.error(e));
 
     res.json({
-        comments: result.data
+        comments: result && result.data || {}
     });
 });
 
@@ -126,7 +126,7 @@ router.get('/list-reviews/:number', async (req, res) => {
     }).catch(e => console.error(e));
 
     res.json({
-        reviews: result.data
+        reviews: result && result.data || {}
     });
 });
 
@@ -137,7 +137,7 @@ router.get('/list-review-comments/:number', async (req, res) => {
     }).catch(e => console.error(e));
 
     res.json({
-        reviewComments: result.data
+        reviewComments: result && result.data || {}
     });
 });
 

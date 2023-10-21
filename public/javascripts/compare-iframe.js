@@ -186,7 +186,8 @@ function prepareShot (chart) {
 				chart.series[0].points;
 
 			if (points) {
-				for (var i = 0; i < points.length; i++) {
+				var i = points.length;
+				while (i--) {
 					if (
 						points[i] &&
 						!points[i].isNull &&
@@ -477,9 +478,11 @@ window.setUpHighcharts = function () {
 		if (sample && sample.options.details.compareTooltips) {
 			// Start with tooltip open
 			Highcharts.Chart.prototype.callbacks.push(function (chart) {
-				var x = 2,
-					series = chart.series,
-					hoverPoint = series[0] && series[0].points[x];
+				var series = chart.series,
+					hoverPoint = series[0] &&
+						series[0].points &&
+						series[0].points[series[0].points.length - 1];
+
 				if (hoverPoint) {
 					/*
 					if  (chart.tooltip.options.shared) {
