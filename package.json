@@ -26,6 +26,7 @@
     "current-git-branch": "^1.1.0",
     "debug": "~4.3.4",
     "dotenv": "^16.0.0",
+    "esbuild": "0.19.5",
     "eslint": "^8.13.0",
     "esm": "^3.2.25",
     "express": "^4.17.3",

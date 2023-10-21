@@ -4,7 +4,12 @@
 
 // Modules sorted by names alphabetically
 const express = require('express');
-const { crtFile, codePort, codeSecurePort, pemFile } = require('./lib/arguments.js');
+const {
+	crtFile,
+	codePort,
+	codeSecurePort,
+	pemFile
+} = require('./lib/arguments.js');
 const { getCodeFile } = require('./lib/functions');
 
 /**
@@ -19,9 +24,9 @@ const options = {
 };
 
 // Serve content of code directory
-app.use('/', (req, res) => {
+app.use('/', async (req, res) => {
 	const url = req.url.replace(/^\/(data-grid|gantt|maps|stock)\//g, '/');
-	const { error, success: path } = getCodeFile(url);
+	const { error, success: path } = await getCodeFile(url);
 
 	if (error) {
 		res.end(error);

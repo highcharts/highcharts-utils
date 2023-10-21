@@ -5,8 +5,8 @@ const fs = require('fs');
 const path = require('path');
 const { codeWatch } = require('../lib/arguments');
 
-router.get(/[a-z\/\-\.]/, function(req, res) {
-    let file = f.getCodeFile(req.path);
+router.get(/[a-z\/\-\.]/, async function(req, res) {
+    let file = await f.getCodeFile(req.path);
 
     if (file.error) {
         res.status(404).end(file.error);
@@ -37,7 +37,7 @@ router.get(/[a-z\/\-\.]/, function(req, res) {
                 socket.onmessage = function(event) {
                     try {
                         const data = JSON.parse(event.data);
-                    
+
                         console.log('@onmessage', data, data && data.isRunning)
                         if (data && data.isRunning) {
                             // Started processing on the server

@@ -3,6 +3,7 @@
 	"utilsPort": 3030,
 	"codePort": 3031,
 	"codeSecurePort": 3041,
+	"compileOnDemand": true,
 	"apiPort": 3032,
 	"emulateKarma": false,
 	"pemFile": "./certs/highcharts.local.key.pem",
