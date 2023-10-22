@@ -1,9 +1,18 @@
 const express = require('express');
+const fs = require('fs').promises;
 const router = express.Router();
 const help = require('../../lib/settings-help');
 const config = require('../../config.json');
+const { join } = require('path');
 
-router.get('/', function(req, res) {
+
+router.get('/', async (req, res) => {
+
+	const json = await fs.readFile(
+		join(__dirname, '../..', 'temp', 'config-user.json'),
+		'utf-8'
+	);
+	const user = json ? JSON.parse(json) : {};
 
 	const options = Object.keys(help).map(key => {
 
@@ -12,7 +21,7 @@ router.get('/', function(req, res) {
 				boolean: 'checkbox',
 				number: 'number'
 			}[typeof config[key]],
-			value = req.session[key] ?? config[key];
+			value = user[key] ?? config[key];
 
 		return {
 			key,
