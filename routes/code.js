@@ -3,9 +3,10 @@ const router = express.Router();
 const f = require('../lib/functions');
 const fs = require('fs');
 const path = require('path');
-const { codeWatch } = require('../lib/arguments');
+const { getSettings } = require('../lib/arguments');
 
 router.get(/[a-z\/\-\.]/, async function(req, res) {
+    const { codeWatch, compileOnDemand } = getSettings();
     let file = await f.getCodeFile(req.path, req);
 
     if (file.error) {
@@ -17,13 +18,19 @@ router.get(/[a-z\/\-\.]/, async function(req, res) {
     res.setHeader('Access-Control-Allow-Origin', '*');
 
     if (codeWatch) {
-        let code = fs.readFileSync(file.success);
+        let code = file.js || await fs.promises
+            .readFile(file.success)
+            .catch(() => {});
 
-        if ([
+        if (code && [
             '/highcharts.js',
             '/dashboards/dashboards.js',
             '/stock/highstock.js',
-            '/maps/highmaps.js'
+            '/highstock.js',
+            '/maps/highmaps.js',
+            '/highmaps.js',
+            '/gantt/highcharts-gantt.js',
+            '/highcharts-gantt.js'
         ].includes(req.path)) {
             code += `
             (() => {
@@ -37,6 +44,18 @@ router.get(/[a-z\/\-\.]/, async function(req, res) {
                 socket.onmessage = function(event) {
                     try {
                         const data = JSON.parse(event.data);
+                        `;
+
+                        if (compileOnDemand) {
+                            code += `
+                            console.log('@onmessage', data);
+                            if (data?.message === 'ts changed') {
+                                window.location.reload();
+                            }
+                            `;
+                        } else {
+
+                        code += `
 
                         console.log('@onmessage', data, data && data.isRunning)
                         if (data && data.isRunning) {
@@ -56,6 +75,9 @@ router.get(/[a-z\/\-\.]/, async function(req, res) {
                                 window.location.reload();
                             }
                         }
+                        `;
+                        }
+                    code += `
                     } catch (e) {};
                 };
 
@@ -79,8 +101,7 @@ router.get(/[a-z\/\-\.]/, async function(req, res) {
             '.js': 'text/javascript',
             '.map': 'application/json',
             '.svg': 'image/svg+xml'
-        }[path.extname(file.success)];
-
+        }[path.extname(file.success || 'dummy.js')];
         if (type) {
             res.type(type);
         }

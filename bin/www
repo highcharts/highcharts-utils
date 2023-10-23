@@ -8,7 +8,7 @@ var app = require('../app');
 var debug = require('debug')('highcharts-utils:server');
 const fs = require('fs');
 var http = require('http');
-const { utilsPort, codeWatch, highchartsDir } = require('../lib/arguments.js');
+const { utilsPort, highchartsDir } = require('../lib/arguments.js');
 const WebSocket = require('ws');
 
 /**
@@ -32,30 +32,37 @@ server.listen(port);
 server.on('error', onError);
 server.on('listening', onListening);
 
-if (codeWatch) {
+const wss = new WebSocket.Server({ server });
+wss.on('connection', (ws) => {
 
-    const wss = new WebSocket.Server({ server });
-    wss.on('connection', (ws) => {
+    //connection is up, let's add a simple simple event
+    ws.on('message', (message) => {
 
-        //connection is up, let's add a simple simple event
-        ws.on('message', (message) => {
-
-            //log the received message and send it back to the client
-            console.log('received: %s', message);
-            ws.send(`Hello, you sent -> ${message}`);
-        });
-
-        let file = `${highchartsDir}/node_modules/_gulptasks_lib_process.json`;
-        fs.watchFile(file, () => {
-            let libProcess = '';
-            try {
-                libProcess = fs.readFileSync(file, 'utf8');
-            } catch (e) {}
-            
-            ws.send(libProcess);
-        });
+        //log the received message and send it back to the client
+        console.log('received: %s', message);
+        ws.send(`Hello, you sent -> ${message}`);
     });
-}
+
+    fs.watch(`${highchartsDir}/ts/`, {
+        persistent: true,
+        recursive: true
+    }, () => {
+        ws.send(JSON.stringify({
+            message: 'ts changed'
+        }));
+    });
+
+    let file = `${highchartsDir}/node_modules/_gulptasks_lib_process.json`;
+    fs.watchFile(file, () => {
+        let libProcess = '';
+        try {
+            libProcess = fs.readFileSync(file, 'utf8');
+        } catch (e) {}
+
+        ws.send(libProcess);
+    });
+});
+
 /**
  * Normalize a port into a number, string, or false.
  */
