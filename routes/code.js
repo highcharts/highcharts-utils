@@ -18,8 +18,8 @@ router.get(/[a-z\/\-\.]/, async function(req, res) {
     res.setHeader('Access-Control-Allow-Origin', '*');
 
     if (codeWatch) {
-        let code = file.js || await fs.promises
-            .readFile(file.success)
+        let code = file.content || await fs.promises
+            .readFile(file.path)
             .catch(() => {});
 
         if (code && [
@@ -101,7 +101,7 @@ router.get(/[a-z\/\-\.]/, async function(req, res) {
             '.js': 'text/javascript',
             '.map': 'application/json',
             '.svg': 'image/svg+xml'
-        }[path.extname(file.success || 'dummy.js')];
+        }[path.extname(file.path || 'dummy.js')];
         if (type) {
             res.type(type);
         }
@@ -109,11 +109,11 @@ router.get(/[a-z\/\-\.]/, async function(req, res) {
         res.setHeader('Content-Disposition', 'inline');
         res.send(code);
     } else {
-        if (file.js) {
+        if (file.content) {
             res.type('text/javascript');
-            res.send(file.js);
+            res.send(file.content);
         } else {
-            res.sendFile(file.success);
+            res.sendFile(file.path);
         }
     }
 });
