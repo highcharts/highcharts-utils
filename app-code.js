@@ -4,6 +4,7 @@
 
 // Modules sorted by names alphabetically
 const express = require('express');
+const http = require('http');
 const {
 	crtFile,
 	codePort,
@@ -11,6 +12,8 @@ const {
 	pemFile
 } = require('./lib/arguments.js');
 const { getCodeFile } = require('./lib/functions');
+const { startWatchServer } = require('./lib/websocket.js');
+
 
 /**
  * Create express application
@@ -45,7 +48,9 @@ app.use('/', async (req, res) => {
 /**
  * Create HTTP server.
  */
-app.listen(codePort);
+const server = http.createServer(app);
+server.listen(codePort);
+
 
 /**
  * Create HTTPS server.
@@ -63,3 +68,6 @@ if (codeSecurePort) {
         https.createServer(httpsOptions, app).listen(codeSecurePort);
     }
 }
+
+// WebSocket server for codeWatch
+startWatchServer(server);
