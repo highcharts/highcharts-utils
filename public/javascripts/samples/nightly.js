@@ -1,6 +1,6 @@
 /* global Highcharts, results */
 
-const BUCKET = 'https://s3.eu-central-1.amazonaws.com/staging-vis-dev.highcharts.com';
+const VREVS_ENDPOINT = 'https://vrevs.highsoft.com/api/assets';
 
 let compareToggleInterval;
 const compare = (sample, date) => { // eslint-disable-line no-unused-vars
@@ -55,7 +55,7 @@ const compare = (sample, date) => { // eslint-disable-line no-unused-vars
     }
 
     reference.src =
-        `${BUCKET}/visualtests/reference/latest/${sample}/reference.svg`;
+        `${VREVS_ENDPOINT}/visualtests/reference/latest/${sample}/reference.svg`;
 
     if (diff !== 0) {
         candidate.onerror = function () {
@@ -68,7 +68,7 @@ const compare = (sample, date) => { // eslint-disable-line no-unused-vars
             clearInterval(compareToggleInterval);
         }
         candidate.src =
-            `${BUCKET}/visualtests/diffs/nightly/${dateString}/${sample}/candidate.svg`;
+            `${VREVS_ENDPOINT}/visualtests/diffs/nightly/${dateString}/${sample}/candidate.svg`;
     }
 
 
