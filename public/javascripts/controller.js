@@ -491,14 +491,7 @@ var controller = { // eslint-disable-line no-unused-vars
         $('#batch-compare', contentsDoc).show();
     },
 
-    /**
-     * Pick up calls to www.highcharts.com/samples/data and redirect to the
-     * local /samples/data
-     * @todo Pick up CORS calls to https://cdn.rawgit.com and www.hc.com
-     */
-    getJSON: function (url, callback) {
-
-        var path = url;
+    rewriteJSONPath: function(url) {
         var match;
 
 
@@ -506,49 +499,34 @@ var controller = { // eslint-disable-line no-unused-vars
             /https:\/\/www\.highcharts\.com\/samples\/data\/(.+)\.json/
         )
         if (match) {
-            path = '/samples/data/' + match[1] + '.json';
+            return '/samples/data/' + match[1] + '.json';
         }
 
         match = url.match(
             /https:\/\/demo-live-data\.highcharts\.com\/(.+)\.json/
         )
         if (match) {
-            path = '/samples/data/' + match[1] + '.json';
+            return '/samples/data/' + match[1] + '.json';
         }
 
         match = url.match(
             /https:\/\/cdn\.rawgit\.com\/highcharts\/highcharts\/[a-z0-9\.]+\/samples\/data\/(.+)\.json/
         )
         if (match) {
-            path = '/samples/data/' + match[1] + '.json';
+            return '/samples/data/' + match[1] + '.json';
         }
+    },
+
+    /**
+     * Pick up calls to www.highcharts.com/samples/data and redirect to the
+     * local /samples/data
+     * @todo Pick up CORS calls to https://cdn.rawgit.com and www.hc.com
+     */
+    getJSON: function (url, callback) {
 
         $.ajax({
             dataType: 'json',
-            url: path,
-
-            // Strip comments
-            /*
-            dataFilter: function (data) {
-                if (!data) {
-                    console.error(
-                        '@getJSON.dataFilter',
-                        'No data found',
-                        url,
-                        path
-                    );
-                }
-                var filtered = (data || '').replace(
-                    /\/\*.+?\*\/|\/\/.*(?=[\n\r])/g,
-                    ''
-                );
-                if (filtered.indexOf('Date.UTC') !== -1) {
-                    filtered = eval(filtered);
-                    filtered = JSON.stringify(filtered);
-                }
-                return filtered;
-            },
-            */
+            url: controller.rewriteJSONPath(url),
             success: callback,
             error: function (xhr, status, e) {
                 if (
@@ -562,6 +540,10 @@ var controller = { // eslint-disable-line no-unused-vars
             }
         });
 
+    },
+
+    fetch: async function(url) {
+        return await this.fetchNative(controller.rewriteJSONPath(url));
     }
 
 };

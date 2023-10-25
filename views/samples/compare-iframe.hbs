@@ -25,6 +25,8 @@ try {
 if (controller) {
 	$.getJSON = controller.getJSON;
 	Highcharts.getJSON = controller.getJSON;
+	window.fetchNative = window.fetch;
+	window.fetch = controller.fetch.bind(window);
 }
 
 {{{js}}}
