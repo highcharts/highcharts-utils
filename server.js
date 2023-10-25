@@ -92,7 +92,9 @@ proxy.on('error', console.error);
 
 const redirects = {
   'utils.highcharts.*': `http://127.0.0.1:${utilsPort}`,
+  'utils.highcharts.*': `ws://127.0.0.1:${utilsPort}`,
   'utils.highcharts.*': `http://[::1]:${utilsPort}`,
+  'utils.highcharts.*': `ws://[::1]:${utilsPort}`,
   'code.highcharts.*': `http://127.0.0.1:${codePort}`,
   'code.highcharts.*': `http://[::1]:${codePort}`,
   'api.highcharts.*': `http://127.0.0.1:${apiPort}`,
