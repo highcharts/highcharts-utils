@@ -83,8 +83,8 @@
 
 		// Set compare mode
 		document.getElementById('comparemode-' + controller.compareMode).checked = true;
-		document.querySelectorAll('.comparing input').forEach(function () {
-			this.addEventListener('change', function (e) {
+		document.querySelectorAll('.comparing input').forEach(function (node) {
+			node.addEventListener('change', function (e) {
 				if (e.target.value !== controller.compareMode) {
 					controller.compareMode = e.target.value;
 					controller.loadCompare();
