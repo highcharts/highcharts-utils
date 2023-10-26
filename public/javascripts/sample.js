@@ -8,6 +8,7 @@ controller.Sample = function (options, index) {
             controller.frames().contents.contentDocument
         ),
         mainNav = contentsDoc && contentsDoc.getElementById('main-nav'),
+        productJump = contentsDoc && contentsDoc.getElementById('product-jump'),
         dirs = options.path.split('/'),
         ulId = ('ul-' + dirs[0] + '-' + dirs[1]).replace(/\./g, '-'),
         li = mainNav && mainNav.querySelector('li#li' + index),
@@ -19,6 +20,14 @@ controller.Sample = function (options, index) {
      * Add headers the first time samples are listed
      */
     function addHeaders() {
+        // Update jump selector
+        if (!productJump.querySelector('option[value="' + dirs[0] + '"]')) {
+            var option = contentsDoc.createElement('option');
+            option.innerText = dirs[0].toUpperCase();
+            option.value = dirs[0]
+            productJump.appendChild(option);
+        }
+
         // h2 headers
         if (!mainNav.querySelector('h2#' + dirs[0])) {
             var h2 = contentsDoc.createElement('h2');
