@@ -515,6 +515,7 @@ var controller = { // eslint-disable-line no-unused-vars
         if (match) {
             return '/samples/data/' + match[1] + '.json';
         }
+        return url;
     },
 
     /**
