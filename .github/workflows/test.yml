@@ -43,16 +43,17 @@ jobs:
         working-directory: ./highcharts
         run: npx gulp scripts
 
-      - name: Install Hurl
-        run: |
-          INSTALL_DIR=/tmp
-          VERSION=4.1.0
-          curl --silent --location https://github.com/Orange-OpenSource/hurl/releases/download/$VERSION/hurl-$VERSION-x86_64-unknown-linux-gnu.tar.gz | tar xvz -C $INSTALL_DIR
-          export PATH=$INSTALL_DIR/hurl-$VERSION:$PATH
       
 
       - run: node server.js --localonly &
         working-directory: ./utils
 
-      - run: hurl --test test.hurl
+      - name: Install Hurl
         working-directory: ./utils
+        run: |
+          INSTALL_DIR=/usr/bin
+          VERSION=4.1.0
+          curl --silent --location https://github.com/Orange-OpenSource/hurl/releases/download/$VERSION/hurl-$VERSION-x86_64-unknown-linux-gnu.tar.gz | tar xvz -C $INSTALL_DIR
+          export PATH=$INSTALL_DIR/hurl-$VERSION:$PATH
+          hurl --test test.hurl
+
