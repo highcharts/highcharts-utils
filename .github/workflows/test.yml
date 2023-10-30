@@ -19,12 +19,13 @@ jobs:
         uses: actions/checkout@v4
         with:
           path: highcharts
+          repository: highcharts/highcharts
 
       - name: Install and build
         working-directory: ./highcharts
         run: npm i
 
-      - name: Install and build
+      - name: Generate code
         working-directory: ./highcharts
         run: npx gulp scripts
       
@@ -41,5 +42,6 @@ jobs:
 
       - run: npm i
         working-directory: ./utils
+
       - run: node server.js --localonly
         working-directory: ./utils
