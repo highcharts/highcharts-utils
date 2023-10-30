@@ -1,1 +1,1 @@
-Temporary JSON files are stored here.
+# Temporary JSON files are stored here.

@@ -3,7 +3,8 @@
 
 /certs
 /node_modules
-/temp
+/temp/*
+!/temp/readme.md
 
 /public/stylesheets/style.css
 /path.txt
