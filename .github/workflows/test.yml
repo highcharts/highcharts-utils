@@ -1,0 +1,45 @@
+name: Highcharts Utils
+
+on:
+  push:
+    branches: [ '*' ]
+  pull_request:
+    branches: [ 'master' ]
+
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test_with_hc:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout highcharts
+        uses: actions/checkout@v4
+        with:
+          path: highcharts
+
+      - name: Install and build
+        working-directory: ./highcharts
+        run: npm i
+
+      - name: Install and build
+        working-directory: ./highcharts
+        run: npx gulp scripts
+      
+      - name: Checkout utils
+        uses: actions/checkout@v4
+        with:
+          path: utils
+
+      - uses: actions/setup-node@v3
+        with:
+          node-version: lts/*
+          cache: 'npm'
+          cache-dependency-path: ./utils/package-lock.json
+
+      - run: npm i
+        working-directory: ./utils
+      - run: node server.js --localonly
+        working-directory: ./utils
