@@ -15,20 +15,6 @@ jobs:
   test_with_hc:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout highcharts
-        uses: actions/checkout@v4
-        with:
-          path: highcharts
-          repository: highcharts/highcharts
-
-      - name: Install and build
-        working-directory: ./highcharts
-        run: npm i
-
-      - name: Generate code
-        working-directory: ./highcharts
-        run: npx gulp scripts
-      
       - name: Checkout utils
         uses: actions/checkout@v4
         with:
@@ -43,5 +29,30 @@ jobs:
       - run: npm i
         working-directory: ./utils
 
-      - run: node server.js --localonly
+      - name: Checkout highcharts
+        uses: actions/checkout@v4
+        with:
+          path: highcharts
+          repository: highcharts/highcharts
+
+      - name: Install and build
+        working-directory: ./highcharts
+        run: npm i
+
+      - name: Generate code
+        working-directory: ./highcharts
+        run: npx gulp scripts
+
+      - name: Install Hurl
+        run: |
+          INSTALL_DIR=/tmp
+          VERSION=4.1.0
+          curl --silent --location https://github.com/Orange-OpenSource/hurl/releases/download/$VERSION/hurl-$VERSION-x86_64-unknown-linux-gnu.tar.gz | tar xvz -C $INSTALL_DIR
+          export PATH=$INSTALL_DIR/hurl-$VERSION:$PATH
+      
+
+      - run: node server.js --localonly &
+        working-directory: ./utils
+
+      - run: hurl --test test.hurl
         working-directory: ./utils
