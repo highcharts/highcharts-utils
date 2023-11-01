@@ -21,7 +21,6 @@
 			controller.toggleBisect(false);
 		});
 
-
 		$("#batch-compare", document).click(function (e) {
 			e.stopPropagation();
 			controller.runBatch();
@@ -76,15 +75,19 @@
 			});
 		});
 
-		$('#main-nav', document).css({
-			'margin-top': $('#top-nav', document).height() + 30,
-			'margin-bottom': '30px'
+		$('#main-nav', document).css({ 'top': Math.max(120, $('#top-nav', document).height() + 20) });
+
+		$('#product-jump', document).change(function (e) {
+			document
+				.getElementById(e.target.value)
+				.scrollIntoView();
+
 		});
 
 		// Set compare mode
 		document.getElementById('comparemode-' + controller.compareMode).checked = true;
-		document.querySelectorAll('.comparing input').forEach(function () {
-			this.addEventListener('change', function (e) {
+		document.querySelectorAll('.comparing input').forEach(function (node) {
+			node.addEventListener('change', function (e) {
 				if (e.target.value !== controller.compareMode) {
 					controller.compareMode = e.target.value;
 					controller.loadCompare();
@@ -128,6 +131,9 @@
 	h2 {
 		border-bottom: 1px solid gray;
 		text-transform: uppercase;
+	}
+	* + h2 {
+		margin-top: 40px;
 	}
 	li {
 		border: 1px solid #F6F6F6;
@@ -212,6 +218,8 @@
 		padding: 10px;
 		background: #34343e;
 		box-shadow: 0px 0px 8px #888;
+		box-sizing: border-box;
+		display: block;
 		position: fixed;
 		top: 0;
 		width: 100%;
@@ -232,9 +240,21 @@
 		background: none;
 		color: white;
 	}
+	#top-nav #product-jump {
+		line-height: 1.5em;
+		padding: 0em 0.3em;
+		vertical-align: top;
+		width: 1.5em;
+	}
 	#main-nav {
-		margin-left: 10px;
-		padding-top: 40px;
+		bottom: 0;
+		box-sizing: border-box;
+		left: 0;
+		overflow: auto;
+		padding: 10px;
+		position: fixed;
+		top: 0;
+		width: 100%;
 	}
 	#batch-stop {
 		display: none;
@@ -328,10 +348,9 @@
 	<a class="button" id="reload" title="Reload frame">
 		<i class="fa fa-refresh"></i>
 	</a>
-	<!--a class="button" id="settings" title="Settings" href="settings.php" target="main">
-		<i class="fa fa-cog"></i>
-		Settings
-	</a-->
+	<select id="product-jump" title="Jump to product samples">
+		<option value="">-</option>
+	</select>
 
 	<div class="text" id="test-status"></div>
 
