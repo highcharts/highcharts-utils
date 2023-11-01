@@ -24,7 +24,7 @@ controller.Sample = function (options, index) {
         if (!productJump.querySelector('option[value="' + dirs[0] + '"]')) {
             var option = contentsDoc.createElement('option');
             option.innerText = dirs[0].toUpperCase();
-            option.value = dirs[0]
+            option.value = dirs[0];
             productJump.appendChild(option);
         }
 
@@ -59,7 +59,7 @@ controller.Sample = function (options, index) {
         var testAnchor,
             requiresManualTesting = options.details &&
                 options.details.requiresManualTesting,
-            skipTest = options.details && options.details.skipTest;
+            skipTest = options.details && options.details.skipTest;
 
         if (requiresManualTesting) {
             testAnchor = contentsDoc.createElement('input');
@@ -97,7 +97,7 @@ controller.Sample = function (options, index) {
 
             if (diff !== '') {
                 if (
-                    (/^[0-9\.\/]+$/.test(diff) || diff > 0 || diff === 'Err') && diff !== '0'
+                    (/^[0-9\.\/]+$/.test(diff) || diff > 0 || diff === 'Err') && diff !== '0'
                 ) {
                     if (diff.toString().indexOf('.') > -1) {
                         diff = (Math.round(diff * 100) / 100).toString();
