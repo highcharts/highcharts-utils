@@ -10,9 +10,6 @@ textarea#preJS {
     width: 100%;
     height: 10em;
 }
-input[type="submit"] {
-    height: 2em;
-}
 input[type="text"] {
     width: 50%;
     min-width: 400px;
@@ -25,9 +22,26 @@ small.help {
     display: block;
     margin-bottom: 0.5em;
 }
+.form-content {
+    padding: 1em 1em 5em 1em;
+}
+.bottom-bar {
+    position: fixed;
+    bottom: 0;
+    padding: 1em;
+    color: white;
+    background: #34343e;
+    box-sizing: border-box;
+    width: 100%;
+    text-align: right;
+}
+
+input[type="submit"] {
+    padding: 1em 3em;
+}
 </style>
 <form id="settings" action="/samples/settings-post" method="post">
-    <div style="padding: 10px 20px">
+    <div class="form-content">
         <h1>Settings for the Utils</h1>
         <p>Some settings may require restarting the node server or refreshing the web
             page. Others, like those dealing with using compiled code, ES modules and
@@ -51,8 +65,9 @@ small.help {
         here, for testing on multiple samples. It is stored in the session and
         will affect the <em>view</em> page.</small>
         <textarea id="preJS" name="preJS">{{{preJS}}}</textarea>
+    </div>
 
-
+    <div class="bottom-bar">
         <input type="submit" value="Submit" />
     </div>
 
