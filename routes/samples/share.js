@@ -6,6 +6,7 @@ const express = require('express');
 const router = express.Router();
 const f = require('../../lib/functions.js');
 const fs = require('fs').promises;
+const ip = require('ip');
 const { join } = require('path');
 const { highchartsDir } = require('../../lib/arguments.js');
 
@@ -52,7 +53,8 @@ router.get('/', async (req, res) => {
         html,
         css,
         js,
-        bodyClass: 'page'
+        bodyClass: 'page',
+        ipAddress: ip.address()
     });
 });
 
