@@ -73,6 +73,8 @@
 			<span class="button-text">Share</span></a>
 		</a>
 
+        
+
 		<!--a class="button mobile-hide"
 			href="http://{{ipAddress}}:3030/samples/view?path={{path}}&mobile=true"
 			target="_blank">
@@ -82,7 +84,6 @@
 		<a id="mobile-preview" class="button mobile-hide" href="javascript:;">
 			<i class="fa fa-mobile"></i>
 			<span class="button-text">Mobile</span></a>
-
 
 		<!-- if themes, means we have a mini form control -->
 		{{#if themes}}
@@ -96,6 +97,27 @@
 			</select>
 		</form>
 		{{/if}}
+
+        <div id="quick-settings">
+            {{#if compileOnDemand}}
+            <form 
+                method="post"
+                action="/samples/settings-post"
+                id="compile-form">
+                    <i class="fa fa-bolt"></i>
+                    <label for="compile-on-demand-toggle">
+                    Compile on Demand
+                    </label>
+                    <input 
+                        type="checkbox" 
+                        id="compile-on-demand-toggle" 
+                        name="compileOnDemand" 
+                        {{ compileOnDemand.checked }} 
+                        onchange="this.form.submit()" 
+                        />
+            </form>
+            {{/if}}
+        </div>
 
 	</div>
 </div>
