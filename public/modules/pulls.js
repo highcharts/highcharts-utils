@@ -207,12 +207,13 @@ const decoratePull = async (pull) => {
         ).join('\n');
 
 
+    // Get the results from CI checks.
     if (decoration.newInteractions === 0) {
         decoration.read = true;
     } else if (decoration.lastCommit) {
         result = await fetch(`/pulls/list-checks/${decoration.lastCommit.sha}`);
-        const { checks } = await result.json();
-        const latestChecks = checks.reduce((acc, cur) => {
+        const checks = await result.json();
+        const latestChecks = checks.checks.check_runs.reduce((acc, cur) => {
             const key = cur.context;
             if (!acc[key]) {
                 acc[key] = cur.state;
@@ -221,7 +222,7 @@ const decoratePull = async (pull) => {
         }, {});
         const values = Object.values(latestChecks);
 
-        let state = 'pending';
+        let state = '';
         if (values.length > 0) {
             state =
                 values.indexOf('failure') !== -1 ? 'failure' :

@@ -8,7 +8,7 @@ const octokit = new Octokit({
     auth: process.env.GH_PERSONAL_ACCESS_TOKEN
 });
 
-const per_page = 60;
+const per_page = 6;
 const repo = {
     owner: 'highcharts',
     repo: 'highcharts'
@@ -65,7 +65,7 @@ router.get('/last-update', async (req, res) => {
     }
 });
 
-router.get('/list', async (req, res, next) => {
+router.get('/list', async (req, res) => {
     const pulls = await octokit.pulls.list({
         ...repo,
         state: 'open',
@@ -153,7 +153,8 @@ router.get('/list-commits/:number', async (req, res) => {
 });
 
 router.get('/list-checks/:ref', async (req, res) => {
-    const result = await octokit.repos.listCommitStatusesForRef({
+    // const result = await octokit.repos.listCommitStatusesForRef({
+    const result = await octokit.rest.checks.listForRef({
         ...repo,
         ref: req.params.ref
     }).catch(e => console.error(e));
