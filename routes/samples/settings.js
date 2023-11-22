@@ -6,10 +6,10 @@ const { getConfig } = require('../../lib/functions.js');
 router.get('/', async (req, res) => {
     const options = await getConfig();
 
-	res.render('samples/settings', {
-		preJS: req.session.preJS,
-		options
-	});
+    res.render('samples/settings', {
+        preJS: req.session.preJS,
+        options
+    });
 });
 
 module.exports = router;
