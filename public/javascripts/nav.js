@@ -12,8 +12,40 @@ window.addEventListener('bodyload', function () {
 	}
 });
 
+async function handleCompileOnDemand(){
+    const settings = await fetch('/samples/settings-json').then(r => r.json());
+
+    const compileOnDemandToggle = document.querySelector('#compile-on-demand-toggle');
+    const settingsIndex = settings.findIndex(obj => obj.key === 'compileOnDemand');
+
+    if (settingsIndex > -1) {
+        compileOnDemandToggle.checked = settings[settingsIndex].value ?? false;
+
+        compileOnDemandToggle.addEventListener('change', async (e) => {
+            console.log(e.target.checked);
+
+            settings[settingsIndex].value = e.target.checked;
+
+            const formData = new FormData();
+
+            formData.append('compileOnDemand', e.target.checked);
+
+
+            await fetch('/samples/settings-post', {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'Content-type': 'application/x-www-form-urlencoded'
+                }
+            });
+        });
+    }
+}
+
 /* global controller, Highcharts */
 window.addEventListener('load', function () {
+
+    handleCompileOnDemand();
 
 	document.querySelector('.top-bar .burger').addEventListener(
 		'click',
@@ -130,3 +162,4 @@ window.addEventListener('load', function () {
 		}
 	});
 });
+
