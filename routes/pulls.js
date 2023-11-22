@@ -8,7 +8,7 @@ const octokit = new Octokit({
     auth: process.env.GH_PERSONAL_ACCESS_TOKEN
 });
 
-const per_page = 6;
+const per_page = 60;
 const repo = {
     owner: 'highcharts',
     repo: 'highcharts'
