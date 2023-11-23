@@ -67,7 +67,7 @@
 			<span class="button-text">View source</span>
 		</a>
 
-		<a class="button mobile-hide"
+		<a class="button mobile-hide" id="share"
 			href="/samples/jsfiddle-post?path={{path}}">
 			<i class="fa fa-external-link"></i>
 			<span class="button-text">Share</span></a>
@@ -85,17 +85,25 @@
 
 
 		<!-- if themes, means we have a mini form control -->
-		{{#if themes}}
-		<form method="post" action="/samples/settings-post" id="settings-form">
-			<select name="theme" onchange="this.form.submit()">
-			{{#each themes}}
-				<option value="{{@key}}" {{selected}}>
-					{{name}}
-				</option>
-			{{/each}}
-			</select>
-		</form>
-		{{/if}}
+		<div class="dropdown" data-anchor="quick-settings">
+			<div class="dropdown-inner">
+				{{#if themes}}
+				<form method="post" action="/samples/settings-post" id="settings-form">
+					<select name="theme" onchange="this.form.submit()">
+					{{#each themes}}
+						<option value="{{@key}}" {{selected}}>
+							{{name}}
+						</option>
+					{{/each}}
+					</select>
+				</form>
+				{{/if}}
+			</div>
+		</div>
+
+		<a id="quick-settings" class="button mobile-hide" href="javascript:;">
+			<i class="fa fa-cog"></i>
+			<span class="button-text">Quick settings</span></a>
 
 	</div>
 </div>

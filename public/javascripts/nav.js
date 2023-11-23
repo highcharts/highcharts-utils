@@ -42,7 +42,18 @@ window.addEventListener('load', function () {
 			);
 			*/
 		}
-	)
+	);
+
+	for (const dropdown of document.querySelectorAll('.dropdown')) {
+		const anchor = document.getElementById(dropdown.dataset.anchor);
+		const hide = () => {
+			dropdown.style.display = 'none';
+		}
+		anchor.addEventListener('mouseover', () => {
+			dropdown.style.display = 'inline-block';
+		});
+		dropdown.addEventListener('mouseleave', hide);
+	}
 
 	var $ = window.$ || window.jQuery;
 	if (controller) {
