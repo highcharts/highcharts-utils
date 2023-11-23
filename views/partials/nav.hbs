@@ -67,57 +67,65 @@
             <span class="button-text">View source</span>
         </a>
 
-        <a class="button mobile-hide"
-            href="/samples/jsfiddle-post?path={{path}}">
-            <i class="fa fa-external-link"></i>
-            <span class="button-text">Share</span></a>
-        </a>
+		<a class="button mobile-hide" id="share"
+			href="/samples/jsfiddle-post?path={{path}}">
+			<i class="fa fa-external-link"></i>
+			<span class="button-text">Share</span></a>
+		</a>
+
+		<!--a class="button mobile-hide"
+			href="http://{{ipAddress}}:3030/samples/view?path={{path}}&mobile=true"
+			target="_blank">
+			<i class="fa fa-mobile"></i>
+			<span class="button-text">Mobile</span></a-->
+
+		<a id="mobile-preview" class="button mobile-hide" href="javascript:;">
+			<i class="fa fa-mobile"></i>
+			<span class="button-text">Mobile</span></a>
 
 
+		<!-- if themes, means we have a mini form control -->
+		<div class="dropdown" data-anchor="quick-settings">
+			<div class="dropdown-inner">
+				{{#if compileOnDemand}}
+				<p>
+				<form
+					method="post"
+					action="/samples/settings-post"
+					id="compile-form">
+						<label>
+							<input
+								type="checkbox"
+								id="compile-on-demand-toggle"
+								name="compileOnDemand"
+								{{ compileOnDemand.checked }}
+								onchange="this.form.submit()"
+								/>
+							Compile on Demand
+						</label>
 
-        <!--a class="button mobile-hide"
-            href="http://{{ipAddress}}:3030/samples/view?path={{path}}&mobile=true"
-            target="_blank">
-            <i class="fa fa-mobile"></i>
-            <span class="button-text">Mobile</span></a-->
+				</form>
+				</p>
+				{{/if}}
+				{{#if themes}}
+				<p>
+				<form method="post" action="/samples/settings-post" id="settings-form">
+					<select name="theme" onchange="this.form.submit()">
+					{{#each themes}}
+						<option value="{{@key}}" {{selected}}>
+							{{name}}
+						</option>
+					{{/each}}
+					</select>
+				</form>
+				</p>
+				{{/if}}
+			</div>
+		</div>
 
-        <a id="mobile-preview" class="button mobile-hide" href="javascript:;">
-            <i class="fa fa-mobile"></i>
-            <span class="button-text">Mobile</span></a>
-
-        <!-- if themes, means we have a mini form control -->
-        {{#if themes}}
-        <form method="post" action="/samples/settings-post" id="settings-form">
-            <select name="theme" onchange="this.form.submit()">
-            {{#each themes}}
-                <option value="{{@key}}" {{selected}}>
-                    {{name}}
-                </option>
-            {{/each}}
-            </select>
-        </form>
-        {{/if}}
-
-        <div id="quick-settings">
-            {{#if compileOnDemand}}
-            <form
-                method="post"
-                action="/samples/settings-post"
-                id="compile-form">
-                    <i class="fa fa-bolt"></i>
-                    <label for="compile-on-demand-toggle">
-                    Compile on Demand
-                    </label>
-                    <input
-                        type="checkbox"
-                        id="compile-on-demand-toggle"
-                        name="compileOnDemand"
-                        {{ compileOnDemand.checked }}
-                        onchange="this.form.submit()"
-                       />
-            </form>
-            {{/if}}
-        </div>
+		<a id="quick-settings" class="button mobile-hide" href="javascript:;">
+			<i class="fa fa-cog"></i>
+			<span class="button-text">Quick settings</span></a>
 
     </div>
 </div>
