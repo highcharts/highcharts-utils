@@ -1,72 +1,73 @@
 <div class="top-bar">
 
-	<div id="version"></div>
+    <div id="version"></div>
 
-	<div class="burger">
-		<button id="burger-button" title="Show menu and chrome below demo">
-			<i class="fa fa-bars"></i>
-		</button>
-	</div>
+    <div class="burger">
+        <button id="burger-button" title="Show menu and chrome below demo">
+            <i class="fa fa-bars"></i>
+        </button>
+    </div>
 
-	<h2 class="sample-name">{{path}}</h2>
+    <h2 class="sample-name">{{path}}</h2>
 
-	<div class="top-bar-menu topframe-hidden">
-		{{#if mobile}}
-		<a class="button" id="mobile-home" href="/samples/mobile">
-			<i class="fa fa-home"></i>
-			<span class="button-text">Overview</span>
-		</a>
-		{{/if}}
-		<a class="button" href="javascript:;" id="next" disabled="disabled" title="Next (Arrow Right)">
-			<i class="fa fa-arrow-right"></i>
-			<span class="button-text">Next</span>
-		</a>
+    <div class="top-bar-menu topframe-hidden">
+        {{#if mobile}}
+        <a class="button" id="mobile-home" href="/samples/mobile">
+            <i class="fa fa-home"></i>
+            <span class="button-text">Overview</span>
+        </a>
+        {{/if}}
+        <a class="button" href="javascript:;" id="next" disabled="disabled" title="Next (Arrow Right)">
+            <i class="fa fa-arrow-right"></i>
+            <span class="button-text">Next</span>
+        </a>
 
-		<a class="button mobile-hide" id="reload" href="javascript:location.reload()"
-			title="Reload (Ctrl + Enter)">
-			<i class="fa fa-refresh"></i>
-			<span class="button-text">Reload</span>
-		</a>
+        <a class="button mobile-hide" id="reload" href="javascript:location.reload()"
+            title="Reload (Ctrl + Enter)">
+            <i class="fa fa-refresh"></i>
+            <span class="button-text">Reload</span>
+        </a>
 
-		{{#if styled}}
-		<!--a class="button active" title="View this sample with CSS and no inline styling"
-				href="view?path={{path}}&amp;styled=false">
-			<i class="fa fa-css3"></i>
-			<span class="button-text">Styled</span>
-		</a-->
-		{{else}}
-		<!--a class="button" title="View this sample with CSS and no inline styling"
-			href="view?path={{path}}&amp;styled=true">
-			<i class="fa fa-css3"></i>
-			<span class="button-text">Styled</span>
-		</a-->
-		{{/if}}
+        {{#if styled}}
+        <!--a class="button active" title="View this sample with CSS and no inline styling"
+                href="view?path={{path}}&amp;styled=false">
+            <i class="fa fa-css3"></i>
+            <span class="button-text">Styled</span>
+        </a-->
+        {{else}}
+        <!--a class="button" title="View this sample with CSS and no inline styling"
+            href="view?path={{path}}&amp;styled=true">
+            <i class="fa fa-css3"></i>
+            <span class="button-text">Styled</span>
+        </a-->
+        {{/if}}
 
-		<a class="button {{compareClass}} mobile-hide"
-				href="compare-view?path={{path}}">
-			<i class="fa fa-columns"></i>
-			<span class="button-text">Compare</span>
-		</a><a class="button mobile-hide" id="bisect">
-			<i class="fa fa-code-fork"></i>
-			<span class="button-text">Bisect</span>
-		</a>
-
-
-		<a class="button mobile-hide"
-			href="view?path={{path}}&amp;profile=1">
-			<i class="fa fa-rocket"></i>
-			<span class="button-text">Profile</span>
-		</a><a class="button mobile-hide"
-			href="view?path={{path}}&amp;time=1">
-			<i class="fa fa-clock-o"></i>
-			<span class="button-text">Time</span></a>
+        <a class="button {{compareClass}} mobile-hide"
+                href="compare-view?path={{path}}">
+            <i class="fa fa-columns"></i>
+            <span class="button-text">Compare</span>
+        </a><a class="button mobile-hide" id="bisect">
+            <i class="fa fa-code-fork"></i>
+            <span class="button-text">Bisect</span>
+        </a>
 
 
-		<a id="view-source" class="button mobile-hide" href="javascript:;">
-			<i class="fa fa-code"></i>
-			<span class="button-text">View source</span>
-		</a>
+        <a class="button mobile-hide"
+            href="view?path={{path}}&amp;profile=1">
+            <i class="fa fa-rocket"></i>
+            <span class="button-text">Profile</span>
+        </a><a class="button mobile-hide"
+            href="view?path={{path}}&amp;time=1">
+            <i class="fa fa-clock-o"></i>
+            <span class="button-text">Time</span></a>
 
+
+        <a id="view-source" class="button mobile-hide" href="javascript:;">
+            <i class="fa fa-code"></i>
+            <span class="button-text">View source</span>
+        </a>
+
+		<a class="button mobile-hide" id="share"
 		<a class="button mobile-hide" id="share"
 			href="/samples/jsfiddle-post?path={{path}}">
 			<i class="fa fa-external-link"></i>
@@ -87,7 +88,28 @@
 		<!-- if themes, means we have a mini form control -->
 		<div class="dropdown" data-anchor="quick-settings">
 			<div class="dropdown-inner">
+				{{#if compileOnDemand}}
+				<p>
+				<form
+					method="post"
+					action="/samples/settings-post"
+					id="compile-form">
+						<label>
+							<input
+								type="checkbox"
+								id="compile-on-demand-toggle"
+								name="compileOnDemand"
+								{{ compileOnDemand.checked }}
+								onchange="this.form.submit()"
+								/>
+							Compile on Demand
+						</label>
+
+				</form>
+				</p>
+				{{/if}}
 				{{#if themes}}
+				<p>
 				<form method="post" action="/samples/settings-post" id="settings-form">
 					<select name="theme" onchange="this.form.submit()">
 					{{#each themes}}
@@ -97,6 +119,7 @@
 					{{/each}}
 					</select>
 				</form>
+				</p>
 				{{/if}}
 			</div>
 		</div>
@@ -105,5 +128,5 @@
 			<i class="fa fa-cog"></i>
 			<span class="button-text">Quick settings</span></a>
 
-	</div>
+    </div>
 </div>
