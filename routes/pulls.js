@@ -82,7 +82,7 @@ router.get('/list', async (req, res) => {
         direction: 'desc',
         per_page: 10
     }).catch(e => console.error(e));
-    issues.data = issues.data.filter(issue => !issue.pull_request);
+    issues.data = issues && issues.data.filter(issue => !issue.pull_request);
 
     const featureRequests = await octokit.issues.listForRepo({
         ...repo,
