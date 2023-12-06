@@ -54,14 +54,17 @@ const getTemplates = () => {
 
 router.get('/', function(req, res) {
 
-	const { emulateKarma } = getSettings(req);
+	const { compileOnDemand, emulateKarma } = getSettings(req);
 	let path = req.query.path;
 	let which = req.query.which;
 	let resources = f.getResources(req.query.path);
 	let codePath = which === 'right' ? '/code' : '/reference';
 
+	// Bisecting
 	if (req.query.rightcommit && which === 'right') {
-		codePath = 'https://github.highcharts.com/' + req.query.rightcommit;
+		codePath = compileOnDemand ?
+			'/code' :
+			'https://github.highcharts.com/' + req.query.rightcommit;
 	}
 
 	let tpl = {

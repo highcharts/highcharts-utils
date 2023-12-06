@@ -11,7 +11,7 @@
         </script>
         {{/if}}
         <title>{{title}}</title>
-        {{#if isView}}
+        {{#if applyCSP}}
         <meta http-equiv="Content-Security-Policy" content="
             trusted-types
                 highcharts
@@ -82,7 +82,7 @@
                 https://ajax.googleapis.com
                 https://netdna.bootstrapcdn.com;
             style-src
-                'nonce-mynoncehash'
+                'nonce-highcharts'
                 http://localhost:3030/
                 http://*:3030
                 http://utils.highcharts.local

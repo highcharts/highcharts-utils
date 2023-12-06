@@ -319,10 +319,15 @@ const renderPull = pull => {
             <div style="width: 100%">
                 <small class="text-muted">
                     #${pull.number} opened
-                    <span class="timeago" datetime="${pull.created_at}"></span>
-                    by ${pull.user.login}
+                    <span class="timeago" datetime="${pull.created_at}"
+                        title="${pull.created_at}"></span>
+                    by
+                    <a href="https://github.com/highcharts/highcharts/pulls/${pull.user.login}">
+                        ${pull.user.login}
+                    </a>
                     <i class="fa fa-clock-o"></i> updated
-                    <span class="timeago" datetime="${pull.updated_at}"></span>
+                    <span class="timeago" datetime="${pull.updated_at}"
+                        title="${pull.updated_at}"></span>
                 </small>
             </div>
         `;

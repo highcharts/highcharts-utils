@@ -49,6 +49,7 @@ router.get('/', async (req, res) => {
         branch: f.getBranch(),
         latestCommit: f.getLatestCommit(),
         isView: true,
+        applyCSP: details.applyCSP !== false,
         scripts: [
             '/javascripts/trusted-types.js',
             '/javascripts/vendor/jquery-1.11.1.js',
