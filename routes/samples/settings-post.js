@@ -5,26 +5,32 @@ const router = express.Router();
 const config = require('../../config.json');
 
 router.post('/', async (req, res) => {
+	const configUserPath = join(__dirname, '../../temp', 'config-user.json'),
+		configUser = require(configUserPath);
 
 	// Overwrite config-user.json with only those settings that have changed
-	const user = {};
 	Object.keys(config).forEach(key => {
 		let value = req.body[key];
 
-		if (typeof config[key] === 'boolean') {
-			value = req.body[key] === 'on';
-		} else if (typeof config[key] === 'number') {
-			value = parseInt(req.body[key], 10);
-		}
+		if (key in req.body) {
 
-		if (value != config[key]) {
-			user[key] = value;
+			if (typeof config[key] === 'boolean') {
+				value = req.body[key] === 'on';
+			} else if (typeof config[key] === 'number') {
+				value = parseInt(req.body[key], 10);
+			}
+
+			if (value != config[key]) {
+				configUser[key] = value;
+			} else {
+				delete configUser[key];
+			}
 		}
 	});
 
 	await fs.writeFile(
-		join(__dirname, '../../temp', 'config-user.json'),
-		JSON.stringify(user, null, '  '),
+		configUserPath,
+		JSON.stringify(configUser, null, '  '),
 		'utf-8'
 	);
 

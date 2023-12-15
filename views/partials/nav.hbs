@@ -94,13 +94,14 @@
 					method="post"
 					action="/samples/settings-post"
 					id="compile-form">
+                        <input type="hidden" name="compileOnDemand">
 						<label>
-							<input
+                            <input
 								type="checkbox"
 								id="compile-on-demand-toggle"
-								name="compileOnDemand"
+								name="compileOnDemand-shim"
 								{{ compileOnDemand.checked }}
-								onchange="this.form.submit()"
+								onchange="this.form.compileOnDemand.value = this.checked ? 'on' : 'off'; this.form.submit()"
 								/>
 							Compile on Demand
 						</label>
