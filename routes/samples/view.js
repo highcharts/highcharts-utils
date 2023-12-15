@@ -32,7 +32,7 @@ router.get('/', async (req, res) => {
     const themes = await f.getThemes(req);
 
     const details = f.getDetails(req.query.path);
-    const options = await f.getConfig();
+    const config = await f.getConfig();
 
     let tpl = {
         title: (details && details.name) || req.query.path,
@@ -63,7 +63,7 @@ router.get('/', async (req, res) => {
         testNotes: f.getTestNotes(req.query.path),
         themes,
         styledMode,
-        compileOnDemand: options.find(option => option.key === 'compileOnDemand'),
+        compileOnDemand: config.find(option => option.key === 'compileOnDemand'),
     };
 
     res.render('samples/view', tpl);

@@ -1,8 +1,11 @@
 const express = require('express');
+const f = require('./../../lib/functions.js');
 const router = express.Router();
 
+router.get('/', async function(req, res) {
+	const themes = await f.getThemes(req);
+    const config = await f.getConfig();
 
-router.get('/', function(req, res) {
 	res.render('samples/compare-view', {
 		path: req.query.path,
 		compareClass: 'active',
@@ -14,7 +17,9 @@ router.get('/', function(req, res) {
 			'/javascripts/vendor/jquery-1.11.1.js',
 			'/javascripts/compare-view.js',
 			'/javascripts/nav.js'
-		]
+		],
+		themes,
+        compileOnDemand: config.find(option => option.key === 'compileOnDemand'),
 	});
 });
 
