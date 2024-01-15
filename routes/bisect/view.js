@@ -9,7 +9,7 @@ const router = express.Router();
 const replaceHTML = (req) => {
 
 	const { compileOnDemand } = getSettings(req),
-		html = req.sessions.html || '';
+		html = req.session.html || '';
 
 	if (compileOnDemand) {
 		return replaceURLs(html, '/code');
