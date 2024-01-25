@@ -360,9 +360,12 @@ controller.Sample = function (options, index) {
             lastCurrentSample.setClassName();
         }
         this.setClassName();
-        $('html,body', contentsDoc).animate({
-            scrollTop: $(li).offset().top - 300
-        }, controller.continueBatch ? 0 : 'slow');
+
+        const mainNav = contentsDoc.querySelector('#main-nav');
+        mainNav.scrollTo({
+            top: li.offsetTop - Math.round(mainNav.offsetHeight * 0.4),
+            behavior: controller.continueBatch ? 'instant' : 'smooth'
+        })
 
     }
 
