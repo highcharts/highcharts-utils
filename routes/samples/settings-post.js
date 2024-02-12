@@ -7,12 +7,16 @@ const config = require('../../config.json');
 router.post('/', async (req, res) => {
 	const configUserPath = join(__dirname, '../../temp', 'config-user.json'),
 		configUser = require(configUserPath);
+console.log(req.body);
+
+	// Quick settings
+	const onlyInBody = !!req.body['quickSettings'];
 
 	// Overwrite config-user.json with only those settings that have changed
 	Object.keys(config).forEach(key => {
 		let value = req.body[key];
 
-		if (key in req.body) {
+		if (!onlyInBody || key in req.body) {
 
 			if (typeof config[key] === 'boolean') {
 				value = req.body[key] === 'on';
