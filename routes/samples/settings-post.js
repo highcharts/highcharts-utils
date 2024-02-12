@@ -7,7 +7,6 @@ const config = require('../../config.json');
 router.post('/', async (req, res) => {
 	const configUserPath = join(__dirname, '../../temp', 'config-user.json'),
 		configUser = require(configUserPath);
-console.log(req.body);
 
 	// Quick settings
 	const onlyInBody = !!req.body['quickSettings'];
