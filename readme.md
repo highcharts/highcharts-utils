@@ -29,8 +29,8 @@ Run `nodemon ./bin/www` and open `http://localhost:3030`.
 The default settings for these options are specified
 in the [config.json](config.json) file. For a detailed explanation of these
 options, refer to the [settings-help](lib/settings-help.js) file. To change the
-options at the run time use "Session settings" menu (the gear icon) on the
-"View samples" subpage. The options that are handled at the run time:
+options at the runtime use "Session settings" menu (the gear icon) on the
+"View samples" subpage. The options that are handled at the runtime:
 
 - codeWatch
 - compileOnDemand
@@ -39,7 +39,7 @@ options at the run time use "Session settings" menu (the gear icon) on the
 - useMinifiedCode
 
 CLI arguments are available for preview with `npx highcharts-utils --help`,
-or an equivalent command. The options that are handled at the run time set
+or an equivalent command. The options that are handled at the runtime set
 through "Session settings" (explained above) have precedence over
 the CLI arguments.
 

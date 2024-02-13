@@ -40,7 +40,7 @@ input[type="submit"] {
     padding: 1em 3em;
 }
 
-.run-time-mark {
+.runtime-mark {
     color: orange;
 }
 </style>
@@ -48,11 +48,11 @@ input[type="submit"] {
     <div class="form-content">
         <h1>Settings for the Utils</h1>
         <p>Some settings may require restarting the node server or refreshing the web
-            page. The options handled at run time are marked with (<span class="run-time-mark">@</span>).</p>
+            page. The options handled at run time are marked with (<span class="runtime-mark">@</span>).</p>
 
         {{#each options}}
         <div>
-        <h4>{{#if isRunTime}}(<span class="run-time-mark">@</span>) {{/if}}{{key}}</h4>
+        <h4>{{#if isRuntime}}(<span class="runtime-mark">@</span>) {{/if}}{{key}}</h4>
         <small class="help">{{help}}</small>
 
         {{#if isCheckbox}}
