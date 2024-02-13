@@ -39,17 +39,20 @@ small.help {
 input[type="submit"] {
     padding: 1em 3em;
 }
+
+.runtime-mark {
+    color: orange;
+}
 </style>
 <form id="settings" action="/samples/settings-post" method="post">
     <div class="form-content">
         <h1>Settings for the Utils</h1>
         <p>Some settings may require restarting the node server or refreshing the web
-            page. Others, like those dealing with using compiled code, ES modules and
-            such, are handled at run time.</p>
+            page. The options handled at run time are marked with (<span class="runtime-mark">@</span>).</p>
 
         {{#each options}}
         <div>
-        <h4>{{key}}</h4>
+        <h4>{{#if isRuntime}}(<span class="runtime-mark">@</span>) {{/if}}{{key}}</h4>
         <small class="help">{{help}}</small>
 
         {{#if isCheckbox}}
