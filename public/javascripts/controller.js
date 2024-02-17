@@ -414,9 +414,12 @@ var controller = { // eslint-disable-line no-unused-vars
             nextSample;
 
         // Jump to the next visible item
-        while (index++ && index <= controller.samples.length) {
+        while (index++ >= 0 && index <= controller.samples.length) {
             nextSample = controller.samples[index];
-            if (nextSample && nextSample.getLi().style.display !== 'none') {
+            if (
+                nextSample &&
+                !nextSample.getLi().classList.contains('hidden')
+            ) {
                 controller.frames().main.contentWindow.location.href =
                     controller.frames().main.contentWindow.location.href
                         .replace(controller.currentSample.path, nextSample.path);
@@ -427,11 +430,21 @@ var controller = { // eslint-disable-line no-unused-vars
 
     previous: function () {
         // No + 1 because .index is 1-based
-        var prevSample = controller.samples[controller.currentSample.index - 2];
-        if (prevSample) {
-            controller.frames().main.contentWindow.location.href =
-                controller.frames().main.contentWindow.location.href
-                    .replace(controller.currentSample.path, prevSample.path);
+        let index = controller.currentSample.index - 1,
+            prevSample;
+
+        // Jump to the previous visible item
+        while (index-- && index >= 0) {
+            prevSample = controller.samples[index];
+            if (
+                prevSample &&
+                !prevSample.getLi().classList.contains('hidden')
+            ) {
+                controller.frames().main.contentWindow.location.href =
+                    controller.frames().main.contentWindow.location.href
+                        .replace(controller.currentSample.path, prevSample.path);
+                break;
+            }
         }
     },
 
