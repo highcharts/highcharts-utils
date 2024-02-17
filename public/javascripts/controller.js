@@ -297,30 +297,63 @@ var controller = { // eslint-disable-line no-unused-vars
     /*
      * Update the contents to show only errors, or show all
      */
-    filter: function (status) {
-        console.time('filter')
+    filter: function (status, search) {
+        // console.time('@filter')
         var contentFrame = this.frames().contents,
             error = this.testStatus.error,
             success = this.testStatus.success;
 
-        controller.samples.forEach(function (sample) {
-            if (status === 'error' && error.indexOf(sample.path) === -1) {
-                sample.getLi().classList.add('hidden');
+        // Status
+        if (search === undefined) {
+            controller.clearSearch();
+            controller.samples.forEach(function (sample) {
+                const li = sample.getLi();
+                if (status === 'error' && error.indexOf(sample.path) === -1) {
+                    li.classList.add('hidden');
 
-            } else if (
-                status === 'remaining' &&
-                (
-                    error.indexOf(sample.path) !== -1 ||
-                    success.indexOf(sample.path) !== -1 ||
-                    sample.isUnitTest()
-                )
-            ) {
-                sample.getLi().classList.add('hidden');
+                } else if (
+                    status === 'remaining' &&
+                    (
+                        error.indexOf(sample.path) !== -1 ||
+                        success.indexOf(sample.path) !== -1 ||
+                        sample.isUnitTest()
+                    )
+                ) {
+                    li.classList.add('hidden');
 
-            } else {
-                sample.getLi().classList.remove('hidden');
-            }
-        });
+                } else {
+                    li.classList.remove('hidden');
+                }
+            });
+
+        // Search
+        } else {
+            const words = search.split(' ');
+            controller.samples.forEach((sample) => {
+                const li = sample.getLi(),
+                    a = li.firstChild;
+                let isMatch = true,
+                    innerHTML = sample.path;
+                for (let word of words) {
+                    if (sample.path.indexOf(word) === -1) {
+                        isMatch = false;
+                        break;
+                    } else {
+                        innerHTML = innerHTML.replace(
+                            new RegExp(`(${word})`),
+                            '<b>$1</b>'
+                        );
+                    }
+                }
+                if (isMatch) {
+                    li.classList.remove('hidden');
+                    a.innerHTML = innerHTML;
+                } else {
+                    li.classList.add('hidden');
+                    a.innerText = sample.path;
+                }
+            });
+        }
 
         // Headers
         [].forEach.call(
@@ -335,17 +368,9 @@ var controller = { // eslint-disable-line no-unused-vars
                 } else {
                     h.classList.add('hidden');
                 }
-
-                /*
-                if (status === 'error' || status === 'remaining') {
-                    h.style.display = 'none';
-                } else {
-                    h.style.display = '';
-                }
-                */
             }
         );
-        console.timeEnd('filter')
+        // console.timeEnd('@filter')
     },
 
     getQueryParameters: function (win) {
@@ -559,6 +584,28 @@ var controller = { // eslint-disable-line no-unused-vars
 
     fetch: async function(url) {
         return await this.fetchNative(controller.rewriteJSONPath(url));
+    },
+
+    activateSearch: function () {
+        const input = controller.frames().contents.contentDocument
+            .getElementById('search');
+
+        input.addEventListener('input', () => {
+            controller.filter(undefined, input.value);
+        });
+    },
+
+    focusSearch: function () {
+        controller.frames().contents.contentDocument
+			.getElementById('search').focus();
+    },
+
+    clearSearch: function () {
+        controller.frames().contents.contentDocument
+            .getElementById('search').value = '';
+        controller.samples.forEach((sample) => {
+            sample.getLi().firstChild.innerText = sample.path;
+        });
     }
 
 };

@@ -46,6 +46,10 @@
 				document.getElementById('main').contentWindow.location.reload();
 				return false;
 			}
+
+			if (e.ctrlKey && e.key === 'f') {
+				controller.focusSearch();
+			}
 		}
 		controller.onLoad.push(function () {
 			var hash = window.location.hash,

@@ -85,6 +85,7 @@
 		});
 
 		// Set compare mode
+		/*
 		document.getElementById('comparemode-' + controller.compareMode).checked = true;
 		document.querySelectorAll('.comparing input').forEach(function (node) {
 			node.addEventListener('change', function (e) {
@@ -96,6 +97,7 @@
 			});
 		});
 		document.getElementById('comparemode-local-label').title = controller.server.branch;
+		*/
 
 		countFails();
 
@@ -212,6 +214,13 @@
 		border-color: black;
 		border-left-width: 1em;
 	}
+
+	#search {
+		width: 99%;
+		margin-top: 0.5em;
+		padding: 0.2em;
+	}
+
 	body {
 		margin: 0;
 	}
@@ -357,6 +366,8 @@
 
 	<div class="text" id="test-status"></div>
 
+	<input type="text" id="search" placeholder="Search (ctrl+f)" />
+
 	<!--
 	<div class="comparing" style="padding-top: 0.5em">
 		<form id="comparemode">
@@ -377,4 +388,6 @@
 
 <script>
 controller.loadSamples();
+controller.focusSearch();
+controller.activateSearch();
 </script>
