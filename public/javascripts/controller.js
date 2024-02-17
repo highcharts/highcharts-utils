@@ -298,13 +298,14 @@ var controller = { // eslint-disable-line no-unused-vars
      * Update the contents to show only errors, or show all
      */
     filter: function (status) {
+        console.time('filter')
         var contentFrame = this.frames().contents,
             error = this.testStatus.error,
             success = this.testStatus.success;
 
         controller.samples.forEach(function (sample) {
             if (status === 'error' && error.indexOf(sample.path) === -1) {
-                sample.getLi().style.display = 'none';
+                sample.getLi().classList.add('hidden');
 
             } else if (
                 status === 'remaining' &&
@@ -314,10 +315,10 @@ var controller = { // eslint-disable-line no-unused-vars
                     sample.isUnitTest()
                 )
             ) {
-                sample.getLi().style.display = 'none';
+                sample.getLi().classList.add('hidden');
 
             } else {
-                sample.getLi().style.display = '';
+                sample.getLi().classList.remove('hidden');
             }
         });
 
@@ -325,13 +326,26 @@ var controller = { // eslint-disable-line no-unused-vars
         [].forEach.call(
             contentFrame.contentDocument.querySelectorAll('h2, h4'),
             function (h) {
-                if (status === 'error' || status === 'remaining') {
+                let ul = h.nextSibling;
+                while (ul.nodeName !== 'UL') {
+                    ul = ul.nextSibling;
+                }
+                if (ul.querySelector('li:not(.hidden)')) {
+                    h.classList.remove('hidden');
+                } else {
+                    h.classList.add('hidden');
+                }
+
+                /*
+                if (status === 'error' || status === 'remaining') {
                     h.style.display = 'none';
                 } else {
                     h.style.display = '';
                 }
+                */
             }
         );
+        console.timeEnd('filter')
     },
 
     getQueryParameters: function (win) {
