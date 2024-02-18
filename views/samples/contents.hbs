@@ -80,7 +80,7 @@
 		$('#product-jump', document).change(function (e) {
 			document
 				.getElementById(e.target.value)
-				.scrollIntoView();
+				.scrollIntoView({ behavior: 'smooth' });
 
 		});
 

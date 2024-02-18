@@ -177,7 +177,7 @@ controller.Sample = function (options, index) {
     }
 
     function setClassName() {
-        var className = '',
+        var className = li.classList.contains('hidden') ? 'hidden' : '',
             comment = options.compare && options.compare.comment;
 
         if (options.details && options.details.requiresManualTesting) {
@@ -219,6 +219,7 @@ controller.Sample = function (options, index) {
         if (options.path === (controller.currentSample && controller.currentSample.path)) {
             className += ' hilighted';
         }
+
         li.className = className;
     }
 
