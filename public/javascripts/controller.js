@@ -301,7 +301,8 @@ var controller = { // eslint-disable-line no-unused-vars
         // console.time('@filter')
         var contentFrame = this.frames().contents,
             error = this.testStatus.error,
-            success = this.testStatus.success;
+            success = this.testStatus.success,
+            mainNav = contentFrame.contentDocument.getElementById('main-nav');
 
         // Status
         if (search === undefined) {
@@ -370,6 +371,15 @@ var controller = { // eslint-disable-line no-unused-vars
                 }
             }
         );
+
+        // Keep the current sample in view if visible
+        if (controller.currentSample) {
+            mainNav.scrollTo({
+                top: controller.currentSample.getLi().offsetTop -
+                    Math.round(mainNav.offsetHeight * 0.4),
+                behavior: 'instant'
+            });
+        }
         // console.timeEnd('@filter')
     },
 
@@ -629,10 +639,10 @@ var controller = { // eslint-disable-line no-unused-vars
     },
 
     clearSearch: function () {
-        const search = controller.frames().contents.contentDocument
-            .getElementById('search');
+        const contentsDoc = controller.frames().contents.contentDocument,
+            search = contentsDoc.getElementById('search');
         search.value = '';
-        search.getElementById('search').dispatchEvent(new Event('input'));
+        search.dispatchEvent(new Event('input'));
     }
 
 };
