@@ -31,7 +31,7 @@ var controller = { // eslint-disable-line no-unused-vars
         }).length;
 
         controller.loaded = true;
-        controller.updateStatus()
+        controller.updateStatus();
     }],
 
     runLoad: function () {
@@ -338,7 +338,7 @@ var controller = { // eslint-disable-line no-unused-vars
                     if (sample.path.indexOf(word) === -1) {
                         isMatch = false;
                         break;
-                    } else {
+                    } else if (word !== '') {
                         innerHTML = innerHTML.replace(
                             new RegExp(`(${word})`),
                             '<b>$1</b>'
@@ -600,12 +600,27 @@ var controller = { // eslint-disable-line no-unused-vars
     },
 
     activateSearch: function () {
-        const input = controller.frames().contents.contentDocument
-            .getElementById('search');
+        const contentsDoc = controller.frames().contents.contentDocument,
+            search = contentsDoc.getElementById('search'),
+            datalist = contentsDoc.getElementById('top-folders-list');
 
-        input.addEventListener('input', () => {
-            controller.filter(undefined, input.value);
+        search.addEventListener('input', () => {
+            controller.filter(undefined, search.value);
         });
+
+        const topFolders = [];
+        for (const sample of controller.samples) {
+            const topFolder = sample.path.split('/')[0];
+            if (!topFolders.includes(topFolder)) {
+                topFolders.push(topFolder);
+
+                const option = contentsDoc.createElement('option');
+                option.value = `${topFolder}/`;
+                option.innterText = `${topFolder}/`;
+                datalist.appendChild(option);
+            }
+        }
+
     },
 
     focusSearch: function () {
@@ -614,11 +629,10 @@ var controller = { // eslint-disable-line no-unused-vars
     },
 
     clearSearch: function () {
-        controller.frames().contents.contentDocument
-            .getElementById('search').value = '';
-        controller.samples.forEach((sample) => {
-            sample.getLi().firstChild.innerText = sample.path;
-        });
+        const search = controller.frames().contents.contentDocument
+            .getElementById('search');
+        search.value = '';
+        search.getElementById('search').dispatchEvent(new Event('input'));
     }
 
 };

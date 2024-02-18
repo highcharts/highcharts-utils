@@ -215,10 +215,23 @@
 		border-left-width: 1em;
 	}
 
+	#search-container {
+		position: relative;
+	}
+
 	#search {
 		width: 99%;
 		margin-top: 0.5em;
 		padding: 0.2em;
+	}
+
+	#search-clear {
+		position: absolute;
+		right: 0.3em;
+		top: 0.75em;
+		color: #999;
+		cursor: pointer;
+		font-size: 1.3em;
 	}
 
 	body {
@@ -366,7 +379,9 @@
 
 	<div class="text" id="test-status"></div>
 
-	<input type="text" id="search" placeholder="Search (ctrl+f)" />
+	<input type="search" id="search" placeholder="Search/filter (ctrl+f)"
+		list="top-folders-list" />
+	<datalist id="top-folders-list"></datalist>
 
 	<!--
 	<div class="comparing" style="padding-top: 0.5em">
@@ -387,7 +402,9 @@
 <div id="main-nav"></div>
 
 <script>
-controller.loadSamples();
-controller.focusSearch();
-controller.activateSearch();
+controller.loadSamples(() => {
+	// Search
+	controller.focusSearch();
+	controller.activateSearch();
+});
 </script>
