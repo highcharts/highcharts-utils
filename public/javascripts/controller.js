@@ -336,7 +336,13 @@ var controller = { // eslint-disable-line no-unused-vars
                 let isMatch = true,
                     innerHTML = sample.path;
                 for (let word of words) {
-                    if (sample.path.indexOf(word) === -1) {
+                    const [keyword, searchword] = word.split(':');
+                    if (keyword === 'folder' && searchword) {
+                        if (sample.path.indexOf(searchword) !== 0) {
+                            isMatch = false;
+                            break;
+                        }
+                    } else if (sample.path.indexOf(word) === -1) {
                         isMatch = false;
                         break;
                     } else if (word !== '') {
@@ -625,8 +631,7 @@ var controller = { // eslint-disable-line no-unused-vars
                 topFolders.push(topFolder);
 
                 const option = contentsDoc.createElement('option');
-                option.value = `${topFolder}/`;
-                option.innterText = `${topFolder}/`;
+                option.value = `folder:${topFolder}`;
                 datalist.appendChild(option);
             }
         }
