@@ -193,7 +193,7 @@ var controller = { // eslint-disable-line no-unused-vars
 
             var totalWidth = 99;
             var total = controller.samples.length - controller.unitTestCount;
-            var remaining = (
+            var untested = (
                 total -
                 testStatus.success.length -
                 testStatus.error.length
@@ -206,30 +206,39 @@ var controller = { // eslint-disable-line no-unused-vars
                 (testStatus.error.length / total) *
                 totalWidth
             );
-            var remainingWidth = (remaining / total) * totalWidth;
-            var table = '<div class="progress">' +
-                '<div class="success" style="width:' + successWidth + '%"></div>' +
-                '<div class="error" style="width:' + errorWidth + '%"></div>' +
-                '<div class="remaining" style="width:' + remainingWidth +'%"></div>' +
-                /*
-                '<div class="time-elapsed" style="left:' + (successWidth + errorWidth) +'%">' +
-                    Math.round(testStatus.timeElapsed / 1000) +
-                's</div>' +
-                */
-                '</div>';
+            const errorLeft = Math.round(successWidth + errorWidth / 2);
+            var remainingWidth = (untested / total) * totalWidth;
 
-            this.frames().contents.contentDocument.getElementById('test-status')
-                .innerHTML =
-                table +
+
+            const title = `Success: ${testStatus.success.length}\n` +
+                `Error: ${testStatus.error.length}\n` +
+                `Untested: ${untested}`;
+
+            this.frames().contents.contentDocument
+                .getElementById('test-status').innerHTML = `
+                <div class="progress" title="${title}">
+                    <div class="success" style="width:${successWidth}%"></div>
+                    <div class="error" style="width:${errorWidth}%"></div>
+                    <div class="remaining" style="width:${remainingWidth}%"></div>
+                    <a id="error-count" style="left:${errorLeft}%"
+                        href="javascript:controller?.search('status:error')"
+                        title="${testStatus.error.length} errors">
+                        ${testStatus.error.length}
+                    </a>
+                </div>
+            `;
+
+            /*
+            +
                 '<span class="success">Success: ' + testStatus.success.length + '</span>, ' +
                 '<a class="' + (testStatus.error.length ? 'error' : '') +
-                '" href="javascript:controller&&controller.filter(\'error\')">' +
+                '" href="javascript:controller&&controller.filter(\'status:error\')">' +
                 'Error: ' + testStatus.error.length + '</a>, ' +
                 '<a class="remaining" href="javascript:controller&&controller.filter(\'remaining\')">' +
                 'Remaining: ' + remaining + '</a> of ' +
                 '<a href="javascript:controller&&controller.filter()">' +
                     total + '</a>';
-
+            */
 
             controller.docTitle();
 
@@ -294,73 +303,76 @@ var controller = { // eslint-disable-line no-unused-vars
         return '';
     },
 
+    search: function (q) {
+        const search = this.frames().contents.contentDocument
+            .getElementById('search');
+
+        search.value = q;
+        search.dispatchEvent(new Event('input'));
+    },
+
     /*
      * Update the contents to show only errors, or show all
      */
-    filter: function (status, search) {
+    filter: function (q) {
         // console.time('@filter')
-        var contentFrame = this.frames().contents,
+        const contentFrame = this.frames().contents,
             error = this.testStatus.error,
             success = this.testStatus.success,
-            mainNav = contentFrame.contentDocument.getElementById('main-nav');
+            mainNav = contentFrame.contentDocument.getElementById('main-nav'),
+            words = q.split(' ');
 
-        // Status
-        if (search === undefined) {
-            controller.clearSearch();
-            controller.samples.forEach(function (sample) {
-                const li = sample.getLi();
-                if (status === 'error' && error.indexOf(sample.path) === -1) {
-                    li.classList.add('hidden');
-
-                } else if (
-                    status === 'remaining' &&
-                    (
-                        error.indexOf(sample.path) !== -1 ||
-                        success.indexOf(sample.path) !== -1 ||
-                        sample.isUnitTest()
-                    )
-                ) {
-                    li.classList.add('hidden');
-
-                } else {
-                    li.classList.remove('hidden');
-                }
-            });
-
-        // Search
-        } else {
-            const words = search.split(' ');
-            controller.samples.forEach((sample) => {
-                const li = sample.getLi(),
-                    a = li.firstChild;
-                let isMatch = true,
-                    innerHTML = sample.path;
-                for (let word of words) {
-                    const [keyword, searchword] = word.split(':');
-                    if (keyword === 'folder' && searchword) {
-                        if (sample.path.indexOf(searchword) !== 0) {
-                            isMatch = false;
-                            break;
-                        }
-                    } else if (sample.path.indexOf(word) === -1) {
+        controller.samples.forEach((sample) => {
+            const li = sample.getLi(),
+                a = li.firstChild;
+            let isMatch = true,
+                innerHTML = sample.path;
+            for (let word of words) {
+                const [keyword, searchword] = word.split(':');
+                if (keyword === 'folder' && searchword) {
+                    if (sample.path.indexOf(searchword) !== 0) {
                         isMatch = false;
                         break;
-                    } else if (word !== '') {
-                        innerHTML = innerHTML.replace(
-                            new RegExp(`(${word})`),
-                            '<b>$1</b>'
-                        );
                     }
+
+                } else if (keyword === 'status' && searchword) {
+                    if (
+                        searchword === 'error' &&
+                        error.indexOf(sample.path) === -1
+                    ) {
+                        isMatch = false;
+                        break;
+                    } else if (
+                        searchword === 'untested' &&
+                        (
+                            error.indexOf(sample.path) !== -1 ||
+                            success.indexOf(sample.path) !== -1 ||
+                            sample.isUnitTest()
+                        )
+                    ) {
+                        isMatch = false;
+                        break;
+                    }
+
+                } else if (sample.path.indexOf(word) === -1) {
+                    isMatch = false;
+                    break;
+
+                } else if (word !== '') {
+                    innerHTML = innerHTML.replace(
+                        new RegExp(`(${word})`),
+                        '<b>$1</b>'
+                    );
                 }
-                if (isMatch) {
-                    li.classList.remove('hidden');
-                    a.innerHTML = innerHTML;
-                } else {
-                    li.classList.add('hidden');
-                    a.innerText = sample.path;
-                }
-            });
-        }
+            }
+            if (isMatch) {
+                li.classList.remove('hidden');
+                a.innerHTML = innerHTML;
+            } else {
+                li.classList.add('hidden');
+                a.innerText = sample.path;
+            }
+        });
 
         // Headers
         [].forEach.call(
@@ -621,7 +633,7 @@ var controller = { // eslint-disable-line no-unused-vars
             datalist = contentsDoc.getElementById('top-folders-list');
 
         search.addEventListener('input', () => {
-            controller.filter(undefined, search.value);
+            controller.filter(search.value);
         });
 
         const topFolders = [];
@@ -634,6 +646,12 @@ var controller = { // eslint-disable-line no-unused-vars
                 option.value = `folder:${topFolder}`;
                 datalist.appendChild(option);
             }
+        }
+
+        for (const status of ['error', 'untested']) {
+            const option = contentsDoc.createElement('option');
+            option.value = `status:${status}`;
+            datalist.appendChild(option);
         }
 
     },
