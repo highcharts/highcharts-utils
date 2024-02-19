@@ -317,13 +317,25 @@ var controller = { // eslint-disable-line no-unused-vars
     filter: function (q) {
         // console.time('@filter')
         const contentFrame = this.frames().contents,
+            contentDoc = contentFrame.contentDocument,
             error = this.testStatus.error,
             success = this.testStatus.success,
-            mainNav = contentFrame.contentDocument.getElementById('main-nav'),
+            mainNav = contentDoc.getElementById('main-nav'),
             words = q.split(' ');
+
+        // Headers
+        const headerMap = [].reduce.call(
+            contentDoc.querySelectorAll('h2, h4'),
+            (headerMap, h) => {
+                headerMap[h.innerText.toLowerCase()] = 0;
+                return headerMap;
+            },
+            {}
+        );
 
         controller.samples.forEach((sample) => {
             const li = sample.getLi(),
+                dirs = sample.path.split('/'),
                 a = li.firstChild;
             let isMatch = true,
                 innerHTML = sample.path;
@@ -368,27 +380,26 @@ var controller = { // eslint-disable-line no-unused-vars
             if (isMatch) {
                 li.classList.remove('hidden');
                 a.innerHTML = innerHTML;
+
+                headerMap[dirs[0]]++;
+                headerMap[`${dirs[0]}/${dirs[1]}`]++;
+
             } else {
                 li.classList.add('hidden');
                 a.innerText = sample.path;
             }
         });
 
-        // Headers
-        [].forEach.call(
-            contentFrame.contentDocument.querySelectorAll('h2, h4'),
-            function (h) {
-                let ul = h.nextSibling;
-                while (ul.nodeName !== 'UL') {
-                    ul = ul.nextSibling;
-                }
-                if (ul.querySelector('li:not(.hidden)')) {
-                    h.classList.remove('hidden');
-                } else {
-                    h.classList.add('hidden');
-                }
+        for (const key of Object.keys(headerMap)) {
+            const header = contentDoc.getElementById(
+                key.replace(/[\/\.]/g, '-')
+            );
+            if (headerMap[key]) {
+                header.classList.remove('hidden');
+            } else {
+                header.classList.add('hidden');
             }
-        );
+        }
 
         // Keep the current sample in view if visible
         if (controller.currentSample) {
