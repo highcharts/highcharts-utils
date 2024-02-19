@@ -82,7 +82,9 @@ router.get('/list', async (req, res) => {
         direction: 'desc',
         per_page: 10
     }).catch(e => console.error(e));
-    issues.data = issues && issues.data.filter(issue => !issue.pull_request);
+    if (issues) {
+        issues.data = issues.data.filter(issue => !issue.pull_request);
+    }
 
     const featureRequests = await octokit.issues.listForRepo({
         ...repo,
@@ -97,14 +99,13 @@ router.get('/list', async (req, res) => {
     res.send(JSON.stringify({
         pulls: pulls ? [
             ...pulls.data
-                .filter(p => !p.labels.find(l => l.name == 'Status: Stale'))
                 .map(p => {
                     p.pull_request = true;
                     return p;
                 }),
             ...issues.data,
             ...featureRequests.data
-        ] : []
+        ].filter(p => !p.labels.find(l => l.name == 'Status: Stale')) : []
     }));
 });
 
