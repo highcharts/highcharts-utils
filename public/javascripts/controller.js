@@ -647,6 +647,9 @@ var controller = { // eslint-disable-line no-unused-vars
             controller.filter(search.value);
         });
 
+        const modifierKey = /Mac/.test(navigator.platform) ? '⌘' : 'Ctrl + '
+        search.placeholder = `Filter (${modifierKey}K)`;
+
         const topFolders = [];
         for (const sample of controller.samples) {
             const topFolder = sample.path.split('/')[0];

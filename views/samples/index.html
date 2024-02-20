@@ -47,7 +47,7 @@
 				return false;
 			}
 
-			if (e.ctrlKey && e.key === 'f') {
+			if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
 				controller.focusSearch();
 			}
 		}
