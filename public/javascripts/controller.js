@@ -31,7 +31,7 @@ var controller = { // eslint-disable-line no-unused-vars
         }).length;
 
         controller.loaded = true;
-        controller.updateStatus()
+        controller.updateStatus();
     }],
 
     runLoad: function () {
@@ -193,7 +193,7 @@ var controller = { // eslint-disable-line no-unused-vars
 
             var totalWidth = 99;
             var total = controller.samples.length - controller.unitTestCount;
-            var remaining = (
+            var untested = (
                 total -
                 testStatus.success.length -
                 testStatus.error.length
@@ -206,30 +206,39 @@ var controller = { // eslint-disable-line no-unused-vars
                 (testStatus.error.length / total) *
                 totalWidth
             );
-            var remainingWidth = (remaining / total) * totalWidth;
-            var table = '<div class="progress">' +
-                '<div class="success" style="width:' + successWidth + '%"></div>' +
-                '<div class="error" style="width:' + errorWidth + '%"></div>' +
-                '<div class="remaining" style="width:' + remainingWidth +'%"></div>' +
-                /*
-                '<div class="time-elapsed" style="left:' + (successWidth + errorWidth) +'%">' +
-                    Math.round(testStatus.timeElapsed / 1000) +
-                's</div>' +
-                */
-                '</div>';
+            const errorLeft = Math.round(successWidth + errorWidth / 2);
+            var remainingWidth = (untested / total) * totalWidth;
 
-            this.frames().contents.contentDocument.getElementById('test-status')
-                .innerHTML =
-                table +
+
+            const title = `Success: ${testStatus.success.length}\n` +
+                `Error: ${testStatus.error.length}\n` +
+                `Untested: ${untested}`;
+
+            this.frames().contents.contentDocument
+                .getElementById('test-status').innerHTML = `
+                <div class="progress" title="${title}">
+                    <div class="success" style="width:${successWidth}%"></div>
+                    <div class="error" style="width:${errorWidth}%"></div>
+                    <div class="remaining" style="width:${remainingWidth}%"></div>
+                    <a id="error-count" style="left:${errorLeft}%"
+                        href="javascript:controller?.search('status:error')"
+                        title="${testStatus.error.length} errors">
+                        ${testStatus.error.length}
+                    </a>
+                </div>
+            `;
+
+            /*
+            +
                 '<span class="success">Success: ' + testStatus.success.length + '</span>, ' +
                 '<a class="' + (testStatus.error.length ? 'error' : '') +
-                '" href="javascript:controller&&controller.filter(\'error\')">' +
+                '" href="javascript:controller&&controller.filter(\'status:error\')">' +
                 'Error: ' + testStatus.error.length + '</a>, ' +
                 '<a class="remaining" href="javascript:controller&&controller.filter(\'remaining\')">' +
                 'Remaining: ' + remaining + '</a> of ' +
                 '<a href="javascript:controller&&controller.filter()">' +
                     total + '</a>';
-
+            */
 
             controller.docTitle();
 
@@ -294,44 +303,113 @@ var controller = { // eslint-disable-line no-unused-vars
         return '';
     },
 
+    search: function (q) {
+        const search = this.frames().contents.contentDocument
+            .getElementById('search');
+
+        search.value = q;
+        search.dispatchEvent(new Event('input'));
+    },
+
     /*
      * Update the contents to show only errors, or show all
      */
-    filter: function (status) {
-        var contentFrame = this.frames().contents,
+    filter: function (q) {
+        // console.time('@filter')
+        const contentFrame = this.frames().contents,
+            contentDoc = contentFrame.contentDocument,
             error = this.testStatus.error,
-            success = this.testStatus.success;
+            success = this.testStatus.success,
+            mainNav = contentDoc.getElementById('main-nav'),
+            words = q.split(' ');
 
-        controller.samples.forEach(function (sample) {
-            if (status === 'error' && error.indexOf(sample.path) === -1) {
-                sample.getLi().style.display = 'none';
+        // Headers
+        const headerMap = [].reduce.call(
+            contentDoc.querySelectorAll('h2, h4'),
+            (headerMap, h) => {
+                headerMap[h.innerText.toLowerCase()] = 0;
+                return headerMap;
+            },
+            {}
+        );
 
-            } else if (
-                status === 'remaining' &&
-                (
-                    error.indexOf(sample.path) !== -1 ||
-                    success.indexOf(sample.path) !== -1 ||
-                    sample.isUnitTest()
-                )
-            ) {
-                sample.getLi().style.display = 'none';
+        controller.samples.forEach((sample) => {
+            const li = sample.getLi(),
+                dirs = sample.path.split('/'),
+                a = li.firstChild;
+            let isMatch = true,
+                innerHTML = sample.path;
+            for (let word of words) {
+                const [keyword, searchword] = word.split(':');
+                if (keyword === 'folder' && searchword) {
+                    if (sample.path.indexOf(searchword) !== 0) {
+                        isMatch = false;
+                        break;
+                    }
+
+                } else if (keyword === 'status' && searchword) {
+                    if (
+                        searchword === 'error' &&
+                        error.indexOf(sample.path) === -1
+                    ) {
+                        isMatch = false;
+                        break;
+                    } else if (
+                        searchword === 'untested' &&
+                        (
+                            error.indexOf(sample.path) !== -1 ||
+                            success.indexOf(sample.path) !== -1 ||
+                            sample.isUnitTest()
+                        )
+                    ) {
+                        isMatch = false;
+                        break;
+                    }
+
+                } else if (sample.path.indexOf(word) === -1) {
+                    isMatch = false;
+                    break;
+
+                } else if (word !== '') {
+                    innerHTML = innerHTML.replace(
+                        new RegExp(`(${word})`),
+                        '<b>$1</b>'
+                    );
+                }
+            }
+            if (isMatch) {
+                li.classList.remove('hidden');
+                a.innerHTML = innerHTML;
+
+                headerMap[dirs[0]]++;
+                headerMap[`${dirs[0]}/${dirs[1]}`]++;
 
             } else {
-                sample.getLi().style.display = '';
+                li.classList.add('hidden');
+                a.innerText = sample.path;
             }
         });
 
-        // Headers
-        [].forEach.call(
-            contentFrame.contentDocument.querySelectorAll('h2, h4'),
-            function (h) {
-                if (status === 'error' || status === 'remaining') {
-                    h.style.display = 'none';
-                } else {
-                    h.style.display = '';
-                }
+        for (const key of Object.keys(headerMap)) {
+            const header = contentDoc.getElementById(
+                key.replace(/[\/\.]/g, '-')
+            );
+            if (headerMap[key]) {
+                header.classList.remove('hidden');
+            } else {
+                header.classList.add('hidden');
             }
-        );
+        }
+
+        // Keep the current sample in view if visible
+        if (controller.currentSample) {
+            mainNav.scrollTo({
+                top: controller.currentSample.getLi().offsetTop -
+                    Math.round(mainNav.offsetHeight * 0.4),
+                behavior: 'instant'
+            });
+        }
+        // console.timeEnd('@filter')
     },
 
     getQueryParameters: function (win) {
@@ -375,9 +453,12 @@ var controller = { // eslint-disable-line no-unused-vars
             nextSample;
 
         // Jump to the next visible item
-        while (index++ && index <= controller.samples.length) {
+        while (index++ >= 0 && index <= controller.samples.length) {
             nextSample = controller.samples[index];
-            if (nextSample && nextSample.getLi().style.display !== 'none') {
+            if (
+                nextSample &&
+                !nextSample.getLi().classList.contains('hidden')
+            ) {
                 controller.frames().main.contentWindow.location.href =
                     controller.frames().main.contentWindow.location.href
                         .replace(controller.currentSample.path, nextSample.path);
@@ -388,11 +469,21 @@ var controller = { // eslint-disable-line no-unused-vars
 
     previous: function () {
         // No + 1 because .index is 1-based
-        var prevSample = controller.samples[controller.currentSample.index - 2];
-        if (prevSample) {
-            controller.frames().main.contentWindow.location.href =
-                controller.frames().main.contentWindow.location.href
-                    .replace(controller.currentSample.path, prevSample.path);
+        let index = controller.currentSample.index - 1,
+            prevSample;
+
+        // Jump to the previous visible item
+        while (index-- && index >= 0) {
+            prevSample = controller.samples[index];
+            if (
+                prevSample &&
+                !prevSample.getLi().classList.contains('hidden')
+            ) {
+                controller.frames().main.contentWindow.location.href =
+                    controller.frames().main.contentWindow.location.href
+                        .replace(controller.currentSample.path, prevSample.path);
+                break;
+            }
         }
     },
 
@@ -545,6 +636,50 @@ var controller = { // eslint-disable-line no-unused-vars
 
     fetch: async function(url) {
         return await this.fetchNative(controller.rewriteJSONPath(url));
+    },
+
+    activateSearch: function () {
+        const contentsDoc = controller.frames().contents.contentDocument,
+            search = contentsDoc.getElementById('search'),
+            datalist = contentsDoc.getElementById('top-folders-list');
+
+        search.addEventListener('input', () => {
+            controller.filter(search.value);
+        });
+
+        const modifierKey = /Mac/.test(navigator.platform) ? '⌘' : 'Ctrl + '
+        search.placeholder = `Filter (${modifierKey}K)`;
+
+        const topFolders = [];
+        for (const sample of controller.samples) {
+            const topFolder = sample.path.split('/')[0];
+            if (!topFolders.includes(topFolder)) {
+                topFolders.push(topFolder);
+
+                const option = contentsDoc.createElement('option');
+                option.value = `folder:${topFolder}`;
+                datalist.appendChild(option);
+            }
+        }
+
+        for (const status of ['error', 'untested']) {
+            const option = contentsDoc.createElement('option');
+            option.value = `status:${status}`;
+            datalist.appendChild(option);
+        }
+
+    },
+
+    focusSearch: function () {
+        controller.frames().contents.contentDocument
+			.getElementById('search').focus();
+    },
+
+    clearSearch: function () {
+        const contentsDoc = controller.frames().contents.contentDocument,
+            search = contentsDoc.getElementById('search');
+        search.value = '';
+        search.dispatchEvent(new Event('input'));
     }
 
 };

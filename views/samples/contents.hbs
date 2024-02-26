@@ -80,11 +80,12 @@
 		$('#product-jump', document).change(function (e) {
 			document
 				.getElementById(e.target.value)
-				.scrollIntoView();
+				.scrollIntoView({ behavior: 'smooth' });
 
 		});
 
 		// Set compare mode
+		/*
 		document.getElementById('comparemode-' + controller.compareMode).checked = true;
 		document.querySelectorAll('.comparing input').forEach(function (node) {
 			node.addEventListener('change', function (e) {
@@ -96,6 +97,7 @@
 			});
 		});
 		document.getElementById('comparemode-local-label').title = controller.server.branch;
+		*/
 
 		countFails();
 
@@ -153,6 +155,9 @@
 	li.visited a {
 		color: gray;
 	}
+	.hidden {
+		display: none;
+	}
 
 	.progress {
 		margin: 0 -10px 30px -10px;
@@ -178,6 +183,15 @@
 	}
 	.success {
 		color: #a4edba;
+	}
+	.progress a#error-count {
+		position: absolute;
+		top: 0.2em;
+		background-color: #f15c80;
+		text-decoration: none !important;
+		border-radius: 0.3em;
+		padding-inline: 0.2em;
+		margin-left: -0.5em;
 	}
 	#top-nav .text a.error {
 		color: #f15c80;
@@ -209,6 +223,26 @@
 		border-color: black;
 		border-left-width: 1em;
 	}
+
+	#search-container {
+		position: relative;
+	}
+
+	#search {
+		width: 99%;
+		margin-top: 0.5em;
+		padding: 0.2em;
+	}
+
+	#search-clear {
+		position: absolute;
+		right: 0.3em;
+		top: 0.75em;
+		color: #999;
+		cursor: pointer;
+		font-size: 1.3em;
+	}
+
 	body {
 		margin: 0;
 	}
@@ -354,7 +388,10 @@
 
 	<div class="text" id="test-status"></div>
 
+	<input type="search" id="search" list="top-folders-list" />
+	<datalist id="top-folders-list"></datalist>
 
+	<!--
 	<div class="comparing" style="padding-top: 0.5em">
 		<form id="comparemode">
 			Comparing:
@@ -366,11 +403,16 @@
 			</label>
 		</form>
 	</div>
+	-->
 </div>
 
 
 <div id="main-nav"></div>
 
 <script>
-controller.loadSamples();
+controller.loadSamples(() => {
+	// Search
+	controller.focusSearch();
+	controller.activateSearch();
+});
 </script>
