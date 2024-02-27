@@ -19,7 +19,8 @@ router.get(/[a-z\/\-\.]/, async function(req, res) {
             '.css': 'text/css',
             '.js': 'text/javascript',
             '.map': 'application/json',
-            '.svg': 'image/svg+xml'
+            '.svg': 'image/svg+xml',
+            '.json': 'application/json',
         }[extname(req.path)];
         if (type) {
             res.type(type);
