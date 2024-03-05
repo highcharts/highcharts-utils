@@ -100,9 +100,12 @@ var controller = window.parent && window.parent.controller,
 		}
 
 		if (typeof Highcharts !== 'undefined') {
-			$('#version').html('Version: ' + Highcharts.product + ' ' +
-				Highcharts.version +
-				' / Branch: ' + controller.server.branch);
+			$('#version').html(
+				// 'Version: ' + Highcharts.product + ' ' +
+				// Highcharts.version +
+				// ' / ' +
+				'Branch: ' + controller.server.branch
+			);
 		}
 
 		if (window.parent.frames[0]) {

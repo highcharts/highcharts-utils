@@ -104,6 +104,7 @@
 	});
 
 </script>
+<script type="module" src="/modules/contents.js"></script>
 <style type="text/css">
 	* {
 		font-family: Arial, Verdana;
@@ -407,7 +408,9 @@
 </div>
 
 
-<div id="main-nav"></div>
+<div id="main-nav">
+	<div id="changed-samples"></div>
+</div>
 
 <script>
 controller.loadSamples(() => {
