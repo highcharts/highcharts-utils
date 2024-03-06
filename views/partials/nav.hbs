@@ -28,64 +28,7 @@
             <span class="button-text">Reload</span>
         </a>
 
-        {{#if styled}}
-        <!--a class="button active" title="View this sample with CSS and no inline styling"
-                href="view?path={{path}}&amp;styled=false">
-            <i class="fa fa-css3"></i>
-            <span class="button-text">Styled</span>
-        </a-->
-        {{else}}
-        <!--a class="button" title="View this sample with CSS and no inline styling"
-            href="view?path={{path}}&amp;styled=true">
-            <i class="fa fa-css3"></i>
-            <span class="button-text">Styled</span>
-        </a-->
-        {{/if}}
-
-        <a class="button {{compareClass}} mobile-hide"
-                href="compare-view?path={{path}}">
-            <i class="fa fa-columns"></i>
-            <span class="button-text">Compare</span>
-        </a><a class="button mobile-hide" id="bisect">
-            <i class="fa fa-code-fork"></i>
-            <span class="button-text">Bisect</span>
-        </a>
-
-
-        <a class="button mobile-hide"
-            href="view?path={{path}}&amp;profile=1">
-            <i class="fa fa-rocket"></i>
-            <span class="button-text">Profile</span>
-        </a><a class="button mobile-hide"
-            href="view?path={{path}}&amp;time=1">
-            <i class="fa fa-clock-o"></i>
-            <span class="button-text">Time</span></a>
-
-
-        <a id="view-source" class="button mobile-hide" href="javascript:;">
-            <i class="fa fa-code"></i>
-            <span class="button-text">View source</span>
-        </a>
-
-		<a class="button mobile-hide" id="share"
-		<a class="button mobile-hide" id="share"
-			href="/samples/jsfiddle-post?path={{path}}">
-			<i class="fa fa-external-link"></i>
-			<span class="button-text">Share</span></a>
-		</a>
-
-		<!--a class="button mobile-hide"
-			href="http://{{ipAddress}}:3030/samples/view?path={{path}}&mobile=true"
-			target="_blank">
-			<i class="fa fa-mobile"></i>
-			<span class="button-text">Mobile</span></a-->
-
-		<a id="mobile-preview" class="button mobile-hide" href="javascript:;">
-			<i class="fa fa-mobile"></i>
-			<span class="button-text">Mobile</span></a>
-
-
-		<!-- if themes, means we have a mini form control -->
+        <!-- if themes, means we have a mini form control -->
 		<div class="dropdown" data-anchor="quick-settings">
 			<div class="dropdown-inner">
 				{{#if compileOnDemand}}
@@ -130,5 +73,72 @@
 			<i class="fa fa-cog"></i>
 			<span class="button-text">Quick settings</span></a>
 
+        {{#if styled}}
+        <!--a class="button active" title="View this sample with CSS and no inline styling"
+                href="view?path={{path}}&amp;styled=false">
+            <i class="fa fa-css3"></i>
+            <span class="button-text">Styled</span>
+        </a-->
+        {{else}}
+        <!--a class="button" title="View this sample with CSS and no inline styling"
+            href="view?path={{path}}&amp;styled=true">
+            <i class="fa fa-css3"></i>
+            <span class="button-text">Styled</span>
+        </a-->
+        {{/if}}
+
+        <a class="button {{compareClass}} mobile-hide"
+                href="compare-view?path={{path}}">
+            <i class="fa fa-columns"></i>
+            <span class="button-text">Compare</span>
+        </a><a class="button mobile-hide" id="bisect">
+            <i class="fa fa-code-fork"></i>
+            <span class="button-text">Bisect</span>
+        </a>
+
+        <a id="view-source" class="button mobile-hide" href="javascript:;">
+            <i class="fa fa-code"></i>
+            <span class="button-text">View source</span>
+        </a>
+
+		<a class="button mobile-hide" id="share"
+			href="/samples/jsfiddle-post?path={{path}}">
+			<i class="fa fa-external-link"></i>
+			<span class="button-text">Share</span></a>
+		</a>
+
+		<!--a class="button mobile-hide"
+			href="http://{{ipAddress}}:3030/samples/view?path={{path}}&mobile=true"
+			target="_blank">
+			<i class="fa fa-mobile"></i>
+			<span class="button-text">Mobile</span></a-->
+
+		<a id="mobile-preview" class="button mobile-hide" href="javascript:;">
+			<i class="fa fa-mobile"></i>
+			<span class="button-text">Mobile</span></a>
+
+
+        <a class="button mobile-hide"
+            href="view?path={{path}}&amp;profile=1">
+            <i class="fa fa-rocket"></i>
+            <span class="button-text">Profile</span>
+        </a>
+
+        <a class="button mobile-hide"
+            href="view?path={{path}}&amp;time=1">
+            <i class="fa fa-clock-o"></i>
+            <span class="button-text">Time</span></a>
+
+
+    </div>
+
+    <div id="popup">
+        <div id="popup-content">
+            <div id="popup-close">
+                <i class="fa fa-times"></i>
+            </div>
+            <div id="popup-title"></div>
+            <div id="popup-body"></div>
+        </div>
     </div>
 </div>
