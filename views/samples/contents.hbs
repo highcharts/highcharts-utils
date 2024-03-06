@@ -84,6 +84,12 @@
 
 		});
 
+		// Jump to top
+		$('#to-top a', document).click(() => {
+			document.getElementById('main-nav')
+				.scrollTo({ top: 0, behavior: 'smooth' });
+		});
+
 		// Set compare mode
 		/*
 		document.getElementById('comparemode-' + controller.compareMode).checked = true;
@@ -115,6 +121,21 @@
 		padding-right: 1em;
 	}
 
+	#changed-samples a {
+		display: block;
+	}
+	#to-top {
+		position: absolute;
+		bottom: 1em;
+		left: 40%;
+	}
+	#to-top a {
+		color: white;
+		display: block;
+		padding: 0.5em;
+		background: #34343e;
+		border-radius: 3px;
+	}
 	li, a, p, div, span {
 		font-size: 12px;
 	}
@@ -410,6 +431,10 @@
 
 <div id="main-nav">
 	<div id="changed-samples"></div>
+</div>
+
+<div id="to-top">
+	<a href="#top-nav">↑ Top</a>
 </div>
 
 <script>
