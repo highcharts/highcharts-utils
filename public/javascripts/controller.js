@@ -394,10 +394,12 @@ var controller = { // eslint-disable-line no-unused-vars
             const header = contentDoc.getElementById(
                 key.replace(/[\/\.]/g, '-')
             );
-            if (headerMap[key]) {
-                header.classList.remove('hidden');
-            } else {
-                header.classList.add('hidden');
+            if (header) {
+                if (headerMap[key]) {
+                    header.classList.remove('hidden');
+                } else {
+                    header.classList.add('hidden');
+                }
             }
         }
 
