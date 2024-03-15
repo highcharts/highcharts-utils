@@ -21,7 +21,8 @@ const octokit = new Octokit();
         files.data
             .filter(f => (
                 f.filename.indexOf('samples') === 0 &&
-                /demo\.(html|js|css)$/.test(f.filename)
+                /demo\.(html|js|css)$/.test(f.filename) &&
+                f.status !== 'removed'
             ))
             .map(f => f.filename
                 .replace(/^samples\//, '')
@@ -30,17 +31,28 @@ const octokit = new Octokit();
 
     if (samples.length) {
         const div = document.querySelector('#main-nav #changed-samples');
+        div.classList.remove('hidden');
 
         div.innerHTML += `<h4>
-            Changed samples in this PR (${pull.data[0].number})</h4>
-        `;
+            Changes in this PR (<a
+                target="_blank"
+                href="https://github.com/highcharts/highcharts/pull/${pull.data[0].number}">
+                #${pull.data[0].number}</a>)
+            <a class="close-icon" href="javascript:void(0)"
+                onclick="document.querySelector('#changed-samples')
+                    .classList.toggle('hidden')">
+                <i class="fa fa-close"></i></a>
+            </a>
+
+        </h4>
+        <div id="changed-samples-body"></div>`;
         samples.forEach(path => {
             const a = document.createElement('a');
             a.innerText = path;
             a.href = `/samples/view?path=${path}`;
             a.target = 'main';
 
-            div.appendChild(a);
+            div.querySelector('#changed-samples-body').appendChild(a);
         })
     }
 

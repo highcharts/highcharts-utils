@@ -66,6 +66,7 @@ router.get('/last-update', async (req, res) => {
 });
 
 router.get('/list', async (req, res) => {
+    /*
     const pulls = await octokit.pulls.list({
         ...repo,
         state: 'open',
@@ -73,6 +74,7 @@ router.get('/list', async (req, res) => {
         direction: 'desc',
         per_page
     }).catch(e => console.error(e));
+    */
 
     // Note: this also returns pulls
     const issues = await octokit.issues.listForRepo({
@@ -80,8 +82,10 @@ router.get('/list', async (req, res) => {
         state: 'open',
         sort: 'updated',
         direction: 'desc',
-        per_page: 10
+        per_page
     }).catch(e => console.error(e));
+
+    /*
     if (issues) {
         issues.data = issues.data.filter(issue => !issue.pull_request);
     }
@@ -94,18 +98,12 @@ router.get('/list', async (req, res) => {
         labels: 'Type: Feature Request',
         per_page: 5
     }).catch(e => console.error(e));
+    */
 
     res.type('text/json');
     res.send(JSON.stringify({
-        pulls: pulls ? [
-            ...pulls.data
-                .map(p => {
-                    p.pull_request = true;
-                    return p;
-                }),
-            ...issues.data,
-            ...featureRequests.data
-        ].filter(p => !p.labels.find(l => l.name == 'Status: Stale')) : []
+        pulls: issues.data
+            .filter(p => !p.labels.find(l => l.name == 'Status: Stale'))
     }));
 });
 

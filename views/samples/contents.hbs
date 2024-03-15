@@ -121,8 +121,35 @@
 		padding-right: 1em;
 	}
 
+	#changed-samples {
+		position: fixed;
+		top: 15vh;
+		margin-right: 1em;
+		z-index: 10;
+		background: #f6f6f6;
+		border-radius: 0.3em;
+		box-shadow: 0px 0px 8px black;
+		padding: 0.5em;
+	}
+	#changed-samples h4 {
+		margin: 0;
+		padding: 0.5em 0 1em 0;
+		border-bottom: 1px solid #ddd;
+	}
+	#changed-samples-body {
+		overflow-y: auto;
+		max-height: 20vh;
+	}
+
 	#changed-samples a {
 		display: block;
+	}
+	#changed-samples h4 a {
+		display: inline-block;
+	}
+
+	#changed-samples h4 a.close-icon {
+		float: right;
 	}
 	#to-top {
 		position: absolute;
@@ -425,12 +452,12 @@
 			</label>
 		</form>
 	</div>
-	-->
+	-->l
 </div>
 
 
 <div id="main-nav">
-	<div id="changed-samples"></div>
+	<div id="changed-samples" class="hidden"></div>
 </div>
 
 <div id="to-top">
