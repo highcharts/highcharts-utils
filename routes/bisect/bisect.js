@@ -2,6 +2,7 @@
 
 const express = require('express');
 const router = express.Router();
+const semver = require('semver');
 const { highchartsDir } = require('../../lib/arguments.js');
 const { spawn } =  require('child_process');
 
@@ -118,7 +119,10 @@ router.get('/', async (req, res, next) => {
   		let tags = await git(['tag', '-l']).catch(next);
 
   		if (tags) {
-	  		tags = tags.trim().split(/\s/g);
+	  		tags = tags.trim().split(/\s/g)
+				.filter(tag => semver.valid(tag));
+
+			semver.sort(tags);
 
 	  		// Propose latest tag as the good commit
 	  		tpl.good = tags.pop();

@@ -14,12 +14,12 @@ router.get('/', async (req, res) => {
 
     const path = req.query.path,
         latestCommit = f.getLatestCommit();
-    let html = await fs
+    const html = await fs
         .readFile(
             join(highchartsDir, 'samples', req.query.path, 'demo.html'),
             'utf-8'
         );
-    html = html
+    const modifiedHtml = html
         .replace(
             /https:\/\/code.highcharts.com\//g,
             `https://github.highcharts.com/${latestCommit}/`
@@ -31,18 +31,16 @@ router.get('/', async (req, res) => {
     const js = await fs.readFile(
         join(highchartsDir, 'samples', req.query.path, 'demo.js')
     );
-    let css = await fs.readFile(
+    const css = await fs.readFile(
         join(highchartsDir, 'samples', req.query.path, 'demo.css'),
         'utf-8'
     );
 
-    if (css) {
-        css = css
-            .replace(
-                /https:\/\/code.highcharts.com\//g,
-                `https://github.highcharts.com/${latestCommit}/`
-            );
-    }
+    const modifiedCss = css
+        ?.replace(
+            /https:\/\/code.highcharts.com\//g,
+            `https://github.highcharts.com/${latestCommit}/`
+        );
 
     const details = f.getDetails(req.query.path);
 
@@ -53,6 +51,8 @@ router.get('/', async (req, res) => {
         html,
         css,
         js,
+        modifiedHtml,
+        modifiedCss,
         bodyClass: 'page',
         ipAddress: ip.address()
     });

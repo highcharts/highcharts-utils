@@ -140,4 +140,21 @@ window.addEventListener('load', function () {
 			localStorage.removeItem('mobile-preview');
 		}
 	});
+
+	// Activate share button
+	const shareButton = document.getElementById('share');
+	shareButton.addEventListener('click', (e) => {
+		const src = shareButton.href,
+			popup = document.getElementById('popup');
+
+		popup.style.display = 'block';
+		document.getElementById('popup-body').innerHTML =
+			`<iframe src="${src}"></iframe>`;
+		e.preventDefault();
+	});
+
+	// Close popup
+	document.getElementById('popup').addEventListener('click', () => {
+		document.getElementById('popup').style.display = 'none';
+	});
 });

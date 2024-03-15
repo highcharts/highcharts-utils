@@ -1,4 +1,10 @@
 <style>
+	h2 {
+		margin-bottom: 0;
+	}
+	p {
+		margin-top: 0.25em
+	}
 	textarea {
 		display: none;
 		width: 100%;
@@ -21,36 +27,55 @@
 
 	<h2>Stable demo (preferred)</h2>
 	<p>
-		Fiddle with demo files from GitHub master branch and Highcharts from latest stable (code.highcharts.com).
+		Fiddle with demo files from GitHub master branch and Highcharts from latest stable (<code>code.highcharts.com</code>).
 	</p>
 	<a class="button" href="https://jsfiddle.net/gh/get/library/pure/highcharts/highcharts/tree/master/samples/{{path}}/"
 		target="_blank">jsFiddle</a>
 
 
-	<h2>Work in progress</h2>
-	<p>
-		For non-techies, nice and clean preview with no code view, but contains a link to post it further to jsFiddle. Demo files and Highcharts both from latest commit (github.highcharts.com/{{latestCommit}}).
-	</p>
-	<a class="button" href="https://highcharts.github.io/highcharts-utils/samples/#gh/{{latestCommit}}/sample/{{path}}"
-		target="_blank">highcharts.github.io</a>
-	</p>
-
-	<h2>Local work in progress</h2>
+	<h2>Local demo in progress</h2>
 	<form method="post" action="https://jsfiddle.net/api/post/library/pure/"
-			id="jsfiddle-post" target="_blank">
+			id="jsfiddle-post-stable" target="_blank">
 		<input type="hidden" name="title" value="{{title}}"/>
 		<textarea name="html">{{{html}}}</textarea>
 		<textarea name="js">{{{js}}}</textarea>
 		<textarea name="css">{{{css}}}</textarea>
 	</form>
 	<p>
-		Fiddle with demo files posted from your file system and Highcharts from latest commit (github.highcharts.com/{{latestCommit}}).
+		Fiddle with demo files posted from your file system and Highcharts/Dashboards from <code>code.highcharts.com</code>.
+		Use this if your changes are limited to the demo, not the product files.
 	</p>
-	<a class="button" href="javascript:document.getElementById('jsfiddle-post').submit()">
+	<a class="button" href="javascript:document.getElementById('jsfiddle-post-stable').submit()">
 		jsFiddle
 	</a>
 
+	<h2>Local demo and product in progress</h2>
+	<form method="post" action="https://jsfiddle.net/api/post/library/pure/"
+			id="jsfiddle-post-modified" target="_blank">
+		<input type="hidden" name="title" value="{{title}}"/>
+		<textarea name="html">{{{modifiedHtml}}}</textarea>
+		<textarea name="js">{{{js}}}</textarea>
+		<textarea name="css">{{{modifiedCss}}}</textarea>
+	</form>
+	<p>
+		Fiddle with demo files posted from your file system and Highcharts from latest commit (<code>github.highcharts.com/{{latestCommit}}</code>).
+		The latest commit must be pushed. Use this if your work includes changes to the product itself
+	</p>
+	<a class="button" href="javascript:document.getElementById('jsfiddle-post-modified').submit()">
+		jsFiddle
+	</a>
+
+	<h2>Clean preview, work in progress</h2>
+	<p>
+		For non-techies, nice and clean preview with no code view, but contains a link to post it further to jsFiddle. Demo files and Highcharts both from latest commit (<code>github.highcharts.com/{{latestCommit}}</code>). The latest commit must be pushed.
+	</p>
+	<a class="button" href="https://highcharts.github.io/highcharts-utils/samples/#gh/{{latestCommit}}/sample/{{path}}"
+		target="_blank">highcharts.github.io</a>
+	</p>
+
+
 	<h2>Link for testing on local network</h2>
+	<p>When you need to test on a physical mobile device or other computers.</p>
 	<a class="button" href="http://{{ipAddress}}:3030/samples/view?path={{path}}">
 		Right click to copy
 	</a>

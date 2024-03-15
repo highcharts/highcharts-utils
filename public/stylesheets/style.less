@@ -44,6 +44,33 @@ body.page h1 {
     margin: 0.5em 1em;
 }
 
+#popup {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: rgba(0, 0, 0, 0.5);
+	display: none;
+	z-index: 1000;
+}
+#popup-close {
+	position: absolute;
+	top: 0;
+	right: 0;
+	padding: 0.5em;
+	background: #47475C;
+	color: white;
+	font-size: 2em;
+	cursor: pointer;
+}
+#popup iframe {
+	margin: 20px;
+	width: 90%;
+	height: 90vh;
+	border: none;
+}
+
 .topframe .topframe-hidden {
 	height: 0;
 	overflow-y: hidden;
@@ -84,7 +111,7 @@ body.page h1 {
 
 body.mobile-preview #demo-content {
 	margin: 1em auto;
-	width: 400px;
+	width: 370px;
 }
 
 .top-bar, .top-nav, #samples-nav, #button-row {
