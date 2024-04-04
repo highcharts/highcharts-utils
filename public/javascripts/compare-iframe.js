@@ -464,6 +464,11 @@ window.setUpHighcharts = function () {
 							duration: 0
 						}
 					}
+				},
+				navigator: {
+					series: {
+						animation: false
+					}
 				}
 			});
 		}
