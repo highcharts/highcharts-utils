@@ -5,11 +5,14 @@
 	h4 {
 		border-bottom: 1px solid silver;
 		margin: 0;
-		padding: 0 5px;
+		padding: 0.25em 5px;
 		font-family: Arial, Verdana;
 		font-size: 12px;
 		color: white;
 		background: #34343e;
+	}
+	h4 a {
+		color: white;
 	}
 	.CodeMirror {
 		background: #efefef;
@@ -30,7 +33,7 @@
 		var parentDoc = window.parent.document;
 		var iframe = parentDoc.getElementById('view-source-iframe');
 		var jsBox = document.querySelector('.js .CodeMirror');
-		
+
 		var iframeHeight = $(parentDoc).height() - 80;
 
 		iframe.style.height = iframeHeight + 'px';
@@ -60,20 +63,34 @@
 }(parent.window.jQuery || parent.window.$));
 </script>
 
-<h4>HTML</h4>
+<h4>
+	HTML
+	<a href="vscode://file/{{htmlPath}}" target="_blank">
+		<i class="fa fa-edit"></i>
+	</a>
+</h4>
 <div class="html">
 	<textarea id="html">{{{html}}}</textarea>
 </div>
 
 {{#if css}}
-<h4>CSS</h4>
+<h4>
+	CSS
+	<a href="vscode://file/{{cssPath}}" target="_blank">
+		<i class="fa fa-edit"></i>
+	</a></h4>
 <div class="css">
 	<textarea id="css">{{{css}}}</textarea>
 </div>
 {{/if}}
 
 
-<h4>JavaScript</h4>
+<h4>
+	JavaScript
+	<a href="vscode://file/{{jsPath}}" target="_blank">
+		<i class="fa fa-edit"></i>
+	</a>
+</h4>
 <div class="js">
 	<textarea id="js">{{{js}}}</textarea>
 </div>

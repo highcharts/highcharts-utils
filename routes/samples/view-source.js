@@ -5,23 +5,23 @@ const path = require('path');
 const { samplesDir } = require('../../lib/arguments.js');
 
 router.get('/', function(req, res) {
-  let html = path.join(
+  const htmlPath = path.join(
     samplesDir,
     req.query.path,
     'demo.html'
   );
-  let css = path.join(
+  const cssPath = path.join(
     samplesDir,
     req.query.path,
     'demo.css'
   );
-  let js = path.join(
+  const jsPath = path.join(
     samplesDir,
     req.query.path,
     'demo.js'
   );
 
-  let mjs = path.join(
+  const mjsPath = path.join(
     samplesDir,
     req.query.path,
     'demo.mjs'
@@ -36,11 +36,15 @@ router.get('/', function(req, res) {
       '//cdnjs.cloudflare.com/ajax/libs/codemirror/4.0.3/mode/css/css.min.js'
     ],
     styles: [
-      '//cdnjs.cloudflare.com/ajax/libs/codemirror/4.0.3/codemirror.min.css'
+    	'/stylesheets/vendor/font-awesome-4.7.0/css/font-awesome.css',
+		  '//cdnjs.cloudflare.com/ajax/libs/codemirror/4.0.3/codemirror.min.css'
     ],
-    html: fs.existsSync(html) && fs.readFileSync(html),
-    css: fs.existsSync(css) && fs.readFileSync(css),
-    js: fs.existsSync(js) ? fs.readFileSync(js) : (fs.existsSync(mjs) && fs.readFileSync(mjs))
+    htmlPath,
+    html: fs.existsSync(htmlPath) && fs.readFileSync(htmlPath),
+    cssPath,
+    css: fs.existsSync(cssPath) && fs.readFileSync(cssPath),
+    jsPath,
+    js: fs.existsSync(jsPath) ? fs.readFileSync(jsPath) : (fs.existsSync(mjsPath) && fs.readFileSync(mjsPath))
   });
 });
 
