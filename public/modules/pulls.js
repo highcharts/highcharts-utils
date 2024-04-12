@@ -125,6 +125,7 @@ const decoratePull = async (pull) => {
     }, {});
 
     // Requested review (may be after previous change request or comment)
+    console.log(pull.number, pull.requested_reviewers)
     if (pull.requested_reviewers) {
         pull.requested_reviewers.forEach(reviewer => {
             decoration.reviews[reviewer.login] = {
