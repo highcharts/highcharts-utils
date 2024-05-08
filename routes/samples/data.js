@@ -4,9 +4,9 @@ const fs = require('fs');
 const { samplesDir } = require('../../lib/arguments.js');
 const { join } = require('path');
 
-router.get(/[a-z\/\-\.0-9]+\.(mjs|js|json|csv|ttf)$/, function(req, res) {
+router.get(/[a-z\/\-\.0-9]+\.(gpx|mjs|js|json|csv|ttf|xml)$/, function(req, res) {
 	let file = join(samplesDir, 'data', req.path);
-	if (!fs.existsSync(file)) {
+    if (!fs.existsSync(file)) {
 		res.status(404).send(`File not found: ${file}`);
 		return;
     }
