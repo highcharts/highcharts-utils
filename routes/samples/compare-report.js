@@ -1,7 +1,7 @@
 const express = require('express');
 const {
 	getBranch,
-	getNightlyResult
+	// getNightlyResult
 } = require('../../lib/functions.js');
 const fs = require('fs');
 const path = require('path');
@@ -32,7 +32,11 @@ router.get('/', async (req, res) => {
 		}
 
 		if (results) {
-			Object.keys(results).forEach((path) => {
+			let paths = Object.keys(results);
+			// Sort paths alphabetically
+			paths.sort((a, b) => a.localeCompare(b));
+
+			paths.forEach((path) => {
 				let sample = results[path];
 				//let range = [sample.diff];
 				if (!compare[path]) {
