@@ -24,6 +24,10 @@
 		height: 120px;
 	}
 
+	.edit {
+		float: right;
+	}
+
 </style>
 
 <script>
@@ -51,9 +55,16 @@
     			readOnly: true
   			});
 		}
-		CodeMirror.fromTextArea(document.getElementById('js'), {
+		const jsEditor = CodeMirror.fromTextArea(document.getElementById('js'), {
 			mode: "javascript",
-			readOnly: true
+			readOnly: false
+		});
+
+		// Add a change event listener
+		jsEditor.on('change', () => {
+			// Update the textarea value with the editor content
+			document.getElementById('js').value = jsEditor.getValue();
+			console.log('Editor content changed:', jsEditor.getValue().length);
 		});
 
 		jsSize();
@@ -65,7 +76,8 @@
 
 <h4>
 	HTML
-	<a href="vscode://file/{{htmlPath}}" target="_blank" title="Edit in VSCode">
+	<a href="vscode://file/{{htmlPath}}" target="_blank" title="Edit in VSCode"
+			class="edit">
 		<i class="fa fa-edit"></i>
 	</a>
 </h4>
@@ -76,7 +88,8 @@
 {{#if css}}
 <h4>
 	CSS
-	<a href="vscode://file/{{cssPath}}" target="_blank" title="Edit in VSCode">
+	<a href="vscode://file/{{cssPath}}" target="_blank" title="Edit in VSCode"
+			class="edit">
 		<i class="fa fa-edit"></i>
 	</a></h4>
 <div class="css">
@@ -87,7 +100,8 @@
 
 <h4>
 	JavaScript
-	<a href="vscode://file/{{jsPath}}" target="_blank" title="Edit in VSCode">
+	<a href="vscode://file/{{jsPath}}" target="_blank" title="Edit in VSCode"
+			class="edit">
 		<i class="fa fa-edit"></i>
 	</a>
 </h4>
