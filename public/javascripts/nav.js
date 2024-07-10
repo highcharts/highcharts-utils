@@ -80,8 +80,8 @@ window.addEventListener('load', function () {
 
 	}
 
-	// Activate view source button
-	$('#view-source', document).bind('click', function () {
+	// Activate edit button
+	$('#edit', document).bind('click', function () {
 		var checked;
 
 		$(this).toggleClass('active');
@@ -108,7 +108,7 @@ window.addEventListener('load', function () {
 
 		if (checked) {
 			controller.frames().contents.src =
-				`view-source?path=${window.path}`;
+				`edit?path=${window.path}`;
 		} else {
 			controller.frames().contents.src = '/samples/contents'
 		}

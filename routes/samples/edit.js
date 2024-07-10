@@ -27,7 +27,7 @@ router.get('/', function(req, res) {
     'demo.mjs'
   );
 
-  res.render('samples/view-source', {
+  res.render('samples/edit', {
     scripts: [
       '//cdnjs.cloudflare.com/ajax/libs/codemirror/4.0.3/codemirror.min.js',
       '//cdnjs.cloudflare.com/ajax/libs/codemirror/4.0.3/mode/javascript/javascript.min.js',
