@@ -10,6 +10,10 @@ window.addEventListener('bodyload', function () {
 	if (localStorage.getItem('mobile-preview')) {
 		document.body.classList.add('mobile-preview');
 	}
+
+	if (/#edit/.test(window.parent.location.hash)) {
+		document.body.classList.add('edit-mode');
+	}
 });
 
 /* global controller, Highcharts */
@@ -89,6 +93,7 @@ window.addEventListener('load', function () {
 		var checked;
 
 		$(this).toggleClass('active');
+		document.body.classList.toggle('edit-mode');
 
 		checked = $(this).hasClass('active')
 

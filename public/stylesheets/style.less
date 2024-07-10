@@ -335,17 +335,27 @@ body.unit #preview-row {
 	display:inline
 }
 
-@container (max-width: 1000px) {
+.edit-mode #next,
+.edit-mode #compare-button,
+.edit-mode #bisect,
+.edit-mode #share,
+.edit-mode #profile,
+.edit-mode #time
+{
+	display: none;
+}
+
+@media (max-width: 500px) {
 	.top-bar button, .top-bar a.button {
     	color: white;
     	background: none;
     	padding: 0 0.7em;
     	margin: 0;
-    	/*font-size: 2em*/
+    	font-size: 2em
     }
     .top-bar button i, .top-bar a.button i {
     	display: inline-block;
-    	/*font-size: 1.2em*/
+    	font-size: 1.2em
     }
     .top-bar .button-text {
     	display: none

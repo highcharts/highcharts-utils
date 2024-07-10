@@ -88,7 +88,7 @@
         {{/if}}
 
         <a class="button {{compareClass}} mobile-hide"
-                href="compare-view?path={{path}}">
+                href="compare-view?path={{path}}" id="compare-button">
             <i class="fa fa-columns"></i>
             <span class="button-text">Compare</span>
         </a><a class="button mobile-hide" id="bisect">
@@ -118,13 +118,13 @@
 			<span class="button-text">Mobile</span></a>
 
 
-        <a class="button mobile-hide"
+        <a class="button mobile-hide" id="profile"
             href="view?path={{path}}&amp;profile=1">
             <i class="fa fa-rocket"></i>
             <span class="button-text">Profile</span>
         </a>
 
-        <a class="button mobile-hide"
+        <a class="button mobile-hide" id="time"
             href="view?path={{path}}&amp;time=1">
             <i class="fa fa-clock-o"></i>
             <span class="button-text">Time</span></a>
