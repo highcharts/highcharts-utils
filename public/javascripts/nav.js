@@ -82,18 +82,17 @@ window.addEventListener('load', function () {
 
 	// Activate view source button
 	$('#view-source', document).bind('click', function () {
-		var checked,
-			$sourceBox = $('#source-box', document)	;
+		var checked;
 
 		$(this).toggleClass('active');
 
 		checked = $(this).hasClass('active')
 
-		$sourceBox.css({
-			width: checked ? '50%' : 0
+		$('#sidebar', window.parent.document).css({
+			width: checked ? '50%' : '25%'
 		});
-		$('#main-content', document).css({
-			width: checked ? '50%' : '100%'
+		$('#main-div', window.parent.document).css({
+			width: checked ? '50%' : '75%'
 		});
 
 		var interval = setInterval(function () {
@@ -108,19 +107,10 @@ window.addEventListener('load', function () {
 		}, 500);
 
 		if (checked) {
-
-			$('<iframe>', document).appendTo($sourceBox)
-				.attr({
-					id: 'view-source-iframe',
-					src: 'view-source?path=' + window.path
-				})
-				.css({
-					width: '100%',
-					border: 'none',
-					borderRight: '1px solid gray'
-				});
+			controller.frames().contents.src =
+				`view-source?path=${window.path}`;
 		} else {
-			$('#source-box', document).html('');
+			controller.frames().contents.src = '/samples/contents'
 		}
 	});
 

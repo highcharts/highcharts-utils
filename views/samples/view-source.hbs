@@ -34,15 +34,11 @@
 (function ($) {
 
 	function jsSize() {
-		var parentDoc = window.parent.document;
-		var iframe = parentDoc.getElementById('view-source-iframe');
 		var jsBox = document.querySelector('.js .CodeMirror');
 
-		var iframeHeight = $(parentDoc).height() - 80;
+		var frameHeight = $(document).height();
 
-		iframe.style.height = iframeHeight + 'px';
-
-		jsBox.style.height = (iframeHeight - jsBox.offsetTop - 20) + 'px';
+		jsBox.style.height = (frameHeight - jsBox.offsetTop) + 'px';
 	}
 	window.onload = function () {
 		CodeMirror.fromTextArea(document.getElementById('html'), {
