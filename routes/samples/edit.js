@@ -26,6 +26,24 @@ router.get('/', function(req, res) {
     req.query.path,
     'demo.mjs'
   );
+  const fileNames = ['demo.js', 'demo.mjs', 'demo.html', 'demo.css'],
+    existingFiles = fileNames.filter(
+      fileName => fs.existsSync(path.join(samplesDir, req.query.path, fileName))
+    ),
+    files = existingFiles.map(fileName => {
+      const filePath = path.join(samplesDir, req.query.path, fileName);
+      return {
+        name: fileName,
+        path: filePath,
+        content: fs.readFileSync(filePath, 'utf8'),
+        editorMode: {
+          js: 'javascript',
+          css: 'css',
+          html: 'htmlmixed'
+        }[fileName.split('.').pop()]
+      };
+    });
+
 
   res.render('samples/edit', {
     scripts: [
@@ -39,6 +57,7 @@ router.get('/', function(req, res) {
     	'/stylesheets/vendor/font-awesome-4.7.0/css/font-awesome.css',
 		  '//cdnjs.cloudflare.com/ajax/libs/codemirror/4.0.3/codemirror.min.css'
     ],
+    files,
     htmlPath,
     html: fs.existsSync(htmlPath) && fs.readFileSync(htmlPath),
     cssPath,

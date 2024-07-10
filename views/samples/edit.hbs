@@ -16,91 +16,122 @@
 	}
 	.CodeMirror {
 		background: #efefef;
-	}
-	.html .CodeMirror {
-		height: 120px;
-	}
-	.css .CodeMirror {
-		height: 120px;
+		height: calc(100vh - 40px);
+		line-height: 1.2em;
 	}
 
 	.edit {
 		float: right;
 	}
 
+
+	.tabs {
+		width: 100%;
+		display: flex;
+		flex-direction: column;
+	}
+
+	.tab-buttons {
+		display: flex;
+		border-bottom: 2px solid #ccc;
+	}
+
+	.tab-button {
+		padding: 10px 20px;
+		cursor: pointer;
+		background-color: #f1f1f1;
+		border: none;
+		outline: none;
+	}
+
+	.tab-button:hover {
+		background-color: #ddd;
+	}
+
+	.tab-button.active {
+		background-color: #fff;
+		border-bottom: 2px solid #000;
+	}
+
+	.tab-content {
+		display: none;
+	}
+
+	.tab-content.active {
+		display: block;
+	}
+
 </style>
 
 <script>
-(function ($) {
 
-	function jsSize() {
-		var jsBox = document.querySelector('.js .CodeMirror');
+const editors = [];
+document.addEventListener("DOMContentLoaded", () => {
+  	const tabButtons = document.querySelectorAll(".tab-button");
+  	const tabContents = document.querySelectorAll(".tab-content");
 
-		var frameHeight = $(document).height();
+  	tabButtons.forEach((button) => {
+    	button.addEventListener("click", () => {
+      		const targetTab = button.getAttribute("data-tab");
 
-		jsBox.style.height = (frameHeight - jsBox.offsetTop) + 'px';
-	}
-	window.onload = function () {
-		CodeMirror.fromTextArea(document.getElementById('html'), {
-			mode: "htmlmixed",
-			readOnly: true
-		});
-		if (document.getElementById('css')) {
-			CodeMirror.fromTextArea(document.getElementById('css'), {
-    			mode: "css",
-    			readOnly: true
-  			});
-		}
-		const jsEditor = CodeMirror.fromTextArea(document.getElementById('js'), {
-			mode: "javascript",
-			readOnly: false
-		});
+      		tabButtons.forEach((btn) => btn.classList.remove("active"));
+      		tabContents.forEach((content) => content.classList.remove("active"));
 
-		// Add a change event listener
-		jsEditor.on('change', () => {
-			// Update the textarea value with the editor content
-			document.getElementById('js').value = jsEditor.getValue();
-			console.log('Editor content changed:', jsEditor.getValue().length);
-		});
+      		button.classList.add("active");
+      		document.getElementById(targetTab)?.classList.add("active");
+			editors.forEach(editor => editor.refresh());
+    	});
+  	});
 
-		jsSize();
-	}
-
-	window.resize = jsSize;
-}(parent.window.jQuery || parent.window.$));
+  	// Activate the first tab by default
+  	if (tabButtons.length > 0 && tabContents.length > 0) {
+    	tabButtons[0].classList.add("active");
+    	tabContents[0].classList.add("active");
+		editors[0].refresh();
+  	}
+});
 </script>
 
-<h4>
-	HTML
-	<a href="vscode://file/{{htmlPath}}" target="_blank" title="Edit in VSCode"
-			class="edit">
-		<i class="fa fa-edit"></i>
-	</a>
-</h4>
-<div class="html">
-	<textarea id="html">{{{html}}}</textarea>
-</div>
-
-{{#if css}}
-<h4>
-	CSS
-	<a href="vscode://file/{{cssPath}}" target="_blank" title="Edit in VSCode"
-			class="edit">
-		<i class="fa fa-edit"></i>
-	</a></h4>
-<div class="css">
-	<textarea id="css">{{{css}}}</textarea>
-</div>
-{{/if}}
+<div class="tabs">
+	<div class="tab-buttons">
+    {{#each files}}
+	  	<button class="tab-button" data-tab="tab-{{name}}">{{name}}</button>
+    {{/each}}
+	</div>
 
 
-<h4>
-	JavaScript
-	<a href="vscode://file/{{jsPath}}" target="_blank" title="Edit in VSCode"
-			class="edit">
-		<i class="fa fa-edit"></i>
-	</a>
-</h4>
-<div class="js">
-	<textarea id="js">{{{js}}}</textarea>
+	{{#each files}}
+	<div class="tab-content" id="tab-{{name}}">
+		<!--
+		<h4>
+			{{name}}
+			<a href="vscode://file/{{path}}" target="_blank" title="Edit in VSCode"
+					class="edit">
+				<i class="fa fa-edit"></i>
+			</a>
+		</h4>
+		-->
+		<textarea class="file-content" id="{{name}}">{{{content}}}</textarea>
+		<script>
+		(() => {
+			const textarea = document.getElementById('{{name}}');
+			const editor = CodeMirror.fromTextArea(textarea, {
+				mode: '{{editorMode}}',
+				indentUnit: '    ',
+				lineNumbers: true,
+				readOnly: false
+			});
+
+			// Add a change event listener
+			editor.on('change', () => {
+				// Update the textarea value with the editor content
+				textarea.value = editor.getValue();
+			});
+
+			editors.push(editor);
+		})();
+		</script>
+
+	</div>
+	{{/each}}
 </div>
