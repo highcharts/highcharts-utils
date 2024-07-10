@@ -22,6 +22,7 @@ body.page h1 {
 	font-size: 0.8em;
 	background: #47475C;
 	box-shadow: 0px 0px 8px #888;
+	container-type: inline-size;
 }
 .top-bar h2 {
 	overflow: visible;
@@ -334,17 +335,17 @@ body.unit #preview-row {
 	display:inline
 }
 
-@media only screen and (max-width: 500px) {
+@container (max-width: 1000px) {
 	.top-bar button, .top-bar a.button {
     	color: white;
     	background: none;
-    	padding: 0 0.5em;
+    	padding: 0 0.7em;
     	margin: 0;
-    	font-size: 2em
+    	/*font-size: 2em*/
     }
     .top-bar button i, .top-bar a.button i {
     	display: inline-block;
-    	font-size: 1.2em
+    	/*font-size: 1.2em*/
     }
     .top-bar .button-text {
     	display: none

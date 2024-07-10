@@ -53,8 +53,9 @@
 		}
 		controller.onLoad.push(function () {
 			var hash = window.location.hash,
-				match
-				main = 'view';
+				match,
+				main = 'view',
+				contentsHref;
 
 			window.onkeydown = keyDown;
 
@@ -78,6 +79,16 @@
 					main = '/samples/compare-view?path=' + hash.replace(match[0], '');
 				}
 
+				// Edit
+				match = hash.match(/^#edit\//);
+				if (match) {
+					main = '/samples/view?path=' + hash.replace(match[0], '');
+					contentsHref = '/samples/edit?path=' +
+						hash.replace(match[0], '');
+					document.getElementById('sidebar').style.width = '50%';
+					document.getElementById('main-div').style.width = '50%';
+				}
+
 				// Batch test
 				match = hash.match(/^#batch\//);
 				if (match) {
@@ -88,6 +99,10 @@
 				document.getElementById('main').contentWindow
 					.location.href = main;
 
+				if (contentsHref) {
+					document.getElementById('contents').contentWindow
+						.location.href = contentsHref;
+				}
 			}
 		});
 

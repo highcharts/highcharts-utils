@@ -80,6 +80,10 @@ window.addEventListener('load', function () {
 
 	}
 
+	if (/#edit/.test(window.parent.location.hash)) {
+		$('#edit', document).addClass('active');
+	}
+
 	// Activate edit button
 	$('#edit', document).bind('click', function () {
 		var checked;
@@ -94,6 +98,10 @@ window.addEventListener('load', function () {
 		$('#main-div', window.parent.document).css({
 			width: checked ? '50%' : '75%'
 		});
+
+		window.parent.location.hash = checked ?
+			`edit/${window.path}`:
+			`view/${window.path}`;
 
 		var interval = setInterval(function () {
 			if (typeof Highcharts !== 'undefined') {

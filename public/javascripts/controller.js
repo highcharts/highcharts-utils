@@ -170,7 +170,9 @@ var controller = { // eslint-disable-line no-unused-vars
     },
 
     updateStatus: function (path, status) {
-        var testStatus = this.testStatus;
+        var testStatus = this.testStatus,
+            div = this.frames().contents.contentDocument
+                .getElementById('test-status');
 
         if (path) {
             // Remove from others
@@ -214,31 +216,20 @@ var controller = { // eslint-disable-line no-unused-vars
                 `Error: ${testStatus.error.length}\n` +
                 `Untested: ${untested}`;
 
-            this.frames().contents.contentDocument
-                .getElementById('test-status').innerHTML = `
-                <div class="progress" title="${title}">
-                    <div class="success" style="width:${successWidth}%"></div>
-                    <div class="error" style="width:${errorWidth}%"></div>
-                    <div class="remaining" style="width:${remainingWidth}%"></div>
-                    <a id="error-count" style="left:${errorLeft}%"
-                        href="javascript:controller?.search('status:error')"
-                        title="${testStatus.error.length} errors">
-                        ${testStatus.error.length}
-                    </a>
-                </div>
-            `;
-
-            /*
-            +
-                '<span class="success">Success: ' + testStatus.success.length + '</span>, ' +
-                '<a class="' + (testStatus.error.length ? 'error' : '') +
-                '" href="javascript:controller&&controller.filter(\'status:error\')">' +
-                'Error: ' + testStatus.error.length + '</a>, ' +
-                '<a class="remaining" href="javascript:controller&&controller.filter(\'remaining\')">' +
-                'Remaining: ' + remaining + '</a> of ' +
-                '<a href="javascript:controller&&controller.filter()">' +
-                    total + '</a>';
-            */
+            if (div) {
+                div.innerHTML = `
+                    <div class="progress" title="${title}">
+                        <div class="success" style="width:${successWidth}%"></div>
+                        <div class="error" style="width:${errorWidth}%"></div>
+                        <div class="remaining" style="width:${remainingWidth}%"></div>
+                        <a id="error-count" style="left:${errorLeft}%"
+                            href="javascript:controller?.search('status:error')"
+                            title="${testStatus.error.length} errors">
+                            ${testStatus.error.length}
+                        </a>
+                    </div>
+                `;
+            }
 
             controller.docTitle();
 

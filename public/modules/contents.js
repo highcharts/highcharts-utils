@@ -9,6 +9,10 @@ const octokit = new Octokit();
   		head: `highcharts:${controller.server.branch}`
 	});
 
+    if (pull.data.length === 0) {
+        return;
+    }
+
     const files = await octokit.rest.pulls.listFiles({
         owner: 'highcharts',
         repo: 'highcharts',

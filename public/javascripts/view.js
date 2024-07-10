@@ -110,7 +110,10 @@ var controller = window.parent && window.parent.controller,
 
 		if (window.parent.frames[0]) {
 
-			if (window.parent.history.pushState) {
+			if (
+				window.parent.history.pushState &&
+				!/^#edit\//.test(window.parent.location.hash)
+			) {
 				window.parent.history.pushState(null, null, '#view/' + path);
 			}
 
