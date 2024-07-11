@@ -23,8 +23,21 @@
 	.header-bar {
 		background-color: #47475C;
 		color: white;
-		height: calc(1em + 10px);
-		font-size: 1.5em;
+	}
+
+	.header-bar button {
+		background-color: #47475C;
+		color: white;
+		border: none;
+		border-top: 3px solid #47475C;
+		cursor: pointer;
+		display: inline-block;
+		padding: 7px 20px;
+		margin: 0;
+	}
+	.header-bar button:hover {
+		background-color: #34343e;
+		border-top: 3px solid #40818b;
 	}
 
 	.tabs {
@@ -67,6 +80,23 @@
 
 <script>
 
+const run = () => {
+	const files = {};
+	editors.forEach(editor => {
+		files[editor.getTextArea().id] = editor.getValue();
+	});
+
+	const data = { files };
+
+	const response = await fetch('/samples/edit', {
+    	method: 'POST',
+    	headers: {
+      		'Content-Type': 'application/json'
+    	},
+    	body: JSON.stringify(data)
+  	});
+}
+
 const editors = [];
 document.addEventListener("DOMContentLoaded", () => {
   	const tabButtons = document.querySelectorAll(".tab-button");
@@ -91,10 +121,17 @@ document.addEventListener("DOMContentLoaded", () => {
     	tabContents[0].classList.add("active");
 		editors[0].refresh();
   	}
+
+	// Activate the run button
+	document.getElementById("run-button").addEventListener("click", run);
 });
 </script>
 
-<div class="header-bar"></div>
+<div class="header-bar">
+	<button id="run-button">
+		<i class="fa fa-play"></i> Run
+	</button>
+</div>
 
 <div class="tabs">
 	<div class="tab-buttons">
