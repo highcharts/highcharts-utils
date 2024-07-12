@@ -5,34 +5,15 @@ const path = require('path');
 const { samplesDir } = require('../../lib/arguments.js');
 
 router.get('/', function(req, res) {
-    const htmlPath = path.join(
-        samplesDir,
-        req.query.path,
-        'demo.html'
-    );
-    const cssPath = path.join(
-        samplesDir,
-        req.query.path,
-        'demo.css'
-    );
-    const jsPath = path.join(
-        samplesDir,
-        req.query.path,
-        'demo.js'
-    );
-
-    const mjsPath = path.join(
-        samplesDir,
-        req.query.path,
-        'demo.mjs'
-    );
     const fileNames = [
         'demo.js',
         'demo.mjs',
         'demo.html',
         'demo.css',
         'demo.details',
-        'readme.md'
+        'readme.md',
+        'test-notes.html',
+        'test-notes.md'
     ],
     existingFiles = fileNames.filter(
         fileName => fs.existsSync(path.join(samplesDir, req.query.path, fileName))
@@ -70,13 +51,33 @@ router.get('/', function(req, res) {
             '//cdnjs.cloudflare.com/ajax/libs/codemirror/4.0.3/codemirror.min.css'
         ],
         files,
-        htmlPath,
-        html: fs.existsSync(htmlPath) && fs.readFileSync(htmlPath),
-        cssPath,
-        css: fs.existsSync(cssPath) && fs.readFileSync(cssPath),
-        jsPath,
-        js: fs.existsSync(jsPath) ? fs.readFileSync(jsPath) : (fs.existsSync(mjsPath) && fs.readFileSync(mjsPath))
+        path: req.query.path
     });
 });
+
+/*
+router.post('/', async (req, res) => {
+    const tmpDir = require('os').tmpdir();
+    let error = null;
+
+    try {
+        await fsp.writeFile(
+            path.join(
+                tmpDir,
+                req.query.path.replace(/\//g, '-') + '.json'
+            ),
+            JSON.stringify(req.body.files)
+        );
+    } catch (err) {
+        error = err;
+    }
+
+    if (error) {
+        res.status(500).send(error.message);
+    } else {
+        res.send('OK');
+    }
+});
+*/
 
 module.exports = router;

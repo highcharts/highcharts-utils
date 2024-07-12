@@ -80,21 +80,26 @@
 
 <script>
 
-const run = () => {
+const run = async () => {
+	document.getElementById("files-form").submit();
+	/*
 	const files = {};
 	editors.forEach(editor => {
 		files[editor.getTextArea().id] = editor.getValue();
 	});
 
-	const data = { files };
+	const data = {
+		files
+	};
 
-	const response = await fetch('/samples/edit', {
+	const response = await fetch(window.location.href, {
     	method: 'POST',
     	headers: {
       		'Content-Type': 'application/json'
     	},
     	body: JSON.stringify(data)
   	});
+	*/
 }
 
 const editors = [];
@@ -128,7 +133,7 @@ document.addEventListener("DOMContentLoaded", () => {
 </script>
 
 <div class="header-bar">
-	<button id="run-button">
+	<button id="run-button" title="Run (Ctrl/Cmd + Enter)">
 		<i class="fa fa-play"></i> Run
 	</button>
 </div>
@@ -140,39 +145,51 @@ document.addEventListener("DOMContentLoaded", () => {
     {{/each}}
 	</div>
 
+	<form id="files-form" method="POST" action="/samples/view?path={{path}}"
+			target="main">
+		{{#each files}}
+		<div class="tab-content" id="tab-{{name}}">
+			<!--
+			<h4>
+				{{name}}
+				<a href="vscode://file/{{path}}" target="_blank" title="Edit in VSCode"
+						class="edit">
+					<i class="fa fa-edit"></i>
+				</a>
+			</h4>
+			-->
+			<textarea class="file-content" id="{{name}}"
+				name="{{name}}">{{{content}}}</textarea>
+			<script>
+			(() => {
+				const textarea = document.getElementById('{{name}}');
+				const editor = CodeMirror.fromTextArea(textarea, {
+					mode: '{{editorMode}}',
+					indentUnit: '    ',
+					lineNumbers: true,
+					readOnly: false
+				});
 
-	{{#each files}}
-	<div class="tab-content" id="tab-{{name}}">
-		<!--
-		<h4>
-			{{name}}
-			<a href="vscode://file/{{path}}" target="_blank" title="Edit in VSCode"
-					class="edit">
-				<i class="fa fa-edit"></i>
-			</a>
-		</h4>
-		-->
-		<textarea class="file-content" id="{{name}}">{{{content}}}</textarea>
-		<script>
-		(() => {
-			const textarea = document.getElementById('{{name}}');
-			const editor = CodeMirror.fromTextArea(textarea, {
-				mode: '{{editorMode}}',
-				indentUnit: '    ',
-				lineNumbers: true,
-				readOnly: false
-			});
+				// Add a change event listener
+				editor.on('change', () => {
+					// Update the textarea value with the editor content
+					textarea.value = editor.getValue();
+				});
 
-			// Add a change event listener
-			editor.on('change', () => {
-				// Update the textarea value with the editor content
-				textarea.value = editor.getValue();
-			});
+				editor.on('keydown', (cm, event) => {
+					if (
+						event.key === 'Enter' &&
+						(event.ctrlKey || event.metaKey)
+					) {
+						run();
+					}
+				});
 
-			editors.push(editor);
-		})();
-		</script>
+				editors.push(editor);
+			})();
+			</script>
 
-	</div>
-	{{/each}}
+		</div>
+		{{/each}}
+	</form>
 </div>

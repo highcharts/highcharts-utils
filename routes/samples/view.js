@@ -12,7 +12,7 @@ const fs = require('fs');
 const ip = require('ip');
 const { join } = require('path');
 
-router.get('/', async (req, res) => {
+const handler = async (req, res) => {
     let resources = f.getResources(req.query.path);
 
     let codePath = req.query.rightcommit ?
@@ -25,13 +25,13 @@ router.get('/', async (req, res) => {
     });
 
     const es6Context = {};
-    const js = f.getJS(req.query.path, req, codePath, es6Context);
+    const js = f.getJS(req, codePath, es6Context);
 
     const styledMode = js.indexOf('styledMode: true') !== -1;
 
     const themes = await f.getThemes(req);
 
-    const details = f.getDetails(req.query.path);
+    const details = f.getDetails(req.query.path, req);
     const config = await f.getConfig();
 
     let tpl = {
@@ -39,7 +39,7 @@ router.get('/', async (req, res) => {
         path: req.query.path,
         mobile: req.query.mobile,
         html: f.getHTML(req, codePath),
-        css: f.getCSS(req.query.path, codePath),
+        css: f.getCSS(req, codePath),
         js,
         es6Context,
         preJS: req.session.preJS,
@@ -59,14 +59,17 @@ router.get('/', async (req, res) => {
         styles: [
             '/stylesheets/vendor/font-awesome-4.7.0/css/font-awesome.css'
         ].concat(resources.styles),
-        readme: f.getReadme(req.query.path),
-        testNotes: f.getTestNotes(req.query.path),
+        readme: f.getReadme(req),
+        testNotes: f.getTestNotes(req),
         themes,
         styledMode,
         compileOnDemand: config.find(option => option.key === 'compileOnDemand'),
     };
 
     res.render('samples/view', tpl);
-});
+};
+
+router.get('/', handler);
+router.post('/', handler);
 
 module.exports = router;

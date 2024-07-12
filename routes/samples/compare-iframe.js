@@ -24,11 +24,11 @@ const getHTML = (req, codePath) => {
 	return html;
 }
 
-const getJS = (path, req, codePath) => {
+const getJS = (req, codePath) => {
 
-	let js = f.getJS(path, req, codePath);
+	let js = f.getJS(req, codePath);
 
-	if (path.indexOf('unit-tests/') !== 0) {
+	if (req.query.path.indexOf('unit-tests/') !== 0) {
 
 		// Don't do intervals (typically for gauge samples, add point etc)
 		js = js.replace('setInterval', 'Highcharts.noop');
@@ -72,8 +72,8 @@ router.get('/', function(req, res) {
 		html: emulateKarma ?
 			f.getKarmaHTML() :
 			getHTML(req, codePath),
-		css: f.getCSS(path, codePath),
-		js: getJS(path, req, codePath),
+		css: f.getCSS(req, codePath),
+		js: getJS(req, codePath),
 		scripts: [
 			'/javascripts/vendor/jquery-1.11.1.js',
 			'/javascripts/vendor/lolex.js',
