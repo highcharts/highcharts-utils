@@ -9,10 +9,30 @@ const express = require('express');
 const router = express.Router();
 const f = require('./../../lib/functions.js');
 const fs = require('fs');
+const { highchartsDir } = require('./../../lib/arguments.js');
 const ip = require('ip');
+
+const fsp = fs.promises;
 const { join } = require('path');
 
+const saveFiles = async (req) => {
+    const fileName = req.body.save;
+
+    if (typeof fileName === 'string') {
+        await fsp.writeFile(
+            join(highchartsDir, 'samples', req.query.path, fileName),
+            req.body[fileName]
+        );
+    }
+}
+
 const handler = async (req, res) => {
+
+    // Save from editor
+    if (req.body.save !== 'false') {
+        await saveFiles(req);
+    }
+
     let resources = f.getResources(req.query.path);
 
     let codePath = req.query.rightcommit ?

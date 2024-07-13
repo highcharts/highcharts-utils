@@ -80,26 +80,15 @@
 
 <script>
 
-const run = async () => {
+const run = () => {
 	document.getElementById("files-form").submit();
-	/*
-	const files = {};
-	editors.forEach(editor => {
-		files[editor.getTextArea().id] = editor.getValue();
-	});
+}
 
-	const data = {
-		files
-	};
-
-	const response = await fetch(window.location.href, {
-    	method: 'POST',
-    	headers: {
-      		'Content-Type': 'application/json'
-    	},
-    	body: JSON.stringify(data)
-  	});
-	*/
+const save = () => {
+	// Set the save input to the file name
+	document.getElementById("save-input").value =
+		document.querySelector(".tab-button.active").textContent;
+	document.getElementById("files-form").submit();
 }
 
 const editors = [];
@@ -127,14 +116,18 @@ document.addEventListener("DOMContentLoaded", () => {
 		editors[0].refresh();
   	}
 
-	// Activate the run button
+	// Activate the buttons
 	document.getElementById("run-button").addEventListener("click", run);
+	document.getElementById("save-button").addEventListener("click", save);
 });
 </script>
 
 <div class="header-bar">
 	<button id="run-button" title="Run (Ctrl/Cmd + Enter)">
 		<i class="fa fa-play"></i> Run
+	</button>
+	<button id="save-button" title="Save">
+		<i class="fa fa-save"></i> Save
 	</button>
 </div>
 
@@ -147,6 +140,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 	<form id="files-form" method="POST" action="/samples/view?path={{path}}"
 			target="main">
+		<input type="hidden" name="save" id="save-input" value="false">
 		{{#each files}}
 		<div class="tab-content" id="tab-{{name}}">
 			<!--
