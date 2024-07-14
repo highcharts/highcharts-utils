@@ -68,6 +68,10 @@
 		border-bottom: 2px solid #000;
 	}
 
+	.tab-button.changed::after {
+		content: ' *';
+	}
+
 	.tab-content {
 		display: none;
 	}
@@ -85,10 +89,16 @@ const run = () => {
 }
 
 const save = () => {
+	const activeTabButton = document.querySelector('.tab-button.active'),
+		fileName = activeTabButton.textContent,
+		editor = editors.find(e => e.options.id === fileName);
+
 	// Set the save input to the file name
-	document.getElementById("save-input").value =
-		document.querySelector(".tab-button.active").textContent;
+	document.getElementById("save-input").value = fileName;
 	document.getElementById("files-form").submit();
+
+	activeTabButton.classList.remove('changed');
+	editor.savedValue = editor.getValue();
 }
 
 const editors = [];
@@ -134,7 +144,8 @@ document.addEventListener("DOMContentLoaded", () => {
 <div class="tabs">
 	<div class="tab-buttons">
     {{#each files}}
-	  	<button class="tab-button" data-tab="tab-{{name}}">{{name}}</button>
+	  	<button class="tab-button" data-tab="tab-{{name}}"
+			id="tab-button-{{name}}">{{name}}</button>
     {{/each}}
 	</div>
 
@@ -156,18 +167,26 @@ document.addEventListener("DOMContentLoaded", () => {
 				name="{{name}}">{{{content}}}</textarea>
 			<script>
 			(() => {
-				const textarea = document.getElementById('{{name}}');
+				const textarea = document.getElementById('{{name}}'),
+					tabButton = document.getElementById('tab-button-{{name}}');
 				const editor = CodeMirror.fromTextArea(textarea, {
+					id: '{{name}}',
 					mode: '{{editorMode}}',
 					indentUnit: '    ',
 					lineNumbers: true,
 					readOnly: false
 				});
+				editor.savedValue = editor.getValue();
 
 				// Add a change event listener
 				editor.on('change', () => {
 					// Update the textarea value with the editor content
 					textarea.value = editor.getValue();
+					if (editor.getValue() === editor.savedValue) {
+						tabButton.classList.remove('changed');
+					} else {
+						tabButton.classList.add('changed');
+					}
 				});
 
 				editor.on('keydown', (cm, event) => {
@@ -176,6 +195,14 @@ document.addEventListener("DOMContentLoaded", () => {
 						(event.ctrlKey || event.metaKey)
 					) {
 						run();
+					}
+
+					if (
+						event.key === 's' &&
+						(event.ctrlKey || event.metaKey)
+					) {
+						save();
+						event.preventDefault();
 					}
 				});
 
