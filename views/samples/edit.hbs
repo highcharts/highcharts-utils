@@ -1,3 +1,4 @@
+<script type="module" src="/modules/edit.js"></script>
 <style type="text/css">
 	body {
 		margin: 0;
@@ -82,56 +83,6 @@
 
 </style>
 
-<script>
-
-const run = () => {
-	document.getElementById("files-form").submit();
-}
-
-const save = () => {
-	const activeTabButton = document.querySelector('.tab-button.active'),
-		fileName = activeTabButton.textContent,
-		editor = editors.find(e => e.options.id === fileName);
-
-	// Set the save input to the file name
-	document.getElementById("save-input").value = fileName;
-	document.getElementById("files-form").submit();
-
-	activeTabButton.classList.remove('changed');
-	editor.savedValue = editor.getValue();
-}
-
-const editors = [];
-document.addEventListener("DOMContentLoaded", () => {
-  	const tabButtons = document.querySelectorAll(".tab-button");
-  	const tabContents = document.querySelectorAll(".tab-content");
-
-  	tabButtons.forEach((button) => {
-    	button.addEventListener("click", () => {
-      		const targetTab = button.getAttribute("data-tab");
-
-      		tabButtons.forEach((btn) => btn.classList.remove("active"));
-      		tabContents.forEach((content) => content.classList.remove("active"));
-
-      		button.classList.add("active");
-      		document.getElementById(targetTab)?.classList.add("active");
-			editors.forEach(editor => editor.refresh());
-    	});
-  	});
-
-  	// Activate the first tab by default
-  	if (tabButtons.length > 0 && tabContents.length > 0) {
-    	tabButtons[0].classList.add("active");
-    	tabContents[0].classList.add("active");
-		editors[0].refresh();
-  	}
-
-	// Activate the buttons
-	document.getElementById("run-button").addEventListener("click", run);
-	document.getElementById("save-button").addEventListener("click", save);
-});
-</script>
-
 <div class="header-bar">
 	<button id="run-button" title="Run (Ctrl/Cmd + Enter)">
 		<i class="fa fa-play"></i> Run
@@ -165,50 +116,6 @@ document.addEventListener("DOMContentLoaded", () => {
 			-->
 			<textarea class="file-content" id="{{name}}"
 				name="{{name}}">{{{content}}}</textarea>
-			<script>
-			(() => {
-				const textarea = document.getElementById('{{name}}'),
-					tabButton = document.getElementById('tab-button-{{name}}');
-				const editor = CodeMirror.fromTextArea(textarea, {
-					id: '{{name}}',
-					mode: '{{editorMode}}',
-					indentUnit: '    ',
-					lineNumbers: true,
-					readOnly: false
-				});
-				editor.savedValue = editor.getValue();
-
-				// Add a change event listener
-				editor.on('change', () => {
-					// Update the textarea value with the editor content
-					textarea.value = editor.getValue();
-					if (editor.getValue() === editor.savedValue) {
-						tabButton.classList.remove('changed');
-					} else {
-						tabButton.classList.add('changed');
-					}
-				});
-
-				editor.on('keydown', (cm, event) => {
-					if (
-						event.key === 'Enter' &&
-						(event.ctrlKey || event.metaKey)
-					) {
-						run();
-					}
-
-					if (
-						event.key === 's' &&
-						(event.ctrlKey || event.metaKey)
-					) {
-						save();
-						event.preventDefault();
-					}
-				});
-
-				editors.push(editor);
-			})();
-			</script>
 
 		</div>
 		{{/each}}

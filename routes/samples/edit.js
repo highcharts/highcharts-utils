@@ -19,19 +19,11 @@ router.get('/', function(req, res) {
         fileName => fs.existsSync(path.join(samplesDir, req.query.path, fileName))
     ),
     files = existingFiles.map(fileName => {
-        const filePath = path.join(samplesDir, req.query.path, fileName),
-        ext = fileName.split('.').pop();
+        const filePath = path.join(samplesDir, req.query.path, fileName);
         return {
             name: fileName,
             path: filePath,
-            content: fs.readFileSync(filePath, 'utf8'),
-            editorMode: {
-                js: 'javascript',
-                css: 'css',
-                details: 'yaml',
-                html: 'htmlmixed',
-                md: 'markdown'
-            }[ext] || ext
+            content: fs.readFileSync(filePath, 'utf8')
         };
     });
 
