@@ -20,6 +20,7 @@
     "@codemirror/lang-yaml": "github:codemirror/lang-yaml",
     "@codemirror/language": "^6.10.2",
     "@codemirror/lint": "^6.8.1",
+    "@codemirror/next": "^0.16.0",
     "@codemirror/view": "^6.28.4",
     "@highcharts/map-collection": "^2.0.0",
     "@octokit/rest": "^18.3.5",

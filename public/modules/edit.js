@@ -6,7 +6,8 @@
 import { EditorView, basicSetup } from "codemirror";
 import { keymap } from "@codemirror/view";
 import { linter, lintGutter } from "@codemirror/lint";
-// import globals from "globals";
+import { indentMore, indentLess } from "@codemirror/next/commands";
+import { indentUnit as nextIndentUnit } from "@codemirror/next/language";
 
 import { indentUnit } from "@codemirror/language";
 import { css } from "@codemirror/lang-css";
@@ -17,6 +18,9 @@ import { yaml } from "@codemirror/lang-yaml";
 
 // Uses linter.mjs
 import * as eslint from "eslint-linter-browserify";
+
+// Set the default indent unit for Tab and Shift-Tab
+nextIndentUnit.default = '    ';
 
 const run = () => {
 	document.getElementById("files-form").submit();
@@ -128,7 +132,17 @@ document.addEventListener("DOMContentLoaded", () => {
                             key: 'Cmd-s',
                             run: save,
                             preventDefault: true
-                        }
+                        },
+						{
+							key: "Tab",
+							preventDefault: true,
+							run: indentMore,
+						  },
+						  {
+							key: "Shift-Tab",
+							preventDefault: true,
+							run: indentLess,
+						  }
                     ])
                 ].filter(Boolean)
             });
