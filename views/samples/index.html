@@ -52,10 +52,10 @@
 			}
 		}
 		controller.onLoad.push(function () {
-			var hash = window.location.hash,
-				match,
-				main = 'view',
-				contentsHref;
+			const hash = window.location.hash;
+
+			let match,
+				mainHref = 'view';
 
 			window.onkeydown = keyDown;
 
@@ -64,44 +64,37 @@
 				// General (nightly, report, settings)
 				match = hash.match(/^#[a-z\-]+/);
 				if (match) {
-					main = '/samples/' + match[0].replace('#', '');
+					mainHref = '/samples/' + match[0].replace('#', '');
 				}
 
 				// View
 				match = hash.match(/^#view\//);
 				if (match) {
-					main = '/samples/view?path=' + hash.replace(match[0], '');
+					mainHref = '/samples/view?path=' + hash.replace(match[0], '');
 				}
 
 				// Test
 				match = hash.match(/^#test\//);
 				if (match) {
-					main = '/samples/compare-view?path=' + hash.replace(match[0], '');
-				}
-
-				// Edit
-				match = hash.match(/^#edit\//);
-				if (match) {
-					main = '/samples/view?path=' + hash.replace(match[0], '');
-					contentsHref = '/samples/edit?path=' +
-						hash.replace(match[0], '');
-					document.getElementById('sidebar').style.width = '50%';
-					document.getElementById('main-div').style.width = '50%';
+					mainHref = '/samples/compare-view?path=' + hash.replace(match[0], '');
 				}
 
 				// Batch test
 				match = hash.match(/^#batch\//);
 				if (match) {
 					controller.batchMode();
-					main = '/samples/compare-view?path=' +
+					mainHref = '/samples/compare-view?path=' +
 						hash.replace(match[0], '');
 				}
-				document.getElementById('main').contentWindow
-					.location.href = main;
 
-				if (contentsHref) {
-					document.getElementById('contents').contentWindow
-						.location.href = contentsHref;
+				if (
+					!document.getElementById('main').contentWindow
+						.location
+						.href
+						.endsWith(mainHref)
+				) {
+					document.getElementById('main').contentWindow
+						.location.href = mainHref;
 				}
 			}
 		});
@@ -154,6 +147,29 @@
 					dragging = false;
 				}
 			});
+		});
+
+		document.addEventListener('DOMContentLoaded', function () {
+			const hash = window.location.hash;
+
+			let contentsHref = '/samples/contents',
+				mainHref = '/samples/readme';
+
+			// Edit mode
+			const match = window.location.hash.match(/^#edit\//);
+			if (match) {
+				mainHref = '/samples/view?path=' + hash.replace(match[0], '');
+				contentsHref = '/samples/edit?path=' +
+					hash.replace(match[0], '');
+				document.getElementById('sidebar').style.width = '50%';
+				document.getElementById('main-div').style.width = '50%';
+			}
+
+
+			document.getElementById('contents').contentWindow
+				.location.href = contentsHref;
+			document.getElementById('main').contentWindow
+				.location.href = mainHref;
 		});
 
 		</script>
@@ -231,11 +247,11 @@
 		<div id="sidebar">
 			<div class="mask"></div>
 			<div id="dragbar"></div>
-			<iframe src="/samples/contents" name="contents" id="contents"></iframe>
+			<iframe name="contents" id="contents"></iframe>
 		</div>
 		<div id="main-div">
 			<div class="mask"></div>
-			<iframe src="/samples/readme" name="main" id="main" allowfullscreen></iframe>
+			<iframe name="main" id="main" allowfullscreen></iframe>
 		</div>
 		<div id="bisect-div"></div>
 	</body>

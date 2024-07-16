@@ -3,14 +3,14 @@ if (window.console) {
 //	console.clear();
 }
 
-var controller = window.parent && window.parent.controller,
-	query = controller && controller.getQueryParameters(window),
-	path = query && query.path,
-	sample = controller && controller.samples[path];
+var controller = window.parent?.controller,
+	query = controller?.getQueryParameters(window),
+	path = query?.path,
+	sample = controller?.samples?.[path];
 
 (function () {
 	var $ = jQuery;
-	if (!controller) {
+	if (!controller || !sample) {
 
 		function getQueryParameters (win) {
 	        var pairs = (win || window).location.search.slice(1).split('&');
