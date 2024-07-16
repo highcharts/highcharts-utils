@@ -29,18 +29,8 @@ router.get('/', function(req, res) {
 
 
     res.render('samples/edit', {
-        scripts: [
-            '//cdnjs.cloudflare.com/ajax/libs/codemirror/4.0.3/codemirror.min.js',
-            '//cdnjs.cloudflare.com/ajax/libs/codemirror/4.0.3/mode/css/css.min.js',
-            '//cdnjs.cloudflare.com/ajax/libs/codemirror/4.0.3/mode/htmlmixed/htmlmixed.min.js',
-            '//cdnjs.cloudflare.com/ajax/libs/codemirror/4.0.3/mode/javascript/javascript.min.js',
-            '//cdnjs.cloudflare.com/ajax/libs/codemirror/4.0.3/mode/markdown/markdown.min.js',
-            '//cdnjs.cloudflare.com/ajax/libs/codemirror/4.0.3/mode/yaml/yaml.min.js',
-            '//cdnjs.cloudflare.com/ajax/libs/codemirror/4.0.3/mode/xml/xml.min.js'
-        ],
         styles: [
-            '/stylesheets/vendor/font-awesome-4.7.0/css/font-awesome.css',
-            '//cdnjs.cloudflare.com/ajax/libs/codemirror/4.0.3/codemirror.min.css'
+            '/stylesheets/vendor/font-awesome-4.7.0/css/font-awesome.css'
         ],
         files,
         path: req.query.path
