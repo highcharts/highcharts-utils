@@ -5,12 +5,18 @@
  */
 import { EditorView, basicSetup } from "codemirror";
 import { keymap } from "@codemirror/view";
+import { linter, lintGutter } from "@codemirror/lint";
+// import globals from "globals";
+
 import { indentUnit } from "@codemirror/language";
 import { css } from "@codemirror/lang-css";
 import { html } from "@codemirror/lang-html";
-import { javascript } from "@codemirror/lang-javascript";
+import { javascript, esLint } from "@codemirror/lang-javascript";
 import { markdown } from "@codemirror/lang-markdown";
 import { yaml } from "@codemirror/lang-yaml";
+
+// Uses linter.mjs
+import * as eslint from "eslint-linter-browserify";
 
 const run = () => {
 	document.getElementById("files-form").submit();
@@ -28,6 +34,31 @@ const save = () => {
 	activeTabButton.classList.remove('changed');
 	editor.savedValue = editor.state.doc.toString();
 }
+
+const esLintConfig = {
+	// eslint configuration
+	languageOptions: {
+		globals: {
+				// ...globals.node,
+		},
+		parserOptions: {
+			ecmaVersion: 2020
+		}
+	},
+	rules: {
+		indent: [2, 4],
+		'max-len': [
+			"error",
+			{
+				"ignorePattern": "(data:image/)",
+				"ignoreUrls": true
+			}
+		],
+		'object-curly-spacing': [2, "always"],
+		quotes: [2, "single"]
+
+	},
+};
 
 const editors = [];
 document.addEventListener("DOMContentLoaded", () => {
@@ -75,6 +106,8 @@ document.addEventListener("DOMContentLoaded", () => {
                     lang,
                     indentUnit.of('    '),
                     updateListenerExtension,
+					lintGutter(),
+					linter(esLint(new eslint.Linter(), esLintConfig)),
                     keymap.of([
                         {
                             key: 'Ctrl-Enter',
