@@ -33,7 +33,8 @@ router.get('/', function(req, res) {
             '/stylesheets/vendor/font-awesome-4.7.0/css/font-awesome.css'
         ],
         files,
-        path: req.query.path
+        path: req.query.path,
+        fullPath: path.join(samplesDir, req.query.path)
     });
 });
 

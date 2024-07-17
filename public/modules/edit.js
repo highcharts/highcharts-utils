@@ -158,51 +158,39 @@ document.addEventListener("DOMContentLoaded", () => {
             editor.id = fileName;
 			editor.savedValue = editor.state.doc.toString();
 
-/*
-
-            editor.on('keydown', (cm, event) => {
-				if (
-					event.key === 'Enter' &&
-					(event.ctrlKey || event.metaKey)
-				) {
-					run();
-				}
-
-				if (
-					event.key === 's' &&
-					(event.ctrlKey || event.metaKey)
-				) {
-					save();
-					event.preventDefault();
-				}
-			});
-*/
 			editors.push(editor);
 		}
 	);
 
 	// Tab functionality
-  	const tabButtons = document.querySelectorAll(".tab-button");
-  	const tabContents = document.querySelectorAll(".tab-content");
+  	const tabButtons = document.querySelectorAll(".tab-button"),
+  		tabContents = document.querySelectorAll(".tab-content");
 
-  	tabButtons.forEach((button) => {
+	const setActiveTab = (i) => {
+    	tabButtons[i].classList.add("active");
+    	tabContents[i].classList.add("active");
+
+		// Edit in VSCode
+		const fileName = tabButtons[i].textContent,
+			editInVSCodeAnchor = document.getElementById('edit-in-vscode');
+
+		editInVSCodeAnchor.href =
+			`vscode://file/${editInVSCodeAnchor.dataset.fullPath}/${fileName}`;
+		editInVSCodeAnchor.title = `Edit ${fileName} in VSCode`;
+	}
+
+  	tabButtons.forEach((button, i) => {
     	button.addEventListener("click", () => {
-      		const targetTab = button.getAttribute("data-tab");
-
       		tabButtons.forEach((btn) => btn.classList.remove("active"));
       		tabContents.forEach((content) => content.classList.remove("active"));
 
-      		button.classList.add("active");
-      		document.getElementById(targetTab)?.classList.add("active");
-			// editors.forEach(editor => editor.refresh());
+      		setActiveTab(i);
     	});
   	});
 
   	// Activate the first tab by default
   	if (tabButtons.length > 0 && tabContents.length > 0) {
-    	tabButtons[0].classList.add("active");
-    	tabContents[0].classList.add("active");
-		// editors[0].refresh();
+    	setActiveTab(0);
   	}
 
 	// Activate the buttons

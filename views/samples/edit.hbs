@@ -26,8 +26,10 @@
 		color: white;
 	}
 
-	.header-bar button {
+	.header-bar button,
+	.header-bar a.button {
 		background-color: #47475C;
+		font-size: 0.85em;
 		color: white;
 		border: none;
 		border-top: 3px solid #47475C;
@@ -35,11 +37,13 @@
 		display: inline-block;
 		padding: 7px 20px;
 		margin: 0;
+		text-decoration: none;
 	}
 	.header-bar button:hover {
 		background-color: #34343e;
 		border-top: 3px solid #40818b;
 	}
+
 
 	.tabs {
 		width: 100%;
@@ -90,6 +94,10 @@
 	<button id="save-button" title="Save">
 		<i class="fa fa-save"></i> Save
 	</button>
+	<a class="button" target="_blank" id="edit-in-vscode" data-full-path="{{fullPath}}">
+		<i class="fa fa-edit"></i>
+		VSCode
+	</a>
 </div>
 
 <div class="tabs">
@@ -105,18 +113,8 @@
 		<input type="hidden" name="save" id="save-input" value="false">
 		{{#each files}}
 		<div class="tab-content" id="tab-{{name}}">
-			<!--
-			<h4>
-				{{name}}
-				<a href="vscode://file/{{path}}" target="_blank" title="Edit in VSCode"
-						class="edit">
-					<i class="fa fa-edit"></i>
-				</a>
-			</h4>
-			-->
 			<textarea class="file-content" id="{{name}}"
 				name="{{name}}">{{{content}}}</textarea>
-
 		</div>
 		{{/each}}
 	</form>
