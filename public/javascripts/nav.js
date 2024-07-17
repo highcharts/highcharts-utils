@@ -120,8 +120,11 @@ window.addEventListener('load', function () {
 		}, 500);
 
 		if (checked) {
-			controller.frames().contents.src =
-				`edit?path=${window.path}`;
+			if (controller) {
+				controller.frames().contents.src = `edit?path=${window.path}`;
+			} else {
+				window.location.href = `/samples/#edit/${window.path}`;
+			}
 		} else {
 			controller.frames().contents.src = '/samples/contents'
 		}

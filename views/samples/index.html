@@ -55,7 +55,8 @@
 			const hash = window.location.hash;
 
 			let match,
-				mainHref = 'view';
+				mainHref = 'view',
+				path;
 
 			window.onkeydown = keyDown;
 
@@ -64,27 +65,30 @@
 				// General (nightly, report, settings)
 				match = hash.match(/^#[a-z\-]+/);
 				if (match) {
-					mainHref = '/samples/' + match[0].replace('#', '');
+					path = match[0].replace('#', '');
+					mainHref = `/samples/${path}`;
 				}
 
 				// View
 				match = hash.match(/^#view\//);
 				if (match) {
-					mainHref = '/samples/view?path=' + hash.replace(match[0], '');
+					path = hash.replace(match[0], '');
+					mainHref = `/samples/view?path=${path}`;
 				}
 
 				// Test
 				match = hash.match(/^#test\//);
 				if (match) {
-					mainHref = '/samples/compare-view?path=' + hash.replace(match[0], '');
+					path = hash.replace(match[0], '');
+					mainHref = `/samples/compare-view?path=${path}`;
 				}
 
 				// Batch test
 				match = hash.match(/^#batch\//);
 				if (match) {
 					controller.batchMode();
-					mainHref = '/samples/compare-view?path=' +
-						hash.replace(match[0], '');
+					path = hash.replace(match[0], '');
+					mainHref = `/samples/compare-view?path=${path}`;
 				}
 
 				if (
@@ -95,6 +99,8 @@
 				) {
 					document.getElementById('main').contentWindow
 						.location.href = mainHref;
+				} else if (path) {
+					controller.samples[path].setCurrent();
 				}
 			}
 		});
