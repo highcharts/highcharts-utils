@@ -82,6 +82,8 @@ window.addEventListener('load', function () {
 			$('#next', document)[0].disabled = false;
 		}
 
+	} else {
+		$('#bisect', document).hide();
 	}
 
 	if (/#edit/.test(window.parent.location.hash)) {
