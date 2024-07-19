@@ -81,25 +81,19 @@ document.addEventListener("DOMContentLoaded", () => {
 					html: html(),
 					md: markdown()
 				}[ext];
-                /*
-			const editor = CodeMirror.fromTextArea(textarea, {
-				id: fileName,
-				mode,
-				indentUnit: '    ',
-				lineNumbers: true,
-				readOnly: false
-			});*/
 
-            const updateListenerExtension = EditorView.updateListener.of((update) => {
-                if (update.docChanged) {
-                    textarea.value = editor.state.doc.toString();
-                    if (editor.state.doc.toString() === editor.savedValue) {
-                        tabButton.classList.remove('changed');
-                    } else {
-                        tabButton.classList.add('changed');
-                    }
-                }
-            });
+            const updateListenerExtension = EditorView.updateListener.of(
+				(update) => {
+					if (update.docChanged) {
+						textarea.value = editor.state.doc.toString();
+						if (editor.state.doc.toString() === editor.savedValue) {
+							tabButton.classList.remove('changed');
+						} else {
+							tabButton.classList.add('changed');
+						}
+					}
+				}
+			);
 
             const editor = new EditorView({
                 doc: textarea.value,
