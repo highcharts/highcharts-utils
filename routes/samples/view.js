@@ -21,7 +21,7 @@ const saveFiles = async (req) => {
     if (typeof fileName === 'string') {
         await fsp.writeFile(
             join(highchartsDir, 'samples', req.query.path, fileName),
-            req.body[fileName]
+            req.body[fileName].replace(/\r\n/g, '\n')
         );
     }
 }
