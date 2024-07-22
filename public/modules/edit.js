@@ -39,6 +39,44 @@ const save = () => {
 	editor.savedValue = editor.state.doc.toString();
 }
 
+const saveAs = () => {
+	document.getElementById('save-as-dialog').style.display = 'flex';
+	// Set the focus to the end of the text within the input
+	document.getElementById('save-as-input').focus();
+	document.getElementById('save-as-input').setSelectionRange(
+		document.getElementById('save-as-input').value.length,
+		document.getElementById('save-as-input').value.length
+	);
+}
+
+const saveAsCancel = (e) => {
+	document.getElementById('save-as-dialog').style.display = 'none';
+	document.getElementById('save-as-hidden-input').value = '';
+	e.preventDefault();
+}
+
+const saveAsInputOnKeyUp = (e) => {
+	const input = e.target,
+		regex = window.validPathRegex;
+
+	if (regex.test(input.value)) {
+		input.classList.remove('invalid');
+		document.getElementById('save-as-submit').disabled = false;
+	} else {
+		input.classList.add('invalid');
+		document.getElementById('save-as-submit').disabled = true;
+	}
+}
+
+const saveAsSubmit = (e) => {
+	e.preventDefault();
+	const input = document.getElementById('save-as-input'),
+		hiddenInput = document.getElementById('save-as-hidden-input');
+
+	hiddenInput.value = input.value;
+	document.getElementById('files-form').submit();
+}
+
 const esLintConfig = {
 	// eslint configuration
 	languageOptions: {
@@ -190,4 +228,8 @@ document.addEventListener("DOMContentLoaded", () => {
 	// Activate the buttons
 	document.getElementById("run-button").addEventListener("click", run);
 	document.getElementById("save-button").addEventListener("click", save);
+	document.getElementById("save-as-button").addEventListener("click", saveAs);
+	document.getElementById("save-as-cancel").addEventListener("click", saveAsCancel);
+	document.getElementById("save-as-input").addEventListener("keyup", saveAsInputOnKeyUp);
+	document.getElementById("save-as-form").addEventListener("submit", saveAsSubmit);
 });

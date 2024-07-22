@@ -1,5 +1,6 @@
 const express = require('express');
 const fs = require('fs');
+const { validPathRegex } = require('../../lib/functions.js');
 const router = express.Router();
 const path = require('path');
 const { samplesDir } = require('../../lib/arguments.js');
@@ -36,7 +37,8 @@ router.get('/', function(req, res) {
         ],
         files,
         path: req.query.path,
-        fullPath: path.join(samplesDir, req.query.path)
+        fullPath: path.join(samplesDir, req.query.path),
+        validPathRegex
     });
 });
 

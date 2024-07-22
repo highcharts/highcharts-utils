@@ -1,3 +1,6 @@
+<script>
+	window.validPathRegex = {{{validPathRegex}}};
+</script>
 <script type="module" src="/modules/edit.bundle.js"></script>
 <style type="text/css">
 	body {
@@ -92,6 +95,59 @@
 		width: 100%
 	}
 
+	.modal {
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		background-color: rgba(0, 0, 0, 0.5);
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		z-index: 10;
+	}
+	.modal-content {
+		background-color: white;
+		padding: 10px;
+		border-radius: 5px;
+		width: 320px;
+		box-sizing: border-box;
+	}
+	.modal-content input[type="text"] {
+		width: 100%;
+		box-sizing: border-box;
+		padding: 5px;
+		transition: background 250ms, color 250ms;
+	}
+	.modal-content input.invalid {
+		background: #f15c80;
+		color: white;
+	}
+	.modal h4 {
+		background: none;
+		color: #333;
+		border-bottom: none;
+		padding: 0;
+	}
+	.modal .button-row {
+		height: 30px;
+	}
+
+	.modal .button-row button {
+		float: right;
+		margin-left: 5px;
+		padding: 5px 10px;
+		height: 30px;
+		border: 1px solid #ccc;
+		border-radius: 3px;
+	}
+
+
+	#save-as-dialog {
+		display: none;
+	}
+
 </style>
 
 <div class="header-bar">
@@ -101,11 +157,11 @@
 	<button id="save-button" title="Save">
 		<i class="fa fa-save"></i> Save file
 	</button>
-	<!--button id="save-as-button" title="Save">
+	<button id="save-as-button" title="Save">
 		<i class="fa fa-save"></i> Save sample as
-	</button-->
+	</button>
 	<a class="button" target="_blank" id="edit-in-vscode" data-full-path="{{fullPath}}">
-		<i class="fa fa-edit"></i>
+		<i class="fa fa-external-link"></i>
 		VSCode
 	</a>
 </div>
@@ -121,6 +177,8 @@
 	<form id="files-form" method="POST" action="/samples/view?path={{path}}"
 			target="main">
 		<input type="hidden" name="save" id="save-input" value="false">
+		<input type="hidden" name="save-as-path" id="save-as-hidden-input" value="">
+
 		{{#each files}}
 		<div class="tab-content" id="tab-{{name}}">
 			<textarea class="file-content" id="{{name}}"
@@ -129,3 +187,23 @@
 		{{/each}}
 	</form>
 </div>
+
+<div id="save-as-dialog" class="modal">
+	<div class="modal-content">
+		<form id="save-as-form" defaultButton="save-as-submit">
+			<h4>Save sample as...</h4>
+			<p>All files in the sample folder will be duplicated into:</p>
+			<p>
+				<input type="text" id="save-as-input" value="{{path}}-copy">
+			</p>
+			<p class="button-row">
+				<button type="submit" id="save-as-submit">
+					Save</button>
+				<button id="save-as-cancel">Cancel</button>
+			</p>
+		</form>
+	</div>
+</div>
+
+
+

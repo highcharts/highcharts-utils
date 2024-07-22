@@ -26,10 +26,47 @@ const saveFiles = async (req) => {
     }
 }
 
+const saveAsPath = async (req) => {
+    const root = join(highchartsDir, 'samples'),
+        path = req.body['save-as-path'],
+        fullPath = join(root, path),
+        fileNames = Object.keys(req.body)
+            .filter(fileName => /[a-z\-]+\.[a-z]+/.test(fileName)),
+        parts = path.split('/');
+
+    if (!f.validPathRegex.test(path)) {
+        return false;
+    }
+
+    let currentPath = root;
+    for (let part of parts) {
+        currentPath = join(currentPath, part);
+        if (!fs.existsSync(currentPath)) {
+            await fsp.mkdir(currentPath);
+        }
+    }
+
+    for (let fileName of fileNames) {
+        await fsp.writeFile(
+            join(fullPath, fileName),
+            req.body[fileName].replace(/\r\n/g, '\n')
+        );
+    }
+    return true;
+}
+
 const handler = async (req, res) => {
 
     // Save from editor
-    if (req.body.save !== 'false') {
+    if (req.body['save-as-path']) {
+        const savedAs = await saveAsPath(req);
+        if (savedAs) {
+            res.send(`<script>
+                window.top.location = '/samples/#edit/${req.body['save-as-path']}';
+                window.top.location.reload();
+            </script>`);
+        }
+    } else if (req.body.save !== 'false') {
         await saveFiles(req);
     }
 
@@ -52,6 +89,7 @@ const handler = async (req, res) => {
     const themes = await f.getThemes(req);
 
     const details = f.getDetails(req.query.path, req);
+    const isUnitTest = (details.resources || '').toString().indexOf('qunit') !== -1;
     const config = await f.getConfig();
 
     let tpl = {
@@ -69,7 +107,7 @@ const handler = async (req, res) => {
         branch: f.getBranch(),
         latestCommit: f.getLatestCommit(),
         isView: true,
-        applyCSP: details.applyCSP !== false,
+        applyCSP: details.applyCSP !== false && !isUnitTest,
         scripts: [
             '/javascripts/trusted-types.js',
             '/javascripts/vendor/jquery-1.11.1.js',
