@@ -15,14 +15,31 @@ const ip = require('ip');
 const fsp = fs.promises;
 const { join } = require('path');
 
+const chown = async (path) => {
+    if (process.env.SUDO_UID && process.env.SUDO_GID) {
+        await fsp.chown(
+            path,
+            Number(process.env.SUDO_UID),
+            Number(process.env.SUDO_GID)
+        );
+    }
+};
+
 const saveFiles = async (req) => {
     const fileName = req.body.save;
 
     if (typeof fileName === 'string') {
+        const filePath = join(
+            highchartsDir,
+            'samples',
+            req.query.path,
+            fileName
+        );
         await fsp.writeFile(
-            join(highchartsDir, 'samples', req.query.path, fileName),
+            filePath,
             req.body[fileName].replace(/\r\n/g, '\n')
         );
+        await chown(filePath);
     }
 }
 
@@ -43,14 +60,17 @@ const saveAsPath = async (req) => {
         currentPath = join(currentPath, part);
         if (!fs.existsSync(currentPath)) {
             await fsp.mkdir(currentPath);
+            await chown(currentPath);
         }
     }
 
     for (let fileName of fileNames) {
+        const filePath = join(fullPath, fileName);
         await fsp.writeFile(
-            join(fullPath, fileName),
+            filePath,
             req.body[fileName].replace(/\r\n/g, '\n')
         );
+        await chown(filePath);
     }
     return true;
 }
