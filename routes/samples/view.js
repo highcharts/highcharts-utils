@@ -104,6 +104,7 @@ const handler = async (req, res) => {
         consoleClear: true,
         bodyClass: req.query.mobile ? 'mobile' : '',
         ipAddress: ip.address(),
+        isUnitTest,
         branch: f.getBranch(),
         latestCommit: f.getLatestCommit(),
         isView: true,
