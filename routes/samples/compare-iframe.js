@@ -52,7 +52,7 @@ const getTemplates = () => {
 	).map(filename => '/' + filename.split('/public/')[1]);
 }
 
-router.get('/', function(req, res) {
+const getTestTemplate = function(req) {
 
 	const { compileOnDemand, emulateKarma } = getSettings(req);
 	let path = req.query.path;
@@ -67,7 +67,7 @@ router.get('/', function(req, res) {
 			'https://github.highcharts.com/' + req.query.rightcommit;
 	}
 
-	let tpl = {
+	return {
 		title: req.query.path,
 		html: emulateKarma ?
 			f.getKarmaHTML() :
@@ -89,8 +89,10 @@ router.get('/', function(req, res) {
 		path: path,
 		which: which
 	};
+};
 
-	res.render('samples/compare-iframe', tpl);
-});
+router.get('/', (req, res) =>
+	res.render('samples/compare-iframe', getTestTemplate(req)));
 
 module.exports = router;
+module.exports.getTestTemplate = getTestTemplate;

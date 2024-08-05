@@ -30,6 +30,11 @@ if (window.jQuery) {
 		if (typeof setUp === 'function') {
 			setUp();
 		}
+
+		// When running unit tests, set options, overrides etc
+		if (typeof setUpHighcharts === 'function') {
+			setUpHighcharts();
+		}
 		{{{js}}}
 		</script>
 

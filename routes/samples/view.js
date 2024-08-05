@@ -11,6 +11,7 @@ const f = require('./../../lib/functions.js');
 const fs = require('fs');
 const { highchartsDir } = require('./../../lib/arguments.js');
 const ip = require('ip');
+const { getTestTemplate } = require('./compare-iframe.js');
 
 const fsp = fs.promises;
 const { join } = require('path');
@@ -112,7 +113,7 @@ const handler = async (req, res) => {
     const isUnitTest = (details.resources || '').toString().indexOf('qunit') !== -1;
     const config = await f.getConfig();
 
-    let tpl = {
+    const tpl = {
         title: (details && details.name) || req.query.path,
         path: req.query.path,
         mobile: req.query.mobile,
@@ -132,18 +133,24 @@ const handler = async (req, res) => {
         scripts: [
             '/javascripts/trusted-types.js',
             '/javascripts/vendor/jquery-1.11.1.js',
-            '/javascripts/view.js',
-            '/javascripts/nav.js'
+            '/javascripts/view.js'
         ].concat(resources.scripts),
-        styles: [
-            '/stylesheets/vendor/font-awesome-4.7.0/css/font-awesome.css'
-        ].concat(resources.styles),
         readme: f.getReadme(req),
         testNotes: f.getTestNotes(req),
         themes,
         styledMode,
         compileOnDemand: config.find(option => option.key === 'compileOnDemand'),
     };
+
+    if (isUnitTest) {
+        req.query.which = 'right';
+        Object.assign(tpl, getTestTemplate(req));
+    }
+    tpl.scripts.push('/javascripts/nav.js');
+    tpl.styles = [
+        '/stylesheets/vendor/font-awesome-4.7.0/css/font-awesome.css'
+    ].concat(resources.styles);
+
 
     res.render('samples/view', tpl);
 };
