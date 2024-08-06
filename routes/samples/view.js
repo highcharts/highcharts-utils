@@ -89,6 +89,8 @@ const handler = async (req, res) => {
         }
     } else if (req.body.save !== 'false') {
         await saveFiles(req);
+        // Redirect without POST data to avoid re-saving after refresh
+        res.redirect(req.originalUrl);
     }
 
     let resources = f.getResources(req.query.path);
