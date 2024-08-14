@@ -87,7 +87,7 @@ const handler = async (req, res) => {
                 window.top.location.reload();
             </script>`);
         }
-    } else if (req.body.save !== 'false') {
+    } else if (req.body.save && req.body.save !== 'false') {
         await saveFiles(req);
         // Redirect without POST data to avoid re-saving after refresh
         res.redirect(req.originalUrl);
