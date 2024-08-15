@@ -2,19 +2,23 @@
  * This is the main express app for utils.highcharts.local
  */
 
-var express = require('express');
-var path = require('path');
-var favicon = require('serve-favicon');
-var logger = require('morgan');
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
-var cors = require('cors');
-var lessMiddleware = require('less-middleware');
-var hbs = require('hbs');
-var session = require('express-session');
-var { highchartsDir } = require('./lib/arguments.js');
+import express from 'express';
+import * as path from 'node:path';
+import favicon from 'serve-favicon';
+import logger from 'morgan';
+import cookieParser from 'cookie-parser';
+import bodyParser from 'body-parser';
+import cors from 'cors';
+import lessMiddleware from 'less-middleware';
+import hbs from 'hbs';
+import session from 'express-session';
+import args from './lib/arguments.js';
+import * as dotenv from 'dotenv';
 
-require('dotenv').config();
+const __dirname = import.meta.dirname;
+const { highchartsDir } = args;
+
+dotenv.config();
 
 var app = express();
 
@@ -42,11 +46,11 @@ app.use('/temp', express.static( // non-cached temporary json files
   path.join(__dirname, 'temp')
 ));
 app.use('/reference', express.static(
-  path.dirname(require.resolve('highcharts/package.json')),
+  path.dirname(import.meta.resolve('highcharts/package.json')),
   { maxAge: '10m' }
 ));
 app.use('/mapdata', express.static(
-  path.dirname(require.resolve('@highcharts/map-collection/package.json')),
+  path.dirname(import.meta.resolve('@highcharts/map-collection/package.json')),
   /*
   path.dirname(require.resolve(path.join(
     __dirname,
@@ -67,46 +71,46 @@ app.use(session({
 
 
 // Routes
-app.use('/', require('./routes/index'));
-app.use('/code', require('./routes/code'));
-app.use('/draft', require('./routes/draft'));
-app.use('/pulls', require('./routes/pulls'));
+app.use('/', (await import('./routes/index.js')).default);
+app.use('/code', (await import('./routes/code.js')).default);
+// app.use('/draft', await import('./routes/draft'));
+// app.use('/pulls', await import('./routes/pulls'));
 
-// Bisect
-app.use('/bisect/', require('./routes/bisect/index'));
-app.use('/bisect/commits', require('./routes/bisect/commits'));
-app.use('/bisect/commits-post', require('./routes/bisect/commits-post'));
-app.use('/bisect/bisect', require('./routes/bisect/bisect'));
-app.use('/bisect/main', require('./routes/bisect/main'));
-app.use('/bisect/main-post', require('./routes/bisect/main-post'));
-app.use('/bisect/view', require('./routes/bisect/view'));
+// // Bisect
+// app.use('/bisect/', await import('./routes/bisect/index'));
+// app.use('/bisect/commits', await import('./routes/bisect/commits'));
+// app.use('/bisect/commits-post', await import('./routes/bisect/commits-post'));
+// app.use('/bisect/bisect', await import('./routes/bisect/bisect'));
+// app.use('/bisect/main', await import('./routes/bisect/main'));
+// app.use('/bisect/main-post', await import('./routes/bisect/main-post'));
+// app.use('/bisect/view', await import('./routes/bisect/view'));
 
 // Samples
-app.use('/samples/', require('./routes/samples/index'));
-app.use('/samples/data', require('./routes/samples/data'));
-app.use('/samples/contents', require('./routes/samples/contents'));
-app.use('/samples/mobile', require('./routes/samples/mobile'));
-app.use('/samples/nightly', require('./routes/samples/nightly'));
-app.use('/samples/list-samples', require('./routes/samples/list-samples'));
-app.use('/samples/jsfiddle-post', require('./routes/samples/share'));
-app.use('/samples/server-env', require('./routes/samples/server-env'));
-app.use('/samples/readme', require('./routes/samples/readme'));
-app.use('/samples/settings', require('./routes/samples/settings'));
-app.use('/samples/settings-post', require('./routes/samples/settings-post'));
-app.use('/samples/view', require('./routes/samples/view'));
-app.use('/samples/view-source', require('./routes/samples/view-source'));
-app.use(
-  '/samples/compare-comment',
-  require('./routes/samples/compare-comment')
-);
-app.use('/samples/compare-iframe', require('./routes/samples/compare-iframe'));
-app.use(
-  '/samples/compare-update-report',
-  require('./routes/samples/compare-update-report')
-);
-app.use('/samples/compare-report', require('./routes/samples/compare-report'));
-app.use('/samples/compare-reset', require('./routes/samples/compare-reset'));
-app.use('/samples/compare-view', require('./routes/samples/compare-view'));
+app.use('/samples/', (await import('./routes/samples/index.js')).default);
+// app.use('/samples/data', await import('./routes/samples/data'));
+// app.use('/samples/contents', await import('./routes/samples/contents'));
+// app.use('/samples/mobile', await import('./routes/samples/mobile'));
+// app.use('/samples/nightly', await import('./routes/samples/nightly'));
+// app.use('/samples/list-samples', await import('./routes/samples/list-samples'));
+// app.use('/samples/jsfiddle-post', await import('./routes/samples/share'));
+// app.use('/samples/server-env', await import('./routes/samples/server-env'));
+// app.use('/samples/readme', await import('./routes/samples/readme'));
+// app.use('/samples/settings', await import('./routes/samples/settings'));
+// app.use('/samples/settings-post', await import('./routes/samples/settings-post'));
+// app.use('/samples/view', await import('./routes/samples/view'));
+// app.use('/samples/view-source', await import('./routes/samples/view-source'));
+// app.use(
+//   '/samples/compare-comment',
+//   await import('./routes/samples/compare-comment')
+// );
+// app.use('/samples/compare-iframe', await import('./routes/samples/compare-iframe'));
+// app.use(
+//   '/samples/compare-update-report',
+//   await import('./routes/samples/compare-update-report')
+// );
+// app.use('/samples/compare-report', await import('./routes/samples/compare-report'));
+// app.use('/samples/compare-reset', await import('./routes/samples/compare-reset'));
+// app.use('/samples/compare-view', await import('./routes/samples/compare-view'));
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -128,4 +132,4 @@ app.use(function(err, req, res, next) { // eslint-disable-line no-unused-vars
   });
 });
 
-module.exports = app;
+export default app;

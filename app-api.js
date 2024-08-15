@@ -1,6 +1,8 @@
 // Modules sorted by names alphabetically
-const express = require('express');
-const { apiDir, apiPort, } = require('./lib/arguments.js');
+import express from 'express';
+import args from './lib/arguments.js';
+
+const { apiDir, apiPort, } = args;
 
 /**
  * Create express application

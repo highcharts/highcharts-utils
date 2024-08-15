@@ -1,14 +1,13 @@
+import * as http from 'node:http';
+import * as https from 'node:https';
+import httpProxy from 'http-proxy';
+import exitHook from 'async-exit-hook';
+import * as fs from 'node:fs';
+import ip from 'ip';
+import * as path from 'node:path';
+import * as _ from 'colors';
 
-require = require("esm")(module);
-
-const http = require('http');
-const https = require('https');
-const httpProxy = require('http-proxy');
-const exitHook = require('async-exit-hook');
-const fs = require('fs');
-const ip = require('ip');
-const path = require('path');
-require('colors');
+import args from './lib/arguments.js';
 
 const {
   apiPort,
@@ -21,7 +20,7 @@ const {
   proxy: useProxy,
   topdomain: topDomain,
   utilsPort
-} = require('./lib/arguments.js');
+} = args;
 
 let sslEnabled = false;
 let utilsDomainLine = '';
@@ -65,25 +64,26 @@ const httpsOptions = {
 };
 
 
-let hcPackage = require(`${highchartsDir}/package.json`);
+let hcPackage = (await import(`${highchartsDir}/package.json`, { with: { type: 'json' } })).default;
+
 if (hcPackage.name !== 'highcharts') {
   console.error(`
     Highcharts repo not found, please set "highchartsDir" in config.json or through CLI arguments.
   `.red);
-  return;
+  process.exit(-1);
 }
 
 // Start utils.highcharts.local
-require('./bin/www');
+await import('./bin/www');
 
 // Start code.highcharts.local
-require('./app-code');
+await import('./app-code.js');
 
 // Start api.highcharts.local
-require('./app-api');
+await import('./app-api.js');
 
 // Require colors
-require('colors');
+await import('colors');
 
 // Set up the proxy server
 const proxy = httpProxy.createProxy();
@@ -126,7 +126,7 @@ if (useProxy) {
   });
 
 
-  server.listen(80, () => {
+  server.listen(80, async () => {
 
 
     // Find out which user used sudo through the environment variable, so that
@@ -164,7 +164,7 @@ if (useProxy) {
 
     let domainsEnabled = !localOnly;
     if (!localOnly) {
-      const hostile = require('hostile');
+      const hostile = await import('hostile');
       try {
         // Add domains to hosts file
         domains.forEach(domain => {

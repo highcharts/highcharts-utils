@@ -4,12 +4,15 @@
  * Module dependencies.
  */
 
-var app = require('../app');
-var debug = require('debug')('highcharts-utils:server');
-const fs = require('fs');
-var http = require('http');
-const { utilsPort, highchartsDir } = require('../lib/arguments.js');
-const { startWatchServer } = require('../lib/websocket');
+
+import app from '../app.js';
+import debugFactory from 'debug';
+import * as http from 'node:http';
+import args from '../lib/arguments.js';
+import { startWatchServer } from '../lib/websocket.js';
+
+const debug = debugFactory('highcharts-utils:server');
+const { utilsPort, highchartsDir } = args;
 
 /**
  * Get port from environment and store in Express.

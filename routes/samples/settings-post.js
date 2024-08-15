@@ -1,12 +1,12 @@
-const express = require('express');
-const fs = require('fs').promises;
-const { join } = require('path');
+const express = await import('express');
+const fs = await import('fs').promises;
+const { join } = await import('path');
 const router = express.Router();
-const config = require('../../config.json');
+const config = await import('../../config.json');
 
 router.post('/', async (req, res) => {
 	const configUserPath = join(__dirname, '../../temp', 'config-user.json'),
-		configUser = require(configUserPath);
+		configUser = await import(configUserPath, { with: { type: "json" } });
 
 	// Quick settings
 	const onlyInBody = !!req.body['quickSettings'];

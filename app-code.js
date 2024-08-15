@@ -3,17 +3,20 @@
  */
 
 // Modules sorted by names alphabetically
-const express = require('express');
-const http = require('http');
+import express from 'express';
+import * as http from 'http';
+import args from './lib/arguments.js';
+import { getCodeFile } from './lib/functions.js';
+import { startWatchServer } from './lib/websocket.js';
+import * as fs from 'node:fs';
+import * as https from 'node:https';
+
 const {
 	crtFile,
 	codePort,
 	codeSecurePort,
 	pemFile
-} = require('./lib/arguments.js');
-const { getCodeFile } = require('./lib/functions');
-const { startWatchServer } = require('./lib/websocket.js');
-
+} = args;
 
 /**
  * Create express application
@@ -56,8 +59,6 @@ server.listen(codePort);
  * Create HTTPS server.
  */
 if (codeSecurePort) {
-    const fs = require('fs');
-    const https = require('https');
 
     const httpsOptions = {
         key: fs.existsSync(pemFile) && fs.readFileSync(pemFile, 'utf-8'),

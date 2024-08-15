@@ -52,7 +52,7 @@ const getTemplates = () => {
 	).map(filename => '/' + filename.split('/public/')[1]);
 }
 
-router.get('/', function(req, res) {
+router.get('/', async function(req, res) {
 
 	const { compileOnDemand, emulateKarma } = getSettings(req);
 	let path = req.query.path;
@@ -70,7 +70,7 @@ router.get('/', function(req, res) {
 	let tpl = {
 		title: req.query.path,
 		html: emulateKarma ?
-			f.getKarmaHTML() :
+			await f.getKarmaHTML() :
 			getHTML(req, codePath),
 		css: f.getCSS(path, codePath),
 		js: getJS(path, req, codePath),
