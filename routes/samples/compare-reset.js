@@ -1,12 +1,13 @@
-const express = require('express');
+import express from 'express';
+import * as fs from 'node:fs';
+import * as path from 'node:path';
+import glob from 'glob';
+
 const router = express.Router();
-const fs = require('fs');
-const path = require('path');
-const glob = require('glob');
 
 router.get('/', function(req, res) {
 	glob(path.join(
-		__dirname,
+		import.meta.dirname,
 		'../../temp/*.json'
 	), null, (err, files) => {
 
@@ -20,4 +21,4 @@ router.get('/', function(req, res) {
 	})
 });
 
-module.exports = router;
+export default router;

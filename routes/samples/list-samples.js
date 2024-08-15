@@ -1,10 +1,11 @@
+import express from 'express';
+import f from './../../lib/functions.js';
+import * as fs from 'node:fs';
+import { join, relative, sep } from 'node:path';
+import args from '../../lib/arguments.js';
 
-const express = require('express');
 const router = express.Router();
-const f = require('./../../lib/functions.js');
-const fs = require('fs');
-const { join, relative, sep } = require('path');
-const { samplesDir } = require('../../lib/arguments.js');
+const { samplesDir } = args;
 
 /**
  * Creates a serializable representation of a sample.
@@ -68,4 +69,4 @@ router.get('/', function(req, res) {
   	res.send(getSamples());
 });
 
-module.exports = router;
+export default router;

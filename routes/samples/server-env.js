@@ -1,13 +1,14 @@
-const express = require('express');
+import express from 'express';
+import f from './../../lib/functions.js';
+
 const router = express.Router();
-const f = require('./../../lib/functions.js');
 
-router.get('/', function(req, res, next) {
+router.get('/', function(req, res) {
 
-	res.setHeader('Content-Type', 'application/json');
+    res.setHeader('Content-Type', 'application/json');
     res.send({
     	branch: f.getBranch()
     });
 });
 
-module.exports = router;
+export default router;

@@ -1,11 +1,12 @@
-const express = await import('express');
-const fs = await import('fs').promises;
-const { join } = await import('path');
+import express from 'express';
+import * as fs from 'node:fs/promises';
+import { join } from 'node:path';
+import config from '../../config.json' with { type: 'json' };
+
 const router = express.Router();
-const config = await import('../../config.json');
 
 router.post('/', async (req, res) => {
-	const configUserPath = join(__dirname, '../../temp', 'config-user.json'),
+	const configUserPath = join(import.meta.dirname, '../../temp', 'config-user.json'),
 		configUser = await import(configUserPath, { with: { type: "json" } });
 
 	// Quick settings
@@ -43,4 +44,4 @@ router.post('/', async (req, res) => {
 	res.redirect(req.header('Referer'));
 });
 
-module.exports = router;
+export default router;

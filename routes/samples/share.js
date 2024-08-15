@@ -2,13 +2,15 @@
  * Share a sample
  */
 
-const express = require('express');
+import express from 'express';
+import f from '../../lib/functions.js';
+import fs from 'node:fs/promises';
+import ip from 'ip';
+import { join } from 'node:path';
+import args from '../../lib/arguments.js';
+
 const router = express.Router();
-const f = require('../../lib/functions.js');
-const fs = require('fs').promises;
-const ip = require('ip');
-const { join } = require('path');
-const { highchartsDir } = require('../../lib/arguments.js');
+const { highchartsDir } = args;
 
 router.get('/', async (req, res) => {
 
@@ -58,4 +60,4 @@ router.get('/', async (req, res) => {
     });
 });
 
-module.exports = router;
+export default router;

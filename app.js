@@ -15,35 +15,35 @@ import session from 'express-session';
 import args from './lib/arguments.js';
 import * as dotenv from 'dotenv';
 
-const __dirname = import.meta.dirname;
+const dirname = import.meta.dirname;
 const { highchartsDir } = args;
 
 dotenv.config();
 
 var app = express();
 
-hbs.registerPartials(__dirname + '/views/partials');
+hbs.registerPartials(import.meta.dirname, '/views/partials');
 
 // view engine setup
-app.set('views', path.join(__dirname, 'views'));
+app.set('views', path.join(dirname, 'views'));
 app.set('view engine', 'hbs');
 
 app.use(cors());
 
-app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+app.use(favicon(path.join(dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(lessMiddleware(path.join(__dirname, 'public')));
+app.use(lessMiddleware(path.join(dirname, 'public')));
 
 // Static
 app.use(express.static(
-  path.join(__dirname, 'public'),
+  path.join(dirname, 'public'),
   { maxAge: 60000 }
 ));
 app.use('/temp', express.static( // non-cached temporary json files
-  path.join(__dirname, 'temp')
+  path.join(dirname, 'temp')
 ));
 app.use('/reference', express.static(
   path.dirname(import.meta.resolve('highcharts/package.json')),
@@ -53,7 +53,7 @@ app.use('/mapdata', express.static(
   path.dirname(import.meta.resolve('@highcharts/map-collection/package.json')),
   /*
   path.dirname(require.resolve(path.join(
-    __dirname,
+    dirname,
     '../map-collection/Export/2.1.0'
   ))),
   // */
@@ -73,44 +73,44 @@ app.use(session({
 // Routes
 app.use('/', (await import('./routes/index.js')).default);
 app.use('/code', (await import('./routes/code.js')).default);
-// app.use('/draft', await import('./routes/draft'));
-// app.use('/pulls', await import('./routes/pulls'));
+app.use('/draft', (await import('./routes/draft.js')).default);
+app.use('/pulls', (await import('./routes/pulls.js')).default);
 
 // // Bisect
-// app.use('/bisect/', await import('./routes/bisect/index'));
-// app.use('/bisect/commits', await import('./routes/bisect/commits'));
-// app.use('/bisect/commits-post', await import('./routes/bisect/commits-post'));
-// app.use('/bisect/bisect', await import('./routes/bisect/bisect'));
-// app.use('/bisect/main', await import('./routes/bisect/main'));
-// app.use('/bisect/main-post', await import('./routes/bisect/main-post'));
-// app.use('/bisect/view', await import('./routes/bisect/view'));
+app.use('/bisect/', (await import('./routes/bisect/index.js')).default);
+app.use('/bisect/commits', (await import('./routes/bisect/commits.js')).default);
+app.use('/bisect/commits-post', (await import('./routes/bisect/commits-post.js')).default);
+app.use('/bisect/bisect', (await import('./routes/bisect/bisect.js')).default);
+app.use('/bisect/main', (await import('./routes/bisect/main.js')).default);
+app.use('/bisect/main-post', (await import('./routes/bisect/main-post.js')).default);
+app.use('/bisect/view', (await import('./routes/bisect/view.js')).default);
 
 // Samples
 app.use('/samples/', (await import('./routes/samples/index.js')).default);
-// app.use('/samples/data', await import('./routes/samples/data'));
-// app.use('/samples/contents', await import('./routes/samples/contents'));
-// app.use('/samples/mobile', await import('./routes/samples/mobile'));
-// app.use('/samples/nightly', await import('./routes/samples/nightly'));
-// app.use('/samples/list-samples', await import('./routes/samples/list-samples'));
-// app.use('/samples/jsfiddle-post', await import('./routes/samples/share'));
-// app.use('/samples/server-env', await import('./routes/samples/server-env'));
-// app.use('/samples/readme', await import('./routes/samples/readme'));
-// app.use('/samples/settings', await import('./routes/samples/settings'));
-// app.use('/samples/settings-post', await import('./routes/samples/settings-post'));
-// app.use('/samples/view', await import('./routes/samples/view'));
-// app.use('/samples/view-source', await import('./routes/samples/view-source'));
-// app.use(
-//   '/samples/compare-comment',
-//   await import('./routes/samples/compare-comment')
-// );
-// app.use('/samples/compare-iframe', await import('./routes/samples/compare-iframe'));
-// app.use(
-//   '/samples/compare-update-report',
-//   await import('./routes/samples/compare-update-report')
-// );
-// app.use('/samples/compare-report', await import('./routes/samples/compare-report'));
-// app.use('/samples/compare-reset', await import('./routes/samples/compare-reset'));
-// app.use('/samples/compare-view', await import('./routes/samples/compare-view'));
+app.use('/samples/data', (await import('./routes/samples/data.js')).default);
+app.use('/samples/contents', (await import('./routes/samples/contents.js')).default);
+app.use('/samples/mobile', (await import('./routes/samples/mobile.js')).default);
+app.use('/samples/nightly', (await import('./routes/samples/nightly.js')).default);
+app.use('/samples/list-samples', (await import('./routes/samples/list-samples.js')).default);
+app.use('/samples/jsfiddle-post', (await import('./routes/samples/share.js')).default);
+app.use('/samples/server-env', (await import('./routes/samples/server-env.js')).default);
+app.use('/samples/readme', (await import('./routes/samples/readme.js')).default);
+app.use('/samples/settings', (await import('./routes/samples/settings.js')).default);
+app.use('/samples/settings-post', (await import('./routes/samples/settings-post.js')).default);
+app.use('/samples/view', (await import('./routes/samples/view.js')).default);
+app.use('/samples/view-source', (await import('./routes/samples/view-source.js')).default);
+app.use(
+  '/samples/compare-comment',
+  (await import('./routes/samples/compare-comment.js')).default
+);
+app.use('/samples/compare-iframe', (await import('./routes/samples/compare-iframe.js')).default);
+app.use(
+  '/samples/compare-update-report',
+  (await import('./routes/samples/compare-update-report.js')).default
+);
+app.use('/samples/compare-report', (await import('./routes/samples/compare-report.js')).default);
+app.use('/samples/compare-reset', (await import('./routes/samples/compare-reset.js')).default);
+app.use('/samples/compare-view', (await import('./routes/samples/compare-view.js')).default);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

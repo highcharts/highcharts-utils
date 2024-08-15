@@ -12,7 +12,7 @@ const Path = require('path');
 const Request = require('request');
 const { samplesDir } = require('../../lib/arguments.js');
 
-const countries = require(Path.join(__dirname, 'countries.json'));
+const countries = require(Path.join(import.meta.dirname, 'countries.json'));
 const csvParser = new RegExp('(?:^|\\s+|\\,)(?:\\"([^\\"]*?)\\")+', 'gm');
 const landUrl = 'http://api.worldbank.org/v2/en/indicator/AG.LND.TOTL.K2?downloadformat=csv';
 const populationUrl = 'http://api.worldbank.org/v2/en/indicator/SP.POP.TOTL?downloadformat=csv';

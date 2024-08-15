@@ -1,15 +1,16 @@
-const express = require('express');
+import express from 'express';
+import * as fs from 'node:fs';
+import * as path from 'node:path';
+import args from '../../lib/arguments.js';
+
 const router = express.Router();
-const fs = require('fs');
-const path = require('path');
-const { samplesDir } = require('../../lib/arguments.js');
-const { join } = require('path');
+const { samplesDir } = args;
 
 router.get(/[a-z\/\-\.0-9]+\.([a-z]+)$/, function(req, res) {
 
     const extname = path.extname(req.path).replace(/^./, '');
 
-    let file = join(samplesDir, 'data', req.path);
+    let file = path.join(samplesDir, 'data', req.path);
 
     if (!['gpx', 'mjs', 'js', 'json', 'csv', 'ttf', 'xml'].includes(extname)) {
         res.status(403).send(`
@@ -39,4 +40,4 @@ router.get(/[a-z\/\-\.0-9]+\.([a-z]+)$/, function(req, res) {
     res.sendFile(file);
 });
 
-module.exports = router;
+export default router;

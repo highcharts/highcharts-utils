@@ -1,8 +1,7 @@
-const express = require('express');
+import express from 'express';
+import { Octokit } from '@octokit/rest';
+
 const router = express.Router();
-
-const { Octokit } = require('@octokit/rest');
-
 const octokit = new Octokit({
     // https://github.com/settings/tokens
     auth: process.env.GH_PERSONAL_ACCESS_TOKEN
@@ -167,7 +166,7 @@ router.get('/list-checks/:ref', async (req, res) => {
 });
 
 
-module.exports = router;
+export default router;
 
 
 

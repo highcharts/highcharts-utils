@@ -1,15 +1,15 @@
-const express = require('express');
-const {
+import express from 'express';
+import {
 	getBranch,
 	// getNightlyResult
-} = require('../../lib/functions.js');
-const fs = require('fs');
-const path = require('path');
+} from '../../lib/functions.js';
+import * as fs from 'node:fs';
+import * as path from 'node:path';
+import ip from 'ip';
+
 const router = express.Router();
-const ip = require('ip');
 
 const browsers = ['Nightly', 'Chrome', 'Safari', 'Firefox', 'Edge', 'MSIE'];
-
 
 router.get('/', async (req, res) => {
 	let compare = {};
@@ -18,7 +18,7 @@ router.get('/', async (req, res) => {
 
 	browsers.forEach(browser => {
 		const file = path.join(
-			__dirname,
+			import.meta.dirname,
 			'../..',
 			'temp',
 			'compare.' + getBranch() + '.' + browser.toLowerCase() + '.json'
@@ -91,4 +91,4 @@ router.get('/', async (req, res) => {
 	});
 });
 
-module.exports = router;
+export default router;
