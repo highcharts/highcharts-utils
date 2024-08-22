@@ -522,6 +522,16 @@ var controller = { // eslint-disable-line no-unused-vars
                     nextSample.setClassName();
                     continue;
                 }
+
+                // When entering the dashboards section, skip the rest
+                if (
+                    nextSample.path.indexOf('dashboards') === 0 &&
+                    controller.currentSample.path.indexOf('dashboards') !== 0
+                ) {
+                    window.parent.location = '/samples';
+                    return;
+                }
+
                 // Skip unit tests in batch mode, they're only there for visual
                 // debugging
                 if (nextSample && nextSample.isUnitTest()) {
