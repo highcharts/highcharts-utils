@@ -388,6 +388,14 @@ window.setUpHighcharts = function () {
 			}(Highcharts));
 			// */
 
+			if (window.QUnit) {
+				Highcharts.setOptions({
+					lang: {
+						locale: 'en-GB'
+					}
+				});
+			}
+
 			// Disable animation over all (same as in karma-setup.js)
 			Highcharts.setOptions({
 				chart: {
