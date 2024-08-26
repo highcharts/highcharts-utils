@@ -31,7 +31,7 @@ jobs:
         local-identifier: random
 
     - name: Run Playwright tests
-      run: npx playwright test
+      run: npx browserstack-node-sdk playwright test
 
     - name: 'BrowserStackLocal Stop'  # Terminating the BrowserStackLocal tunnel connection
       uses: browserstack/github-actions/setup-local@master
