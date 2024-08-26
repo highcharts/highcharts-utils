@@ -71,7 +71,7 @@ export default defineConfig({
 
   /* Run your local dev server before starting the tests */
   webServer: {
-    command: 'node ./server.js',
+    command: 'npx serve ./public',
     url: 'http://127.0.0.1:3030',
     reuseExistingServer: !process.env.CI,
   },
