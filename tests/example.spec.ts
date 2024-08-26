@@ -1,5 +1,5 @@
-const expect = require('chai').expect
 import { chromium, devices } from 'playwright';
+import { expect } from 'chai'
 
 import cp from 'child_process';
 const clientPlaywrightVersion = cp.execSync('npx playwright --version').toString().trim().split(' ')[1];
