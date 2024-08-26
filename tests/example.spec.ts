@@ -1,7 +1,6 @@
 import { chromium, devices } from 'playwright';
-import { expect } from 'chai'
-
 import cp from 'child_process';
+import { expect } from '@playwright/test';
 const clientPlaywrightVersion = cp.execSync('npx playwright --version').toString().trim().split(' ')[1];
 
 (async () => {
@@ -35,7 +34,7 @@ const clientPlaywrightVersion = cp.execSync('npx playwright --version').toString
   const title = await page.title();
   console.log(title);
   try {
-    expect(title).to.equal("BrowserStack - Google Search", 'Expected page title is incorrect!');
+    expect(title).toEqual('test');
     // following line of code is responsible for marking the status of the test on BrowserStack as 'passed'. You can use this code in your after hook after each test
     await page.evaluate(_ => {}, `browserstack_executor: ${JSON.stringify({action: 'setSessionStatus',arguments: {status: 'passed',reason: 'Title matched'}})}`);
   } catch {
