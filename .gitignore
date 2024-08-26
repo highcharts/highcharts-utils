@@ -8,4 +8,7 @@
 
 /public/stylesheets/style.css
 /path.txt
-
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
