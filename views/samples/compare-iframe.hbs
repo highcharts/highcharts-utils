@@ -4,6 +4,13 @@
   		font-family: "Open Sans";
   		src: url("/fonts/OpenSans-Regular.woff") format("woff");
 	}
+	/* Force the font family for container and svg, to ensure equal comparison
+	when external fonts have not finished loading */
+	#container,
+	svg {
+    	font-family: Helvetica, Arial, sans-serif !important;
+	}
+
 </style>
 
 
