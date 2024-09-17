@@ -44,7 +44,7 @@ router.get('/', async (req, res) => {
         es6Context,
         preJS: req.session.preJS,
         consoleClear: true,
-        bodyClass: req.query.mobile ? 'mobile' : '',
+        bodyClass: req.query.mobile ? 'mobile view' : 'view',
         ipAddress: ip.address(),
         branch: f.getBranch(),
         latestCommit: f.getLatestCommit(),
