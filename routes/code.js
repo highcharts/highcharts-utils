@@ -1,7 +1,9 @@
-const express = require('express');
-const router = express.Router();
-const { extname } = require('path');
-const { getCodeFile } = require('../lib/functions');
+import express from 'express';
+
+import { extname } from 'node:path';
+import { getCodeFile } from '../lib/functions.js';
+
+export const router = express.Router();
 
 router.get(/[a-z\/\-\.]/, async function(req, res) {
     let { content, error, path } = await getCodeFile(req.path, req);
@@ -33,4 +35,4 @@ router.get(/[a-z\/\-\.]/, async function(req, res) {
     }
 });
 
-module.exports = router;
+export default router;

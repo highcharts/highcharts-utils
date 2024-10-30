@@ -1,13 +1,14 @@
-const express = require('express');
+import express from 'express';
+import * as fs from 'node:fs';
+import { join } from 'node:path';
+
 const router = express.Router();
-const fs = require('fs');
-const { join } = require('path');
 
 router.get('/', function(req, res) {
 
-	let path = fs.readFileSync(join(__dirname, '../path.txt'), 'utf-8');
+	let path = fs.readFileSync(join(import.meta.dirname, '../path.txt'), 'utf-8');
 
 	res.redirect(`/samples/view?path=${path}&mobile=true`);
 });
 
-module.exports = router;
+export default router;

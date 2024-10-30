@@ -1,10 +1,9 @@
-const express = require('express');
-const { replaceURLs } = require('./../../lib/functions.js');
-const { getSettings } = require('./../../lib/arguments.js');
+import express from 'express';
+import { replaceURLs } from './../../lib/functions.js';
+import args from './../../lib/arguments.js';
 
 const router = express.Router();
-
-
+const { getSettings } = args;
 
 const replaceHTML = (req) => {
 
@@ -36,4 +35,4 @@ router.get('/', function(req, res) {
   	});
 });
 
-module.exports = router;
+export default router;

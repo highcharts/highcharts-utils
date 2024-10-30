@@ -1,11 +1,12 @@
-const express = require('express');
-const fs = require('fs');
+import express from 'express';
+import * as fs from 'node:fs';
+import f from '../../lib/functions.js';
+import * as path from 'node:path';
+
 const router = express.Router();
-const f = require('../../lib/functions.js');
-const path = require('path');
 
 const getSavedCompare = (req) => {
-	let fileName = path.join(__dirname, '../../temp/compare.' +
+	let fileName = path.join(import.meta.dirname, '../../temp/compare.' +
 			f.getBranch() + '.' + req.query.browser + '.json');
 	let compare;
 	
@@ -44,4 +45,4 @@ router.get('/', function(req, res) {
 	});
 });
 
-module.exports = router;
+export default router;

@@ -2,12 +2,14 @@
  * Runs in an iframe, comparing candidate and reference.
  */
 
-const express = require('express');
-const f = require('./../../lib/functions.js');
-const glob = require('glob');
-const path = require('path');
+import express from 'express';
+import f from './../../lib/functions.js';
+import glob from 'glob';
+import * as path from 'node:path';
+import args from '../../lib/arguments.js';
+
 const router = express.Router();
-const { getSettings } = require('../../lib/arguments.js');
+const { getSettings } = args;
 
 const getHTML = (req, codePath) => {
 	let html = f.getHTML(req, codePath);
@@ -45,14 +47,14 @@ const getJS = (path, req, codePath) => {
 const getTemplates = () => {
 	return glob.sync(
 		path.join(
-			__dirname,
+			import.meta.dirname,
 			'../..',
 			'public/javascripts/test-templates/**/*.js'
 		)
 	).map(filename => '/' + filename.split('/public/')[1]);
 }
 
-router.get('/', function(req, res) {
+router.get('/', async function(req, res) {
 
 	const { compileOnDemand, emulateKarma } = getSettings(req);
 	let path = req.query.path;
@@ -70,7 +72,7 @@ router.get('/', function(req, res) {
 	let tpl = {
 		title: req.query.path,
 		html: emulateKarma ?
-			f.getKarmaHTML() :
+			await f.getKarmaHTML() :
 			getHTML(req, codePath),
 		css: f.getCSS(path, codePath),
 		js: getJS(path, req, codePath),
@@ -93,4 +95,4 @@ router.get('/', function(req, res) {
 	res.render('samples/compare-iframe', tpl);
 });
 
-module.exports = router;
+export default router;
