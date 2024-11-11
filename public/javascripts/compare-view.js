@@ -323,13 +323,16 @@ function activateOverlayCompare(isCanvas) {
 				$rightImage.hide();
 				$leftImage.show();
 				// $button.html('Showing left. Click to show right');
-				$previewWhat.html('Reference');
+				document.getElementById('preview-candidate').classList.add('active');
+				document.getElementById('preview-reference').classList.remove('active');
 				showingRight = false;
 			} else {
 				$rightImage.show();
 				$leftImage.hide();
 				// $button.html('Showing right. Click to show left.');
-				$previewWhat.html('Candidate');
+
+				document.getElementById('preview-reference').classList.add('active');
+				document.getElementById('preview-candidate').classList.remove('active');
 				showingRight = true;
 			}
 		};
@@ -368,6 +371,8 @@ function activateOverlayCompare(isCanvas) {
 	}
 	$leftImage.click(manualToggle);
 	$rightImage.click(manualToggle);
+	document.querySelector('.preview-tabs')
+		.addEventListener('click', manualToggle);
 
 }
 
