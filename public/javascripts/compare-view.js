@@ -323,16 +323,16 @@ function activateOverlayCompare(isCanvas) {
 				$rightImage.hide();
 				$leftImage.show();
 				// $button.html('Showing left. Click to show right');
-				document.getElementById('preview-candidate').classList.add('active');
-				document.getElementById('preview-reference').classList.remove('active');
+				document.getElementById('preview-candidate').classList.remove('active');
+				document.getElementById('preview-reference').classList.add('active');
 				showingRight = false;
 			} else {
 				$rightImage.show();
 				$leftImage.hide();
 				// $button.html('Showing right. Click to show left.');
 
-				document.getElementById('preview-reference').classList.add('active');
-				document.getElementById('preview-candidate').classList.remove('active');
+				document.getElementById('preview-reference').classList.remove('active');
+				document.getElementById('preview-candidate').classList.add('active');
 				showingRight = true;
 			}
 		};
