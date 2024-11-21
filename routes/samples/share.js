@@ -27,6 +27,10 @@ router.get('/', async (req, res) => {
         .replace(
             `https://github.highcharts.com/${latestCommit}/mapdata/`,
             'https://code.highcharts.com/mapdata/'
+        )
+        .replace(
+            `https://github.highcharts.com/${latestCommit}/connectors/`,
+            'https://code.highcharts.com/connectors/'
         );
     const js = await fs.readFile(
         join(highchartsDir, 'samples', req.query.path, 'demo.js')
