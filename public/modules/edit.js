@@ -35,6 +35,7 @@ const save = () => {
 	document.getElementById("save-input").value = fileName;
 	document.getElementById("files-form").submit();
 
+	document.getElementById("save-input").value = 'false';
 	activeTabButton.classList.remove('changed');
 	editor.savedValue = editor.state.doc.toString();
 }
