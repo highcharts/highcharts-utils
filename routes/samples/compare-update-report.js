@@ -1,13 +1,14 @@
-const express = require('express');
-const path = require('path');
+import express from 'express';
+import * as path from 'node:path';
+import * as fs from 'node:fs';
+import f from '../../lib/functions.js';
+
 const router = express.Router();
-const fs = require('fs');
-const f = require('../../lib/functions.js');
 
 router.get('/', function(req, res) {
 	try {
 		let fileName = path.join(
-			__dirname,
+			import.meta.dirname,
 			'../../temp/compare.' +	f.getBranch().replace('/', '-') + '.' +
 			req.query.browser + '.json'
 		);
@@ -38,4 +39,4 @@ router.get('/', function(req, res) {
 	}
 });
 
-module.exports = router;
+export default router;

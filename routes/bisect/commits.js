@@ -1,8 +1,10 @@
-const express = require('express');
-const router = express.Router();
-const { highchartsDir } = require('../../lib/arguments.js');
-const git = require('simple-git/promise')(highchartsDir);
+import express from 'express';
+import args from '../../lib/arguments.js';
+import * as simplegit from 'simple-git';
 
+const router = express.Router();
+const { highchartsDir } = args;
+const git = simplegit.gitP(highchartsDir);
 
 router.get('/', function(req, res) {
 
@@ -87,4 +89,4 @@ router.get('/', function(req, res) {
         .catch((e) => res.status(500).send(e.toString()));
 });
 
-module.exports = router;
+export default router;

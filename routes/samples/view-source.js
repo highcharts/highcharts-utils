@@ -1,8 +1,10 @@
-const express = require('express');
-const fs = require('fs');
+import express from 'express';
+import * as fs from 'node:fs';
+import * as path from 'node:path';
+import args from '../../lib/arguments.js';
+
 const router = express.Router();
-const path = require('path');
-const { samplesDir } = require('../../lib/arguments.js');
+const { samplesDir } = args;
 
 router.get('/', function(req, res) {
   const htmlPath = path.join(
@@ -48,4 +50,4 @@ router.get('/', function(req, res) {
   });
 });
 
-module.exports = router;
+export default router;

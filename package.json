@@ -9,6 +9,7 @@
     "precommit": "lint-staged",
     "demodata": "node ./utils/demo-data"
   },
+  "type": "module",
   "bin": "./bin/cli.js",
   "dependencies": {
     "@babel/core": "^7.13.10",
