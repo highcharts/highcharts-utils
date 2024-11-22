@@ -28,13 +28,19 @@
 	#diff {
 		width: 30px;
 	}
-	textarea {
-		vertical-align: top;
-		min-width: 400px;
-		height: 2em;
-	}
+
 	input[type=submit] {
 		float: right;
+	}
+
+	input, select {
+		border: 1px solid silver;
+		padding: 4px;
+		border-radius: 4px;
+	}
+
+	input#title {
+		width: 400px;
 	}
 
 </style>
@@ -114,7 +120,7 @@ $(window).load(function () {
 
 				<td>Title</td>
 				<td>
-					<textarea type="text" id="title" name="title">{{title}}</textarea>
+					<input type="text" id="title" name="title">{{title}}</input>
 				</td>
 
 				<td></td>
