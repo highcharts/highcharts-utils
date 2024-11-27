@@ -50,6 +50,12 @@
 			if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
 				controller.focusSearch();
 			}
+
+			if ((e.ctrlKey || e.metaKey) && e.key === 'e') {
+				controller.frames().main.contentDocument.getElementById('edit')
+					.click();
+				e.preventDefault();
+			}
 		}
 		controller.onLoad.push(function () {
 			const hash = window.location.hash;

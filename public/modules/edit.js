@@ -78,6 +78,12 @@ const saveAsSubmit = (e) => {
 	document.getElementById('files-form').submit();
 }
 
+const exitEdit = () => {
+	window.parent.controller.frames().main.contentDocument
+		.getElementById('edit')
+		.click();
+}
+
 const esLintConfig = {
 	// eslint configuration
 	languageOptions: {
@@ -148,12 +154,17 @@ document.addEventListener("DOMContentLoaded", () => {
                     keymap.of([
                         {
                             key: 'Ctrl-Enter',
-                            run: run,
+                            run,
                             preventDefault: true
                         },
                         {
                             key: 'Ctrl-s',
                             run: save,
+                            preventDefault: true
+                        },
+                        {
+                            key: 'Ctrl-e',
+                            run: exitEdit,
                             preventDefault: true
                         },
                         {
@@ -167,6 +178,11 @@ document.addEventListener("DOMContentLoaded", () => {
                             preventDefault: true
                         },
 						{
+                            key: 'Cmd-e',
+                            run: exitEdit,
+                            preventDefault: true
+                        },
+                        {
 							key: "Tab",
 							preventDefault: true,
 							run: indentMore,
