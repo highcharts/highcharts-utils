@@ -13,6 +13,7 @@ const {
 } = require('./lib/arguments.js');
 const { getCodeFile } = require('./lib/functions');
 const { startWatchServer } = require('./lib/websocket.js');
+const { extname } = require('path');
 
 
 /**
@@ -37,7 +38,15 @@ app.use('/', async (req, res) => {
 	}
 
 	if (content) {
-		res.type('text/javascript');
+		const type = {
+            '.css': 'text/css',
+            '.js': 'text/javascript',
+            '.map': 'application/json',
+            '.svg': 'image/svg+xml'
+        }[extname(req.path)];
+        if (type) {
+            res.type(type);
+        }
 		res.send(content);
 		return;
 	}
