@@ -11,6 +11,16 @@
     	font-family: Helvetica, Arial, sans-serif !important;
 	}
 
+	#qunit {
+		position: absolute;
+		top: 0;
+		left: 600px;
+		width: calc(100% - 600px);
+	}
+
+	body:has(#qunit) #container{
+		margin: 0;
+	}
 </style>
 
 
