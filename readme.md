@@ -43,7 +43,7 @@ or an equivalent command. The options that are handled at the runtime set
 through "Session settings" (explained above) have precedence over
 the CLI arguments.
 
-See [highcharts/samples](https://github.com/highcharts/highcharts/tree/master/samples)
+See [highcharts/samples](https://github.com/highcharts/highcharts/tree/main/samples)
 for description of how the samples are set up and how to use the utils.
 
 The server `code.highcharts.local` is serving files locally from the `/code`

@@ -75,7 +75,7 @@ router.get('/', function(req, res) {
 
 					tpl.branches = Object.keys(log.branches).map(name => ({
 						name: name,
-						selected: (req.session.branch || 'master') === name ?
+						selected: (req.session.branch || 'main') === name ?
 							'selected' :
 							''
 					}));
