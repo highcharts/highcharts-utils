@@ -306,6 +306,7 @@ var controller = { // eslint-disable-line no-unused-vars
      * Update the contents to show only errors, or show all
      */
     filter: function (q) {
+        localStorage.setItem('searchQuery', q);
         // console.time('@filter')
         const contentFrame = this.frames().contents,
             contentDoc = contentFrame.contentDocument,
@@ -669,6 +670,12 @@ var controller = { // eslint-disable-line no-unused-vars
             const option = contentsDoc.createElement('option');
             option.value = `status:${status}`;
             datalist.appendChild(option);
+        }
+
+        const searchQuery = localStorage.getItem('searchQuery');
+        if (searchQuery) {
+            search.value = searchQuery;
+            controller.filter(searchQuery);
         }
 
     },
