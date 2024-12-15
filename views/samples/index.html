@@ -243,14 +243,16 @@
 			z-index: 999
 		}
 
+		/* These are marked !important because otherwise they are overridden by
+		* the inline styles set by the dragbar or the edit mode toggle */
 		body.bisect #sidebar {
-			width: 25%;
+			width: 25% !important;
 		}
 		body.bisect #main-div {
-			width: 50%;
+			width: 50% !important;
 		}
 		body.bisect #bisect-div {
-			width: 25%;
+			width: 25% !important;
 		}
 
 	</style>
