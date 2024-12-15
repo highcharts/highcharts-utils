@@ -96,6 +96,7 @@ window.addEventListener('load', function () {
 
 		$(this).toggleClass('active');
 		document.body.classList.toggle('edit-mode');
+		parent.document.body.classList.toggle('edit-mode');
 
 		checked = $(this).hasClass('active')
 
@@ -123,12 +124,10 @@ window.addEventListener('load', function () {
 
 		if (checked) {
 			if (controller) {
-				controller.frames().contents.src = `edit?path=${window.path}`;
+				controller.frames().editor.src = `edit?path=${window.path}`;
 			} else {
 				window.location.href = `/samples/#edit/${window.path}`;
 			}
-		} else {
-			controller.frames().contents.src = '/samples/contents'
 		}
 	});
 

@@ -114,6 +114,7 @@ var controller = { // eslint-disable-line no-unused-vars
             frameset: window.parent.document.querySelector('frameset'),
             index: window,
             contents: window.parent.document.getElementById('contents'),
+            editor: window.parent.document.getElementById('editor'),
             commits: window.parent.document.getElementById('commits-frame'),
             main: window.parent.document.getElementById('main')
         };
@@ -306,8 +307,6 @@ var controller = { // eslint-disable-line no-unused-vars
      * Update the contents to show only errors, or show all
      */
     filter: function (q) {
-        localStorage.setItem('searchQuery', q);
-        // console.time('@filter')
         const contentFrame = this.frames().contents,
             contentDoc = contentFrame.contentDocument,
             error = this.testStatus.error,
@@ -670,12 +669,6 @@ var controller = { // eslint-disable-line no-unused-vars
             const option = contentsDoc.createElement('option');
             option.value = `status:${status}`;
             datalist.appendChild(option);
-        }
-
-        const searchQuery = localStorage.getItem('searchQuery');
-        if (searchQuery) {
-            search.value = searchQuery;
-            controller.filter(searchQuery);
         }
 
     },

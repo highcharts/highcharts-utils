@@ -89,6 +89,13 @@
 					mainHref = `/samples/compare-view?path=${path}`;
 				}
 
+				// Edit
+				match = hash.match(/^#edit\//);
+				if (match) {
+					path = hash.replace(match[0], '');
+					mainHref = `/samples/view?path=${path}`;
+				}
+
 				// Batch test
 				match = hash.match(/^#batch\//);
 				if (match) {
@@ -105,7 +112,7 @@
 				) {
 					document.getElementById('main').contentWindow
 						.location.href = mainHref;
-				} else if (path) {
+				} else if (path && controller.samples[path]) {
 					controller.samples[path].setCurrent();
 				}
 			}
@@ -170,13 +177,15 @@
 			// Edit mode
 			const match = window.location.hash.match(/^#edit\//);
 			if (match) {
+				document.body.classList.add('edit-mode');
 				mainHref = '/samples/view?path=' + hash.replace(match[0], '');
-				contentsHref = '/samples/edit?path=' +
-					hash.replace(match[0], '');
+				//contentsHref = '/samples/edit?path=' + hash.replace(match[0], '');
+				document.getElementById('editor').contentWindow
+					.location
+					.href = '/samples/edit?path=' + hash.replace(match[0], '');
 				document.getElementById('sidebar').style.width = '50%';
 				document.getElementById('main-div').style.width = '50%';
 			}
-
 
 			document.getElementById('contents').contentWindow
 				.location.href = contentsHref;
@@ -255,6 +264,16 @@
 			width: 25% !important;
 		}
 
+		/* Edit mode */
+		iframe#editor {
+			display: none;
+		}
+		body.edit-mode iframe#editor {
+			display: block;
+		}
+		body.edit-mode iframe#contents {
+			display: none;
+		}
 	</style>
 
 	<body>
@@ -262,6 +281,7 @@
 			<div class="mask"></div>
 			<div id="dragbar"></div>
 			<iframe name="contents" id="contents"></iframe>
+			<iframe name="editor" id="editor"></iframe>
 		</div>
 		<div id="main-div">
 			<div class="mask"></div>
