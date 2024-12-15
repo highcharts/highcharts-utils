@@ -2,51 +2,53 @@
  * This is the main express app for utils.highcharts.local
  */
 
-var express = require('express');
-var path = require('path');
-var favicon = require('serve-favicon');
-var logger = require('morgan');
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
-var cors = require('cors');
-var lessMiddleware = require('less-middleware');
-var hbs = require('hbs');
-var session = require('express-session');
-var { highchartsDir } = require('./lib/arguments.js');
+import express from 'express';
+import path from 'path';
+import logger from 'morgan';
+import cookieParser from 'cookie-parser';
+import favicon from 'serve-favicon';
+import bodyParser from 'body-parser';
+import cors from 'cors';
+import lessMiddleware from 'less-middleware';
+import hbs from 'hbs';
+import session from 'express-session';
+import { highchartsDir } from './lib/arguments.js';
 
-require('dotenv').config();
+import dotenv from 'dotenv';
+dotenv.config();
 
-var app = express();
+const app = express(),
+  dirname = path.dirname(import.meta.url).replace('file://', '');
 
-hbs.registerPartials(__dirname + '/views/partials');
+hbs.registerPartials(`${dirname}/views/partials`);
 
 // view engine setup
-app.set('views', path.join(__dirname, 'views'));
+app.set('views', path.join(dirname, 'views'));
 app.set('view engine', 'hbs');
 
 app.use(cors());
 
-app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+app.use(favicon(path.join(dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(lessMiddleware(path.join(__dirname, 'public')));
+app.use(lessMiddleware(path.join(dirname, 'public')));
 
 // Static
 app.use(express.static(
-  path.join(__dirname, 'public'),
+  path.join(dirname, 'public'),
   { maxAge: 60000 }
 ));
 app.use('/temp', express.static( // non-cached temporary json files
-  path.join(__dirname, 'temp')
+  path.join(dirname, 'temp')
 ));
 app.use('/reference', express.static(
-  path.dirname(require.resolve('highcharts/package.json')),
+  path.dirname(import.meta.resolve('highcharts/package.json')),
   { maxAge: '10m' }
 ));
 app.use('/mapdata', express.static(
-  path.dirname(require.resolve('@highcharts/map-collection/package.json')),
+  path.dirname(import.meta.resolve('@highcharts/map-collection/package.json')),
   /*
   path.dirname(require.resolve(path.join(
     __dirname,
@@ -67,46 +69,40 @@ app.use(session({
 
 
 // Routes
-app.use('/', require('./routes/index'));
-app.use('/code', require('./routes/code'));
-app.use('/draft', require('./routes/draft'));
-app.use('/pulls', require('./routes/pulls'));
+app.use('/', (await import('./routes/index.js')));
+app.use('/code', (await import('./routes/code')).default);
+app.use('/draft', (await import('./routes/draft')).default);
+app.use('/pulls', (await import('./routes/pulls')).default);
 
 // Bisect
-app.use('/bisect/', require('./routes/bisect/index'));
-app.use('/bisect/commits', require('./routes/bisect/commits'));
-app.use('/bisect/commits-post', require('./routes/bisect/commits-post'));
-app.use('/bisect/bisect', require('./routes/bisect/bisect'));
-app.use('/bisect/main', require('./routes/bisect/main'));
-app.use('/bisect/main-post', require('./routes/bisect/main-post'));
-app.use('/bisect/view', require('./routes/bisect/view'));
+app.use('/bisect/', (await import('./routes/bisect/index')).default);
+app.use('/bisect/commits', (await import('./routes/bisect/commits')).default);
+app.use('/bisect/commits-post', (await import('./routes/bisect/commits-post')).default);
+app.use('/bisect/bisect', (await import('./routes/bisect/bisect')).default);
+app.use('/bisect/main', (await import('./routes/bisect/main')).default);
+app.use('/bisect/main-post', (await import('./routes/bisect/main-post')).default);
+app.use('/bisect/view', (await import('./routes/bisect/view')).default);
 
 // Samples
-app.use('/samples/', require('./routes/samples/index'));
-app.use('/samples/data', require('./routes/samples/data'));
-app.use('/samples/contents', require('./routes/samples/contents'));
-app.use('/samples/mobile', require('./routes/samples/mobile'));
-app.use('/samples/nightly', require('./routes/samples/nightly'));
-app.use('/samples/list-samples', require('./routes/samples/list-samples'));
-app.use('/samples/jsfiddle-post', require('./routes/samples/share'));
-app.use('/samples/server-env', require('./routes/samples/server-env'));
-app.use('/samples/readme', require('./routes/samples/readme'));
-app.use('/samples/settings', require('./routes/samples/settings'));
-app.use('/samples/settings-post', require('./routes/samples/settings-post'));
-app.use('/samples/view', require('./routes/samples/view'));
-app.use('/samples/view-source', require('./routes/samples/view-source'));
-app.use(
-  '/samples/compare-comment',
-  require('./routes/samples/compare-comment')
-);
-app.use('/samples/compare-iframe', require('./routes/samples/compare-iframe'));
-app.use(
-  '/samples/compare-update-report',
-  require('./routes/samples/compare-update-report')
-);
-app.use('/samples/compare-report', require('./routes/samples/compare-report'));
-app.use('/samples/compare-reset', require('./routes/samples/compare-reset'));
-app.use('/samples/compare-view', require('./routes/samples/compare-view'));
+app.use('/samples/', (await import('./routes/samples/index')).default);
+app.use('/samples/data', (await import('./routes/samples/data')).default);
+app.use('/samples/contents', (await import('./routes/samples/contents')).default);
+app.use('/samples/mobile', (await import('./routes/samples/mobile')).default);
+app.use('/samples/nightly', (await import('./routes/samples/nightly')).default);
+app.use('/samples/list-samples', (await import('./routes/samples/list-samples')).default);
+app.use('/samples/jsfiddle-post', (await import('./routes/samples/share')).default);
+app.use('/samples/server-env', (await import('./routes/samples/server-env')).default);
+app.use('/samples/readme', (await import('./routes/samples/readme')).default);
+app.use('/samples/settings', (await import('./routes/samples/settings')).default);
+app.use('/samples/settings-post', (await import('./routes/samples/settings-post')).default);
+app.use('/samples/view', (await import('./routes/samples/view')).default);
+app.use('/samples/view-source', (await import('./routes/samples/view-source')).default);
+app.use('/samples/compare-comment', (await import('./routes/samples/compare-comment')).default);
+app.use('/samples/compare-iframe', (await import('./routes/samples/compare-iframe')).default);
+app.use('/samples/compare-update-report', (await import('./routes/samples/compare-update-report')).default);
+app.use('/samples/compare-report', (await import('./routes/samples/compare-report')).default);
+app.use('/samples/compare-reset', (await import('./routes/samples/compare-reset')).default);
+app.use('/samples/compare-view', (await import('./routes/samples/compare-view')).default);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -128,4 +124,4 @@ app.use(function(err, req, res, next) { // eslint-disable-line no-unused-vars
   });
 });
 
-module.exports = app;
+export default app;

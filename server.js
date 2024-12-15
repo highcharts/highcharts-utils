@@ -1,16 +1,14 @@
 
-require = require("esm")(module);
+import http from 'http';
+import https from 'https';
+import httpProxy from 'http-proxy';
+import exitHook from 'async-exit-hook';
+import fs from 'fs';
+import ip from 'ip';
+import path from 'path';
+import 'colors';
 
-const http = require('http');
-const https = require('https');
-const httpProxy = require('http-proxy');
-const exitHook = require('async-exit-hook');
-const fs = require('fs');
-const ip = require('ip');
-const path = require('path');
-require('colors');
-
-const {
+import {
   apiPort,
   codePort,
   codeSecurePort,
@@ -18,10 +16,10 @@ const {
   highchartsDir,
   localOnly,
   pemFile,
-  proxy: useProxy,
-  topdomain: topDomain,
+  proxy as useProxy,
+  topdomain as topDomain,
   utilsPort
-} = require('./lib/arguments.js');
+} from './lib/arguments.js';
 
 let sslEnabled = false;
 let utilsDomainLine = '';
@@ -65,25 +63,28 @@ const httpsOptions = {
 };
 
 
-let hcPackage = require(`${highchartsDir}/package.json`);
+const hcPackage = (await import(
+  `${highchartsDir}/package.json`,
+  { with: { type: 'json' } }
+)).default;
+
 if (hcPackage.name !== 'highcharts') {
-  console.error(`
+  throw new Error(`
     Highcharts repo not found, please set "highchartsDir" in config.json or through CLI arguments.
-  `.red);
-  return;
+  `);
 }
 
 // Start utils.highcharts.local
-require('./bin/www');
+import './bin/www';
 
 // Start code.highcharts.local
-require('./app-code');
+import './app-code.js';
 
 // Start api.highcharts.local
-require('./app-api');
+import './app-api.js';
 
 // Require colors
-require('colors');
+import 'colors';
 
 // Set up the proxy server
 const proxy = httpProxy.createProxy();
