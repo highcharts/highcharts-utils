@@ -179,6 +179,21 @@
 		<input type="hidden" name="save" id="save-input" value="false">
 		<input type="hidden" name="save-as-path" id="save-as-hidden-input" value="">
 
+		<div id="error-message" style="opacity: 0; padding: 3em; color: red; transition: opacity 500ms">
+			<h3>edit.bundle.js not loaded</h4>.
+			<p>If you started the utils server with
+			<code>sudo node server</code>, try either starting it with <code>
+			npm start</code>, or first run <code>npx rollup -c</code>.</p>
+		</div>
+		<script>
+			setTimeout(() => {
+				// It gets removed by edit.bundle.js if it is correctly loaded
+				if (document.getElementById('error-message')) {
+					document.getElementById('error-message').style.opacity = 1;
+				}
+			}, 1500);
+		</script>
+
 		{{#each files}}
 		<div class="tab-content" id="tab-{{name}}">
 			<textarea class="file-content" id="{{name}}"

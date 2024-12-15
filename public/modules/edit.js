@@ -112,6 +112,8 @@ const esLintConfig = {
 const editors = [];
 document.addEventListener("DOMContentLoaded", () => {
 
+	document.getElementById('error-message').remove();
+
 	// Initialize CodeMirror
 	[].forEach.call(
 		document.querySelectorAll('textarea.file-content'),
