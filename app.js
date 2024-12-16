@@ -69,10 +69,10 @@ app.use(session({
 
 
 // Routes
-app.use('/', (await import('./routes/index.js')));
-app.use('/code', (await import('./routes/code')).default);
-app.use('/draft', (await import('./routes/draft')).default);
-app.use('/pulls', (await import('./routes/pulls')).default);
+app.use('/', (await import('./routes/index.js')).default);
+app.use('/code', (await import('./routes/code.js')).default);
+app.use('/draft', (await import('./routes/draft.js')).default);
+app.use('/pulls', (await import('./routes/pulls.js')).default);
 
 // Bisect
 app.use('/bisect/', (await import('./routes/bisect/index')).default);

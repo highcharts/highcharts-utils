@@ -1,7 +1,8 @@
-const express = require('express');
+import express from 'express';
+import fs from 'fs';
+import { join } from 'path';
+
 const router = express.Router();
-const fs = require('fs');
-const { join } = require('path');
 
 router.get('/', function(req, res) {
 
@@ -10,4 +11,4 @@ router.get('/', function(req, res) {
 	res.redirect(`/samples/view?path=${path}&mobile=true`);
 });
 
-module.exports = router;
+export default router;
