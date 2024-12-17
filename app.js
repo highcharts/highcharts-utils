@@ -75,34 +75,34 @@ app.use('/draft', (await import('./routes/draft.js')).default);
 app.use('/pulls', (await import('./routes/pulls.js')).default);
 
 // Bisect
-app.use('/bisect/', (await import('./routes/bisect/index')).default);
-app.use('/bisect/commits', (await import('./routes/bisect/commits')).default);
-app.use('/bisect/commits-post', (await import('./routes/bisect/commits-post')).default);
-app.use('/bisect/bisect', (await import('./routes/bisect/bisect')).default);
-app.use('/bisect/main', (await import('./routes/bisect/main')).default);
-app.use('/bisect/main-post', (await import('./routes/bisect/main-post')).default);
-app.use('/bisect/view', (await import('./routes/bisect/view')).default);
+app.use('/bisect/', (await import('./routes/bisect/index.js')).default);
+app.use('/bisect/commits', (await import('./routes/bisect/commits.js')).default);
+app.use('/bisect/commits-post', (await import('./routes/bisect/commits-post.js')).default);
+app.use('/bisect/bisect', (await import('./routes/bisect/bisect.js')).default);
+app.use('/bisect/main', (await import('./routes/bisect/main.js')).default);
+app.use('/bisect/main-post', (await import('./routes/bisect/main-post.js')).default);
+app.use('/bisect/view', (await import('./routes/bisect/view.js')).default);
 
 // Samples
-app.use('/samples/', (await import('./routes/samples/index')).default);
-app.use('/samples/data', (await import('./routes/samples/data')).default);
-app.use('/samples/contents', (await import('./routes/samples/contents')).default);
-app.use('/samples/mobile', (await import('./routes/samples/mobile')).default);
-app.use('/samples/nightly', (await import('./routes/samples/nightly')).default);
-app.use('/samples/list-samples', (await import('./routes/samples/list-samples')).default);
-app.use('/samples/jsfiddle-post', (await import('./routes/samples/share')).default);
-app.use('/samples/server-env', (await import('./routes/samples/server-env')).default);
-app.use('/samples/readme', (await import('./routes/samples/readme')).default);
-app.use('/samples/settings', (await import('./routes/samples/settings')).default);
-app.use('/samples/settings-post', (await import('./routes/samples/settings-post')).default);
-app.use('/samples/view', (await import('./routes/samples/view')).default);
-app.use('/samples/view-source', (await import('./routes/samples/view-source')).default);
-app.use('/samples/compare-comment', (await import('./routes/samples/compare-comment')).default);
-app.use('/samples/compare-iframe', (await import('./routes/samples/compare-iframe')).default);
-app.use('/samples/compare-update-report', (await import('./routes/samples/compare-update-report')).default);
-app.use('/samples/compare-report', (await import('./routes/samples/compare-report')).default);
-app.use('/samples/compare-reset', (await import('./routes/samples/compare-reset')).default);
-app.use('/samples/compare-view', (await import('./routes/samples/compare-view')).default);
+app.use('/samples/', (await import('./routes/samples/index.js')).default);
+app.use('/samples/data', (await import('./routes/samples/data.js')).default);
+app.use('/samples/contents', (await import('./routes/samples/contents.js')).default);
+app.use('/samples/mobile', (await import('./routes/samples/mobile.js')).default);
+app.use('/samples/nightly', (await import('./routes/samples/nightly.js')).default);
+app.use('/samples/list-samples', (await import('./routes/samples/list-samples.js')).default);
+app.use('/samples/jsfiddle-post', (await import('./routes/samples/share.js')).default);
+app.use('/samples/server-env', (await import('./routes/samples/server-env.js')).default);
+app.use('/samples/readme', (await import('./routes/samples/readme.js')).default);
+app.use('/samples/settings', (await import('./routes/samples/settings.js')).default);
+app.use('/samples/settings-post', (await import('./routes/samples/settings-post.js')).default);
+app.use('/samples/view', (await import('./routes/samples/view.js')).default);
+app.use('/samples/view-source', (await import('./routes/samples/view-source.js')).default);
+app.use('/samples/compare-comment', (await import('./routes/samples/compare-comment.js')).default);
+app.use('/samples/compare-iframe', (await import('./routes/samples/compare-iframe.js')).default);
+app.use('/samples/compare-update-report', (await import('./routes/samples/compare-update-report.js')).default);
+app.use('/samples/compare-report', (await import('./routes/samples/compare-report.js')).default);
+app.use('/samples/compare-reset', (await import('./routes/samples/compare-reset.js')).default);
+app.use('/samples/compare-view', (await import('./routes/samples/compare-view.js')).default);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

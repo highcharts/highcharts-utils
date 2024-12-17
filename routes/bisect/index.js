@@ -1,9 +1,14 @@
-const express = require('express');
-const path = require('path');
-const router = express.Router();
+import express from 'express';
+import path from 'path';
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
 
-router.get('/', function(req, res, next) {
+const router = express.Router();
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
+router.get('/', function(req, res) {
   	res.sendFile(path.join(__dirname + '/../../views/bisect/index.html'));
 });
 
-module.exports = router;
+export default router;

@@ -87,4 +87,4 @@ router.get('/', function(req, res) {
         .catch((e) => res.status(500).send(e.toString()));
 });
 
-module.exports = router;
+export default router;
