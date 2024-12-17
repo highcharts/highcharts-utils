@@ -6,10 +6,43 @@
 
 var app = require('../app');
 var debug = require('debug')('highcharts-utils:server');
-const fs = require('fs');
 var http = require('http');
-const { utilsPort, highchartsDir } = require('../lib/arguments.js');
+const { utilsPort } = require('../lib/arguments.js');
 const { startWatchServer } = require('../lib/websocket');
+
+/*
+const { rollup } = require('rollup');
+const { loadConfigFile } = require('rollup/loadConfigFile');
+const path = require('path');
+
+(async () => {
+    try {
+        // Path to the Rollup config file
+        const configPath = path.resolve('../rollup.config.mjs');
+
+        // Load the config file
+        const { options, warnings } = await loadConfigFile(configPath);
+
+        // Handle any warnings from the config
+        warnings.flush();
+
+        // Loop through all the options and build
+        for (const optionsObject of options) {
+            console.log(optionsObject)
+            const bundle = await rollup(optionsObject);
+
+            for (const output of optionsObject.output) {
+                await bundle.write(output);
+            }
+
+            console.log(`Built successfully: ${optionsObject.output.map(o => o.file || o.dir).join(', ')}`);
+        }
+    } catch (error) {
+        console.error('Rollup build failed:', error);
+        process.exit(1);
+    }
+})();
+*/
 
 /**
  * Get port from environment and store in Express.

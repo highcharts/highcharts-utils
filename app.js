@@ -85,6 +85,7 @@ app.use('/bisect/view', require('./routes/bisect/view'));
 app.use('/samples/', require('./routes/samples/index'));
 app.use('/samples/data', require('./routes/samples/data'));
 app.use('/samples/contents', require('./routes/samples/contents'));
+app.use('/samples/edit', require('./routes/samples/edit'));
 app.use('/samples/mobile', require('./routes/samples/mobile'));
 app.use('/samples/nightly', require('./routes/samples/nightly'));
 app.use('/samples/list-samples', require('./routes/samples/list-samples'));
@@ -94,7 +95,6 @@ app.use('/samples/readme', require('./routes/samples/readme'));
 app.use('/samples/settings', require('./routes/samples/settings'));
 app.use('/samples/settings-post', require('./routes/samples/settings-post'));
 app.use('/samples/view', require('./routes/samples/view'));
-app.use('/samples/view-source', require('./routes/samples/view-source'));
 app.use(
   '/samples/compare-comment',
   require('./routes/samples/compare-comment')
