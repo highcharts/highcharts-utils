@@ -1,8 +1,9 @@
-const express = require('express');
-const router = express.Router();
-const f = require('./../../lib/functions.js');
+import express from 'express';
+import * as f from './../../lib/functions.js';
 
-router.get('/', function(req, res, next) {
+const router = express.Router();
+
+router.get('/', function(req, res) {
 
 	res.setHeader('Content-Type', 'application/json');
     res.send({
@@ -10,4 +11,4 @@ router.get('/', function(req, res, next) {
     });
 });
 
-module.exports = router;
+export default router;

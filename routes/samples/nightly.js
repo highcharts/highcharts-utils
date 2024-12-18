@@ -1,9 +1,9 @@
-const express = require('express');
-const {
+import express from 'express';
+import {
     getLatestTag,
     getNightlyResult
-} = require('../../lib/functions');
-const moment = require('moment'); // Using dateFormat
+} from '../../lib/functions.js';
+import moment from 'moment'; // Using dateFormat
 
 const router = express.Router();
 
@@ -138,4 +138,4 @@ router.get('/latest.json', async (req, res, next) => {
 
 });
 
-module.exports = router;
+export default router;

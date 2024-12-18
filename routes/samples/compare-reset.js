@@ -1,12 +1,14 @@
-const express = require('express');
+import express from 'express';
+import fs from 'fs';
+import path from 'path';
+import glob from 'glob';
+import { dirname } from '../../lib/functions.js';
+
 const router = express.Router();
-const fs = require('fs');
-const path = require('path');
-const glob = require('glob');
 
 router.get('/', function(req, res) {
 	glob(path.join(
-		__dirname,
+		dirname(import.meta),
 		'../../temp/*.json'
 	), null, (err, files) => {
 
@@ -15,9 +17,9 @@ router.get('/', function(req, res) {
 		}
 
 		files.forEach(file => fs.unlinkSync(file));
-		
-		res.send('window.parent.parent.location.href = "/samples"');	
+
+		res.send('window.parent.parent.location.href = "/samples"');
 	})
 });
 
-module.exports = router;
+export default router;

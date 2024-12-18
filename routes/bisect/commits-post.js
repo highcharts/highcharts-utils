@@ -1,4 +1,4 @@
-const express = require('express');
+import express from 'express';
 const router = express.Router();
 
 
@@ -10,4 +10,4 @@ router.post('/', function(req, res) {
 	res.redirect('/bisect/commits');
 });
 
-module.exports = router;
+export default router;

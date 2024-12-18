@@ -1,16 +1,14 @@
 /**
- * View a single sample.
- *
- * @todo
- * - Styled mode
+ * View a single sample
  */
 
-const express = require('express');
+import express from 'express';
+import * as f from './../../lib/functions.js';
+import fs from 'fs';
+import ip from 'ip';
+import { join } from 'path';
+
 const router = express.Router();
-const f = require('./../../lib/functions.js');
-const fs = require('fs');
-const ip = require('ip');
-const { join } = require('path');
 
 router.get('/', async (req, res) => {
     let resources = f.getResources(req.query.path);
@@ -18,7 +16,8 @@ router.get('/', async (req, res) => {
     let codePath = req.query.rightcommit ?
         'https://github.highcharts.com/' + req.query.rightcommit :
         '/code';
-    fs.writeFile(join(__dirname, '../../path.txt'), req.query.path, 'utf-8', (err) => {
+
+    fs.writeFile(join(f.dirname(import.meta), '../../path.txt'), req.query.path, 'utf-8', (err) => {
         if (err) {
             console.log(err);
         }
@@ -69,4 +68,4 @@ router.get('/', async (req, res) => {
     res.render('samples/view', tpl);
 });
 
-module.exports = router;
+export default router;

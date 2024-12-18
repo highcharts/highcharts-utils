@@ -1,7 +1,7 @@
-const express = require('express');
+import express from 'express';
 const router = express.Router();
 
-const { Octokit } = require('@octokit/rest');
+import { Octokit } from '@octokit/rest';
 
 const octokit = new Octokit({
     // https://github.com/settings/tokens
@@ -167,7 +167,7 @@ router.get('/list-checks/:ref', async (req, res) => {
 });
 
 
-module.exports = router;
+export default router;
 
 
 
