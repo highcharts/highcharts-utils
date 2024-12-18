@@ -13,35 +13,36 @@ import lessMiddleware from 'less-middleware';
 import hbs from 'hbs';
 import session from 'express-session';
 import { highchartsDir } from './lib/arguments.js';
+import { dirname } from './lib/functions.js';
 
 import dotenv from 'dotenv';
 dotenv.config();
 
 const app = express(),
-  dirname = path.dirname(import.meta.url).replace('file://', '');
+  __dirname = dirname(import.meta);
 
-hbs.registerPartials(`${dirname}/views/partials`);
+hbs.registerPartials(`${__dirname}/views/partials`);
 
 // view engine setup
-app.set('views', path.join(dirname, 'views'));
+app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
 
 app.use(cors());
 
-app.use(favicon(path.join(dirname, 'public', 'favicon.ico')));
+app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(lessMiddleware(path.join(dirname, 'public')));
+app.use(lessMiddleware(path.join(__dirname, 'public')));
 
 // Static
 app.use(express.static(
-  path.join(dirname, 'public'),
+  path.join(__dirname, 'public'),
   { maxAge: 60000 }
 ));
 app.use('/temp', express.static( // non-cached temporary json files
-  path.join(dirname, 'temp')
+  path.join(__dirname, 'temp')
 ));
 app.use('/reference', express.static(
   path.dirname(import.meta.resolve('highcharts/package.json'))
