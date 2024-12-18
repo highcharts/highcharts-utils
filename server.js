@@ -1,4 +1,4 @@
-
+import hostile from 'hostile';
 import http from 'http';
 import https from 'https';
 import httpProxy from 'http-proxy';
@@ -165,7 +165,6 @@ if (useProxy) {
 
     let domainsEnabled = !localOnly;
     if (!localOnly) {
-      const hostile = require('hostile');
       try {
         // Add domains to hosts file
         domains.forEach(domain => {

@@ -1,14 +1,13 @@
 import express from 'express';
 import path from 'path';
-import { fileURLToPath } from 'url';
-import { dirname } from 'path';
+import { dirname } from '../../lib/functions.js';
 
 const router = express.Router();
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
 
 router.get('/', function(req, res) {
-  	res.sendFile(path.join(__dirname + '/../../views/bisect/index.html'));
+  	res.sendFile(
+		path.join(dirname(import.meta) + '/../../views/bisect/index.html')
+	);
 });
 
 export default router;

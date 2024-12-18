@@ -44,17 +44,13 @@ app.use('/temp', express.static( // non-cached temporary json files
   path.join(dirname, 'temp')
 ));
 app.use('/reference', express.static(
-  path.dirname(import.meta.resolve('highcharts/package.json')),
+  path.dirname(import.meta.resolve('highcharts/package.json'))
+    .replace('file://', ''),
   { maxAge: '10m' }
 ));
 app.use('/mapdata', express.static(
-  path.dirname(import.meta.resolve('@highcharts/map-collection/package.json')),
-  /*
-  path.dirname(require.resolve(path.join(
-    __dirname,
-    '../map-collection/Export/2.1.0'
-  ))),
-  // */
+  path.dirname(import.meta.resolve('@highcharts/map-collection/package.json'))
+    .replace('file://', ''),
   { maxAge: '10m' }
 ));
 app.use('/samples/graphics', express.static(

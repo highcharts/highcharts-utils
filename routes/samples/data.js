@@ -1,9 +1,9 @@
-const express = require('express');
+import express from 'express';
+import fs from 'fs';
+import path, { join } from 'path';
+import { samplesDir } from '../../lib/arguments.js';
+
 const router = express.Router();
-const fs = require('fs');
-const path = require('path');
-const { samplesDir } = require('../../lib/arguments.js');
-const { join } = require('path');
 
 router.get(/[a-z\/\-\.0-9]+\.([a-z]+)$/, function(req, res) {
 
@@ -39,4 +39,4 @@ router.get(/[a-z\/\-\.0-9]+\.([a-z]+)$/, function(req, res) {
     res.sendFile(file);
 });
 
-module.exports = router;
+export default router;
