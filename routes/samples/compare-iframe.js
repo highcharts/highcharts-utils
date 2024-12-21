@@ -24,11 +24,11 @@ const getHTML = (req, codePath) => {
 	return html;
 }
 
-const getJS = (path, req, codePath) => {
+const getJS = (req, codePath) => {
 
-	let js = f.getJS(path, req, codePath);
+	let js = f.getJS(req, codePath);
 
-	if (path.indexOf('unit-tests/') !== 0) {
+	if (req.query.path.indexOf('unit-tests/') !== 0) {
 
 		// Don't do intervals (typically for gauge samples, add point etc)
 		js = js.replace('setInterval', 'Highcharts.noop');
@@ -52,7 +52,7 @@ const getTemplates = () => {
 	).map(filename => '/' + filename.split('/public/')[1]);
 }
 
-router.get('/', function(req, res) {
+const getTestTemplate = function(req) {
 
 	const { compileOnDemand, emulateKarma } = getSettings(req);
 	let path = req.query.path;
@@ -67,13 +67,13 @@ router.get('/', function(req, res) {
 			'https://github.highcharts.com/' + req.query.rightcommit;
 	}
 
-	let tpl = {
+	return {
 		title: req.query.path,
 		html: emulateKarma ?
 			f.getKarmaHTML() :
 			getHTML(req, codePath),
-		css: f.getCSS(path, codePath),
-		js: getJS(path, req, codePath),
+		css: f.getCSS(req, codePath),
+		js: getJS(req, codePath),
 		scripts: [
 			'/javascripts/vendor/jquery-1.11.1.js',
 			'/javascripts/vendor/lolex.js',
@@ -89,8 +89,10 @@ router.get('/', function(req, res) {
 		path: path,
 		which: which
 	};
+};
 
-	res.render('samples/compare-iframe', tpl);
-});
+router.get('/', (req, res) =>
+	res.render('samples/compare-iframe', getTestTemplate(req)));
 
 module.exports = router;
+module.exports.getTestTemplate = getTestTemplate;

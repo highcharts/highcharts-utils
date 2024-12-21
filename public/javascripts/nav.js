@@ -10,6 +10,10 @@ window.addEventListener('bodyload', function () {
 	if (localStorage.getItem('mobile-preview')) {
 		document.body.classList.add('mobile-preview');
 	}
+
+	if (/#edit/.test(window.parent.location.hash)) {
+		document.body.classList.add('edit-mode');
+	}
 });
 
 /* global controller, Highcharts */
@@ -78,23 +82,34 @@ window.addEventListener('load', function () {
 			$('#next', document)[0].disabled = false;
 		}
 
+	} else {
+		$('#bisect', document).hide();
 	}
 
-	// Activate view source button
-	$('#view-source', document).bind('click', function () {
-		var checked,
-			$sourceBox = $('#source-box', document)	;
+	if (/#edit/.test(window.parent.location.hash)) {
+		$('#edit', document).addClass('active');
+	}
+
+	// Activate edit button
+	$('#edit', document).bind('click', function () {
+		var checked;
 
 		$(this).toggleClass('active');
+		document.body.classList.toggle('edit-mode');
+		parent.document.body.classList.toggle('edit-mode');
 
 		checked = $(this).hasClass('active')
 
-		$sourceBox.css({
-			width: checked ? '50%' : 0
+		$('#sidebar', window.parent.document).css({
+			width: checked ? '50%' : '25%'
 		});
-		$('#main-content', document).css({
-			width: checked ? '50%' : '100%'
+		$('#main-div', window.parent.document).css({
+			width: checked ? '50%' : '75%'
 		});
+
+		window.parent.location.hash = checked ?
+			`edit/${window.path}`:
+			`view/${window.path}`;
 
 		var interval = setInterval(function () {
 			if (typeof Highcharts !== 'undefined') {
@@ -108,19 +123,11 @@ window.addEventListener('load', function () {
 		}, 500);
 
 		if (checked) {
-
-			$('<iframe>', document).appendTo($sourceBox)
-				.attr({
-					id: 'view-source-iframe',
-					src: 'view-source?path=' + window.path
-				})
-				.css({
-					width: '100%',
-					border: 'none',
-					borderRight: '1px solid gray'
-				});
-		} else {
-			$('#source-box', document).html('');
+			if (controller) {
+				controller.frames().editor.src = `edit?path=${window.path}`;
+			} else {
+				window.location.href = `/samples/#edit/${window.path}`;
+			}
 		}
 	});
 

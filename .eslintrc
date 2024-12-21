@@ -10,5 +10,16 @@
     "rules": {
     	"no-undef": 2,
 	    "no-unused-vars": 2
-    }
+    },
+
+    "overrides": [
+        {
+          "files": [
+            "**/*.mjs"
+          ],
+          "parserOptions": {
+            "sourceType": "module"
+          }
+        }
+      ]
 }

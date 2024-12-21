@@ -1,0 +1,224 @@
+<script>
+	window.validPathRegex = {{{validPathRegex}}};
+</script>
+<script type="module" src="/modules/edit.bundle.js"></script>
+<style type="text/css">
+	body {
+		margin: 0;
+	}
+	h4 {
+		border-bottom: 1px solid silver;
+		margin: 0;
+		padding: 0.25em 5px;
+		font-family: Arial, Verdana;
+		font-size: 12px;
+		color: white;
+		background: #34343e;
+	}
+	h4 a {
+		color: white;
+	}
+	.CodeMirror {
+		background: #efefef;
+		height: calc(100vh - 40px);
+		line-height: 1.2em;
+	}
+
+	.header-bar {
+		background-color: #47475C;
+		color: white;
+	}
+
+	.header-bar button,
+	.header-bar a.button {
+		background-color: #47475C;
+		font-size: 0.85em;
+		color: white;
+		border: none;
+		border-top: 3px solid #47475C;
+		cursor: pointer;
+		display: inline-block;
+		padding: 7px 20px;
+		margin: 0;
+		text-decoration: none;
+	}
+	.header-bar button:hover,
+	.header-bar a.button:hover {
+		background-color: #34343e;
+		border-top: 3px solid #40818b;
+	}
+
+
+	.tabs {
+		width: 100%;
+		display: flex;
+		flex-direction: column;
+	}
+
+	.tab-buttons {
+		display: flex;
+		border-bottom: 2px solid #ccc;
+	}
+
+	.tab-button {
+		padding: 10px 20px;
+		cursor: pointer;
+		background-color: #f1f1f1;
+		border: none;
+		outline: none;
+	}
+
+	.tab-button:hover {
+		background-color: #ddd;
+	}
+
+	.tab-button.active {
+		background-color: #fff;
+		border-bottom: 2px solid #000;
+	}
+
+	.tab-button.changed::after {
+		content: ' *';
+	}
+
+	.tab-content {
+		display: none;
+		height: calc(100vh - 76px);
+	}
+
+	.tab-content.active {
+		display: flex;
+	}
+
+	.cm-editor {
+		height: 100%;
+		width: 100%
+	}
+
+	.modal {
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		background-color: rgba(0, 0, 0, 0.5);
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		z-index: 10;
+	}
+	.modal-content {
+		background-color: white;
+		padding: 10px;
+		border-radius: 5px;
+		width: 320px;
+		box-sizing: border-box;
+	}
+	.modal-content input[type="text"] {
+		width: 100%;
+		box-sizing: border-box;
+		padding: 5px;
+		transition: background 250ms, color 250ms;
+	}
+	.modal-content input.invalid {
+		background: #f15c80;
+		color: white;
+	}
+	.modal h4 {
+		background: none;
+		color: #333;
+		border-bottom: none;
+		padding: 0;
+	}
+	.modal .button-row {
+		height: 30px;
+	}
+
+	.modal .button-row button {
+		float: right;
+		margin-left: 5px;
+		padding: 5px 10px;
+		height: 30px;
+		border: 1px solid #ccc;
+		border-radius: 3px;
+	}
+
+
+	#save-as-dialog {
+		display: none;
+	}
+
+</style>
+
+<div class="header-bar">
+	<button id="run-button" title="Run (Ctrl/Cmd + Enter)">
+		<i class="fa fa-play"></i> Run
+	</button>
+	<button id="save-button" title="Save">
+		<i class="fa fa-save"></i> Save file
+	</button>
+	<button id="save-as-button" title="Save">
+		<i class="fa fa-save"></i> Save sample as
+	</button>
+	<a class="button" target="_blank" id="edit-in-vscode" data-full-path="{{fullPath}}">
+		<i class="fa fa-external-link"></i>
+		VSCode
+	</a>
+</div>
+
+<div class="tabs">
+	<div class="tab-buttons">
+    {{#each files}}
+	  	<button class="tab-button" data-tab="tab-{{name}}"
+			id="tab-button-{{name}}">{{name}}</button>
+    {{/each}}
+	</div>
+
+	<form id="files-form" method="POST" action="/samples/view?path={{path}}"
+			target="main">
+		<input type="hidden" name="save" id="save-input" value="false">
+		<input type="hidden" name="save-as-path" id="save-as-hidden-input" value="">
+
+		<div id="error-message" style="opacity: 0; padding: 3em; color: red; transition: opacity 500ms">
+			<h3>edit.bundle.js not loaded</h4>.
+			<p>If you started the utils server with
+			<code>sudo node server</code>, try either starting it with <code>
+			npm start</code>, or first run <code>npx rollup -c</code>.</p>
+		</div>
+		<script>
+			setTimeout(() => {
+				// It gets removed by edit.bundle.js if it is correctly loaded
+				if (document.getElementById('error-message')) {
+					document.getElementById('error-message').style.opacity = 1;
+				}
+			}, 1500);
+		</script>
+
+		{{#each files}}
+		<div class="tab-content" id="tab-{{name}}">
+			<textarea class="file-content" id="{{name}}"
+				name="{{name}}">{{{content}}}</textarea>
+		</div>
+		{{/each}}
+	</form>
+</div>
+
+<div id="save-as-dialog" class="modal">
+	<div class="modal-content">
+		<form id="save-as-form" defaultButton="save-as-submit">
+			<h4>Save sample as...</h4>
+			<p>All files in the sample folder will be duplicated into:</p>
+			<p>
+				<input type="text" id="save-as-input" value="{{path}}-copy">
+			</p>
+			<p class="button-row">
+				<button type="submit" id="save-as-submit">
+					Save</button>
+				<button id="save-as-cancel">Cancel</button>
+			</p>
+		</form>
+	</div>
+</div>
+
+
+
