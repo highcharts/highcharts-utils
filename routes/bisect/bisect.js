@@ -1,10 +1,11 @@
 /* eslint-env node,es6 */
 
-const express = require('express');
+import express from 'express';
+import semver from 'semver';
+import { highchartsDir } from '../../lib/arguments.js';
+import { spawn } from 'child_process';
+
 const router = express.Router();
-const semver = require('semver');
-const { highchartsDir } = require('../../lib/arguments.js');
-const { spawn } =  require('child_process');
 
 const git = cmd => new Promise((resolve, reject) => {
 	const options = {
@@ -199,4 +200,4 @@ router.post('/', function(req, res) {
 	res.redirect('/bisect/bisect');
 });
 
-module.exports = router;
+export default router;

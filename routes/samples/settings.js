@@ -1,7 +1,7 @@
-const express = require('express');
-const router = express.Router();
+import express from 'express';
+import { getConfig } from '../../lib/functions.js';
 
-const { getConfig } = require('../../lib/functions.js');
+const router = express.Router();
 
 router.get('/', async (req, res) => {
     const options = await getConfig();
@@ -12,4 +12,4 @@ router.get('/', async (req, res) => {
     });
 });
 
-module.exports = router;
+export default router;

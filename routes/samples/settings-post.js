@@ -1,12 +1,23 @@
-const express = require('express');
-const fs = require('fs').promises;
-const { join } = require('path');
+import express from 'express';
+import { promises as fs } from 'fs';
+import { join } from 'path';
+import config from '../../config.json' with { type: 'json' };
+import { dirname } from '../../lib/functions.js';
+
 const router = express.Router();
-const config = require('../../config.json');
 
 router.post('/', async (req, res) => {
-	const configUserPath = join(__dirname, '../../temp', 'config-user.json'),
-		configUser = require(configUserPath);
+	const configUserPath = join(
+		dirname(import.meta),
+		'../../temp',
+		'config-user.json'
+	);
+
+	const userJSON = await fs.readFile(
+        configUserPath,
+        'utf-8'
+    );
+    const configUser = userJSON ? JSON.parse(userJSON) : {};
 
 	// Quick settings
 	const onlyInBody = !!req.body['quickSettings'];
@@ -43,4 +54,4 @@ router.post('/', async (req, res) => {
 	res.redirect(req.header('Referer'));
 });
 
-module.exports = router;
+export default router;
