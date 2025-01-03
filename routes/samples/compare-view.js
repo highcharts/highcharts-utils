@@ -1,5 +1,6 @@
-const express = require('express');
-const f = require('./../../lib/functions.js');
+import express from 'express';
+import * as f from './../../lib/functions.js';
+
 const router = express.Router();
 
 router.get('/', async function(req, res) {
@@ -23,4 +24,4 @@ router.get('/', async function(req, res) {
 	});
 });
 
-module.exports = router;
+export default router;
