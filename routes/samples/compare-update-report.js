@@ -7,7 +7,7 @@ const router = express.Router();
 
 router.get('/', function(req, res) {
 	try {
-		let fileName = path.join(
+		let filepath = path.join(
 			f.dirname(import.meta),
 			'../../temp/compare.' +	f.getBranch().replace('/', '-') + '.' +
 			req.query.browser + '.json'
@@ -15,21 +15,21 @@ router.get('/', function(req, res) {
 		let json = {};
 		let fileExisted = false;
 
-		if (fs.existsSync(fileName)) {
-			json = require(fileName);
+		if (fs.existsSync(filepath)) {
+			json = f.getLocalJSON(filepath);
 			fileExisted = true;
 		}
 
 		json[req.query.path] = req.query.compare;
 
 		fs.writeFileSync(
-			fileName,
+			filepath,
 			JSON.stringify(json, null, '\t'),
 			'utf8'
 		);
 
 		if (!fileExisted) {
-			fs.chmodSync(fileName, '775');
+			fs.chmodSync(filepath, '775');
 		}
 
 		res.status(204).send();

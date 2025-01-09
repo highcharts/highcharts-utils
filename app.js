@@ -13,7 +13,7 @@ import lessMiddleware from 'less-middleware';
 import hbs from 'hbs';
 import session from 'express-session';
 import { highchartsDir } from './lib/arguments.js';
-import { dirname } from './lib/functions.js';
+import { dirname, posix } from './lib/functions.js';
 
 import dotenv from 'dotenv';
 dotenv.config();
@@ -45,17 +45,19 @@ app.use('/temp', express.static( // non-cached temporary json files
   path.join(__dirname, 'temp')
 ));
 app.use('/reference', express.static(
-  path.dirname(import.meta.resolve('highcharts/package.json'))
-    .replace('file://', ''),
+  posix(path.dirname(
+    import.meta.resolve('highcharts/package.json')
+  )).replace(/^file:\/\/(?:\/\w:)?/gsu, ''),
   { maxAge: '10m' }
 ));
 app.use('/mapdata', express.static(
-  path.dirname(import.meta.resolve('@highcharts/map-collection/package.json'))
-    .replace('file://', ''),
+  posix(path.dirname(
+    import.meta.resolve('@highcharts/map-collection/package.json')
+  )).replace(/^file:\/\/(?:\/\w:)?/gsu, ''),
   { maxAge: '10m' }
 ));
 app.use('/samples/graphics', express.static(
-  path.join(highchartsDir, 'samples/graphics')
+  posix(path.join(highchartsDir, 'samples/graphics'))
 ));
 
 app.use(session({

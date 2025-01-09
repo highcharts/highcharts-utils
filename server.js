@@ -1,11 +1,11 @@
 import hostile from 'hostile';
-import http from 'http';
-import https from 'https';
+import http from 'node:http';
+import https from 'node:https';
 import httpProxy from 'http-proxy';
 import exitHook from 'async-exit-hook';
-import fs from 'fs';
+import fs from 'node:fs';
 import ip from 'ip';
-import path from 'path';
+import path from 'node:path';
 import 'colors';
 
 import {
@@ -20,6 +20,7 @@ import {
   topdomain as topDomain,
   utilsPort
 } from './lib/arguments.js';
+import * as f from './lib/functions.js';
 
 let sslEnabled = false;
 let utilsDomainLine = '';
@@ -63,10 +64,7 @@ const httpsOptions = {
 };
 
 
-const hcPackage = (await import(
-  `${highchartsDir}/package.json`,
-  { with: { type: 'json' } }
-)).default;
+const hcPackage = f.getLocalJSON(path.join(highchartsDir, 'package.json'));
 
 if (hcPackage.name !== 'highcharts') {
   throw new Error(`
