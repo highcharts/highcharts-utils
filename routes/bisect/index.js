@@ -1,9 +1,13 @@
-const express = require('express');
-const path = require('path');
+import express from 'express';
+import path from 'path';
+import { dirname } from '../../lib/functions.js';
+
 const router = express.Router();
 
-router.get('/', function(req, res, next) {
-  	res.sendFile(path.join(__dirname + '/../../views/bisect/index.html'));
+router.get('/', function(req, res) {
+  	res.sendFile(
+		path.join(dirname(import.meta) + '/../../views/bisect/index.html')
+	);
 });
 
-module.exports = router;
+export default router;

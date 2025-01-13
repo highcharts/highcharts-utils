@@ -1,6 +1,7 @@
-const express = require('express');
+import express from 'express';
+import ip from 'ip';
+
 const router = express.Router();
-const ip = require('ip');
 
 router.get('/', function(req, res) {
 	res.render('samples/mobile', {
@@ -13,4 +14,4 @@ router.get('/', function(req, res) {
 	});
 });
 
-module.exports = router;
+export default router;

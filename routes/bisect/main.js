@@ -1,8 +1,8 @@
-const express = require('express');
-const path = require('path');
+import express from 'express';
+
 const router = express.Router();
 
-router.get('/', function(req, res, next) {
+router.get('/', function(req, res) {
   	res.render('bisect/main', {
   		html: req.session.html,
   		css: req.session.css,
@@ -10,4 +10,4 @@ router.get('/', function(req, res, next) {
   	});
 });
 
-module.exports = router;
+export default router;
