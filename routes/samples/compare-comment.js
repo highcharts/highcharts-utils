@@ -6,13 +6,12 @@ import path from 'path';
 const router = express.Router();
 
 const getSavedCompare = (req) => {
-	let fileName = path.join(f.dirname(import.meta), '../../temp/compare.' +
+	let filepath = path.join(f.dirname(import.meta), '../../temp/compare.' +
 			f.getBranch() + '.' + req.query.browser + '.json');
 	let compare;
 
-	if (fs.existsSync(fileName)) {
-		let json = require(fileName);
-		compare = json[req.query.path];
+	if (fs.existsSync(filepath)) {
+		compare = f.getLocalJSON(filepath)[req.query.path];
 	}
 
 	return compare || {};

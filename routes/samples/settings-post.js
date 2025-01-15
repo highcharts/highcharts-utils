@@ -2,22 +2,17 @@ import express from 'express';
 import { promises as fs } from 'fs';
 import { join } from 'path';
 import config from '../../config.json' with { type: 'json' };
-import { dirname } from '../../lib/functions.js';
+import * as f from '../../lib/functions.js';
 
 const router = express.Router();
 
 router.post('/', async (req, res) => {
 	const configUserPath = join(
-		dirname(import.meta),
+		f.dirname(import.meta),
 		'../../temp',
 		'config-user.json'
 	);
-
-	const userJSON = await fs.readFile(
-        configUserPath,
-        'utf-8'
-    );
-    const configUser = userJSON ? JSON.parse(userJSON) : {};
+    const configUser = f.getLocalJSON(configUserPath) || {};
 
 	// Quick settings
 	const onlyInBody = !!req.body['quickSettings'];

@@ -1,5 +1,5 @@
 import express from 'express';
-import { dirname, getBranch } from '../../lib/functions.js';
+import * as f from '../../lib/functions.js';
 import fs from 'fs';
 import path from 'path';
 import ip from 'ip';
@@ -16,18 +16,17 @@ router.get('/', async (req, res) => {
 
 	browsers.forEach(browser => {
 		const file = path.join(
-			dirname(import.meta),
+			f.dirname(import.meta),
 			'../..',
 			'temp',
-			'compare.' + getBranch() + '.' + browser.toLowerCase() + '.json'
+			'compare.' + f.getBranch() + '.' + browser.toLowerCase() + '.json'
 		);
 
 		let results;
 		if (browser === 'Nightly') {
 			// results = nightlyResult;
 		} else if (fs.existsSync(file)) {
-			const json = fs.readFileSync(file);
-			results = JSON.parse(json);
+			results = f.getLocalJSON(file);
 		}
 
 		if (results) {
