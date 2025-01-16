@@ -6,44 +6,37 @@
 
 import app from '../app.js';
 import debug from 'debug';
+import fs from 'fs';
 import http from 'http';
+import { join } from 'path';
 import { utilsPort } from '../lib/arguments.js';
+import { rollup } from 'rollup';
+import resolve from '@rollup/plugin-node-resolve';
 import { startWatchServer } from '../lib/websocket.js';
+import { dirname } from '../lib/functions.js';
 
 
-/*
-const { rollup } = require('rollup');
-const { loadConfigFile } = require('rollup/loadConfigFile');
-const path = require('path');
+// Bundle the Edit JS
+const bundle = await rollup({
+    input: join(
+        dirname(import.meta),
+        '../public/modules/edit.js'
+    ),
+    plugins: [resolve()]
+});
+const { output } = await bundle.generate({ format: 'iife' });
+if (bundle) {
+    // closes the bundle
+    await bundle.close();
+}
 
-(async () => {
-    try {
-        // Path to the Rollup config file
-        const configPath = path.resolve('../rollup.config.mjs');
-
-        // Load the config file
-        const { options, warnings } = await loadConfigFile(configPath);
-
-        // Handle any warnings from the config
-        warnings.flush();
-
-        // Loop through all the options and build
-        for (const optionsObject of options) {
-            console.log(optionsObject)
-            const bundle = await rollup(optionsObject);
-
-            for (const output of optionsObject.output) {
-                await bundle.write(output);
-            }
-
-            console.log(`Built successfully: ${optionsObject.output.map(o => o.file || o.dir).join(', ')}`);
-        }
-    } catch (error) {
-        console.error('Rollup build failed:', error);
-        process.exit(1);
-    }
-})();
-*/
+fs.writeFileSync(
+    join(
+        dirname(import.meta),
+        '../public/modules/edit.bundle.js'
+    ),
+    output[0].code
+);
 
 debug('highcharts-utils:server');
 

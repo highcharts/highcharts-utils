@@ -1,7 +1,5 @@
 /**
- * Bundle this file with the following command:
- *
- * npx rollup -c
+ * This file is bundled into edit.bundle.js on server start and restart
  */
 import { EditorView, basicSetup } from "codemirror";
 import { keymap } from "@codemirror/view";

@@ -5,8 +5,8 @@
   "private": true,
   "scripts": {
     "kill": "sudo kill -9 $(sudo lsof -t -i:3030) && sudo kill -9 $(sudo lsof -t -i:3031)",
-    "dev": "rollup -c && nodemon ./server",
-    "start": "rollup -c && sudo node ./server",
+    "dev": "nodemon ./server",
+    "start": "sudo node ./server",
     "precommit": "lint-staged",
     "demodata": "node ./utils/demo-data"
   },
