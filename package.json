@@ -1,6 +1,7 @@
 {
   "name": "@highcharts/highcharts-utils",
   "version": "0.0.0",
+  "type": "module",
   "private": true,
   "scripts": {
     "kill": "sudo kill -9 $(sudo lsof -t -i:3030) && sudo kill -9 $(sudo lsof -t -i:3031)",
@@ -39,9 +40,8 @@
     "dotenv": "16.4.2",
     "esbuild": "0.19.5",
     "esbuild-plugin-replace-regex": "^0.0.2",
-    "eslint": "^8.13.0",
+    "eslint": "^9.17.0",
     "eslint-linter-browserify": "^9.7.0",
-    "esm": "^3.2.25",
     "express": "^4.17.3",
     "express-session": "^1.17.2",
     "glob": "^8.0.1",
@@ -57,7 +57,7 @@
     "jszip": "^3.9.1",
     "less-middleware": "^2.2.1",
     "lint-staged": "^12.3.8",
-    "marked": "^4.0.14",
+    "marked": "^15.0.4",
     "moment": "^2.29.3",
     "morgan": "^1.10.0",
     "nodemon": "^2.0.15",

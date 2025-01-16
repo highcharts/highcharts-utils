@@ -1,9 +1,10 @@
-const express = require('express');
-const fs = require('fs');
-const { validPathRegex } = require('../../lib/functions.js');
+import express from 'express';
+import fs from 'fs';
+import { validPathRegex } from '../../lib/functions.js';
+import path from 'path';
+import { samplesDir } from '../../lib/arguments.js';
+
 const router = express.Router();
-const path = require('path');
-const { samplesDir } = require('../../lib/arguments.js');
 
 router.get('/', function(req, res) {
     const fileNames = [
@@ -42,4 +43,4 @@ router.get('/', function(req, res) {
     });
 });
 
-module.exports = router;
+export default router;

@@ -1,19 +1,21 @@
-const express = require('express');
-const fs = require('fs');
-const marked = require('marked');
-const router = express.Router();
-const path = require('path');
-const ip = require('ip');
+import express from 'express';
+import fs from 'fs';
+import { marked } from 'marked';
+import path from 'path';
+import ip from 'ip';
+import { dirname } from '../../lib/functions.js';
 
+const router = express.Router();
 
 router.get('/', function(req, res) {
 	res.render('samples/readme', {
 		readme: marked.parse(
-			fs.readFileSync(path.join(__dirname, '../../lib/readme.md'))
-				.toString()
+			fs.readFileSync(
+				path.join(dirname(import.meta), '../../lib/readme.md')
+			).toString()
 		),
 		ipAddress: ip.address()
 	});
 });
 
-module.exports = router;
+export default router;

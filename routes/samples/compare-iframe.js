@@ -2,12 +2,13 @@
  * Runs in an iframe, comparing candidate and reference.
  */
 
-const express = require('express');
-const f = require('./../../lib/functions.js');
-const glob = require('glob');
-const path = require('path');
+import express from 'express';
+import * as f from './../../lib/functions.js';
+import glob from 'glob';
+import path from 'path';
+import { getSettings } from '../../lib/arguments.js';
+
 const router = express.Router();
-const { getSettings } = require('../../lib/arguments.js');
 
 const getHTML = (req, codePath) => {
 	let html = f.getHTML(req, codePath);
@@ -45,14 +46,14 @@ const getJS = (req, codePath) => {
 const getTemplates = () => {
 	return glob.sync(
 		path.join(
-			__dirname,
+			f.dirname(import.meta),
 			'../..',
 			'public/javascripts/test-templates/**/*.js'
 		)
 	).map(filename => '/' + filename.split('/public/')[1]);
 }
 
-const getTestTemplate = function(req) {
+export const getTestTemplate = function(req) {
 
 	const { compileOnDemand, emulateKarma } = getSettings(req);
 	let path = req.query.path;
@@ -94,5 +95,4 @@ const getTestTemplate = function(req) {
 router.get('/', (req, res) =>
 	res.render('samples/compare-iframe', getTestTemplate(req)));
 
-module.exports = router;
-module.exports.getTestTemplate = getTestTemplate;
+export default router;

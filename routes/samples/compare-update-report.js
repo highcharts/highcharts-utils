@@ -1,34 +1,35 @@
-const express = require('express');
-const path = require('path');
+import express from 'express';
+import path from 'path';
+import fs from 'fs';
+import * as f from '../../lib/functions.js';
+
 const router = express.Router();
-const fs = require('fs');
-const f = require('../../lib/functions.js');
 
 router.get('/', function(req, res) {
 	try {
-		let fileName = path.join(
-			__dirname,
+		let filepath = path.join(
+			f.dirname(import.meta),
 			'../../temp/compare.' +	f.getBranch().replace('/', '-') + '.' +
 			req.query.browser + '.json'
 		);
 		let json = {};
 		let fileExisted = false;
-		
-		if (fs.existsSync(fileName)) {
-			json = require(fileName);
+
+		if (fs.existsSync(filepath)) {
+			json = f.getLocalJSON(filepath);
 			fileExisted = true;
 		}
 
 		json[req.query.path] = req.query.compare;
-		
+
 		fs.writeFileSync(
-			fileName,
+			filepath,
 			JSON.stringify(json, null, '\t'),
 			'utf8'
 		);
 
 		if (!fileExisted) {
-			fs.chmodSync(fileName, '775');
+			fs.chmodSync(filepath, '775');
 		}
 
 		res.status(204).send();
@@ -38,4 +39,4 @@ router.get('/', function(req, res) {
 	}
 });
 
-module.exports = router;
+export default router;

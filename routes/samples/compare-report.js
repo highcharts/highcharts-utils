@@ -1,12 +1,10 @@
-const express = require('express');
-const {
-	getBranch,
-	// getNightlyResult
-} = require('../../lib/functions.js');
-const fs = require('fs');
-const path = require('path');
+import express from 'express';
+import * as f from '../../lib/functions.js';
+import fs from 'fs';
+import path from 'path';
+import ip from 'ip';
+
 const router = express.Router();
-const ip = require('ip');
 
 const browsers = ['Nightly', 'Chrome', 'Safari', 'Firefox', 'Edge', 'MSIE'];
 
@@ -18,17 +16,17 @@ router.get('/', async (req, res) => {
 
 	browsers.forEach(browser => {
 		const file = path.join(
-			__dirname,
+			f.dirname(import.meta),
 			'../..',
 			'temp',
-			'compare.' + getBranch() + '.' + browser.toLowerCase() + '.json'
+			'compare.' + f.getBranch() + '.' + browser.toLowerCase() + '.json'
 		);
 
 		let results;
 		if (browser === 'Nightly') {
 			// results = nightlyResult;
 		} else if (fs.existsSync(file)) {
-			results = require(file);
+			results = f.getLocalJSON(file);
 		}
 
 		if (results) {
@@ -91,4 +89,4 @@ router.get('/', async (req, res) => {
 	});
 });
 
-module.exports = router;
+export default router;

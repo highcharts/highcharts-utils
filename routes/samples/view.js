@@ -1,20 +1,17 @@
 /**
- * View a single sample.
- *
- * @todo
- * - Styled mode
+ * View a single sample
  */
 
-const express = require('express');
-const router = express.Router();
-const f = require('./../../lib/functions.js');
-const fs = require('fs');
-const { highchartsDir } = require('./../../lib/arguments.js');
-const ip = require('ip');
-const { getTestTemplate } = require('./compare-iframe.js');
+import express from 'express';
+import * as f from './../../lib/functions.js';
+import fs from 'fs';
+import { highchartsDir } from './../../lib/arguments.js';
+import ip from 'ip';
+import { getTestTemplate } from './compare-iframe.js';
+import { join } from 'path';
 
+const router = express.Router();
 const fsp = fs.promises;
-const { join } = require('path');
 
 const chown = async (path) => {
     if (process.env.SUDO_UID && process.env.SUDO_GID) {
@@ -98,7 +95,8 @@ const handler = async (req, res) => {
     let codePath = req.query.rightcommit ?
         'https://github.highcharts.com/' + req.query.rightcommit :
         '/code';
-    fs.writeFile(join(__dirname, '../../path.txt'), req.query.path, 'utf-8', (err) => {
+
+    fs.writeFile(join(f.dirname(import.meta), '../../path.txt'), req.query.path, 'utf-8', (err) => {
         if (err) {
             console.log(err);
         }
@@ -160,4 +158,4 @@ const handler = async (req, res) => {
 router.get('/', handler);
 router.post('/', handler);
 
-module.exports = router;
+export default router;
