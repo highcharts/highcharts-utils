@@ -1,6 +1,7 @@
 {
 	"ignore": [
 		"temp/**.*",
-		"node_modules"
+		"node_modules",
+		"public/modules/*.bundle.js"
 	]
 }
