@@ -26,7 +26,7 @@ const options = {
 
 // Serve content of code directory
 app.use('/', async (req, res) => {
-	const url = req.url.replace(/^\/(data-grid|gantt|maps|stock)\//g, '/');
+	const url = req.url.replace(/^\/(gantt|maps|stock)\//g, '/');
 	const { error, content, path } = await getCodeFile(url, req);
 
 	if (error) {
