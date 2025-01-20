@@ -2,6 +2,7 @@
  * This file is bundled into edit.bundle.js on server start and restart
  */
 import { EditorView, basicSetup } from "codemirror";
+import { Prec } from "@codemirror/state";
 import { keymap } from "@codemirror/view";
 import { linter, lintGutter } from "@codemirror/lint";
 import { indentMore, indentLess } from "@codemirror/next/commands";
@@ -22,6 +23,7 @@ nextIndentUnit.default = '    ';
 
 const run = () => {
 	document.getElementById("files-form").submit();
+	return true;
 }
 
 const save = () => {
@@ -151,7 +153,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     updateListenerExtension,
 					lintGutter(),
 					linter(esLint(new eslint.Linter(), esLintConfig)),
-                    keymap.of([
+                    Prec.highest(keymap.of([
                         {
                             key: 'Ctrl-Enter',
                             run,
@@ -192,7 +194,7 @@ document.addEventListener("DOMContentLoaded", () => {
 							preventDefault: true,
 							run: indentLess,
 						  }
-                    ])
+                    ]))
                 ].filter(Boolean)
             });
 
