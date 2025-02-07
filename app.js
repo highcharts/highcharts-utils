@@ -86,6 +86,7 @@ app.use('/bisect/view', (await import('./routes/bisect/view.js')).default);
 app.use('/samples/', (await import('./routes/samples/index.js')).default);
 app.use('/samples/data', (await import('./routes/samples/data.js')).default);
 app.use('/samples/contents', (await import('./routes/samples/contents.js')).default);
+app.use('/samples/edit', (await import('./routes/samples/edit.js')).default);
 app.use('/samples/mobile', (await import('./routes/samples/mobile.js')).default);
 app.use('/samples/nightly', (await import('./routes/samples/nightly.js')).default);
 app.use('/samples/list-samples', (await import('./routes/samples/list-samples.js')).default);
@@ -95,7 +96,6 @@ app.use('/samples/readme', (await import('./routes/samples/readme.js')).default)
 app.use('/samples/settings', (await import('./routes/samples/settings.js')).default);
 app.use('/samples/settings-post', (await import('./routes/samples/settings-post.js')).default);
 app.use('/samples/view', (await import('./routes/samples/view.js')).default);
-app.use('/samples/view-source', (await import('./routes/samples/view-source.js')).default);
 app.use('/samples/compare-comment', (await import('./routes/samples/compare-comment.js')).default);
 app.use('/samples/compare-iframe', (await import('./routes/samples/compare-iframe.js')).default);
 app.use('/samples/compare-update-report', (await import('./routes/samples/compare-update-report.js')).default);

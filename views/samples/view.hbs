@@ -1,17 +1,18 @@
 
 {{> nav }}
 
+{{#unless isUnitTest}}
 <script>
 if (window.jQuery) {
 	jQuery.noConflict();
 }
 </script>
+{{/unless}}
 
 <style type="text/css" nonce="highcharts">
 	{{{css}}}
 </style>
 
-<div id="source-box"></div>
 <div id="main-content">
 	<div id="demo-content">
 
@@ -28,6 +29,11 @@ if (window.jQuery) {
 		<script{{#if es6Context.isModule}} type="module"{{/if}}>
 		if (typeof setUp === 'function') {
 			setUp();
+		}
+
+		// When running unit tests, set options, overrides etc
+		if (typeof setUpHighcharts === 'function') {
+			setUpHighcharts();
 		}
 		{{{js}}}
 		</script>

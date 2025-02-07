@@ -6,9 +6,37 @@
 
 import app from '../app.js';
 import debug from 'debug';
+import fs from 'fs';
 import http from 'http';
+import { join } from 'path';
 import { utilsPort } from '../lib/arguments.js';
+import { rollup } from 'rollup';
+import resolve from '@rollup/plugin-node-resolve';
 import { startWatchServer } from '../lib/websocket.js';
+import { dirname } from '../lib/functions.js';
+
+
+// Bundle the Edit JS
+const bundle = await rollup({
+    input: join(
+        dirname(import.meta),
+        '../public/modules/edit.js'
+    ),
+    plugins: [resolve()]
+});
+const { output } = await bundle.generate({ format: 'iife' });
+if (bundle) {
+    // closes the bundle
+    await bundle.close();
+}
+
+fs.writeFileSync(
+    join(
+        dirname(import.meta),
+        '../public/modules/edit.bundle.js'
+    ),
+    output[0].code
+);
 
 debug('highcharts-utils:server');
 
