@@ -440,7 +440,32 @@ function onBothLoad() {
 			function canvasCompare(source1, canvas1, source2, canvas2) {
 				var converted = [],
 					canvasWidth = chartWidth || 400,
-					canvasHeight = chartHeight || 300;
+					canvasHeight = chartHeight || 300,
+					domurl = window.URL || window.webkitURL || window;
+
+				// Copied from the offline-exporting module
+				function svgToDataUrl(svg) {
+					// Webkit and not chrome
+					const userAgent = window.navigator.userAgent;
+					const webKit = (
+						userAgent.indexOf('WebKit') > -1 &&
+						userAgent.indexOf('Chrome') < 0
+					);
+
+					try {
+						// Safari requires data URI since it doesn't allow
+						// navigation to blob URLs. Foreign objects also don't
+						// work well in Blobs in Chrome (#14780).
+						if (!webKit && svg.indexOf('<foreignObject') === -1) {
+							return domurl.createObjectURL(new window.Blob([svg], {
+								type: 'image/svg+xml;charset-utf-16'
+							}));
+						}
+					} catch (e) {
+						// Ignore
+					}
+					return 'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent(svg);
+				}
 
 				// converts the svg into canvas
 				//		- source: the svg string
@@ -448,36 +473,15 @@ function onBothLoad() {
 				//		- callback: function to call after conversion
 				//
 				function convert(source, target, callback, which) {
-					var useBlob,
-						context = document.getElementById(target).getContext('2d'),
+					var context = document.getElementById(target).getContext('2d'),
 						image = new Image(),
-						data,
-						domurl,
-						blob,
-						svgurl;
-
-					source = source
-						.replace(/<foreignObject .*?<\/foreignObject>/g, '');
-
-					// Firefox runs Blob. Safari apparently from v15 requires
-					// Blob. Chrome accepts both but seems to be slightly faster
-					// with data: URL.
-					useBlob = ['Chrome', 'Edge', 'Firefox', 'Safari']
-						.indexOf(controller.getBrowser()) !== -1;
-					if (useBlob) {
-						domurl = window.URL || window.webkitURL || window;
-						blob = new Blob([source], { type: 'image/svg+xml;charset-utf-16'});
-						svgurl = domurl.createObjectURL(blob);
-					}
+						data;
 
 					// This is fired after the image has been created
 					image.onload = function() {
 						try {
 							context.drawImage(image, 0, 0, canvasWidth, canvasHeight);
 							data = context.getImageData(0, 0, canvasWidth, canvasHeight);
-							if (useBlob) {
-								domurl.revokeObjectURL(svgurl);
-							}
 							callback(data);
 						} catch (e) {
 							console.error(e);
@@ -490,9 +494,8 @@ function onBothLoad() {
 						console.error(e);
 						onDifferent('Err');
 					}
-					image.src = useBlob ?
-						svgurl :
-						'data:image/svg+xml,' + source;
+
+					image.src = svgToDataUrl(source);
 				};
 
 				// compares 2 canvas images
