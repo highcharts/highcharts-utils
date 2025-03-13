@@ -176,6 +176,28 @@ function prepareShot (chart) {
 			chart.renderer.boxWrapper.element.removeAttribute('aria-label');
 		}
 
+		// Breaks inside foreign objects are considered tainted canvas
+		// ¯\_(ツ)_/¯
+        [].forEach.call(
+			chart.container.querySelectorAll('foreignObject br'),
+			function (br) {
+				br.parentNode.replaceChild(document.createElement('div'), br);
+			}
+		);
+
+        // Replace images in foreign objects
+        [].forEach.call(
+			chart.container.querySelectorAll('foreignObject img'),
+			function (img) {
+				const div = document.createElement('div');
+                div.style.width = '16px';
+                div.style.height = '16px';
+                div.style.position = 'inline-block';
+                div.style.backgroundColor = '#ddd';
+                img.parentNode.replaceChild(div, img);
+			}
+		);
+
 		if (
 			chart &&
 			!chart.preparedForShot &&
