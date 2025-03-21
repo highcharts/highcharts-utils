@@ -22,6 +22,8 @@ import {
 } from './lib/arguments.js';
 import * as f from './lib/functions.js';
 
+const __filename = import.meta.filename;
+
 let sslEnabled = false;
 let utilsDomainLine = '';
 let codeDomainLine = '';

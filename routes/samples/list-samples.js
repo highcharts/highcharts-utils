@@ -39,6 +39,7 @@ const getSample = (path) => {
 
 const getSamples = () => {
 	let samples = [];
+
 	[
 		'highcharts', 'stock', 'maps', 'gantt', 'unit-tests', 'issues', 'cloud', 'dashboards', 'grid-lite', 'grid-pro'
 	].forEach(group => {

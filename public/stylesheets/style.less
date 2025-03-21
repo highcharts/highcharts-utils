@@ -93,12 +93,6 @@ body.page h1 {
 	line-height: 2.4rem;
 	padding-right: 1em;
 }
-#source-box {
-	width: 0;
-	float: left;
-	transition: width 500ms;
-	overflow-y: hidden;
-}
 #main-content {
 	float: right;
 	width: 100%;
@@ -132,6 +126,7 @@ body.mobile-preview #demo-content {
 		line-height: 1.5em;
 		display: inline-block;
 		transition: border-color 250ms;
+		margin: 0 !important;
 	}
 }
 
@@ -287,7 +282,8 @@ body.manual #comment-placeholder {
 }
 .description {
 	max-width: 800px;
-	margin: 2em auto;
+	margin: 0 auto;
+	padding: 2em 1em;
 	font-family: Arial, Helvetica, sans-serif;
 }
 .test-notes {
@@ -328,7 +324,7 @@ body.unit #preview-row {
 	display: none;
 }
 #qunit {
-	display: none;
+	/*display: none;*/
 }
 #qunit-tests li li.fail {
 	border-left: 10px solid #f15c80 !important;
@@ -360,11 +356,21 @@ body.unit #preview-row {
 	display:inline
 }
 
-@media only screen and (max-width: 500px) {
+.edit-mode #next,
+.edit-mode #compare-button,
+.edit-mode #bisect,
+.edit-mode #share,
+.edit-mode #profile,
+.edit-mode #time
+{
+	display: none;
+}
+
+@media (max-width: 500px) {
 	.top-bar button, .top-bar a.button {
     	color: white;
     	background: none;
-    	padding: 0 0.5em;
+    	padding: 0 0.7em;
     	margin: 0;
     	font-size: 2em
     }

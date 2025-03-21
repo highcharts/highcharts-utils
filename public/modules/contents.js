@@ -47,7 +47,11 @@ window.toggleChangedSamples = () => {
   		owner: 'highcharts',
   		repo: 'highcharts',
   		head: `highcharts:${controller.server.branch}`
-	}).catch(() => null);
+	});
+
+    if (pull.data.length === 0) {
+        return;
+    }
 
     const files = pull && await octokit.rest.pulls.listFiles({
         owner: 'highcharts',
