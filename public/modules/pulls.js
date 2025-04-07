@@ -272,7 +272,7 @@ const renderPull = pull => {
         </a>
     `;
 
-    if (!pull.base || pull.base.ref == 'master') {
+    if (!pull.base || pull.base.ref == 'main') {
 
         if (pull.decoration?.newInteractions) { // !undefined or > 0
             li.innerHTML += `
