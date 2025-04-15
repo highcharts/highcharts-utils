@@ -59,7 +59,7 @@ function compareHTML() {
 		        error = 0.00001; // default error
 		    }
 
-		    var result = number === expected || (number < expected + error && number > expected - error) || false;
+		    var result = number === expected || (number <= expected + error && number >= expected - error) || false;
 
 		    this.push(result, number, expected, message);
 		};
