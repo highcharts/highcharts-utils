@@ -1,6 +1,5 @@
 /* eslint-env browser */
 /* global $, controller */
-/* eslint require-jsdoc: 0, valid-jsdoc: 0 */
 controller.Sample = function (options, index) {
 
     var contentsDoc = (
@@ -129,6 +128,18 @@ controller.Sample = function (options, index) {
     }
 
 
+    function addVSCodeAnchor() {
+        var icon = '<i class="fa fa-file-code-o" title="Open in VSCode"></i>';
+        var highchartsDir = controller.frames().contents.contentWindow
+            .highchartsDir;
+
+        var anchor = contentsDoc.createElement('a');
+        anchor.target = 'main';
+        anchor.href = `vscode://file/${highchartsDir}/samples/${options.path}/demo.js`;
+        anchor.innerHTML = icon;
+        iconDiv.appendChild(anchor);
+    }
+
     function addNightlyAnchor() {
         var icon = '<i class="fa fa-moon-o" title="Nightly test"></i>';
 
@@ -141,7 +152,7 @@ controller.Sample = function (options, index) {
     }
 
     function addCommentAnchor() {
-        var commentIcon = '<i class="fa fa-pencil" title="Add comment"></i>',
+        var commentIcon = '<i class="fa fa-comment-o" title="Add comment"></i>',
             comment = options.compare && options.compare.comment;
 
         if (comment) {
@@ -285,6 +296,8 @@ controller.Sample = function (options, index) {
                 diff = '';
             }
         }
+
+        addVSCodeAnchor();
 
         // Add comment anchor
         addCommentAnchor();
