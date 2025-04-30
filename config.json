@@ -11,6 +11,7 @@
 	"pemFile": "./certs/highcharts.local.key.pem",
 	"crtFile": "./certs/highcharts.local.crt",
 	"proxy": true,
+	"theme": "",
 	"topdomain": "local",
 	"useMinifiedCode": false,
 	"useESModules": false

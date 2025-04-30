@@ -31,32 +31,28 @@
         <!-- if themes, means we have a mini form control -->
 		<div class="dropdown" data-anchor="quick-settings">
 			<div class="dropdown-inner">
+                <form method="post" action="/samples/settings-post" id="settings-form">
+                <input type="hidden" name="quickSettings" value="on">
+
 				{{#if compileOnDemand}}
 				<p>
-				<form
-					method="post"
-					action="/samples/settings-post"
-					id="compile-form">
-                        <input type="hidden" name="quickSettings" value="on">
-                        <input type="hidden" name="compileOnDemand">
-						<label>
-                            <input
-								type="checkbox"
-								id="compile-on-demand-toggle"
-								name="compileOnDemand-shim"
-								{{ compileOnDemand.checked }}
-								onchange="this.form.compileOnDemand.value = this.checked ? 'on' : 'off'; this.form.submit()"
-								/>
-							Compile on Demand
-						</label>
-
-				</form>
+                    <input type="hidden" name="compileOnDemand"
+                        value="{{#if compileOnDemand.checked}}on{{else}}off{{/if}}">
+                    <label>
+                        <input
+                            type="checkbox"
+                            id="compile-on-demand-toggle"
+                            name="compileOnDemand-shim"
+                            {{ compileOnDemand.checked }}
+                            onchange="this.form.compileOnDemand.value = this.checked ? 'on' : 'off'; this.form.submit()"
+                            />
+                        Compile on Demand
+                    </label>
 				</p>
 				{{/if}}
 				{{#if themes}}
 				<p>
-				<form method="post" action="/samples/settings-post" id="settings-form">
-					<select name="theme" onchange="this.form.submit()">
+				    <select name="theme" onchange="this.form.submit()">
 					{{#each themes}}
 						<option value="{{@key}}" {{selected}}>
 							{{name}}
