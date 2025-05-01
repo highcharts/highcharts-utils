@@ -18,7 +18,6 @@ router.post('/', async (req, res) => {
 	const onlyInBody = !!req.body['quickSettings'];
 
 	// Overwrite config-user.json with only those settings that have changed
-	console.log(req.body)
 	Object.keys(config).forEach(key => {
 		let value = req.body[key];
 

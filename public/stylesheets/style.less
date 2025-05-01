@@ -366,6 +366,37 @@ body.unit #preview-row {
 	display: none;
 }
 
+/* Dark mode / Light mode */
+body.highcharts-light {
+	background: #f6f6f6;;
+	color: black;
+}
+.highcharts-light #demo-content {
+	background: white;
+	color: black;
+}
+
+body.highcharts-dark {
+	background: #47475C;
+	color: #eee;
+}
+.highcharts-dark #demo-content {
+	background: rgb(48, 48, 48); /* Like the HC default chart background */
+	color: #ddd;
+}
+
+@media (prefers-color-scheme: dark) {
+	body {
+		background: #47475C;
+		color: #eee;
+	}
+	#demo-content {
+		background: rgb(48, 48, 48); /* Like the HC default chart background */
+		color: #ddd;
+	}
+}
+
+
 @media (max-width: 500px) {
 	.top-bar button, .top-bar a.button {
     	color: white;

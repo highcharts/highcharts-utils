@@ -113,6 +113,15 @@ const handler = async (req, res) => {
     const isUnitTest = (details.resources || '').toString().indexOf('qunit') !== -1;
     const config = await f.getConfig();
 
+    const colorScheme = config.find(
+        option => option.key === 'colorScheme'
+    ).value;
+
+    const bodyClass = [
+        req.query.mobile ? 'mobile view' : 'view',
+        `highcharts-${colorScheme}`
+    ].join(' ');
+
     const tpl = {
         title: (details && details.name) || req.query.path,
         path: req.query.path,
@@ -123,7 +132,7 @@ const handler = async (req, res) => {
         es6Context,
         preJS: req.session.preJS,
         consoleClear: true,
-        bodyClass: req.query.mobile ? 'mobile view' : 'view',
+        bodyClass,
         ipAddress: ip.address(),
         isUnitTest,
         branch: f.getBranch(),
@@ -140,6 +149,11 @@ const handler = async (req, res) => {
         themes,
         styledMode,
         compileOnDemand: config.find(option => option.key === 'compileOnDemand'),
+        colorScheme: {
+            light: colorScheme === 'light',
+            dark: colorScheme === 'dark',
+            system: colorScheme === 'system'
+        }
     };
 
     if (isUnitTest) {

@@ -50,6 +50,27 @@
                     </label>
 				</p>
 				{{/if}}
+                <p>
+                    <label>
+                        <input type="radio" name="colorScheme" value="light"
+                            {{#if colorScheme.light}}checked="checked"{{/if}}
+                            onchange="this.form.submit()">
+                        Light mode
+                    </label>
+                    <label>
+                        <input type="radio" name="colorScheme" value="dark"
+                            {{#if colorScheme.dark}}checked="checked"{{/if}}
+                            onchange="this.form.submit()">
+                        Dark mode
+                    </label>
+                    <label>
+                        <input type="radio" name="colorScheme" value="system"
+                            {{#if colorScheme.system}}checked="checked"{{/if}}
+                            onchange="this.form.submit()">
+                        System
+                    </label>
+
+                </p>
 				{{#if themes}}
 				<p>
 				    <select name="theme" onchange="this.form.submit()">
@@ -59,9 +80,9 @@
 						</option>
 					{{/each}}
 					</select>
-				</form>
 				</p>
 				{{/if}}
+				</form>
 			</div>
 		</div>
 

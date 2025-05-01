@@ -1,6 +1,7 @@
 {
 	"highchartsDir": "./../highcharts/",
 	"utilsPort": 3030,
+	"colorScheme": "system",
 	"codePort": 3031,
 	"codeSecurePort": 3041,
 	"compileOnDemand": false,
