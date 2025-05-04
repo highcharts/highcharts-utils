@@ -4,7 +4,7 @@
 
 import express from 'express';
 import * as f from './../../lib/functions.js';
-import glob from 'glob';
+import { glob } from 'glob';
 import path from 'path';
 import { getSettings } from '../../lib/arguments.js';
 
