@@ -227,6 +227,29 @@ function prepareShot (chart) {
 				}
 			}
 		}
+
+		// Adapted from the exporting module's resolveCSSVariables function
+	    const svgElements = chart.container.querySelectorAll('*'),
+            colorAttributes = ['color', 'fill', 'stop-color', 'stroke'];
+
+        Array.from(svgElements).forEach((element) => {
+            colorAttributes.forEach((prop) => {
+                const attrValue = element.getAttribute(prop);
+                if (attrValue?.includes('var(')) {
+                    element.setAttribute(
+                        prop,
+                        getComputedStyle(element).getPropertyValue(prop)
+                    );
+                }
+
+                const styleValue = element.style?.[prop];
+                if (styleValue?.includes('var(')) {
+                    element.style[prop] =
+                        getComputedStyle(element).getPropertyValue(prop);
+                }
+            });
+        });
+
 	} catch(e) {
 		if (which === 'right') {
 			parent.window.error = e;

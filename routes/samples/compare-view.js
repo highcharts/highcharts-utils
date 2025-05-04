@@ -7,8 +7,13 @@ router.get('/', async function(req, res) {
 	const themes = await f.getThemes(req);
     const config = await f.getConfig();
 
+	const colorScheme = config.find(
+        option => option.key === 'colorScheme'
+    ).value;
+
 	res.render('samples/compare-view', {
 		path: req.query.path,
+		bodyClass: `highcharts-${colorScheme}`,
 		compareClass: 'active',
 		consoleClear: true,
 		styles: [
@@ -21,6 +26,11 @@ router.get('/', async function(req, res) {
 		],
 		themes,
         compileOnDemand: config.find(option => option.key === 'compileOnDemand'),
+		colorScheme: {
+            light: colorScheme === 'light',
+            dark: colorScheme === 'dark',
+            system: colorScheme === 'system'
+        }
 	});
 });
 
