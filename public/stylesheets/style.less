@@ -26,7 +26,7 @@ body.page h1 {
 	color: white;
 	font-size: 0.8em;
 	background: #47475C;
-	box-shadow: 0px 0px 8px #888;
+	box-shadow: 0px 0px 8px #000;
 }
 .top-bar h2 {
 	overflow: visible;
@@ -387,12 +387,16 @@ body.highcharts-dark {
 	color: #eee;
 }
 .highcharts-dark #demo-content {
-	background: rgb(48, 48, 48); /* Like the HC default chart background */
+	background: #141414; /* Like the HC default chart background */
 	color: #ddd;
 }
 .highcharts-dark a {
 	color: #2caffe;
 }
+.highcharts-dark .test-notes {
+	background-color: #141414;
+}
+
 
 
 @media (prefers-color-scheme: dark) {
@@ -401,11 +405,14 @@ body.highcharts-dark {
 		color: #eee;
 	}
 	#demo-content {
-		background: rgb(48, 48, 48); /* Like the HC default chart background */
+		background: #141414; /* Like the HC default chart background */
 		color: #ddd;
 	}
 	a {
 		color: #2caffe;
+	}
+	.test-notes {
+		background-color: #141414;
 	}
 }
 
