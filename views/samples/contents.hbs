@@ -113,12 +113,7 @@
 </script>
 <script type="module" src="/modules/contents.js"></script>
 <style type="text/css">
-	* {
-		font-family: Arial, Verdana;
-	}
-
 	body {
-		background: #F6F6F6;
 		padding-right: 1em;
 	}
 
@@ -126,11 +121,11 @@
 		position: fixed;
 		left: 0px;
 		z-index: 10;
-		background: white;
+		background: var(--card-background);
 		padding: 0 10px;
 		width: 100%;
 		box-sizing: border-box;
-		border-bottom: 3px solid #373648;
+		border-bottom: 3px solid var(--separator-color);
 	}
 	#changed-samples h4 {
 		margin: 0;
@@ -164,7 +159,7 @@
 	}
 
 	#changed-samples h4 a.toggle {
-		color: #333;
+		color: var(--text-color);
 	}
 
 
@@ -207,8 +202,8 @@
 		margin-top: 40px;
 	}
 	li {
-		border: 1px solid #F6F6F6;
-		background: white;
+		border: 1px solid var(--background-color);
+		background: var(--card-background);
 		border-radius: 5px;
 		padding: 0.3em 0.2em;
 		position: relative;
