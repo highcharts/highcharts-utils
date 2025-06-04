@@ -7,9 +7,11 @@ const placeElements = () => {
         mainNav = document.querySelector('#main-nav'),
         changedSamples = document.querySelector('#changed-samples');
 
-    changedSamples.style.top = `${topNav.offsetHeight}px`;
+    mainNav.style.top = `${topNav.offsetHeight}px`;
+    mainNav.style.bottom = `${changedSamples.offsetHeight}px`;
+    changedSamples.style.bottom = 0;
 
-    mainNav.style.top = `${topNav.offsetHeight + changedSamples.offsetHeight}px`;
+
 }
 
 window.toggleChangedSamples = () => {
@@ -74,7 +76,7 @@ window.toggleChangedSamples = () => {
     );
 
     if (samples.length) {
-        const div = document.querySelector('#main-nav #changed-samples');
+        const div = document.querySelector('#changed-samples');
         div.classList.remove('hidden');
 
         div.innerHTML += `<h4>
