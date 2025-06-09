@@ -10,8 +10,6 @@ const placeElements = () => {
     mainNav.style.top = `${topNav.offsetHeight}px`;
     mainNav.style.bottom = `${changedSamples.offsetHeight}px`;
     changedSamples.style.bottom = 0;
-
-
 }
 
 window.toggleChangedSamples = () => {
@@ -44,7 +42,12 @@ window.toggleChangedSamples = () => {
 
 }
 
+
+placeElements();
+window.addEventListener('resize', placeElements);
+
 (async () => {
+
     const pull = await octokit.rest.pulls.get({
   		owner: 'highcharts',
   		repo: 'highcharts',
@@ -100,8 +103,5 @@ window.toggleChangedSamples = () => {
             div.querySelector('#changed-samples-body').appendChild(a);
         });
     }
-
-    placeElements();
-    window.addEventListener('resize', placeElements);
 
 })();
