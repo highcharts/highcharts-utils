@@ -11,10 +11,18 @@ const getSavedCompare = (req) => {
 	let compare;
 
 	if (fs.existsSync(filepath)) {
-		compare = f.getLocalJSON(filepath)[req.query.path];
+		const allCompare = f.getLocalJSON(filepath);
+		compare = allCompare[req.query.path] || {};
+
+		compare.titleDataList = [...new Set(
+			Object.values(allCompare)
+				.map((sample) => sample.comment?.title)
+				.filter((title) => title)
+				.sort()
+		)];
 	}
 
-	return compare || {};
+	return compare || {};
 }
 
 
@@ -40,6 +48,7 @@ router.get('/', function(req, res) {
 		hasDiffChanged: comment && comment.diff !== compare.diff,
 
 		title: comment && comment.title,
+		titleDataList: compare.titleDataList || []
 
 	});
 });

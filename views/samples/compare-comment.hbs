@@ -120,7 +120,13 @@ $(window).load(function () {
 
 				<td>Title</td>
 				<td>
-					<input type="text" id="title" name="title" value="{{title}}"/>
+					<input type="text" id="title" name="title"
+						value="{{title}}" list="title-data-list"/>
+					<datalist id="title-data-list">
+						{{#each titleDataList}}
+						<option value="{{this}}">{{this}}</option>
+						{{/each}}
+					</datalist>
 				</td>
 
 				<td></td>
