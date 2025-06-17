@@ -55,7 +55,7 @@ const getTemplates = () => {
 
 export const getTestTemplate = function(req) {
 
-	const { compileOnDemand, emulateKarma } = getSettings(req);
+	const { colorScheme, compileOnDemand, emulateKarma } = getSettings(req);
 	let path = req.query.path;
 	let which = req.query.which;
 	let resources = f.getResources(req.query.path);
@@ -88,7 +88,8 @@ export const getTestTemplate = function(req) {
 		].concat(getTemplates()),
 		styles: resources.styles,
 		path: path,
-		which: which
+		which: which,
+		bodyClass: `highcharts-${colorScheme}`
 	};
 };
 
