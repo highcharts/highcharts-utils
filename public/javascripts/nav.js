@@ -56,7 +56,28 @@ window.addEventListener('load', function () {
 		anchor.addEventListener('mouseover', () => {
 			dropdown.style.display = 'inline-block';
 		});
+		anchor.addEventListener('mouseleave', (e) => {
+			if (!dropdown.contains(e.relatedTarget)) {
+				hide();
+			}
+		});
 		dropdown.addEventListener('mouseleave', hide);
+	}
+
+	const classList = document.body.classList;
+	const currentColorScheme = classList.contains('highcharts-light') ?
+		'light' :
+		classList.contains('highcharts-dark') ?
+		'dark' :
+		'system';
+
+	window.previewColorScheme = function (colorScheme = currentColorScheme) {
+		classList.remove('highcharts-light', 'highcharts-dark');
+		if (colorScheme === 'light') {
+			classList.add('highcharts-light');
+		} else if (colorScheme === 'dark') {
+			classList.add('highcharts-dark');
+		}
 	}
 
 	var $ = window.$ || window.jQuery;

@@ -51,26 +51,25 @@
 				</p>
 				{{/if}}
                 <p>
-                    <script>const bodyClass = document.body.className</script>
                     <label
-                            onmouseover="document.body.className='highcharts-light';"
-                            onmouseout="document.body.className=bodyClass;">
+                            onmouseover="previewColorScheme('light');"
+                            onmouseout="previewColorScheme();">
                         <input type="radio" name="colorScheme" value="light"
                             {{#if colorScheme.light}}checked="checked"{{/if}}
                             onchange="this.form.submit()">
                         Light mode
                     </label>
                     <label
-                            onmouseover="document.body.className='highcharts-dark';"
-                            onmouseout="document.body.className=bodyClass;">
+                            onmouseover="previewColorScheme('dark');"
+                            onmouseout="previewColorScheme();">
                         <input type="radio" name="colorScheme" value="dark"
                             {{#if colorScheme.dark}}checked="checked"{{/if}}
                             onchange="this.form.submit()">
                         Dark mode
                     </label>
                     <label
-                            onmouseover="document.body.className='highcharts-system';"
-                            onmouseout="document.body.className=bodyClass;">
+                            onmouseover="previewColorScheme('system');"
+                            onmouseout="previewColorScheme();">
                         <input type="radio" name="colorScheme" value="system"
                             {{#if colorScheme.system}}checked="checked"{{/if}}
                             onchange="this.form.submit()">
