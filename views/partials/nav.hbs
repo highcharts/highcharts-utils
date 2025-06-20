@@ -28,70 +28,71 @@
             <span class="button-text">Reload</span>
         </a>
 
-        <!-- if themes, means we have a mini form control -->
-		<div class="dropdown" data-anchor="quick-settings">
-			<div class="dropdown-inner">
-                <form method="post" action="/samples/settings-post" id="settings-form">
-                <input type="hidden" name="quickSettings" value="on">
+        <form method="post" action="/samples/settings-post" id="settings-form">
+        <input type="hidden" name="quickSettings" value="on">
 
-				{{#if compileOnDemand}}
-				<p>
-                    <input type="hidden" name="compileOnDemand"
-                        value="{{#if compileOnDemand.checked}}on{{else}}off{{/if}}">
-                    <label>
-                        <input
-                            type="checkbox"
-                            id="compile-on-demand-toggle"
-                            name="compileOnDemand-shim"
-                            {{ compileOnDemand.checked }}
-                            onchange="this.form.compileOnDemand.value = this.checked ? 'on' : 'off'; this.form.submit()"
-                            />
-                        Compile on Demand
-                    </label>
-				</p>
-				{{/if}}
-                <p>
-                    <script>const bodyClass = document.body.className</script>
-                    <label
-                            onmouseover="document.body.className='highcharts-light';"
-                            onmouseout="document.body.className=bodyClass;">
-                        <input type="radio" name="colorScheme" value="light"
-                            {{#if colorScheme.light}}checked="checked"{{/if}}
-                            onchange="this.form.submit()">
-                        Light mode
-                    </label>
-                    <label
-                            onmouseover="document.body.className='highcharts-dark';"
-                            onmouseout="document.body.className=bodyClass;">
-                        <input type="radio" name="colorScheme" value="dark"
-                            {{#if colorScheme.dark}}checked="checked"{{/if}}
-                            onchange="this.form.submit()">
-                        Dark mode
-                    </label>
-                    <label
-                            onmouseover="document.body.className='highcharts-system';"
-                            onmouseout="document.body.className=bodyClass;">
-                        <input type="radio" name="colorScheme" value="system"
-                            {{#if colorScheme.system}}checked="checked"{{/if}}
-                            onchange="this.form.submit()">
-                        System
-                    </label>
+        {{#if compileOnDemand}}
+        <input type="hidden" name="compileOnDemand"
+            value="{{#if compileOnDemand.checked}}on{{else}}off{{/if}}">
+        <a class="button {{#if compileOnDemand.checked}}active{{/if}}"
+            id="compile-on-demand-toggle"
+            name="compileOnDemand-shim"
+            title="Compile on demand"
+            onclick="
+                document.getElementById('settings-form')
+                    .compileOnDemand.value = document.getElementById('settings-form')
+                    .compileOnDemand.value === 'on' ? 'off' : 'on';
+                document.getElementById('settings-form').submit()
+            ">
+            <i class="fa fa-bolt"></i>
+            <span class="button-text">Compile on demand</span>
+        </a>
+        {{/if}}
+        <script>const bodyClass = document.body.className</script>
+        <label
+                onmouseover="document.body.className='highcharts-light';"
+                onmouseout="document.body.className=bodyClass;">
+            <input type="radio" name="colorScheme" value="light"
+                {{#if colorScheme.light}}checked="checked"{{/if}}
+                onchange="this.form.submit()">
+            Light mode
+        </label>
+        <label
+                onmouseover="document.body.className='highcharts-dark';"
+                onmouseout="document.body.className=bodyClass;">
+            <input type="radio" name="colorScheme" value="dark"
+                {{#if colorScheme.dark}}checked="checked"{{/if}}
+                onchange="this.form.submit()">
+            Dark mode
+        </label>
+        <label
+                onmouseover="document.body.className='highcharts-system';"
+                onmouseout="document.body.className=bodyClass;">
+            <input type="radio" name="colorScheme" value="system"
+                {{#if colorScheme.system}}checked="checked"{{/if}}
+                onchange="this.form.submit()">
+            System
+        </label>
 
-                </p>
-				{{#if themes}}
-				<p>
-				    <select name="theme" onchange="this.form.submit()">
-					{{#each themes}}
-						<option value="{{@key}}" {{selected}}>
-							{{name}}
-						</option>
-					{{/each}}
-					</select>
-				</p>
-				{{/if}}
-				</form>
-			</div>
-		</div>
+        {{#if themes}}
+        <a id="theme-button" class="button" href="javascript:"
+                onclick="this.querySelector('select').click();">
+
+			<svg width="16" height="16" fill="none" xmlns="http://www.w3.org/2000/svg"><g stroke="currentColor" stroke-width="1.33" stroke-linecap="round" stroke-linejoin="round" clip-path="url(#palette_svg__a)"><path d="M1.333 7.999A6.667 6.667 0 0 0 8 14.665a2 2 0 0 0 2-2v-.333c0-.31 0-.464.017-.594a2 2 0 0 1 1.722-1.722c.13-.017.285-.017.595-.017h.333a2 2 0 0 0 2-2 6.667 6.667 0 1 0-13.334 0Z"></path><path d="M4.667 8.665a.667.667 0 1 0 0-1.333.667.667 0 0 0 0 1.333ZM10.667 5.999a.667.667 0 1 0 0-1.334.667.667 0 0 0 0 1.334ZM6.667 5.332a.667.667 0 1 0 0-1.333.667.667 0 0 0 0 1.333Z"></path></g><defs><clipPath id="palette_svg__a"><path fill="#fff" d="M0 0h16v16H0z"></path></clipPath></defs></svg>
+			<span class="button-text">Theme</span>
+            <select name="theme" onchange="this.form.submit()">
+            {{#each themes}}
+                <option value="{{@key}}" {{selected}}>
+                    {{name}}
+                </option>
+            {{/each}}
+            </select>
+
+        </a>
+
+        {{/if}}
+
+        </form>
 
 		<a id="quick-settings" class="button mobile-hide" href="javascript:;">
 			<i class="fa fa-cog"></i>
