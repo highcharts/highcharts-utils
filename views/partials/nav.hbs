@@ -49,29 +49,32 @@
         </a>
         {{/if}}
         <script>const bodyClass = document.body.className</script>
-        <label
+        <label class="button"
                 onmouseover="previewColorScheme('light')"
-                onmouseout="previewColorSheme()">
+                onmouseout="previewColorScheme()">
             <input type="radio" name="colorScheme" value="light"
                 {{#if colorScheme.light}}checked="checked"{{/if}}
                 onchange="this.form.submit()">
-            Light mode
+            <i class="fa fa-sun-o"></i>
+            <span class="button-text">Light mode</span>
         </label>
-        <label
+        <label class="button"
                 onmouseover="previewColorScheme('dark')"
                 onmouseout="previewColorScheme()">
             <input type="radio" name="colorScheme" value="dark"
                 {{#if colorScheme.dark}}checked="checked"{{/if}}
                 onchange="this.form.submit()">
-            Dark mode
+            <i class="fa fa-moon-o"></i>
+            <span class="button-text">Dark mode</span>
         </label>
-        <label
+        <label class="button"
                 onmouseover="previewColorScheme('system')"
                 onmouseout="previewColorScheme()">
             <input type="radio" name="colorScheme" value="system"
                 {{#if colorScheme.system}}checked="checked"{{/if}}
                 onchange="this.form.submit()">
-            System
+            <i class="fa fa-desktop"></i>
+            <span class="button-text">System</span>
         </label>
 
         {{#if themes}}
@@ -94,9 +97,9 @@
 
         </form>
 
-		<a id="quick-settings" class="button mobile-hide" href="javascript:;">
+        <!--a id="quick-settings" class="button mobile-hide" href="javascript:;">
 			<i class="fa fa-cog"></i>
-			<span class="button-text">Quick settings</span></a>
+			<span class="button-text">Quick settings</span></a-->
 
         {{#if styled}}
         <!--a class="button active" title="View this sample with CSS and no inline styling"

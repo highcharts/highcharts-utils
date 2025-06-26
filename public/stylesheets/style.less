@@ -165,7 +165,12 @@ body.mobile-preview #demo-content {
 		line-height: 2em;
 	}
 
-	.buttons a, a.button, button, input.button, input[type="submit"] {
+	.buttons a,
+	a.button,
+	button,
+	input.button,
+	input[type="submit"],
+	label.button {
 		padding: 0.5em 1em;
 		text-decoration: none;
 		font-size: 1.1em;
@@ -179,7 +184,7 @@ body.mobile-preview #demo-content {
 }
 
 .top-bar {
-	.buttons a, a.button, button, input.button {
+	.buttons a, a.button, button, input.button, label.button {
 		border: none;
 		background: none;
 		color: white;
@@ -187,11 +192,20 @@ body.mobile-preview #demo-content {
 		transition: background 250ms;
 	}
 
-	.buttons a:hover, a.button:hover, button:hover, input.button:hover {
+	label.button input[type="radio"] {
+		display: none;
+	}
+
+	.buttons a:hover, a.button:hover, button:hover, input.button:hover, label.button:hover {
 		background: #47475c;
 		color: white;
 	}
-	.buttons a.active, a.button.active, button.active, input.button:active {
+	.buttons a.active,
+	a.button.active,
+	button.active,
+	input.button:active,
+	label.button.active,
+	label.button:has(input[type="radio"]:checked) {
 		border-top: 3px solid #40818b;
 		background: #47475c;
 		color: white;
@@ -438,14 +452,14 @@ body.highcharts-light {
 }
 
 @media (max-width: 500px) {
-	.top-bar button, .top-bar a.button {
+	.top-bar button, .top-bar a.button, .top-bar label.button {
     	color: white;
     	background: none;
     	padding: 0 0.7em;
     	margin: 0;
     	font-size: 2em
     }
-    .top-bar button i, .top-bar a.button i {
+    .top-bar button i, .top-bar a.button i,  .top-bar label.button i {
     	display: inline-block;
     	font-size: 1.2em
     }
