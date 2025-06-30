@@ -102,6 +102,21 @@ const redirects = {
   'api.highcharts.*': `http://[::1]:${apiPort}`
 }
 if (useProxy) {
+
+  /**
+   * Upgrade handler for WebSocket connections.
+   */
+  function onUpgrade(req, socket, head) {
+    // Replace the top-level domain with a wildcard
+    const host = req.headers.host.replace(/\.[a-z]+$/, '.*');
+    const target = redirects[host];
+    if (target) {
+      proxy.ws(req, socket, head, { target });
+    } else {
+      socket.destroy(); // Optional: cleanly close unknown upgrades
+    }
+  }
+
   const server = http.createServer((req, res) => {
     const host = req.headers.host.replace(/\.[a-z]+$/, '.*');
 
@@ -126,6 +141,7 @@ if (useProxy) {
     log();
   });
 
+  server.on('upgrade', onUpgrade);
 
   server.listen(80, () => {
 
@@ -141,14 +157,16 @@ if (useProxy) {
 
     if (httpsOptions.key && httpsOptions.cert) {
 
-        sslEnabled = true;
+      sslEnabled = true;
 
-        https.createServer(httpsOptions, (req, res) => {
-            let host = req.headers.host.replace(/\.[a-z]+$/, '.*');
-            proxy.web(req, res, {
-                target: redirects[host]
-            });
-        }).listen(443);
+      const httpsServer = https.createServer(httpsOptions, (req, res) => {
+        const host = req.headers.host.replace(/\.[a-z]+$/, '.*');
+        proxy.web(req, res, { target: redirects[host] });
+      });
+
+      httpsServer.on('upgrade', onUpgrade);
+
+      httpsServer.listen(443);
     } else {
       console.log(`  SSL key files not found, starting non-secure.
     - pemFile: ${pemFile}
