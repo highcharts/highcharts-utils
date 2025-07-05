@@ -381,6 +381,7 @@ var controller = { // eslint-disable-line no-unused-vars
             }
         });
 
+        // Show/hide h2 and h4 headers
         for (const key of Object.keys(headerMap)) {
             const header = contentDoc.getElementById(
                 key.replace(/[\/\.]/g, '-')
@@ -393,6 +394,29 @@ var controller = { // eslint-disable-line no-unused-vars
                 }
             }
         }
+
+        // Naively hide all h6 headers if we have query
+        [].forEach.call(
+            contentDoc.querySelectorAll('h6'),
+            h6 => {
+                let show = !q,
+                    elem = h6,
+                    nextSibling;
+                if (q) {
+                    while (nextSibling = elem.nextElementSibling) {
+                        if (nextSibling.tagName === 'H6') {
+                            break;
+                        }
+                        if (!nextSibling.classList.contains('hidden')) {
+                            show = true;
+                            break;
+                        }
+                        elem = nextSibling;
+                    }
+                }
+                h6.classList[show ? 'remove' : 'add']('hidden');
+            }
+        );
 
         // Keep the current sample in view if visible
         if (controller.currentSample) {

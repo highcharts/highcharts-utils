@@ -4,6 +4,7 @@ import * as f from './../../lib/functions.js';
 import fs from 'fs';
 import { join, relative, sep } from 'path';
 import { samplesDir } from '../../lib/arguments.js';
+import * as demoConfig from './../../../highcharts/samples/demo-config.js';
 
 const router = express.Router();
 
@@ -38,14 +39,33 @@ const getSample = (path) => {
 };
 
 const getSamples = () => {
-	let samples = [];
+	const samples = [];
 
 	[
-		'highcharts', 'stock', 'maps', 'gantt', 'unit-tests', 'issues', 'cloud', 'dashboards', 'grid-lite', 'grid-pro'
+		'highcharts',
+		'stock',
+		'maps',
+		'gantt',
+		'unit-tests',
+		'issues',
+		'cloud',
+		'dashboards',
+		'grid-lite',
+		'grid-pro'
 	].forEach(group => {
 		const groupDir = join(samplesDir, group);
 		if (fs.existsSync(groupDir) && fs.lstatSync(groupDir).isDirectory()) {
-			fs.readdirSync(groupDir).forEach(subgroup => {
+			const subgroups = fs.readdirSync(groupDir);
+
+			// Move the 'demo' subgroup to the start of the list
+			const demoIndex = subgroups.indexOf('demo');
+			if (demoIndex > -1) {
+				subgroups.unshift(subgroups.splice(demoIndex, 1)[0]);
+			}
+
+			const demos = [],
+				otherSamples = [];
+			subgroups.forEach(subgroup => {
 				const subgroupDir = join(groupDir, subgroup);
 				if (fs.lstatSync(subgroupDir).isDirectory()) {
 					fs.readdirSync(subgroupDir).forEach(sample => {
@@ -56,11 +76,63 @@ const getSamples = () => {
 						) {
 							const relativePath = relative(samplesDir, path)
 								.split(sep).join('/');
-							samples.push(getSample(relativePath));
+
+							if (subgroup === 'demo') {
+								demos.push(getSample(relativePath));
+							} else {
+								otherSamples.push(getSample(relativePath));
+							}
 						}
 					});
 				}
 			});
+
+			// Order the demos as they appear in the demo pages
+			if (demos.length) {
+				const demoConfigGroup = Object.values(demoConfig.default).find(
+					config => (
+						config.path === `/${group}/` ||
+						config.path === '/' && group === 'highcharts'
+					)
+				);
+
+				demoConfigGroup?.categories?.forEach(category => {
+					const demosInCategory = [];
+
+					for (let demo of demos) {
+						const categories = [];
+
+						let priority;
+						(demo.details.categories || []).forEach(
+							cat => {
+								if (typeof cat === 'string') {
+									categories.push(cat);
+								}
+								if (typeof cat === 'object') {
+									categories.push.apply(
+										categories,
+										Object.keys(cat)
+									);
+									priority = cat[category]?.priority;
+								}
+							}
+						)
+						demo.details.category ||= categories[0];
+
+						if (categories.includes(category)) {
+							demo.priority = priority || 1000;
+							demosInCategory.push(demo);
+						}
+					}
+
+					demosInCategory.sort((a, b) => a.priority - b.priority);
+
+					samples.push.apply(samples, demosInCategory);
+
+				});
+
+				samples.push.apply(samples, otherSamples);
+			}
 		}
 	});
 	return JSON.stringify(samples, null, '  ');
