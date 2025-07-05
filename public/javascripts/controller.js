@@ -67,6 +67,13 @@ var controller = { // eslint-disable-line no-unused-vars
 
             controller.runLoad();
 
+            const q = localStorage.getItem('searchQuery');
+            if (q) {
+                controller.frames().contents.contentDocument
+                    .getElementById('search').value = q;
+                controller.filter(q);
+            }
+
             if (callback) {
                 callback();
             }
@@ -395,7 +402,7 @@ var controller = { // eslint-disable-line no-unused-vars
             }
         }
 
-        // Naively hide all h6 headers if we have query
+        // Show/hide h6 demo category headers
         [].forEach.call(
             contentDoc.querySelectorAll('h6'),
             h6 => {
@@ -426,6 +433,8 @@ var controller = { // eslint-disable-line no-unused-vars
                 behavior: 'instant'
             });
         }
+
+        localStorage.setItem('searchQuery', q);
         // console.timeEnd('@filter')
     },
 

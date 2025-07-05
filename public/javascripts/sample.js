@@ -401,7 +401,11 @@ controller.Sample = function (options, index) {
         const mainNav = contentsDoc.querySelector('#main-nav');
         mainNav.scrollTo({
             top: li.offsetTop - Math.round(mainNav.offsetHeight * 0.4),
-            behavior: controller.continueBatch ? 'instant' : 'smooth'
+            behavior: (
+                controller.continueBatch ||
+                !lastCurrentSample ||
+                lastCurrentSample.path === this.path
+            ) ? 'instant' : 'smooth'
         })
 
     }
