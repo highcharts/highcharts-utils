@@ -113,7 +113,7 @@ router.get('/', async (req, res, next) => {
   		handleStep(result);
 
 
-  	} else if (tpl.good === undefined || tpl.good.trim === '') {
+  	} else if (tpl.good === undefined || tpl.good.trim === '') {
   		console.log('undefined good')
 
   		// Use latest tag by default
@@ -144,7 +144,7 @@ router.get('/', async (req, res, next) => {
 
   		try {
             await git(['bisect', 'start']);
-        } catch (e) {
+        } catch (e) {
             tpl.error = e;
             return handleStep();
         }
