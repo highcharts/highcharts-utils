@@ -49,10 +49,6 @@ document.addEventListener('DOMContentLoaded', function () {
 		text-decoration: none;
 	}
 
-	form {
-		margin-top: 1.5em;
-	}
-
 	li.visited a {
 		color: silver;
 	}
@@ -88,8 +84,7 @@ document.addEventListener('DOMContentLoaded', function () {
 	#topnav {
 		z-index: 2;
 		top: 0;
-		box-shadow: 5px 5px 5px #888;
-		background: white;
+		background: var(--card-background);
 		padding: 1em;
 	}
 	#topnav a, input[type="submit"] {
@@ -132,10 +127,10 @@ document.addEventListener('DOMContentLoaded', function () {
 	.compare #close {
 		display: inline-block;
 		float: right;
-		margin: -0.5em 0 1em 1em;
+		margin: 0 0 1em 1em;
 		border-radius: 0;
-		color: white;
-		background: #34343e;
+		color: var(--card-background);
+		background: var(--text-color);
 		border: none;
 		border-radius: 0.3em;
 		font-size: 2em;

@@ -14,9 +14,9 @@
 	ul {
 		margin: 250px 1em 1em 1em;
 		padding-left: 10px;
-		
+
 	}
-	
+
 	a {
 		text-decoration: none;
 	}
@@ -27,7 +27,7 @@
 	li.active {
 		background: linear-gradient(to right, rgba(255,255,255,0), rgb(124,181,236));
 	}
-	
+
 	body {
 		margin: 0;
 	}
@@ -90,7 +90,7 @@
 		top: 0;
 		box-shadow: 5px 5px 5px #888;
 		background: white;
-		width: 100%; 
+		width: 100%;
 		padding-top: 1em;
 	}
 	#topnav a, input[type="submit"] {
@@ -138,7 +138,7 @@
 		margin: 0 0 1em 1em;
 		border-radius: 0;
 		color: white;
-		background: #34343e;
+		background: #333333;
 		border: none;
 		border-radius: 0.3em;
 		font-size: 2em;
@@ -156,7 +156,7 @@
 <div id="topnav">
 
 	<button id="close">&times;</button>
-	
+
 
 	<a href="/bisect/bisect" style="margin: 4em 0.5em; display: inline-block;">Experimental: Git bisect</a>
 	<form method="post" action="/bisect/commits-post">
@@ -178,9 +178,9 @@
 	<input type="text" name="before" value="{{before}}" />
 
 	<input type="checkbox" name="alltags" id="alltags" {{alltagsChecked}} />
-	<label title="Loads all releases, use this for course filtering" 
+	<label title="Loads all releases, use this for course filtering"
 		for="alltags">Releases only</label>
-	
+
 	<input type="submit" value="Submit" />
 	<a id="setdata" href="main" target="main">Change test data</a>
 	</div>

@@ -11,7 +11,7 @@
 	--background-color: #333333;
 	--card-background: #141414;
 	--text-color: #eee;
-	--link-color: #2caffe;
+	--link-color: #bbe5ff;
 	--separator-color: #666;
 }
 
@@ -21,7 +21,7 @@
 		--background-color: #333333;
 		--card-background: #141414;
 		--text-color: #eee;
-		--link-color: #2caffe;
+		--link-color: #bbe5ff;
 		--separator-color: #666;
 
 		color-scheme: dark;
@@ -60,7 +60,7 @@ a {
 	font-family: Arial, Helvetica, sans-serif;
 	color: white;
 	font-size: 0.8em;
-	background: #47475C;
+	background: #333333;
 	box-shadow: 0px 0px 8px #000;
 }
 .top-bar h2 {
@@ -68,7 +68,7 @@ a {
 	padding: 5px;
 }
 .top-bar-menu {
-	background: #373648;
+	background: #141414;
 	padding: 0 5px;
 }
 .top-bar .sample-name {
@@ -245,6 +245,16 @@ body.mobile-preview #demo-content {
 	padding: 0.5em;
 }
 
+.test-report.pass {
+	background: #a4edba;
+	color: black;
+}
+
+.test-report.fail {
+	background: #f15c80;
+	color: white;
+}
+
 #frame-row {
 	width: 1360px;
 	visibility: hidden;
@@ -269,7 +279,7 @@ body.mobile-preview #demo-content {
 }
 .preview-tabs span.active {
 	opacity: 1;
-	background: white;
+	background: var(--card-background);
 }
 #preview-row {
 	width: 1280px;
@@ -294,8 +304,9 @@ body.mobile-preview #demo-content {
 
 pre#svg {
 	padding: 1em;
-	border: 1px solid silver;
-	background-color: #F8F8F8;
+	border: 1px solid #888;
+	border-radius: 4px;
+	background-color: var(--card-background);
 	width: calc(100% - 2em - 2px);
 	overflow-x: auto;
 	overflow-y: auto;

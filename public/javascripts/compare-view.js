@@ -22,6 +22,23 @@ var controller,
 	diffString,
 	canvg;
 
+function setReport(html, pass) {
+	const reportDiv = document.getElementById('report');
+	if (reportDiv) {
+		reportDiv.innerHTML = html;
+		if (pass) {
+			reportDiv.classList.remove('fail');
+			reportDiv.classList.add('pass');
+		} else if (pass === false) {
+			reportDiv.classList.remove('pass');
+			reportDiv.classList.add('fail');
+		} else {
+			reportDiv.classList.remove('pass');
+			reportDiv.classList.remove('fail');
+		}
+	}
+}
+
 function assign(win) {
 	controller = win.controller;
 	$ = win.$;
@@ -194,10 +211,7 @@ function main () {
 
 	if ((isUnitTest || isManual) && rightcommit) {
 		report += 'Testing commit <a href="http://github.com/highcharts/highcharts/commit/' + rightcommit + '" target="_blank">' + rightcommit + '</a>';
-		$('#report').css({
-			color: 'gray',
-			display: 'block'
-		}).html(report);
+		setReport(report, undefined);
 	}
 };
 
@@ -386,8 +400,7 @@ function onBothLoad() {
 
 	if (error) {
 		report += "<br/>" + error;
-		$('#report', document).html(report)
-			.css('background', '#f15c80');
+		setReport(report, false);
 		onDifferent('Err');
 		return;
 	}
@@ -416,8 +429,8 @@ function onBothLoad() {
 			report += '<pre>' + rightSVG.substr(index - 100, 200)
 				.replace(/</g, '&lt;')
 				.replace(/>/g, '&gt;\n') + '</pre>';
-			$('#report', document).html(report)
-				.css('background', '#f15c80');
+			setReport(report, false);
+
 			onDifferent('Err');
 			previewSVG = rightSVG
 					.replace(/</g, '&lt;')
@@ -425,14 +438,12 @@ function onBothLoad() {
 
 		} else if (identical && !FORCE_VISUAL_COMPARE) {
 			report += "<br/>The generated SVG is identical";
-			$('#report', document).html(report)
-				.css('background', "#a4edba");
+			setReport(report, true);
 
 		} else {
 			report += "<div>The generated SVG is different, checking exported images...</div>";
 
-			$('#report', document).html(report)
-				.css('background', 'gray');
+			setReport(report, undefined);
 
 			/***
 				CANVAS BASED COMPARISON
@@ -490,7 +501,7 @@ function onBothLoad() {
 					}
 					image.onerror = function (e) {
 						report += '<div>Failed painting SVG to canvas on ' + which + ' side.</div>';
-						$('#report', document).html(report).css('background', '#f15c80');
+						setReport(report, false);
 						console.error(e);
 						onDifferent('Err');
 					}
@@ -609,7 +620,7 @@ function onBothLoad() {
 						// lower section to overlay images to visually compare the differences
 						activateOverlayCompare(true);
 
-						$('#report', document).html(report).css('background', identical ? "#a4edba" : '#f15c80');
+						setReport(report, Boolean(identical));
 					}
 				}
 
@@ -640,7 +651,7 @@ function onBothLoad() {
 					} catch (e) {
 						onDifferent('Err');
 						report += '<div>Error in canvg, try Chrome or Safari.</div>';
-						$('#report', document).html(report).css('background', '#f15c80');
+						setReport(report, false);
 					}
 
 				} else {
@@ -676,8 +687,7 @@ function onBothLoad() {
 			}
 		}
 
-		$('#report', document).html(report)
-			.css('background', identical ? "#a4edba" : '#f15c80');
+		setReport(report, Boolean(identical));
 
 		if (!identical || !controller.continueBatch) {
 			// switch to image mode

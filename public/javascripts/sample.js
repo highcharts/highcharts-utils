@@ -18,7 +18,7 @@ controller.Sample = function (options, index) {
     /**
      * Add headers the first time samples are listed
      */
-    function addHeaders() {
+    function addHeaders(ul) {
         // Update jump selector
         if (!productJump.querySelector('option[value="' + dirs[0] + '"]')) {
             var option = contentsDoc.createElement('option');
@@ -42,6 +42,20 @@ controller.Sample = function (options, index) {
             h4.innerHTML = dirs[0] + '/' + dirs[1];
             h4.id = h4Id;
             mainNav.appendChild(h4);
+        }
+
+        // h6 subheaders, demo categories
+        if (options.details.category) {
+            var h6Id = h4Id + '-' + options.details.category
+                .replace(/ /g, '-')
+                .replace(/[\(\)]+/g, '')
+                .toLowerCase();
+            if (!mainNav.querySelector('h6#' + h6Id)) {
+                var h6 = contentsDoc.createElement('h6');
+                h6.innerHTML = options.details.category;
+                h6.id = h6Id;
+                ul.appendChild(h6);
+            }
         }
     }
 
@@ -244,15 +258,19 @@ controller.Sample = function (options, index) {
      */
     function renderList() {
 
-        addHeaders();
-
         // Add list
         var ul = mainNav.querySelector('ul#' + ulId),
-            innerHTML = options.path;
+            innerHTML = options.path,
+            hadUl = !!ul;
 
         if (!ul) {
             ul = contentsDoc.createElement('ul');
             ul.id = ulId;
+        }
+
+        addHeaders(ul);
+
+        if (!hadUl) {
             mainNav.appendChild(ul);
         }
 
@@ -383,7 +401,11 @@ controller.Sample = function (options, index) {
         const mainNav = contentsDoc.querySelector('#main-nav');
         mainNav.scrollTo({
             top: li.offsetTop - Math.round(mainNav.offsetHeight * 0.4),
-            behavior: controller.continueBatch ? 'instant' : 'smooth'
+            behavior: (
+                controller.continueBatch ||
+                !lastCurrentSample ||
+                lastCurrentSample.path === this.path
+            ) ? 'instant' : 'smooth'
         })
 
     }

@@ -67,6 +67,13 @@ var controller = { // eslint-disable-line no-unused-vars
 
             controller.runLoad();
 
+            const q = localStorage.getItem('searchQuery');
+            if (q) {
+                controller.frames().contents.contentDocument
+                    .getElementById('search').value = q;
+                controller.filter(q);
+            }
+
             if (callback) {
                 callback();
             }
@@ -381,6 +388,7 @@ var controller = { // eslint-disable-line no-unused-vars
             }
         });
 
+        // Show/hide h2 and h4 headers
         for (const key of Object.keys(headerMap)) {
             const header = contentDoc.getElementById(
                 key.replace(/[\/\.]/g, '-')
@@ -394,6 +402,29 @@ var controller = { // eslint-disable-line no-unused-vars
             }
         }
 
+        // Show/hide h6 demo category headers
+        [].forEach.call(
+            contentDoc.querySelectorAll('h6'),
+            h6 => {
+                let show = !q,
+                    elem = h6,
+                    nextSibling;
+                if (q) {
+                    while (nextSibling = elem.nextElementSibling) {
+                        if (nextSibling.tagName === 'H6') {
+                            break;
+                        }
+                        if (!nextSibling.classList.contains('hidden')) {
+                            show = true;
+                            break;
+                        }
+                        elem = nextSibling;
+                    }
+                }
+                h6.classList[show ? 'remove' : 'add']('hidden');
+            }
+        );
+
         // Keep the current sample in view if visible
         if (controller.currentSample) {
             mainNav.scrollTo({
@@ -402,6 +433,8 @@ var controller = { // eslint-disable-line no-unused-vars
                 behavior: 'instant'
             });
         }
+
+        localStorage.setItem('searchQuery', q);
         // console.timeEnd('@filter')
     },
 
