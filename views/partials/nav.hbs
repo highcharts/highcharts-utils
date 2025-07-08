@@ -49,39 +49,42 @@
         </a>
         {{/if}}
         <script>const bodyClass = document.body.className</script>
-        <label class="button"
-                onmouseover="previewColorScheme('light')"
-                onmouseout="previewColorScheme()">
-            <input type="radio" name="colorScheme" value="light"
-                {{#if colorScheme.light}}checked="checked"{{/if}}
-                onchange="this.form.submit()">
-            <i class="fa fa-sun-o"></i>
-            <span class="button-text">Light mode</span>
-        </label>
-        <label class="button"
-                onmouseover="previewColorScheme('dark')"
-                onmouseout="previewColorScheme()">
-            <input type="radio" name="colorScheme" value="dark"
-                {{#if colorScheme.dark}}checked="checked"{{/if}}
-                onchange="this.form.submit()">
-            <i class="fa fa-moon-o"></i>
-            <span class="button-text">Dark mode</span>
-        </label>
-        <label class="button"
-                onmouseover="previewColorScheme('system')"
-                onmouseout="previewColorScheme()">
-            <input type="radio" name="colorScheme" value="system"
-                {{#if colorScheme.system}}checked="checked"{{/if}}
-                onchange="this.form.submit()">
-            <i class="fa fa-desktop"></i>
-            <span class="button-text">System</span>
-        </label>
-
+        <span class="button-group">
+            <label class="button"
+                    onmouseover="previewColorScheme('light')"
+                    onmouseout="previewColorScheme()"
+                    title="Light mode">
+                <input type="radio" name="colorScheme" value="light"
+                    {{#if colorScheme.light}}checked="checked"{{/if}}
+                    onchange="this.form.submit()">
+                <i class="fa fa-sun-o"></i>
+                <span class="button-text">Light mode</span>
+            </label><label class="button"
+                    onmouseover="previewColorScheme('dark')"
+                    onmouseout="previewColorScheme()"
+                    title="Dark mode">
+                <input type="radio" name="colorScheme" value="dark"
+                    {{#if colorScheme.dark}}checked="checked"{{/if}}
+                    onchange="this.form.submit()">
+                <i class="fa fa-moon-o"></i>
+                <span class="button-text">Dark mode</span>
+            </label><label class="button"
+                    onmouseover="previewColorScheme('system')"
+                    onmouseout="previewColorScheme()"
+                    title="System color scheme">
+                <input type="radio" name="colorScheme" value="system"
+                    {{#if colorScheme.system}}checked="checked"{{/if}}
+                    onchange="this.form.submit()">
+                <i class="fa fa-desktop"></i>
+                <span class="button-text">System</span>
+            </label>
+        </span>
         {{#if themes}}
         <a id="theme-button" class="button" href="javascript:"
-                onclick="this.querySelector('select').click();">
+                onclick="this.querySelector('select').click();"
+                title="Change theme">
 
-			<svg width="16" height="16" fill="none" xmlns="http://www.w3.org/2000/svg"><g stroke="currentColor" stroke-width="1.33" stroke-linecap="round" stroke-linejoin="round" clip-path="url(#palette_svg__a)"><path d="M1.333 7.999A6.667 6.667 0 0 0 8 14.665a2 2 0 0 0 2-2v-.333c0-.31 0-.464.017-.594a2 2 0 0 1 1.722-1.722c.13-.017.285-.017.595-.017h.333a2 2 0 0 0 2-2 6.667 6.667 0 1 0-13.334 0Z"></path><path d="M4.667 8.665a.667.667 0 1 0 0-1.333.667.667 0 0 0 0 1.333ZM10.667 5.999a.667.667 0 1 0 0-1.334.667.667 0 0 0 0 1.334ZM6.667 5.332a.667.667 0 1 0 0-1.333.667.667 0 0 0 0 1.333Z"></path></g><defs><clipPath id="palette_svg__a"><path fill="#fff" d="M0 0h16v16H0z"></path></clipPath></defs></svg>
+			<svg class="button-icon" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><g stroke="currentColor" stroke-width="1.33" stroke-linecap="round" stroke-linejoin="round" clip-path="url(#palette_svg__a)"><path d="M1.333 7.999A6.667 6.667 0 0 0 8 14.665a2 2 0 0 0 2-2v-.333c0-.31 0-.464.017-.594a2 2 0 0 1 1.722-1.722c.13-.017.285-.017.595-.017h.333a2 2 0 0 0 2-2 6.667 6.667 0 1 0-13.334 0Z"></path><path d="M4.667 8.665a.667.667 0 1 0 0-1.333.667.667 0 0 0 0 1.333ZM10.667 5.999a.667.667 0 1 0 0-1.334.667.667 0 0 0 0 1.334ZM6.667 5.332a.667.667 0 1 0 0-1.333.667.667 0 0 0 0 1.333Z"></path></g><defs><clipPath id="palette_svg__a"><path fill="#fff" d="M0 0h16v16H0z"></path></clipPath></defs></svg>
 			<span class="button-text">Theme</span>
             <select name="theme" onchange="this.form.submit()">
             {{#each themes}}
@@ -97,29 +100,15 @@
 
         </form>
 
-        <!--a id="quick-settings" class="button mobile-hide" href="javascript:;">
-			<i class="fa fa-cog"></i>
-			<span class="button-text">Quick settings</span></a-->
-
-        {{#if styled}}
-        <!--a class="button active" title="View this sample with CSS and no inline styling"
-                href="view?path={{path}}&amp;styled=false">
-            <i class="fa fa-css3"></i>
-            <span class="button-text">Styled</span>
-        </a-->
-        {{else}}
-        <!--a class="button" title="View this sample with CSS and no inline styling"
-            href="view?path={{path}}&amp;styled=true">
-            <i class="fa fa-css3"></i>
-            <span class="button-text">Styled</span>
-        </a-->
-        {{/if}}
-
         <a class="button {{compareClass}} mobile-hide"
-                href="compare-view?path={{path}}" id="compare-button">
+                href="compare-view?path={{path}}" id="compare-button"
+                title="Compare side by side">
             <i class="fa fa-columns"></i>
             <span class="button-text">Compare</span>
-        </a><a class="button mobile-hide" id="bisect">
+        </a>
+
+        <a class="button mobile-hide" id="bisect"
+                title="Bisect">
             <i class="fa fa-code-fork"></i>
             <span class="button-text">Bisect</span>
         </a>
@@ -131,34 +120,17 @@
         </a>
 
 		<a class="button mobile-hide" id="share"
-			href="/samples/jsfiddle-post?path={{path}}">
+			    href="/samples/jsfiddle-post?path={{path}}"
+                title="Share...">
 			<i class="fa fa-external-link"></i>
-			<span class="button-text">Share</span></a>
+			<span class="button-text">Share</span>
 		</a>
 
-		<!--a class="button mobile-hide"
-			href="http://{{ipAddress}}:3030/samples/view?path={{path}}&mobile=true"
-			target="_blank">
+		<a id="mobile-preview" class="button mobile-hide" href="javascript:;"
+                title="Mobile preview">
 			<i class="fa fa-mobile"></i>
-			<span class="button-text">Mobile</span></a-->
-
-		<a id="mobile-preview" class="button mobile-hide" href="javascript:;">
-			<i class="fa fa-mobile"></i>
-			<span class="button-text">Mobile</span></a>
-
-
-        <a class="button mobile-hide" id="profile"
-            href="view?path={{path}}&amp;profile=1">
-            <i class="fa fa-rocket"></i>
-            <span class="button-text">Profile</span>
+			<span class="button-text">Mobile</span>
         </a>
-
-        <a class="button mobile-hide" id="time"
-            href="view?path={{path}}&amp;time=1">
-            <i class="fa fa-clock-o"></i>
-            <span class="button-text">Time</span></a>
-
-
     </div>
 
     <div id="popup">
