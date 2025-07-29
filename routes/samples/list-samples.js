@@ -130,9 +130,9 @@ const getSamples = () => {
 					samples.push.apply(samples, demosInCategory);
 
 				});
-
-				samples.push.apply(samples, otherSamples);
 			}
+
+			samples.push.apply(samples, otherSamples);
 		}
 	});
 	return JSON.stringify(samples, null, '  ');
