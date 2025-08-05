@@ -113,7 +113,9 @@ const getSamples = () => {
 										categories,
 										Object.keys(cat)
 									);
-									priority = cat[category]?.priority;
+
+									// Use priority of the first category
+									priority ??= cat[category]?.priority;
 								}
 							}
 						)
