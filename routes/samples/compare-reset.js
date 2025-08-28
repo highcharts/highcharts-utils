@@ -1,13 +1,13 @@
 import express from 'express';
 import fs from 'fs';
 import path from 'path';
-import glob from 'glob';
+import { glob } from 'glob';
 import { dirname } from '../../lib/functions.js';
 
 const router = express.Router();
 
-router.get('/', function(req, res) {
-	glob(path.join(
+router.get('/', async function(req, res) {
+	await glob(path.join(
 		dirname(import.meta),
 		'../../temp/*.json'
 	), null, (err, files) => {
