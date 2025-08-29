@@ -44,7 +44,7 @@ router.get('/', async (req, res) => {
     const css = await fs.readFile(
         join(highchartsDir, 'samples', req.query.path, 'demo.css'),
         'utf-8'
-    );
+    ).catch(() => '') || '';
 
     const modifiedCss = css
         ?.replace(

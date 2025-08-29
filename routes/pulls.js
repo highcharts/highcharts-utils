@@ -104,8 +104,8 @@ router.get('/list', async (req, res) => {
                     p.pull_request = true;
                     return p;
                 }),
-            ...issues.data,
-            ...featureRequests.data
+            ...(issues?.data || []),
+            ...(featureRequests?.data || [])
         ].filter(p => !p.labels.find(l => l.name == 'Status: Stale')) : []
     }));
 });
