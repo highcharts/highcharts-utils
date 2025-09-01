@@ -191,6 +191,16 @@
 				.location.href = contentsHref;
 			document.getElementById('main').contentWindow
 				.location.href = mainHref;
+
+			/* Support browser navigation?
+			window.addEventListener('hashchange', () => {
+				const newHash = window.location.hash;
+				if (newHash.indexOf('#view') === 0) {
+					document.getElementById('main').contentWindow
+						.location.href = `/samples/contents?path=${newHash.replace('#view/', '')}`;
+				}
+			});
+			*/
 		});
 
 		</script>

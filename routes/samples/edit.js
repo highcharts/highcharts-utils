@@ -8,6 +8,7 @@ const router = express.Router();
 
 router.get('/', function(req, res) {
     const fileNames = [
+            'demo.ts',
             'demo.js',
             'demo.mjs',
             'demo.html',

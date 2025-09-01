@@ -25,11 +25,9 @@ const getSample = (path) => {
 
 	// Get extra files
 	[
-		'demo.css',
-		'test-notes.html'
-
+		'demo.ts'
 	].forEach(extraFile => {
-		let filePath = join(path, extraFile);
+		let filePath = join(samplesDir, path, extraFile);
 		if (fs.existsSync(filePath)) {
 			sample.files[extraFile] = true;
 		}

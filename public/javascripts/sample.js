@@ -148,8 +148,10 @@ controller.Sample = function (options, index) {
             .highchartsDir;
 
         var anchor = contentsDoc.createElement('a');
+
+        const script = options.files['demo.ts'] ? 'demo.ts' : 'demo.js';
         anchor.target = 'main';
-        anchor.href = `vscode://file/${highchartsDir}/samples/${options.path}/demo.js`;
+        anchor.href = `vscode://file/${highchartsDir}/samples/${options.path}/${script}`;
         anchor.innerHTML = icon;
         iconDiv.appendChild(anchor);
     }
