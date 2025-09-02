@@ -42,7 +42,7 @@ setUpHighcharts();
 try {
 
 // Override and point to local resources
-if (controller) {
+if (controller && Highcharts) {
 	$.getJSON = controller.getJSON;
 	Highcharts.getJSON = controller.getJSON;
 	window.fetchNative = window.fetch;

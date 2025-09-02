@@ -293,6 +293,18 @@
 
 	li.hilighted {
 		border-color: var(--text-color);
+		position: relative;
+	}
+
+	li.hilighted::after {
+		position: absolute;
+		content: ' ';
+		right: -17px;
+		display: inline-block;
+		background-color: var(--text-color);
+		height: 10px;
+		width: 10px;
+		transform: rotate(135deg);
 	}
 
 	#search-container {
@@ -356,6 +368,7 @@
 		box-sizing: border-box;
 		left: 0;
 		overflow: auto;
+		overflow-x: hidden;
 		padding: 30px 10px;
 		position: fixed;
 		top: 0;
