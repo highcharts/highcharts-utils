@@ -141,21 +141,6 @@ controller.Sample = function (options, index) {
         iconDiv.appendChild(anchor);
     }
 
-
-    function addVSCodeAnchor() {
-        var icon = '<i class="fa fa-file-code-o" title="Open in VSCode"></i>';
-        var highchartsDir = controller.frames().contents.contentWindow
-            .highchartsDir;
-
-        var anchor = contentsDoc.createElement('a');
-
-        const script = options.files['demo.ts'] ? 'demo.ts' : 'demo.js';
-        anchor.target = 'main';
-        anchor.href = `vscode://file/${highchartsDir}/samples/${options.path}/${script}`;
-        anchor.innerHTML = icon;
-        iconDiv.appendChild(anchor);
-    }
-
     function addNightlyAnchor() {
         var icon = '<i class="fa fa-moon-o" title="Nightly test"></i>';
 
@@ -316,8 +301,6 @@ controller.Sample = function (options, index) {
                 diff = '';
             }
         }
-
-        addVSCodeAnchor();
 
         // Add comment anchor
         addCommentAnchor();

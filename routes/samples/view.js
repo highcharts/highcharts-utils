@@ -130,6 +130,7 @@ const handler = async (req, res) => {
         css: f.getCSS(req, codePath),
         js,
         es6Context,
+        highchartsDir,
         preJS: req.session.preJS,
         consoleClear: true,
         bodyClass,

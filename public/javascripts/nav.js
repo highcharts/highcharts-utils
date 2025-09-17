@@ -186,3 +186,5 @@ window.addEventListener('load', function () {
 		document.getElementById('popup').style.display = 'none';
 	});
 });
+
+window.previewColorScheme = () => {}; // Default no-op function

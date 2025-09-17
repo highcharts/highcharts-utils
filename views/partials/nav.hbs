@@ -113,11 +113,19 @@
             <span class="button-text">Bisect</span>
         </a>
 
-        <a id="edit" class="button mobile-hide" href="javascript:;"
-                title="Edit (Cmd+E)">
-            <i class="fa fa-edit"></i>
-            <span class="button-text">Edit</span>
-        </a>
+        <span class="button-group">
+            <a id="edit" class="button mobile-hide"
+                    href="javascript:void(0);"
+                    title="Edit inline (Cmd+E)">
+                <i class="fa fa-code"></i>
+                <span class="button-text">Edit</span>
+            </a><a id="edit-in-editor" class="button mobile-hide"
+                    href="vscode://file/{{highchartsDir}}/samples/{{path}}/demo.html"
+                    title="Edit in code editor">
+                <i class="fa fa-file-code-o"></i>
+                <span class="button-text">Edit</span>
+            </a>
+        </span>
 
 		<a class="button mobile-hide" id="share"
 			    href="/samples/jsfiddle-post?path={{path}}"
