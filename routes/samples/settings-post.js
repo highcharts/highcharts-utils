@@ -40,7 +40,7 @@ router.post('/', async (req, res) => {
 	await fs.writeFile(
 		configUserPath,
 		JSON.stringify(configUser, null, '  '),
-		'utf-8'
+		{ encoding: 'utf-8', mode: 0o664 }
 	);
 
 	req.session.preJS = req.body.preJS;

@@ -4,7 +4,7 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "kill": "sudo kill -9 $(sudo lsof -t -i:3030) && sudo kill -9 $(sudo lsof -t -i:3031)",
+    "kill": "pids=$(lsof -t -i:3030 -i:3031) [ -n \"$pids\" ] && kill $pids",
     "dev": "nodemon ./server",
     "start": "sudo node ./server",
     "precommit": "lint-staged",
