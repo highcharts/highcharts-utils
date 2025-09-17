@@ -227,7 +227,7 @@
 	li.visited a {
 		color: gray;
 	}
-	.hidden {
+	.hidden:not(.hilighted) {
 		display: none;
 	}
 
@@ -301,7 +301,7 @@
 		content: ' ';
 		right: -17px;
 		display: inline-block;
-		background-color: var(--text-color);
+		background-color: var(--separator-color);
 		height: 10px;
 		width: 10px;
 		transform: rotate(135deg);

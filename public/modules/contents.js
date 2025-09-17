@@ -85,7 +85,7 @@ window.addEventListener('resize', placeElements);
         div.innerHTML += `<h4>
             <a href="javascript:toggleChangedSamples()" class="toggle">
                 <i class="fa fa-caret-down"></i>
-                Changes in this PR
+                Changed in this PR
             </a>
 
             (<a target="_blank"
