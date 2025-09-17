@@ -3,6 +3,7 @@
  */
 
 import express from 'express';
+import { glob }  from 'glob';
 import * as f from '../../lib/functions.js';
 import { promises as fs } from 'fs';
 import ip from 'ip';
@@ -33,13 +34,17 @@ router.get('/', async (req, res) => {
             `https://github.highcharts.com/${latestCommit}/connectors/`,
             'https://code.highcharts.com/connectors/'
         );
-    const js = await fs.readFile(
-        join(highchartsDir, 'samples', req.query.path, 'demo.js')
+
+    const jsPath = await glob(
+        join(highchartsDir, 'samples', req.query.path) + '/demo.{js,ts,mjs}'
     );
+
+    const js = jsPath.length ? await fs.readFile(jsPath[0]) : '';
+
     const css = await fs.readFile(
         join(highchartsDir, 'samples', req.query.path, 'demo.css'),
         'utf-8'
-    );
+    ).catch(() => '') || '';
 
     const modifiedCss = css
         ?.replace(

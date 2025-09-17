@@ -25,11 +25,9 @@ const getSample = (path) => {
 
 	// Get extra files
 	[
-		'demo.css',
-		'test-notes.html'
-
+		'demo.ts'
 	].forEach(extraFile => {
-		let filePath = join(path, extraFile);
+		let filePath = join(samplesDir, path, extraFile);
 		if (fs.existsSync(filePath)) {
 			sample.files[extraFile] = true;
 		}
@@ -113,7 +111,9 @@ const getSamples = () => {
 										categories,
 										Object.keys(cat)
 									);
-									priority = cat[category]?.priority;
+
+									// Use priority of the first category
+									priority ??= cat[category]?.priority;
 								}
 							}
 						)
@@ -130,9 +130,9 @@ const getSamples = () => {
 					samples.push.apply(samples, demosInCategory);
 
 				});
-
-				samples.push.apply(samples, otherSamples);
 			}
+
+			samples.push.apply(samples, otherSamples);
 		}
 	});
 	return JSON.stringify(samples, null, '  ');

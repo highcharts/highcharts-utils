@@ -122,7 +122,7 @@
 		left: 0px;
 		z-index: 10;
 		background: var(--card-background);
-		padding: 0 10px;
+		padding: 0 10px 1em 10px;
 		width: 100%;
 		box-sizing: border-box;
 		border-top: 3px solid var(--separator-color);
@@ -227,7 +227,7 @@
 	li.visited a {
 		color: gray;
 	}
-	.hidden {
+	.hidden:not(.hilighted) {
 		display: none;
 	}
 
@@ -293,6 +293,18 @@
 
 	li.hilighted {
 		border-color: var(--text-color);
+		position: relative;
+	}
+
+	li.hilighted::after {
+		position: absolute;
+		content: ' ';
+		right: -17px;
+		display: inline-block;
+		background-color: var(--separator-color);
+		height: 10px;
+		width: 10px;
+		transform: rotate(135deg);
 	}
 
 	#search-container {
@@ -356,6 +368,7 @@
 		box-sizing: border-box;
 		left: 0;
 		overflow: auto;
+		overflow-x: hidden;
 		padding: 30px 10px;
 		position: fixed;
 		top: 0;

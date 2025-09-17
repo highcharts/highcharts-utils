@@ -7,7 +7,9 @@ import { samplesDir } from '../../lib/arguments.js';
 const router = express.Router();
 
 router.get('/', function(req, res) {
+    let hasDemoTS = false;
     const fileNames = [
+            'demo.ts',
             'demo.js',
             'demo.mjs',
             'demo.html',
@@ -17,11 +19,20 @@ router.get('/', function(req, res) {
             'test-notes.html',
             'test-notes.md'
         ],
-        existingFiles = fileNames.filter(
-            fileName => fs.existsSync(
+        existingFiles = fileNames.filter(fileName => {
+            const exists = fs.existsSync(
                 path.join(samplesDir, req.query.path, fileName)
-            )
-        ),
+            );
+
+            if (fileName === 'demo.ts' && exists) {
+                hasDemoTS = true;
+            }
+            if (fileName === 'demo.js' && hasDemoTS) {
+                return false;
+            }
+
+            return exists;
+        }),
         files = existingFiles.map(fileName => {
             const filePath = path.join(samplesDir, req.query.path, fileName);
             return {

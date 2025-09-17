@@ -5,8 +5,7 @@ import { EditorView, basicSetup } from "codemirror";
 import { Prec } from "@codemirror/state";
 import { keymap } from "@codemirror/view";
 import { linter, lintGutter } from "@codemirror/lint";
-import { indentMore, indentLess } from "@codemirror/next/commands";
-import { indentUnit as nextIndentUnit } from "@codemirror/next/language";
+import { indentMore, indentLess } from "@codemirror/commands";
 
 import { indentUnit } from "@codemirror/language";
 import { css } from "@codemirror/lang-css";
@@ -17,9 +16,6 @@ import { yaml } from "@codemirror/lang-yaml";
 
 // Uses linter.mjs
 import * as eslint from "eslint-linter-browserify";
-
-// Set the default indent unit for Tab and Shift-Tab
-nextIndentUnit.default = '    ';
 
 const run = () => {
 	document.getElementById("files-form").submit();
@@ -123,11 +119,14 @@ document.addEventListener("DOMContentLoaded", () => {
 				ext = fileName.split('.').pop(),
 				lang = {
 					js: javascript(),
+					ts: javascript({ typescript: true }),
+					tsx: javascript({ typescript: true, jsx: true }),
 					css: css(),
 					details: yaml(),
 					html: html(),
 					md: markdown()
 				}[ext];
+			const isTypeScript = ext === 'ts' || ext === 'tsx';
 
             const updateListenerExtension = EditorView.updateListener.of(
 				(update) => {
@@ -152,7 +151,16 @@ document.addEventListener("DOMContentLoaded", () => {
                     indentUnit.of('    '),
                     updateListenerExtension,
 					lintGutter(),
-					linter(esLint(new eslint.Linter(), esLintConfig)),
+					// Disable ESLint for TypeScript files in the browser editor
+					// because eslint-linter-browserify uses Espree which cannot
+					// parse TS syntax. To enable TS linting, bundle
+					// @typescript-eslint/parser and plugin and wire them into
+					// the in-browser linter.
+					...(
+						isTypeScript
+							? []
+							: [linter(esLint(new eslint.Linter(), esLintConfig))]
+					),
                     Prec.highest(keymap.of([
                         {
                             key: 'Ctrl-Enter',

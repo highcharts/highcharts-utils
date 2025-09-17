@@ -44,6 +44,7 @@ app.use('/', async (req, res) => {
         if (type) {
             res.type(type);
         }
+		res.header(options.headers);
 		res.send(content);
 		return;
 	}
