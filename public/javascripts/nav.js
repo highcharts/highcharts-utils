@@ -72,12 +72,25 @@ window.addEventListener('load', function () {
 		'system';
 
 	window.previewColorScheme = function (colorScheme = currentColorScheme) {
-		classList.remove('highcharts-light', 'highcharts-dark');
-		if (colorScheme === 'light') {
-			classList.add('highcharts-light');
-		} else if (colorScheme === 'dark') {
-			classList.add('highcharts-dark');
+		function updateClassList(classList) {
+			classList.remove('highcharts-light', 'highcharts-dark');
+			if (colorScheme === 'light') {
+				classList.add('highcharts-light');
+			} else if (colorScheme === 'dark') {
+				classList.add('highcharts-dark');
+			}
 		}
+		updateClassList(classList);
+
+		/* Should we want to update also the sidebar
+		if (controller) {
+			const frames = controller.frames();
+			updateClassList(frames.contents.contentDocument.body.classList);
+			if (frames.editor) {
+				updateClassList(frames.editor.contentDocument.body.classList);
+			}
+		}
+		*/
 	}
 
 	var $ = window.$ || window.jQuery;
