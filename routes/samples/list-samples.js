@@ -110,6 +110,8 @@ const getSamples = () => {
 					)
 				);
 
+				const uncategorized = [];
+
 				// Get the unique list of categories from the demos
 				const categories = demoConfigGroup?.categories || [];
 
@@ -150,6 +152,11 @@ const getSamples = () => {
 						if (categories.includes(category)) {
 							demo.priority = priority || 1000;
 							demosInCategory.push(demo);
+						} else if (categories.length === 0) {
+							// No category set, add to uncategorized
+							if (!uncategorized.includes(demo)) {
+								uncategorized.push(demo);
+							}
 						}
 					}
 
@@ -158,10 +165,11 @@ const getSamples = () => {
 					samples.push.apply(samples, demosInCategory);
 
 				});
+				samples.push.apply(samples, uncategorized);
 			}
-
 			samples.push.apply(samples, otherSamples);
 		}
+
 	});
 	return JSON.stringify(samples, null, '  ');
 };
