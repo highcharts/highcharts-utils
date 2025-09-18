@@ -39,6 +39,22 @@ const getSample = (path) => {
 const getSamples = () => {
 	const samples = [];
 
+	const getCategoriesFromDemo = (demo) => {
+		const categories = [];
+		demo.details.categories?.forEach(cat => {
+			if (typeof cat === 'string') {
+				categories.push(cat);
+			}
+			if (typeof cat === 'object') {
+				categories.push.apply(
+					categories,
+					Object.keys(cat)
+				);
+			}
+		});
+		return categories;
+	};
+
 	[
 		'highcharts',
 		'stock',
@@ -90,11 +106,23 @@ const getSamples = () => {
 				const demoConfigGroup = Object.values(demoConfig.default).find(
 					config => (
 						config.path === `/${group}/` ||
-						config.path === '/' && group === 'highcharts'
+						(config.path === '/' && group === 'highcharts')
 					)
 				);
 
-				demoConfigGroup?.categories?.forEach(category => {
+				// Get the unique list of categories from the demos
+				const categories = demoConfigGroup?.categories || [];
+
+				// Include also categories that may not be in the demoConfig
+				demos.forEach(demo => {
+					getCategoriesFromDemo(demo).forEach(cat => {
+						if (!categories.includes(cat)) {
+							categories.push(cat);
+						}
+					});
+				});
+
+				categories.forEach(category => {
 					const demosInCategory = [];
 
 					for (let demo of demos) {
