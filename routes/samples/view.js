@@ -131,6 +131,7 @@ const handler = async (req, res) => {
         js,
         es6Context,
         highchartsDir,
+        mainFilename: f.getMainFilename(req),
         preJS: req.session.preJS,
         consoleClear: true,
         bodyClass,

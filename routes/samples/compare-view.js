@@ -18,6 +18,7 @@ router.get('/', async function(req, res) {
 		compareClass: 'active',
 		consoleClear: true,
 		highchartsDir,
+		mainFilename: f.getMainFilename(req),
 		styles: [
 			'/stylesheets/vendor/font-awesome-4.7.0/css/font-awesome.css'
 		],
