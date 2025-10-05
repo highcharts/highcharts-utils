@@ -2,7 +2,7 @@ window.addEventListener('bodyload', function () {
 	if (
 		window.parent === window &&
 		window.location.href.indexOf('mobile=true') === -1 &&
-		window.location.hash.indexOf('show-chrome') === -1
+		localStorage.getItem('show-chrome') !== 'true'
 	) {
 		document.body.classList.add('topframe');
 	}
@@ -24,27 +24,11 @@ window.addEventListener('load', function () {
 		function() {
 			if (document.body.classList.contains('topframe')) {
 				document.body.classList.remove('topframe');
-				window.location.hash = 'show-chrome';
+				localStorage.setItem('show-chrome', 'true');
 			} else {
 				document.body.classList.add('topframe');
-				window.location.hash = window.location.hash
-					.replace('show-chrome', '');
+				localStorage.removeItem('show-chrome');
 			}
-			/*
-			[].forEach.call(
-				document.querySelectorAll('.topframe-hidden'),
-				function (elem) {
-					if (elem.style.display === 'block') {
-						elem.style.display = '';
-						window.location.hash = window.location.hash
-							.replace('show-chrome', '');
-					} else {
-						elem.style.display = 'block';
-						window.location.hash = 'show-chrome';
-					}
-				}
-			);
-			*/
 		}
 	);
 
