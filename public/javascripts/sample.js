@@ -134,9 +134,7 @@ controller.Sample = function (options, index) {
         var anchor = contentsDoc.createElement('a');
         anchor.className = 'standalone';
         anchor.target = '_blank';
-        anchor.href = isUnitTest() ?
-            '/samples/compare-iframe?which=right&path=' + options.path :
-            '/samples/view?path=' + options.path;
+        anchor.href = '/samples/view?path=' + options.path;
         anchor.innerHTML = icon;
         iconDiv.appendChild(anchor);
     }
