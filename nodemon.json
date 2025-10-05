@@ -3,15 +3,5 @@
 		"temp/**.*",
 		"node_modules",
 		"public/modules/*.bundle.js"
-	],
-	"watch": [
-		"server.js",
-		"routes",
-		"lib",
-		"views",
-		"public/stylesheets",
-		"public/modules",
-		"public/javascripts"
-	],
-	"ext": "js,json,hbs,css,less"
+	]
 }
