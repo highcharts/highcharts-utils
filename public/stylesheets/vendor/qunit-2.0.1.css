@@ -13,10 +13,11 @@
 
 /** Font Family and Sizes */
 
-:root {
+:root,
+.highcharts-light {
 	--q-header-text: #8699A4;
 	--q-header-bg: #0D3349;
-	--q-link: #C2CCD1;
+	--q-link: #6c828e;
 	--q-white: #FFF;
 	--q-accent-blue: #366097;
 	--q-accent-yellow: #F4FF77;
@@ -41,6 +42,8 @@
 	--q-expected-text: #008000;
 	--q-skipped-bg: #EBECE9;
 	--q-pass-main: #528CE0;
+	--q-surface: var(--q-white);
+	--q-main-text: #000;
 }
 
 #qunit-tests, #qunit-header, #qunit-banner, #qunit-testrunner-toolbar, #qunit-filteredTest, #qunit-userAgent, #qunit-testresult {
@@ -63,15 +66,11 @@
 
 #qunit-header {
 	padding: 0.5em 0 0.5em 1em;
-
+	border-radius: 5px 5px 0 0;
 	color: var(--q-header-text);
 	background-color: var(--q-header-bg);
-
 	font-size: 1.5em;
-	line-height: 1em;
 	font-weight: 400;
-
-	border-radius: 5px 5px 0 0;
 }
 
 #qunit-header a {
@@ -184,7 +183,7 @@
 
 #qunit-modulefilter-dropdown .clickable.checked {
 	font-weight: bold;
-	color: var(--q-black);
+	color: var(--q-main-text);
 	background-color: var(--q-pass-bg);
 }
 
@@ -305,11 +304,13 @@
 	font-size: smaller;
 }
 
+
+
 .qunit-assert-list {
 	margin-top: 0.5em;
 	padding: 0.5em;
 
-	background-color: var(--q-white);
+	background-color: var(--q-surface);
 
 	border-radius: 5px;
 }
@@ -357,13 +358,13 @@
 
 /*** Test Counts */
 
-#qunit-tests b.counts                       { color: var(--q-black); }
+#qunit-tests b.counts                       { color: var(--q-main-text); }
 #qunit-tests b.passed                       { color: var(--q-pass-count); }
 #qunit-tests b.failed                       { color: var(--q-fail-text); }
 
 #qunit-tests li li {
 	padding: 5px;
-	background-color: var(--q-white);
+	background-color: var(--q-surface);
 	border-bottom: none;
 	list-style-position: inside;
 }
@@ -372,7 +373,7 @@
 
 #qunit-tests li li.pass {
 	color: var(--q-pass-text);
-	background-color: var(--q-white);
+	background-color: var(--q-surface);
 	border-left: 10px solid var(--q-pass-highlight);
 }
 
@@ -388,7 +389,7 @@
 
 #qunit-tests li li.fail {
 	color: var(--q-fail-text);
-	background-color: var(--q-white);
+	background-color: var(--q-surface);
 	border-left: 10px solid var(--q-fail-bg);
 	white-space: pre;
 }
@@ -444,4 +445,110 @@
 	left: -10000px;
 	width: 1000px;
 	height: 1000px;
+}
+
+/* Dark mode theme ------------------------------------------------------- */
+@media (prefers-color-scheme: dark) {
+	:root {
+		/* Base surfaces & text */
+		--q-white: #E8E8E8; /* legacy alias; keep brighter text */
+		--q-surface: #1E1E1E; /* primary surface */
+		--q-black: #141414; /* page background */
+		--q-header-bg: #0F2533; /* slightly lighter than original for contrast */
+		--q-header-text: #AFC3CC;
+		--q-link: #A8B5BB;
+		--q-link-nested: #8A8383;
+		--q-text-dim: #888;
+		--q-main-text: #fff;
+
+		/* Accents preserving semantic meaning */
+		--q-accent-blue: #6FA8FF; /* was #366097 */
+		--q-blue-alt: #4DA3D9; /* userAgent bar */
+		--q-pass-main: #7FB4FF; /* pass heading color */
+
+		/* Pass / success greens */
+		--q-pass-count: #b6c79f; /* brighter readable green */
+		--q-pass-text: #b6c0aa;
+		--q-pass-highlight: #5C8E26; /* banner / border highlight */
+		--q-pass-bg: #233743; /* pass list item background */
+
+		/* Fail / error reds */
+		--q-fail-text: #F28A8A;
+		--q-fail-bg: #802F2F;
+
+		/* Expected (diff) green and diff colors */
+		--q-expected-text: #54D654;
+		--q-diff-del-text: #9DCB63;
+		--q-diff-del-bg: #2F4223;
+		--q-diff-ins-text: #FF9090;
+		--q-diff-ins-bg: #4A1F1F;
+
+		/* Skipped / neutral */
+		--q-skipped-bg: #2A2C2B;
+		--q-accent-yellow: #37391b; /* toned down for dark contrast */
+
+		/* Toolbar & dropdowns */
+		--q-toolbar-bg: #2A2A2A;
+		--q-dropdown-bg: #222A2F;
+		--q-border-light: #3A3F42;
+		--q-shadow-color: rgba(0,0,0,0.8);
+	}
+
+	:not(.highcharts-light) {
+		#qunit-header { box-shadow: 0 2px 4px rgba(0,0,0,0.4); }
+		#qunit-tests li { border-bottom: 1px solid #1F1F1F; }
+		#qunit-tests li li { border-bottom: none; }
+		#qunit-testresult { border-bottom-color: #1F1F1F; }
+	}
+}
+
+.highcharts-dark {
+
+	/* Base surfaces & text */
+	--q-white: #E8E8E8; /* legacy alias; keep brighter text */
+	--q-surface: #1E1E1E; /* primary surface */
+	--q-black: #141414; /* page background */
+	--q-header-bg: #0F2533; /* slightly lighter than original for contrast */
+	--q-header-text: #AFC3CC;
+	--q-link: #A8B5BB;
+	--q-link-nested: #8A8383;
+	--q-text-dim: #888;
+	--q-main-text: #fff;
+
+	/* Accents preserving semantic meaning */
+	--q-accent-blue: #6FA8FF; /* was #366097 */
+	--q-blue-alt: #4DA3D9; /* userAgent bar */
+	--q-pass-main: #7FB4FF; /* pass heading color */
+
+	/* Pass / success greens */
+	--q-pass-count: #b6c79f; /* brighter readable green */
+	--q-pass-text: #b6c0aa;
+	--q-pass-highlight: #5C8E26; /* banner / border highlight */
+	--q-pass-bg: #233743; /* pass list item background */
+
+	/* Fail / error reds */
+	--q-fail-text: #F28A8A;
+	--q-fail-bg: #802F2F;
+
+	/* Expected (diff) green and diff colors */
+	--q-expected-text: #54D654;
+	--q-diff-del-text: #9DCB63;
+	--q-diff-del-bg: #2F4223;
+	--q-diff-ins-text: #FF9090;
+	--q-diff-ins-bg: #4A1F1F;
+
+	/* Skipped / neutral */
+	--q-skipped-bg: #2A2C2B;
+	--q-accent-yellow: #37391b; /* toned down for dark contrast */
+
+	/* Toolbar & dropdowns */
+	--q-toolbar-bg: #2A2A2A;
+	--q-dropdown-bg: #222A2F;
+	--q-border-light: #3A3F42;
+	--q-shadow-color: rgba(0,0,0,0.8);
+
+	#qunit-header { box-shadow: 0 2px 4px rgba(0,0,0,0.4); }
+	#qunit-tests li { border-bottom: 1px solid #1F1F1F; }
+	#qunit-tests li li { border-bottom: none; }
+	#qunit-testresult { border-bottom-color: #1F1F1F; }
 }
