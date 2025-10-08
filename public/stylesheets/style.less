@@ -1,39 +1,23 @@
-:root {
-	--background-color: #f6f6f6;
-	--card-background: #ffffff;
-	--text-color: black;
-	--link-color: #039;
-	--separator-color: #373648;
-
-	color-scheme: light dark;
-}
-
 .highcharts-light {
 	color-scheme: light;
 }
 
-/* Dark mode */
 .highcharts-dark {
-	--background-color: #333333;
-	--card-background: #141414;
-	--text-color: #eee;
-	--link-color: #bbe5ff;
-	--separator-color: #999;
-
 	color-scheme: dark;
 }
 
-
 @media (prefers-color-scheme: dark) {
 	:root {
-		--background-color: #333333;
-		--card-background: #141414;
-		--text-color: #eee;
-		--link-color: #bbe5ff;
-		--separator-color: #999;
-
 		color-scheme: dark;
 	}
+}
+
+:root {
+	--background-color: light-dark(#f6f6f6, #333333);
+	--card-background: light-dark(#ffffff, #141414);
+	--text-color: light-dark(black, #eee);
+	--link-color: light-dark(#039, #bbe5ff);
+	--separator-color: light-dark(#373648, #999);
 }
 
 body {
