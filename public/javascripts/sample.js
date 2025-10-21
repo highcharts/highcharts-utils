@@ -124,6 +124,9 @@ controller.Sample = function (options, index) {
                 }
             }
         }
+
+        testAnchor.tabIndex = -1;
+
         iconDiv.appendChild(testAnchor);
     }
 
@@ -134,6 +137,7 @@ controller.Sample = function (options, index) {
         var anchor = contentsDoc.createElement('a');
         anchor.className = 'standalone';
         anchor.target = '_blank';
+        anchor.tabIndex = -1;
         anchor.href = '/samples/view?path=' + options.path;
         anchor.innerHTML = icon;
         iconDiv.appendChild(anchor);
@@ -166,6 +170,7 @@ controller.Sample = function (options, index) {
         var commentAnchor = contentsDoc.createElement('a');
         commentAnchor.className = 'comment';
         commentAnchor.target = 'main';
+        commentAnchor.tabIndex = -1;
         commentAnchor.href = '/samples/compare-comment?path=' + options.path +
             '&diff=' + diff + '&browser=' + controller.getBrowser().toLowerCase();
         commentAnchor.innerHTML =
@@ -233,6 +238,12 @@ controller.Sample = function (options, index) {
 
         if (isHidden) {
             className += ' hidden';
+        }
+
+        if (className.indexOf('hilighted hidden') > -1) {
+            li.querySelector('a').setAttribute('tabindex', '-1');
+        } else {
+            li.querySelector('a').removeAttribute('tabindex');
         }
 
         li.className = className;
