@@ -1,4 +1,4 @@
-/* global $, jQuery, Highcharts */
+/* global $, jQuery, Highcharts, Dashboards */
 if (window.console) {
 //	console.clear();
 }
@@ -155,6 +155,14 @@ window.setUp = function () {
 			}
 		}
 	}
+
+	if (typeof Dashboards !== 'undefined') {
+        Dashboards.setOptions({
+            editMode: {
+                iconsURLPrefix: '/code/dashboards/gfx/dashboards-icons/'
+            }
+        });
+    }
 
 	if (query && query.profile && typeof Highcharts !== 'undefined') {
 		Highcharts.wrap(Highcharts.Chart.prototype, 'init', function (proceed) {
