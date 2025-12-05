@@ -18,24 +18,65 @@
 	h4 a {
 		color: white;
 	}
+
+	/*
 	.CodeMirror {
 		background: #efefef;
 		height: calc(100vh - 40px);
 		line-height: 1.2em;
 	}
+	*/
+	.cm-editor {
+		color: light-dark(black, #ccc);
+
+		.cm-gutters {
+			background-color: light-dark(#f5f5f5, #222222);
+    		color: light-dark(#555555, #888888);
+    		border-right: 1px solid light-dark(#ddd, #444);
+		}
+		.cm-activeLineGutter {
+    		background-color: light-dark(#e2f2ff, #333);
+		}
+		.cm-activeLine {
+			background-color: light-dark(#cceeff44, #cceeff11);
+		}
+		.ͼb {
+			color: light-dark(#708, #679ad1);
+		}
+		.ͼc {
+			color: light-dark(#708, #679ad1);
+		}
+		.ͼd {
+    		color: light-dark(#164, #b1c4a4);
+		}
+		.ͼe {
+    		color: light-dark(#a11, #c5947c);
+		}
+
+		.ͼg {
+ 		   color: light-dark(#00f, #6fbff9);
+		}
+
+		.ͼl {
+    		color: light-dark(#00c, #aadafa);
+		}
+		.ͼ5 {
+ 		   color: light-dark(#404740, #a0a7a0);
+		}
+	}
 
 	.header-bar {
-		background-color: #47475C;
+		background-color: #333;
 		color: white;
 	}
 
 	.header-bar button,
 	.header-bar a.button {
-		background-color: #47475C;
+		background-color: #333;
 		font-size: 0.85em;
 		color: white;
 		border: none;
-		border-top: 3px solid #47475C;
+		border-top: 3px solid #333;
 		cursor: pointer;
 		display: inline-block;
 		padding: 7px 20px;
@@ -53,31 +94,32 @@
 		width: 100%;
 		display: flex;
 		flex-direction: column;
-		background: #eeeeee;
+		background: light-dark(#eeeeee, #222222);
 		color: black;
 	}
 
 	.tab-buttons {
 		display: flex;
-		border-bottom: 2px solid #ccc;
+		border-bottom: 2px solid #888a;
 	}
 
 	.tab-button {
 		padding: 10px 20px;
 		cursor: pointer;
-		background-color: #f1f1f1;
-		color: black;
+		background-color: light-dark(#f1f1f1, #222222);
+		color: light-dark(black, white);
 		border: none;
 		outline: none;
+		transition: background-color 250ms;
 	}
 
 	.tab-button:hover {
-		background-color: #ddd;
+		background-color: light-dark(#ddd, #444);
 	}
 
 	.tab-button.active {
-		background-color: #fff;
-		border-bottom: 2px solid #000;
+		background-color: light-dark(#fff, #141414);
+		border-bottom: 2px solid light-dark(#000, #fff);
 	}
 
 	.tab-button.changed::after {
