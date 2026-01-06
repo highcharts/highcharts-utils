@@ -104,6 +104,7 @@ const handler = async (req, res) => {
         }
     });
 
+    const html = await f.getHTML(req, codePath);
     const es6Context = {};
     const js = f.getJS(req, codePath, es6Context);
 
@@ -128,7 +129,7 @@ const handler = async (req, res) => {
         title: (details && details.name) || queryPath,
         path: queryPath,
         mobile: req.query.mobile,
-        html: f.getHTML(req, codePath),
+        html,
         css: f.getCSS(req, codePath),
         js,
         es6Context,
