@@ -30,7 +30,7 @@ const saveFiles = async (req) => {
         const filePath = join(
             highchartsDir,
             'samples',
-            req.query.path,
+            req.query.path.replace(/^samples\//, ''),
             fileName
         );
         await fsp.writeFile(
@@ -90,13 +90,15 @@ const handler = async (req, res) => {
         res.redirect(req.originalUrl);
     }
 
-    let resources = f.getResources(req.query.path);
+    const queryPath = req.query.path.replace(/^samples\//, '');
+
+    let resources = f.getResources(queryPath);
 
     let codePath = req.query.rightcommit ?
         'https://github.highcharts.com/' + req.query.rightcommit :
         '/code';
 
-    fs.writeFile(join(f.dirname(import.meta), '../../path.txt'), req.query.path, 'utf-8', (err) => {
+    fs.writeFile(join(f.dirname(import.meta), '../../path.txt'), queryPath, 'utf-8', (err) => {
         if (err) {
             console.log(err);
         }
@@ -109,7 +111,7 @@ const handler = async (req, res) => {
 
     const themes = await f.getThemes(req);
 
-    const details = f.getDetails(req.query.path, req);
+    const details = f.getDetails(queryPath, req);
     const isUnitTest = (details.resources || '').toString().indexOf('qunit') !== -1;
     const config = await f.getConfig();
 
@@ -123,8 +125,8 @@ const handler = async (req, res) => {
     ].join(' ');
 
     const tpl = {
-        title: (details && details.name) || req.query.path,
-        path: req.query.path,
+        title: (details && details.name) || queryPath,
+        path: queryPath,
         mobile: req.query.mobile,
         html: f.getHTML(req, codePath),
         css: f.getCSS(req, codePath),
