@@ -147,7 +147,8 @@ const handler = async (req, res) => {
         scripts: [
             '/javascripts/trusted-types.js',
             '/javascripts/vendor/jquery-1.11.1.js',
-            '/javascripts/view.js'
+            '/javascripts/view.js',
+            '/javascripts/qunit-plugins.js'
         ].concat(resources.scripts),
         readme: f.getReadme(req),
         testNotes: f.getTestNotes(req),

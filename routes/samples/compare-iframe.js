@@ -79,6 +79,7 @@ export const getTestTemplate = async function(req) {
 			'/javascripts/vendor/jquery-1.11.1.js',
 			'/javascripts/vendor/lolex.js',
 			'/javascripts/compare-iframe.js',
+			'/javascripts/qunit-plugins.js',
 			'/javascripts/test-controller.js',
 			'/javascripts/test-touch.js',
 			'/javascripts/test-utilities.js'
