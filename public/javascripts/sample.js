@@ -402,6 +402,7 @@ controller.Sample = function (options, index) {
             ) ? 'instant' : 'smooth'
         })
 
+        controller.docTitle();
     }
 
     return {

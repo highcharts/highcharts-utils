@@ -265,7 +265,11 @@ var controller = { // eslint-disable-line no-unused-vars
                 '\u2716 ' + controller.testStatus.error.length + ' - ' +
                 controller.samples.length;
         } else {
-            document.title = 'Sample viewer - Highcharts'
+            document.title = controller
+                .currentSample
+                ?.path
+                ?.replace(/\/+$/, "").split("/").pop() ||
+            'Sample viewer - Highcharts';
         }
     },
 
