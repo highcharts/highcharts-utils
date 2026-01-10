@@ -70,7 +70,7 @@ const getTable = (results) => {
                 className = 'active';
 
                 backgroundColor = diff === 0 ?
-                    '#a4edba' :
+                    'var(--background-success)' :
                     `rgba(241, 92, 128)`;
                 if (diff > 999) {
                     diff = Math.round(diff / 1000) + 'k';

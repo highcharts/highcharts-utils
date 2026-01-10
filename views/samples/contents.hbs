@@ -276,21 +276,21 @@
 		color: #efefef;
 	}
 	li.different, li.different a {
-		background: #f15c80;
-		color: white;
+		background: var(--background-failure);
+		color: var(--text-color);
 		font-weight: bold;
 	}
 	li.skip, li.skip a {
-		background: #F4FF77;
-		color: #039;
+		background: light-dark(#F4FF77, #666622);
+		color: var(--link-color);
 	}
 	.dissimilarity-index.skip {
 		color: silver;
 	}
 
 	li.identical, li.identical a, li.approved, li.approved a {
-		background: #a4edba;
-		color: #039;
+		background: var(--background-success);
+		color: var(--link-color);
 		font-weight: normal;
 	}
 
