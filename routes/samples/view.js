@@ -123,7 +123,7 @@ const handler = async (req, res) => {
     ].join(' ');
 
     const tpl = {
-        title: (details && details.name) || req.query.path,
+        title: req.query.path,
         path: req.query.path,
         mobile: req.query.mobile,
         html: f.getHTML(req, codePath),
