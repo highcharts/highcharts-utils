@@ -10,8 +10,8 @@ import { getSettings } from '../../lib/arguments.js';
 
 const router = express.Router();
 
-const getHTML = (req, codePath) => {
-	let html = f.getHTML(req, codePath);
+const getHTML = async (req, codePath) => {
+	let html = await f.getHTML(req, codePath);
 
 	// If the export module is not loaded, add it so we can run compare
 	if (html && html.indexOf('exporting.js') === -1) {
@@ -53,7 +53,7 @@ const getTemplates = () => {
 	).map(filename => '/' + filename.split('/public/')[1]);
 }
 
-export const getTestTemplate = function(req) {
+export const getTestTemplate = async function(req) {
 
 	const { colorScheme, compileOnDemand, emulateKarma } = getSettings(req);
 	let path = req.query.path;
@@ -68,17 +68,18 @@ export const getTestTemplate = function(req) {
 			'https://github.highcharts.com/' + req.query.rightcommit;
 	}
 
+	const html = emulateKarma ? f.getKarmaHTML() : await getHTML(req, codePath);
+
 	return {
 		title: req.query.path,
-		html: emulateKarma ?
-			f.getKarmaHTML() :
-			getHTML(req, codePath),
+		html,
 		css: f.getCSS(req, codePath),
 		js: getJS(req, codePath),
 		scripts: [
 			'/javascripts/vendor/jquery-1.11.1.js',
 			'/javascripts/vendor/lolex.js',
 			'/javascripts/compare-iframe.js',
+			'/javascripts/qunit-plugins.js',
 			'/javascripts/test-controller.js',
 			'/javascripts/test-touch.js',
 			'/javascripts/test-utilities.js'
@@ -93,7 +94,9 @@ export const getTestTemplate = function(req) {
 	};
 };
 
-router.get('/', (req, res) =>
-	res.render('samples/compare-iframe', getTestTemplate(req)));
+router.get('/', async (req, res) => {
+	const tpl = await getTestTemplate(req);
+	res.render('samples/compare-iframe', tpl);
+});
 
 export default router;

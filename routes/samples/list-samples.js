@@ -4,7 +4,7 @@ import * as f from './../../lib/functions.js';
 import fs from 'fs';
 import { join, relative, sep } from 'path';
 import { samplesDir } from '../../lib/arguments.js';
-import * as demoConfig from './../../../highcharts/samples/demo-config.js';
+
 
 const router = express.Router();
 
@@ -36,7 +36,8 @@ const getSample = (path) => {
 	return sample;
 };
 
-const getSamples = () => {
+
+const getSamples = async () => {
 	const samples = [];
 
 	const getCategoriesFromDemo = (demo) => {
@@ -55,7 +56,7 @@ const getSamples = () => {
 		return categories;
 	};
 
-	[
+	await Promise.all([
 		'highcharts',
 		'stock',
 		'maps',
@@ -66,7 +67,7 @@ const getSamples = () => {
 		'dashboards',
 		'grid-lite',
 		'grid-pro'
-	].forEach(group => {
+	].map(async group => {
 		const groupDir = join(samplesDir, group);
 		if (fs.existsSync(groupDir) && fs.lstatSync(groupDir).isDirectory()) {
 			const subgroups = fs.readdirSync(groupDir);
@@ -103,6 +104,7 @@ const getSamples = () => {
 
 			// Order the demos as they appear in the demo pages
 			if (demos.length) {
+                const demoConfig = await import(join(samplesDir, 'demo-config.js'));
 				const demoConfigGroup = Object.values(demoConfig.default).find(
 					config => (
 						config.path === `/${group}/` ||
@@ -169,14 +171,14 @@ const getSamples = () => {
 			}
 			samples.push.apply(samples, otherSamples);
 		}
+	}));
 
-	});
 	return JSON.stringify(samples, null, '  ');
 };
 
-router.get('/', function(req, res) {
+router.get('/', async function(req, res) {
 	res.setHeader('Content-Type', 'application/json');
-  	res.send(getSamples());
+  	res.send(await getSamples());
 });
 
 export default router;

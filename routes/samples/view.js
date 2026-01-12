@@ -30,7 +30,7 @@ const saveFiles = async (req) => {
         const filePath = join(
             highchartsDir,
             'samples',
-            req.query.path,
+            req.query.path.replace(/^samples\//, ''),
             fileName
         );
         await fsp.writeFile(
@@ -90,18 +90,21 @@ const handler = async (req, res) => {
         res.redirect(req.originalUrl);
     }
 
-    let resources = f.getResources(req.query.path);
+    const queryPath = req.query.path.replace(/^samples\//, '');
+
+    let resources = f.getResources(queryPath);
 
     let codePath = req.query.rightcommit ?
         'https://github.highcharts.com/' + req.query.rightcommit :
         '/code';
 
-    fs.writeFile(join(f.dirname(import.meta), '../../path.txt'), req.query.path, 'utf-8', (err) => {
+    fs.writeFile(join(f.dirname(import.meta), '../../path.txt'), queryPath, 'utf-8', (err) => {
         if (err) {
             console.log(err);
         }
     });
 
+    const html = await f.getHTML(req, codePath);
     const es6Context = {};
     const js = f.getJS(req, codePath, es6Context);
 
@@ -109,7 +112,7 @@ const handler = async (req, res) => {
 
     const themes = await f.getThemes(req);
 
-    const details = f.getDetails(req.query.path, req);
+    const details = f.getDetails(queryPath, req);
     const isUnitTest = (details.resources || '').toString().indexOf('qunit') !== -1;
     const config = await f.getConfig();
 
@@ -126,7 +129,7 @@ const handler = async (req, res) => {
         title: req.query.path,
         path: req.query.path,
         mobile: req.query.mobile,
-        html: f.getHTML(req, codePath),
+        html,
         css: f.getCSS(req, codePath),
         js,
         es6Context,
@@ -144,7 +147,8 @@ const handler = async (req, res) => {
         scripts: [
             '/javascripts/trusted-types.js',
             '/javascripts/vendor/jquery-1.11.1.js',
-            '/javascripts/view.js'
+            '/javascripts/view.js',
+            '/javascripts/qunit-plugins.js'
         ].concat(resources.scripts),
         readme: f.getReadme(req),
         testNotes: f.getTestNotes(req),
