@@ -13,6 +13,7 @@ router.post('/', async (req, res) => {
 		'config-user.json'
 	);
     const configUser = f.getLocalJSON(configUserPath) || {};
+	let error;
 
 	// Quick settings
 	const onlyInBody = !!req.body['quickSettings'];
@@ -41,10 +42,16 @@ router.post('/', async (req, res) => {
 		configUserPath,
 		JSON.stringify(configUser, null, '  '),
 		{ encoding: 'utf-8', mode: 0o664 }
-	);
+	).catch((err) => {
+		error = err;
+	});
+
+	if (error) {
+		res.render('error', { error });
+		return;
+	}
 
 	req.session.preJS = req.body.preJS;
-
 	res.redirect(req.header('Referer'));
 });
 
