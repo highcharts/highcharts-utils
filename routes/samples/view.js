@@ -126,8 +126,8 @@ const handler = async (req, res) => {
     ].join(' ');
 
     const tpl = {
-        title: (details && details.name) || queryPath,
-        path: queryPath,
+        title: req.query.path,
+        path: req.query.path,
         mobile: req.query.mobile,
         html,
         css: f.getCSS(req, codePath),

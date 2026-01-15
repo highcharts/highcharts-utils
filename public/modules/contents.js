@@ -70,7 +70,7 @@ window.addEventListener('resize', placeElements);
         files.data
             .filter(f => (
                 f.filename.indexOf('samples') === 0 &&
-                /demo\.(html|js|css)$/.test(f.filename) &&
+                /(config|demo)\.(html|js|css|ts)$/.test(f.filename) &&
                 f.status !== 'removed'
             ))
             .map(f => f.filename
