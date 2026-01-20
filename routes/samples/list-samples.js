@@ -104,7 +104,9 @@ const getSamples = async () => {
 
 			// Order the demos as they appear in the demo pages
 			if (demos.length) {
-                const demoConfig = await import(join(samplesDir, 'demo-config.js'));
+                const demoConfig = await import(
+					'file:///' + join(samplesDir, 'demo-config.js')
+				);
 				const demoConfigGroup = Object.values(demoConfig.default).find(
 					config => (
 						config.path === `/${group}/` ||
