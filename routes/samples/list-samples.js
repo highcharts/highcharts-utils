@@ -87,7 +87,10 @@ const getSamples = async () => {
 						let path = join(subgroupDir, sample);
 						if (
 							fs.lstatSync(path).isDirectory() &&
-							fs.existsSync(join(path, 'demo.html'))
+							(
+								fs.existsSync(join(path, 'demo.html')) ||
+								fs.existsSync(join(path, 'config.ts'))
+							)
 						) {
 							const relativePath = relative(samplesDir, path)
 								.split(sep).join('/');
