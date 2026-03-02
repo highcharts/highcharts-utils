@@ -95,9 +95,11 @@ window.addEventListener('resize', placeElements);
         </h4>
         <div id="changed-samples-body"></div>`;
         samples.forEach(path => {
+
+            const page = path.indexOf('unit-tests/') === 0 ? 'compare-view' : 'view';
             const a = document.createElement('a');
             a.innerText = path;
-            a.href = `/samples/view?path=${path}`;
+            a.href = `/samples/${page}?path=${path}`;
             a.target = 'main';
 
             div.querySelector('#changed-samples-body').appendChild(a);
