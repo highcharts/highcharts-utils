@@ -6,11 +6,16 @@
  * - Copy the results into https://jsfiddle.net/highcharts/osndwv1z/ for viz
  */
 
-const simpleGit = require('simple-git');
-const semver = require('semver');
-const { execSync } = require('child_process');
-const path = require('path');
-const fs = require('fs');
+import simpleGit from 'simple-git';
+import semver from 'semver';
+import { execSync } from 'child_process';
+import path from 'path';
+import fs from 'fs';
+
+// Define __dirname for ES module scope
+import { fileURLToPath } from 'url';
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 // Path to the local Highcharts repo
 const REPO_PATH = path.join(__dirname, '../../highcharts');
