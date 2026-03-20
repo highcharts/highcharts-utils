@@ -209,31 +209,6 @@ window.setUp = function () {
 		});
 	}
 
-	// Monkey-patching Console with logging tool for DataTable
-	const log = console.log;
-	console.log = function () {
-		// Call the original console.log
-		log.apply(console, arguments);
-
-		// Check if any argument is a DataTable and log its content as a table
-		[].forEach.call(arguments, (arg) => {
-			if (
-				typeof arg === 'object' &&
-				/^DataTable(Core|)$/.test(arg.constructor.name)
-			) {
-				const limit = 10,
-					start = 0;
-				    console.table(
-						new Array(Math.min(arg.rowCount, limit))
-							.fill(void 0)
-							.map((_, i) =>
-								arg.getRowObject(i + start) || {}
-							)
-					);
-			}
-		});
-	};
-
 	// Start checking styled mode. This whole code block can be pasted into
 	// jsFiddle in order to check styled mode on a setup.
 	(function () {
