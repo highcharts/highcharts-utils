@@ -56,6 +56,10 @@ app.use('/mapdata', express.static(
   )).replace(/^file:\/\/(?:\/\w:)?/gsu, ''),
   { maxAge: '10m' }
 ));
+app.use('/connectors-morningstar', express.static(
+  path.join(__dirname, 'node_modules', '@highcharts', 'connectors-morningstar'),
+  { maxAge: '10m' }
+));
 app.use('/highcharts-controls/', express.static(
   // Note: No posix here, it failed on the Mac
   path.join(highchartsDir, '../highcharts-controls/')

@@ -24,6 +24,7 @@
     "@codemirror/lint": "^6.8.1",
     "@codemirror/next": "^0.16.0",
     "@codemirror/view": "^6.28.4",
+    "@highcharts/connectors-morningstar": "^3.1.1",
     "@highcharts/map-collection": "^2.0.0",
     "@octokit/rest": "^18.3.5",
     "@rollup/plugin-node-resolve": "^15.2.3",
