@@ -1,7 +1,7 @@
 
 const post = {};
 
-window.onload = function async () {
+document.addEventListener('DOMContentLoaded', async function () {
 
     // Settings
     var params;
@@ -111,9 +111,11 @@ window.onload = function async () {
                         var src = script.getAttribute('src');
 
                         if (params.gh) {
-                            src = src.replace(
-                                '/code.highcharts.com/',
-                                '/github.highcharts.com/' + params.gh + '/');
+                            src = src
+                                .replace(
+                                    '/code.highcharts.com/',
+                                    '/github.highcharts.com/' + params.gh + '/')
+                                .replace(/.js$/, '.js?esbuild');
                             script.setAttribute('src', src);
                         }
 
@@ -161,7 +163,7 @@ window.onload = function async () {
     // split it
     function parseQS (qs) {
         var ret = {},
-            keys = ['gh', 'sample'];
+            keys = ['gh', 'sample', 'tpl'];
 
         qs = qs.split('/');
 
@@ -194,5 +196,9 @@ window.onload = function async () {
 
     params = parseQS(window.location.hash.replace(/^#/, ''));
 
+    if (params.tpl === 'embed') {
+        document.querySelector('.navbar').style.display = 'none';
+    }
+
     loadHTML();
-}
+});
