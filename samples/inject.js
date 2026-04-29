@@ -57,7 +57,8 @@ document.addEventListener('DOMContentLoaded', async function () {
             if (/\.ts/.test(scripts[i].src)) {
                 const ts = await fetch(scripts[i].src).then(r => r.text());
                 const js = tsBlankSpace(ts);
-                script.innerText = js;
+
+                script.innerHTML = js;
 
             // Normal script
             } else {
