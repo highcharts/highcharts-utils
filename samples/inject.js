@@ -1,5 +1,6 @@
 
 const post = {};
+import tsBlankSpace from 'https://cdn.jsdelivr.net/npm/ts-blank-space@0.8.0/+esm';
 
 document.addEventListener('DOMContentLoaded', async function () {
 
@@ -55,7 +56,8 @@ document.addEventListener('DOMContentLoaded', async function () {
             // want to transpile on the fly.
             if (/\.ts/.test(scripts[i].src)) {
                 const ts = await fetch(scripts[i].src).then(r => r.text());
-                script.innerText = ts;
+                const js = tsBlankSpace(ts);
+                script.innerText = js;
 
             // Normal script
             } else {
