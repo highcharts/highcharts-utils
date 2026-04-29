@@ -24,18 +24,46 @@ document.addEventListener('DOMContentLoaded', async function () {
 
     }
 
-    function loadScript (i) {
+    async function loadScript (i) {
         // Create a new script tag and append it to the head for
         // the JavaScript to load
         if (scripts[i]) {
             var script = document.createElement('script');
-            script.onload = function () {
+            script.onload = async function () {
 
                 progress(i + 2, scripts.length + 1);
 
-                loadScript(i + 1);
+                await loadScript(i + 1);
             };
-            script.setAttribute('src', scripts[i]);
+            script.onerror = async function (e) {
+
+                // Try again with the .ts version of the script, if it exists
+                if (/demo\.js$/.test(scripts[i].src)) {
+                    scripts[i].src = scripts[i].src.replace('demo.js', 'demo.ts');
+                    progress(i + 2, scripts.length + 1);
+                    await loadScript(i);
+                    return;
+                }
+
+                console.error('Failed to load script:', scripts[i].src, e);
+                progress(i + 2, scripts.length + 1);
+
+                await loadScript(i + 1);
+            };
+
+            // Handle demo.ts. For now, assume clean JS. In the future, we might
+            // want to transpile on the fly.
+            if (/\.ts/.test(scripts[i].src)) {
+                const ts = await fetch(scripts[i].src).then(r => r.text());
+                script.innerText = ts;
+
+            // Normal script
+            } else {
+                script.setAttribute('src', scripts[i].src);
+            }
+            if (scripts[i].type) {
+                script.setAttribute('type', scripts[i].type);
+            }
             document.head.appendChild(script);
         }
     }
@@ -108,7 +136,8 @@ document.addEventListener('DOMContentLoaded', async function () {
                 [].forEach.call(
                     parent.getElementsByTagName('script'),
                     function (script) {
-                        var src = script.getAttribute('src');
+                        var src = script.getAttribute('src'),
+                            type = script.getAttribute('type');
 
                         if (params.gh) {
                             src = src
@@ -119,15 +148,14 @@ document.addEventListener('DOMContentLoaded', async function () {
                             script.setAttribute('src', src);
                         }
 
-                        scripts.push(src);
+                        scripts.push({ src, type });
                     }
                 );
-
                 const js =
                     'https://cdn.jsdelivr.net/gh/highcharts/highcharts@' +
                     (params.gh || 'master') + '/samples/' + params.sample +
                     '/demo.js';
-                scripts.push(js);
+                scripts.push({ src: js });
                 post.js = js;
 
                 progress(1, scripts.length + 1);
