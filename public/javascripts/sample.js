@@ -153,6 +153,9 @@ controller.Sample = function (options, index) {
     }
 
     function addCommentAnchor() {
+        if (options.isDuplicate) {
+            return;
+        }
         var commentIcon = '<i class="fa fa-comment-o" title="Add comment"></i>',
             comment = options.compare && options.compare.comment;
 
