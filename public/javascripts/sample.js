@@ -24,7 +24,7 @@ controller.Sample = function (options, index) {
     function addHeaders() {
 
         const h2Text = options.isDemo ? 'Demo Pages' : dirs[0],
-            h2Id = h2Text.replace(/[ \.]/g, '-');
+            h2Id = h2Text.replace(/[ \.]/g, '-').toLowerCase();
 
         // Update jump selector
         if (!productJump.querySelector(
@@ -48,7 +48,7 @@ controller.Sample = function (options, index) {
         const h4Text = options.isDemo ?
                 `${options.tag} / ${options.category}` :
                 dirs[0] + '/' + dirs[1],
-            h4Id = h4Text.replace(/[ \.\(\)\/]/g, '-');
+            h4Id = h4Text.replace(/[ \.\(\)\/]/g, '-').toLowerCase();
         if (!mainNav.querySelector('h4#' + h4Id)) {
             var h4 = contentsDoc.createElement('h4');
             h4.innerHTML = h4Text;

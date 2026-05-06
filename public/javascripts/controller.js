@@ -387,8 +387,16 @@ var controller = { // eslint-disable-line no-unused-vars
                 li.classList.remove('hidden');
                 a.innerHTML = innerHTML;
 
-                headerMap[dirs[0]]++;
-                headerMap[`${dirs[0]}/${dirs[1]}`]++;
+                if (sample.options.tag && sample.options.category) {
+                    headerMap['demo pages']++;
+                    headerMap[
+                        `${sample.options.tag} / ${sample.options.category}`
+                        .toLowerCase()
+                    ]++;
+                } else {
+                    headerMap[dirs[0]]++;
+                    headerMap[`${dirs[0]}/${dirs[1]}`]++;
+                }
 
             } else {
                 li.classList.add('hidden');
@@ -398,9 +406,9 @@ var controller = { // eslint-disable-line no-unused-vars
 
         // Show/hide h2 and h4 headers
         for (const key of Object.keys(headerMap)) {
-            const header = contentDoc.getElementById(
-                key.replace(/[\/\.]/g, '-')
-            );
+            const id = key.replace(/[\/\. \(\)]/g, '-').toLowerCase(),
+                header = contentDoc.getElementById(id);
+
             if (header) {
                 if (headerMap[key]) {
                     header.classList.remove('hidden');
