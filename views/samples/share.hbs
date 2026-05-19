@@ -43,8 +43,9 @@
 		<textarea name="css">{{{css}}}</textarea>
 	</form>
 	<p>
-		Fiddle with demo files posted from your file system and Highcharts/Dashboards from <code>code.highcharts.com</code>.
-		Use this if your changes are limited to the demo, not the product files.
+		Fiddle with demo files posted from your file system and product from
+		<code>code.highcharts.com</code>. Use this if your changes are limited
+		to the demo, not the product files.
 	</p>
 	<a class="button" href="javascript:document.getElementById('jsfiddle-post-stable').submit()">
 		jsFiddle
@@ -59,7 +60,7 @@
 		<textarea name="css">{{{modifiedCss}}}</textarea>
 	</form>
 	<p>
-		Fiddle with demo files posted from your file system and Highcharts from latest commit (<code>github.highcharts.com/{{latestCommit}}</code>).
+		Fiddle with demo files posted from your file system and product from latest commit (<code>{{modifiedPath}}</code>).
 		The latest commit must be pushed. Use this if your work includes changes to the product itself
 	</p>
 	<a class="button" href="javascript:document.getElementById('jsfiddle-post-modified').submit()">
@@ -68,7 +69,10 @@
 
 	<h2>Clean preview, work in progress</h2>
 	<p>
-		For non-techies, nice and clean preview with no code view, but contains a link to post it further to jsFiddle. Demo files and Highcharts both from latest commit (<code>github.highcharts.com/{{latestCommit}}</code>). The latest commit must be pushed.
+		For non-techies, nice and clean preview with no code view, but contains
+		a link to post it further to jsFiddle. Demo files and product both
+		from latest commit (<code>{{latestCommit}}</code>). The latest commit
+		must be pushed.
 	</p>
 	<a class="button" href="https://highcharts.github.io/highcharts-utils/samples/#gh/{{latestCommit}}/sample/{{path}}"
 		target="_blank">highcharts.github.io</a>
