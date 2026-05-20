@@ -36,9 +36,7 @@ const getSample = (path) => {
 	return sample;
 };
 
-
-const getSamples = async () => {
-	const samples = [];
+const orderLikeDemoPages = async (samples) => {
 
 	const getCategoriesFromDemo = (demo) => {
 		const categories = [];
@@ -60,56 +58,69 @@ const getSamples = async () => {
 		'file:///' + join(samplesDir, 'demo-config.js')
 	);
 
-	for (const group of [
-		'highcharts',
-		'stock',
-		'maps',
-		'gantt',
-		'unit-tests',
-		'issues',
-		'cloud',
-		'dashboards',
-		'grid-lite',
-		'grid-pro'
-	]) {
-		const groupDir = join(samplesDir, group);
-		if (fs.existsSync(groupDir) && fs.lstatSync(groupDir).isDirectory()) {
-			const subgroups = fs.readdirSync(groupDir);
+	const demos = [];
 
-			// Move the 'demo' subgroup to the start of the list
-			const demoIndex = subgroups.indexOf('demo');
-			if (demoIndex > -1) {
-				subgroups.unshift(subgroups.splice(demoIndex, 1)[0]);
-			}
+	for (const demoGroup of Object.values(demoConfig.default)) {
+		for (const category of demoGroup.categories || []) {
+			for (const tag of demoGroup.filter.tags || []) {
+				const members = samples.reduce((members, sample) => {
+					if (sample.details.tags?.includes(tag)) {
+						const categories = getCategoriesFromDemo(sample);
+						if (categories.includes(category)) {
+							sample.isDemo = true;
 
-			const demos = [],
-				otherSamples = [];
-			subgroups.forEach(subgroup => {
-				const subgroupDir = join(groupDir, subgroup);
-				if (fs.lstatSync(subgroupDir).isDirectory()) {
-					fs.readdirSync(subgroupDir).forEach(sample => {
-						let path = join(subgroupDir, sample);
-						if (
-							fs.lstatSync(path).isDirectory() &&
-							(
-								fs.existsSync(join(path, 'demo.html')) ||
-								fs.existsSync(join(path, 'config.ts'))
-							)
-						) {
-							const relativePath = relative(samplesDir, path)
-								.split(sep).join('/');
+							let priority;
+							const itemCategories = [];
+							(sample.details.categories || []).forEach(
+								cat => {
+									if (typeof cat === 'string') {
+										itemCategories.push(cat);
+									}
+									if (typeof cat === 'object') {
+										itemCategories.push.apply(
+											itemCategories,
+											Object.keys(cat)
+										);
 
-							if (subgroup === 'demo') {
-								demos.push(getSample(relativePath));
-							} else {
-								otherSamples.push(getSample(relativePath));
-							}
+										// Use priority of the current
+										priority ??= cat[category]?.priority;
+									}
+								}
+							);
+
+							// Create a copy
+							const sampleCopy = JSON.parse(JSON.stringify(sample));
+
+							sampleCopy.priority = priority ?? 1000;
+							sampleCopy.tag = tag;
+							sampleCopy.category = category;
+							members.push(sampleCopy);
 						}
-					});
-				}
-			});
+					}
+					return members;
+				}, []);
+
+					console.log(tag, category, members.length);
+
+				members.sort((a, b) => a.priority - b.priority);
+				demos.push(...members);
+			}
+		}
+	}
+
+	// From the samples array, removed items marked isDemo
+	samples = samples.filter(sample => !sample.isDemo);
+
+	// Then unshift the demos
+	demos.reverse().forEach(demo => {
+		samples.unshift(demo);
+	});
+
+	return samples;
+
 
 			// Order the demos as they appear in the demo pages
+			/*
 			if (demos.length) {
                 const demoConfigGroup = Object.values(demoConfig.default).find(
 					config => (
@@ -176,8 +187,59 @@ const getSamples = async () => {
 				samples.push.apply(samples, uncategorized);
 			}
 			samples.push.apply(samples, otherSamples);
+			*/
+
+};
+
+const getSamples = async () => {
+	let samples = [];
+
+	for (const group of [
+		'highcharts',
+		'stock',
+		'maps',
+		'gantt',
+		'unit-tests',
+		'issues',
+		'cloud',
+		'dashboards',
+		'grid-lite',
+		'grid-pro'
+	]) {
+		const groupDir = join(samplesDir, group);
+		if (fs.existsSync(groupDir) && fs.lstatSync(groupDir).isDirectory()) {
+			const subgroups = fs.readdirSync(groupDir);
+
+			// Move the 'demo' subgroup to the start of the list
+			const demoIndex = subgroups.indexOf('demo');
+			if (demoIndex > -1) {
+				subgroups.unshift(subgroups.splice(demoIndex, 1)[0]);
+			}
+
+			subgroups.forEach(subgroup => {
+				const subgroupDir = join(groupDir, subgroup);
+				if (fs.lstatSync(subgroupDir).isDirectory()) {
+					fs.readdirSync(subgroupDir).forEach(sample => {
+						let path = join(subgroupDir, sample);
+						if (
+							fs.lstatSync(path).isDirectory() &&
+							(
+								fs.existsSync(join(path, 'demo.html')) ||
+								fs.existsSync(join(path, 'config.ts'))
+							)
+						) {
+							const relativePath = relative(samplesDir, path)
+								.split(sep).join('/');
+
+							samples.push(getSample(relativePath));
+						}
+					});
+				}
+			});
 		}
 	}
+
+	samples = await orderLikeDemoPages(samples);
 
 	return JSON.stringify(samples, null, '  ');
 };

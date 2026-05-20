@@ -12,6 +12,9 @@ import { highchartsDir } from '../../lib/arguments.js';
 
 const router = express.Router();
 
+const modifiedPath = 'https://github.highcharts.com/{commit}/';
+// const modifiedPath = 'https://cdn.jsdelivr.net/npm/highcharts@v13.0.0-beta.1/';
+
 router.get('/', async (req, res) => {
 
     const path = req.query.path,
@@ -21,17 +24,18 @@ router.get('/', async (req, res) => {
             join(highchartsDir, 'samples', req.query.path, 'demo.html'),
             'utf-8'
         );
+    const mPath = modifiedPath.replace('{commit}', latestCommit);
     const modifiedHtml = html
         .replace(
             /https:\/\/code.highcharts.com\//g,
-            `https://github.highcharts.com/${latestCommit}/`
+            mPath
         )
         .replace(
-            `https://github.highcharts.com/${latestCommit}/mapdata/`,
+            `${mPath}mapdata/`,
             'https://code.highcharts.com/mapdata/'
         )
         .replace(
-            `https://github.highcharts.com/${latestCommit}/connectors/`,
+            `${mPath}connectors/`,
             'https://code.highcharts.com/connectors/'
         );
 
@@ -49,7 +53,7 @@ router.get('/', async (req, res) => {
     const modifiedCss = css
         ?.replace(
             /https:\/\/code.highcharts.com\//g,
-            `https://github.highcharts.com/${latestCommit}/`
+            mPath
         );
 
     const details = f.getDetails(req.query.path);
@@ -61,6 +65,7 @@ router.get('/', async (req, res) => {
         html,
         css,
         js,
+        modifiedPath,
         modifiedHtml,
         modifiedCss,
         bodyClass: 'page',

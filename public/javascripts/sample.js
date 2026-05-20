@@ -9,7 +9,10 @@ controller.Sample = function (options, index) {
         mainNav = contentsDoc && contentsDoc.getElementById('main-nav'),
         productJump = contentsDoc && contentsDoc.getElementById('product-jump'),
         dirs = options.path.split('/'),
-        ulId = ('ul-' + dirs[0] + '-' + dirs[1]).replace(/\./g, '-'),
+        ulId = options.isDemo ?
+            `ul-demo-pages-${options.tag}-${options.category}`
+                .replace(/[ \.\(\)\/]/g, '-') :
+            `ul-${dirs[0]}-${dirs[1]}`.replace(/\./g, '-'),
         li = mainNav && mainNav.querySelector('li#li' + index),
         iconDiv = li && li.querySelector('.icons'),
         diff,
@@ -18,44 +21,39 @@ controller.Sample = function (options, index) {
     /**
      * Add headers the first time samples are listed
      */
-    function addHeaders(ul) {
+    function addHeaders() {
+
+        const h2Text = options.isDemo ? 'Demo Pages' : dirs[0],
+            h2Id = h2Text.replace(/[ \.]/g, '-').toLowerCase();
+
         // Update jump selector
-        if (!productJump.querySelector('option[value="' + dirs[0] + '"]')) {
+        if (!productJump.querySelector(
+            'option[value="' + h2Text + '"]')
+        ) {
             var option = contentsDoc.createElement('option');
-            option.innerText = dirs[0].toUpperCase();
-            option.value = dirs[0];
+            option.innerText = h2Text.toUpperCase();
+            option.value = h2Text;
             productJump.appendChild(option);
         }
 
         // h2 headers
-        if (!mainNav.querySelector('h2#' + dirs[0])) {
+        if (!mainNav.querySelector('h2#' + h2Id)) {
             var h2 = contentsDoc.createElement('h2');
-            h2.innerHTML = dirs[0];
-            h2.id = dirs[0];
+            h2.innerHTML = h2Text;
+            h2.id = h2Id;
             mainNav.appendChild(h2);
         }
 
         // h4 subheaders
-        var h4Id = (dirs[0] + '-' + dirs[1]).replace(/\./g, '-');
+        const h4Text = options.isDemo ?
+                `${options.tag} / ${options.category}` :
+                dirs[0] + '/' + dirs[1],
+            h4Id = h4Text.replace(/[ \.\(\)\/]/g, '-').toLowerCase();
         if (!mainNav.querySelector('h4#' + h4Id)) {
             var h4 = contentsDoc.createElement('h4');
-            h4.innerHTML = dirs[0] + '/' + dirs[1];
+            h4.innerHTML = h4Text;
             h4.id = h4Id;
             mainNav.appendChild(h4);
-        }
-
-        // h6 subheaders, demo categories
-        if (options.details.category) {
-            var h6Id = h4Id + '-' + options.details.category
-                .replace(/ /g, '-')
-                .replace(/[\(\)]+/g, '')
-                .toLowerCase();
-            if (!mainNav.querySelector('h6#' + h6Id)) {
-                var h6 = contentsDoc.createElement('h6');
-                h6.innerHTML = options.details.category;
-                h6.id = h6Id;
-                ul.appendChild(h6);
-            }
         }
     }
 
@@ -155,6 +153,9 @@ controller.Sample = function (options, index) {
     }
 
     function addCommentAnchor() {
+        if (options.isDuplicate) {
+            return;
+        }
         var commentIcon = '<i class="fa fa-comment-o" title="Add comment"></i>',
             comment = options.compare && options.compare.comment;
 
@@ -264,7 +265,7 @@ controller.Sample = function (options, index) {
             ul.id = ulId;
         }
 
-        addHeaders(ul);
+        addHeaders();
 
         if (!hadUl) {
             mainNav.appendChild(ul);

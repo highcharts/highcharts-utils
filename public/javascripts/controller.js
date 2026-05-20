@@ -62,7 +62,12 @@ var controller = { // eslint-disable-line no-unused-vars
 
             // Look up by path in addition to index
             controller.samples.forEach(function (sample) {
-                controller.samples[sample.path] = sample;
+                if (controller.samples[sample.path]) {
+                    // Some demos are listed more than once in the demo pages
+                    sample.options.isDuplicate = true;
+                } else {
+                    controller.samples[sample.path] = sample;
+                }
             });
 
             controller.runLoad();
@@ -382,8 +387,16 @@ var controller = { // eslint-disable-line no-unused-vars
                 li.classList.remove('hidden');
                 a.innerHTML = innerHTML;
 
-                headerMap[dirs[0]]++;
-                headerMap[`${dirs[0]}/${dirs[1]}`]++;
+                if (sample.options.tag && sample.options.category) {
+                    headerMap['demo pages']++;
+                    headerMap[
+                        `${sample.options.tag} / ${sample.options.category}`
+                        .toLowerCase()
+                    ]++;
+                } else {
+                    headerMap[dirs[0]]++;
+                    headerMap[`${dirs[0]}/${dirs[1]}`]++;
+                }
 
             } else {
                 li.classList.add('hidden');
@@ -393,9 +406,9 @@ var controller = { // eslint-disable-line no-unused-vars
 
         // Show/hide h2 and h4 headers
         for (const key of Object.keys(headerMap)) {
-            const header = contentDoc.getElementById(
-                key.replace(/[\/\.]/g, '-')
-            );
+            const id = key.replace(/[\/\. \(\)]/g, '-').toLowerCase(),
+                header = contentDoc.getElementById(id);
+
             if (header) {
                 if (headerMap[key]) {
                     header.classList.remove('hidden');
@@ -550,9 +563,8 @@ var controller = { // eslint-disable-line no-unused-vars
                 // proceed without opening the compare view
                 var nextSample = controller.samples[nextIndex];
                 if (
-                    nextSample &&
-                    nextSample.options.details &&
-                    nextSample.options.details.skipTest
+                    nextSample?.options.details?.skipTest ||
+                    nextSample?.options.isDuplicate
                 ) {
                     nextSample.setDiff('skip');
                     nextSample.setClassName();
@@ -562,7 +574,8 @@ var controller = { // eslint-disable-line no-unused-vars
                 // When entering the dashboards section, skip the rest
                 if (
                     nextSample.path.indexOf('dashboards') === 0 &&
-                    controller.currentSample.path.indexOf('dashboards') !== 0
+                    controller.currentSample.path.indexOf('dashboards') !== 0 &&
+                    nextSample.options.tag !== 'Highcharts overview'
                 ) {
                     window.parent.location = '/samples';
                     return;
