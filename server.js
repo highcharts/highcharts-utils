@@ -68,7 +68,7 @@ const httpsOptions = {
 
 const hcPackage = f.getLocalJSON(path.join(getHighchartsDir(), 'package.json'));
 
-if (hcPackage.name !== 'highcharts') {
+if (!hcPackage || hcPackage.name !== 'highcharts') {
   throw new Error(`
     Highcharts repo not found, please set "highchartsDir" in config.json or through CLI arguments.
   `);
@@ -216,4 +216,3 @@ if (useProxy) {
 } else {
   log();
 }
-
