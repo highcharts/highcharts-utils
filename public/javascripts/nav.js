@@ -186,14 +186,29 @@ window.addEventListener('load', function () {
 	// Worktree switcher
 	const worktreeSelect = document.getElementById('worktree-select');
 	if (worktreeSelect) {
+		const worktreeLabel = document.querySelector('label[for="worktree-select"]');
+		const hideWorktreeSwitcher = () => {
+			worktreeSelect.style.display = 'none';
+			if (worktreeLabel) {
+				worktreeLabel.style.display = 'none';
+			}
+		};
+		const showWorktreeSwitcher = () => {
+			worktreeSelect.style.display = '';
+			if (worktreeLabel) {
+				worktreeLabel.style.display = '';
+			}
+		};
+
 		fetch('/api/worktree')
 			.then(res => res.json())
 			.then(({ worktrees, activeDir }) => {
 				worktreeSelect.innerHTML = '';
 				if (!worktrees || worktrees.length <= 1) {
-					worktreeSelect.style.display = 'none';
+					hideWorktreeSwitcher();
 					return;
 				}
+				showWorktreeSwitcher();
 				worktrees.forEach(wt => {
 					const opt = document.createElement('option');
 					opt.value = wt.path;
@@ -205,7 +220,7 @@ window.addEventListener('load', function () {
 				});
 			})
 			.catch(() => {
-				worktreeSelect.style.display = 'none';
+				hideWorktreeSwitcher();
 			});
 
 		worktreeSelect.addEventListener('change', function () {
