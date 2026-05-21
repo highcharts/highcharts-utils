@@ -1,6 +1,6 @@
 // Modules sorted by names alphabetically
 import express from 'express';
-import { apiDir, apiPort } from './lib/arguments.js';
+import { getApiDir, apiPort } from './lib/arguments.js';
 
 /**
  * Create express application
@@ -16,7 +16,9 @@ app.use('/', (req, res, next) => {
 });
 
 // Serve content of api directory
-app.use('/', express.static(apiDir, { extensions: ['html'] }));
+app.use('/', (req, res, next) => {
+    express.static(getApiDir(), { extensions: ['html'] })(req, res, next);
+});
 
 /**
  * Create HTTP server.
