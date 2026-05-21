@@ -2,7 +2,7 @@ import express from 'express';
 import fs from 'fs';
 import { validPathRegex } from '../../lib/functions.js';
 import path from 'path';
-import { samplesDir } from '../../lib/arguments.js';
+import { getSamplesDir } from '../../lib/arguments.js';
 
 const router = express.Router();
 
@@ -21,7 +21,7 @@ router.get('/', function(req, res) {
         ],
         existingFiles = fileNames.filter(fileName => {
             const exists = fs.existsSync(
-                path.join(samplesDir, req.query.path, fileName)
+                path.join(getSamplesDir(), req.query.path, fileName)
             );
 
             if (fileName === 'demo.ts' && exists) {
@@ -34,7 +34,7 @@ router.get('/', function(req, res) {
             return exists;
         }),
         files = existingFiles.map(fileName => {
-            const filePath = path.join(samplesDir, req.query.path, fileName);
+            const filePath = path.join(getSamplesDir(), req.query.path, fileName);
             return {
                 name: fileName,
                 path: filePath,
@@ -49,7 +49,7 @@ router.get('/', function(req, res) {
         ],
         files,
         path: req.query.path,
-        fullPath: path.join(samplesDir, req.query.path),
+        fullPath: path.join(getSamplesDir(), req.query.path),
         validPathRegex
     });
 });

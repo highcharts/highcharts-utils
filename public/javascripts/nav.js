@@ -182,6 +182,46 @@ window.addEventListener('load', function () {
 	document.getElementById('popup').addEventListener('click', () => {
 		document.getElementById('popup').style.display = 'none';
 	});
+
+	// Worktree switcher
+	const worktreeSelect = document.getElementById('worktree-select');
+	if (worktreeSelect) {
+		fetch('/api/worktree')
+			.then(res => res.json())
+			.then(({ worktrees, activeDir }) => {
+				worktreeSelect.innerHTML = '';
+				if (!worktrees || worktrees.length <= 1) {
+					worktreeSelect.style.display = 'none';
+					return;
+				}
+				worktrees.forEach(wt => {
+					const opt = document.createElement('option');
+					opt.value = wt.path;
+					opt.textContent = wt.branchShort || wt.branch || wt.path;
+					if (wt.path === activeDir) {
+						opt.selected = true;
+					}
+					worktreeSelect.appendChild(opt);
+				});
+			})
+			.catch(() => {
+				worktreeSelect.style.display = 'none';
+			});
+
+		worktreeSelect.addEventListener('change', function () {
+			fetch('/api/worktree/select', {
+				method: 'POST',
+				headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify({ path: this.value })
+			})
+			.then(res => res.json())
+			.then(data => {
+				if (data.ok) {
+					window.top.location.reload();
+				}
+			});
+		});
+	}
 });
 
 window.previewColorScheme = () => {}; // Default no-op function
