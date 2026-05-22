@@ -3,7 +3,7 @@ import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { listWorktrees } from '../lib/worktree.js';
-import { getHighchartsDir, highchartsDir } from '../lib/arguments.js';
+import { getHighchartsDir, highchartsDir, invalidateHighchartsDirCache } from '../lib/arguments.js';
 import { reinitWatchers } from '../lib/websocket.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -45,6 +45,7 @@ router.post('/select', async (req, res) => {
         return res.status(500).json({ error: 'Failed to persist worktree selection' });
     }
 
+    invalidateHighchartsDirCache();
     onWorktreeChanged();
     reinitWatchers();
 
