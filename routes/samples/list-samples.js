@@ -196,6 +196,7 @@ const getSamples = async () => {
 
 	for (const group of [
 		'highcharts',
+		'react',
 		'stock',
 		'maps',
 		'gantt',
