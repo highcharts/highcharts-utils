@@ -204,12 +204,15 @@ window.addEventListener('load', function () {
 			.then(res => res.json())
 			.then(({ worktrees, activeDir }) => {
 				worktreeSelect.innerHTML = '';
-				if (!worktrees || worktrees.length <= 1) {
+				const validWorktrees = (worktrees || []).filter(
+					wt => wt && wt.isValid !== false
+				);
+				if (validWorktrees.length <= 1) {
 					hideWorktreeSwitcher();
 					return;
 				}
 				showWorktreeSwitcher();
-				worktrees.forEach(wt => {
+				validWorktrees.forEach(wt => {
 					const opt = document.createElement('option');
 					opt.value = wt.path;
 					opt.textContent = wt.branchShort || wt.branch || wt.path;

@@ -22,8 +22,12 @@ router.post('/select', async (req, res) => {
     const worktrees = await listWorktrees(highchartsDir);
     const knownPaths = worktrees.map(w => w.path || w);
 
-    if (!knownPaths.includes(selectedPath)) {
+    const worktree = worktrees.find(w => (w.path || w) === selectedPath);
+    if (!worktree || !knownPaths.includes(selectedPath)) {
         return res.status(400).json({ error: 'Invalid worktree path' });
+    }
+    if (worktree.isValid === false) {
+        return res.status(400).json({ error: 'Worktree path is no longer valid' });
     }
 
     const configPath = path.join(__dirname, '..', 'temp', 'config-user.json');
@@ -35,7 +39,11 @@ router.post('/select', async (req, res) => {
     }
 
     config.worktreeDir = selectedPath;
-    fs.writeFileSync(configPath, JSON.stringify(config, null, 4), 'utf-8');
+    try {
+        fs.writeFileSync(configPath, JSON.stringify(config, null, 4), 'utf-8');
+    } catch (e) {
+        return res.status(500).json({ error: 'Failed to persist worktree selection' });
+    }
 
     onWorktreeChanged();
     reinitWatchers();

@@ -53,7 +53,7 @@ function parseArgs(argv) {
 
 async function fileExists(pathname) {
   try {
-    await access(pathname, fsConstants.X_OK);
+    await access(pathname, fsConstants.F_OK);
     return true;
   } catch {
     return false;
@@ -113,9 +113,12 @@ async function checkSample(context, baseUrl, path, settleMs) {
   page.on('console', onConsole);
   page.on('pageerror', onPageError);
 
+  let title = '';
+
   try {
     await page.goto(url.toString(), { waitUntil: 'load', timeout: 60_000 });
     await page.waitForTimeout(settleMs);
+    title = await page.title().catch(() => '');
   } catch (error) {
     errors.push(`navigation: ${error.message}`);
   } finally {
@@ -129,7 +132,7 @@ async function checkSample(context, baseUrl, path, settleMs) {
     url: url.toString(),
     errors,
     warnings,
-    title: await page.title().catch(() => '')
+    title
   };
 }
 
@@ -157,7 +160,7 @@ async function main() {
     const matcher = args.pattern ? new RegExp(args.pattern) : null;
     const selectedPaths = allPaths
       .filter(path => !matcher || matcher.test(path))
-      .slice(0, args.limit ? Math.max(0, args.limit) : undefined);
+      .slice(0, args.limit !== undefined && args.limit !== null && Number.isFinite(args.limit) ? Math.max(0, args.limit) : undefined);
 
     console.log(`Found ${allPaths.length} sample pages. Checking ${selectedPaths.length} sample pages with concurrency ${concurrency}.`);
 
