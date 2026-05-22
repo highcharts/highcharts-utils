@@ -3,7 +3,7 @@ import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { listWorktrees } from '../lib/worktree.js';
-import { getHighchartsDir, highchartsDir, invalidateHighchartsDirCache } from '../lib/arguments.js';
+import { getHighchartsDir, highchartsDir, invalidateHighchartsDirCache, invalidateSettingsCache } from '../lib/arguments.js';
 import { reinitWatchers } from '../lib/websocket.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -46,6 +46,7 @@ router.post('/select', async (req, res) => {
     }
 
     invalidateHighchartsDirCache();
+    invalidateSettingsCache();
     onWorktreeChanged();
     reinitWatchers();
 
