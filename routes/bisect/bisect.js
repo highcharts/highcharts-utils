@@ -2,14 +2,14 @@
 
 import express from 'express';
 import semver from 'semver';
-import { highchartsDir } from '../../lib/arguments.js';
+import { getHighchartsDir } from '../../lib/arguments.js';
 import { spawn } from 'child_process';
 
 const router = express.Router();
 
 const git = cmd => new Promise((resolve, reject) => {
 	const options = {
-		cwd: highchartsDir
+		cwd: getHighchartsDir()
 	};
 
 	// When running with administrator privileges, make sure we're running as

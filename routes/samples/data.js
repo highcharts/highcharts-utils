@@ -1,7 +1,7 @@
 import express from 'express';
 import fs from 'fs';
 import path, { join } from 'path';
-import { samplesDir } from '../../lib/arguments.js';
+import { getSamplesDir } from '../../lib/arguments.js';
 
 const router = express.Router();
 
@@ -9,7 +9,7 @@ router.get(/[a-z\/\-\.0-9]+\.([a-z]+)$/, function(req, res) {
 
     const extname = path.extname(req.path).replace(/^./, '');
 
-    let file = join(samplesDir, 'data', req.path);
+	let file = join(getSamplesDir(), 'data', req.path);
 
     if (!['gpx', 'mjs', 'js', 'json', 'csv', 'ttf', 'xml'].includes(extname)) {
         res.status(403).send(`

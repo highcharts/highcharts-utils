@@ -1,9 +1,9 @@
 import express from 'express';
-import { highchartsDir } from '../../lib/arguments.js';
+import { getHighchartsDir } from '../../lib/arguments.js';
 import simpleGit from 'simple-git';
 
 const router = express.Router();
-const git = simpleGit(highchartsDir);
+const git = () => simpleGit(getHighchartsDir());
 
 router.get('/', function(req, res) {
 
@@ -19,7 +19,7 @@ router.get('/', function(req, res) {
 
   	};
 
-  	git.tags()
+  	git().tags()
 
   		// Get the tags
   		.then(tags => new Promise((resolve) => {
@@ -51,7 +51,7 @@ router.get('/', function(req, res) {
 	  				cmd.unshift(tpl.after + '..' + (tpl.before || 'HEAD'));
 	  			}
 
-	  			git.log(cmd)
+	  			git().log(cmd)
 					.then(gitlog => {
                         if (!gitlog.all[0]) {
                             reject('No gitlog found');
@@ -71,7 +71,7 @@ router.get('/', function(req, res) {
 
   		// Get the branches
 		.then(() => new Promise((resolve) => {
-			git.branchLocal()
+			git().branchLocal()
 				.then(log => {
 
 					tpl.branches = Object.keys(log.branches).map(name => ({
