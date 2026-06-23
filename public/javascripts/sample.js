@@ -1,5 +1,5 @@
 /* eslint-env browser */
-/* global $, controller */
+/* global controller */
 controller.Sample = function (options, index) {
 
     var contentsDoc = (
@@ -79,11 +79,13 @@ controller.Sample = function (options, index) {
             testAnchor.id = 'checkbox-' + options.path;
             testAnchor.checked = (diff === '0');
 
-            $(testAnchor).click(function () {
+            testAnchor.addEventListener('click', function () {
                 if (this.checked) {
-                    $(li).removeClass('different').addClass('identical');
+                    li.classList.remove('different');
+                    li.classList.add('identical');
                 } else {
-                    $(li).removeClass('identical').addClass('different');
+                    li.classList.remove('identical');
+                    li.classList.add('different');
                 }
 
                 setDiff(this.checked ? 0 : 1);
@@ -370,11 +372,12 @@ controller.Sample = function (options, index) {
             browser: controller.getBrowser().toLowerCase(),
             compare: options.compare
         };
-        $.get('/samples/compare-update-report', config);
+        const params = new URLSearchParams(config);
+        fetch('/samples/compare-update-report?' + params.toString());
     }
 
     function setOptions(newOptions) {
-        $.extend(true, options, newOptions);
+        Object.assign(options, newOptions);
         renderList();
         save();
     }

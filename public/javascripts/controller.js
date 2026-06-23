@@ -1,4 +1,4 @@
-/* global $, window */
+/* global window */
 /* eslint new-cap: 0 */
 var controller = { // eslint-disable-line no-unused-vars
 
@@ -43,22 +43,25 @@ var controller = { // eslint-disable-line no-unused-vars
     },
 
     loadNightly: function () {
-        $.getJSON('/samples/nightly/latest.json', function (nightly) {
-            controller.nightly = nightly;
-            controller.runLoad();
-        });
+        fetch('/samples/nightly/latest.json')
+            .then(response => response.json())
+            .then(nightly => {
+                controller.nightly = nightly;
+                controller.runLoad();
+            });
     },
 
     loadSamples: function (callback) {
-        $.getJSON('/samples/list-samples', function (samples) {
-
-            // Create Sample instances
-            controller.samples = samples.map(function (options, i) {
-                return controller.Sample(
-                    options,
-                    i + 1
-                );
-            });
+        fetch('/samples/list-samples')
+            .then(response => response.json())
+            .then(samples => {
+                // Create Sample instances
+                controller.samples = samples.map(function (options, i) {
+                    return controller.Sample(
+                        options,
+                        i + 1
+                    );
+                });
 
             // Look up by path in addition to index
             controller.samples.forEach(function (sample) {
@@ -70,55 +73,50 @@ var controller = { // eslint-disable-line no-unused-vars
                 }
             });
 
-            controller.runLoad();
+                controller.runLoad();
 
-            const q = localStorage.getItem('searchQuery');
-            if (q) {
-                controller.frames().contents.contentDocument
-                    .getElementById('search').value = q;
-                controller.filter(q);
-            }
+                const q = localStorage.getItem('searchQuery');
+                if (q) {
+                    controller.frames().contents.contentDocument
+                        .getElementById('search').value = q;
+                    controller.filter(q);
+                }
 
-            if (callback) {
-                callback();
-            }
-        });
+                if (callback) {
+                    callback();
+                }
+            });
     },
 
     loadCompare: function () {
-        var url,
-            error;
+        var url;
 
         if (controller.compareMode === 'nightly') {
             url = '/samples/nightly/latest.json';
-            error = function (e) {
-                alert('Error loading latest nightly\n' +
-                    e.status + ' ' + e.statusText + '\n' +
-                    url
-                );
-                controller.compare = {};
-                controller.runLoad();
-            }
         } else {
             url = '/temp/compare.' + controller.server.branch.replace('/', '-') + '.' +
                 controller.getBrowser().toLowerCase() +
                 '.json';
-            error = function (e) {
-                console.error('Error loading compare', e);
-                controller.compare = {};
-                controller.runLoad();
-            };
         }
 
-        $.ajax({
-            dataType: 'json',
-            url: url,
-            success: function success (compare) {
+        fetch(url)
+            .then(response => response.json())
+            .then(compare => {
                 controller.compare = compare;
                 controller.runLoad();
-            },
-            error: error
-        });
+            })
+            .catch(e => {
+                if (controller.compareMode === 'nightly') {
+                    alert('Error loading latest nightly\n' +
+                        e.status + ' ' + e.statusText + '\n' +
+                        url
+                    );
+                } else {
+                    console.error('Error loading compare', e);
+                }
+                controller.compare = {};
+                controller.runLoad();
+            });
     },
 
     frames: function () {
@@ -136,18 +134,18 @@ var controller = { // eslint-disable-line no-unused-vars
         var frames = controller.frames(),
             frame = frames.commits,
             checked,
-            $button = $('#bisect', frames.main.contentDocument),
+            button = frames.main.contentDocument.getElementById('bisect'),
             commitsFrame;
 
         if (active === false) {
-            $button.removeClass('active');
+            button.classList.remove('active');
             checked = false;
         } else if (active === true) {
-            $button.addClass('active');
+            button.classList.add('active');
             checked = true;
         } else {
-            $button.toggleClass('active');
-            checked = $button.hasClass('active');
+            button.classList.toggle('active');
+            checked = button.classList.contains('active');
         }
 
         if (checked) {
@@ -532,8 +530,8 @@ var controller = { // eslint-disable-line no-unused-vars
     batchMode: function() {
         var contentsDoc = controller.frames().contents.contentDocument;
         controller.continueBatch = true;
-        $('#batch-compare', contentsDoc).hide();
-        $('#batch-stop', contentsDoc).show();
+        contentsDoc.getElementById('batch-compare').style.display = 'none';
+        contentsDoc.getElementById('batch-stop').style.display = '';
         controller.docTitle();
     },
 
@@ -630,8 +628,8 @@ var controller = { // eslint-disable-line no-unused-vars
         var contentsDoc = controller.frames().contents.contentDocument;
         controller.continueBatch = false;
         controller.docTitle();
-        $('#batch-stop', contentsDoc).hide();
-        $('#batch-compare', contentsDoc).show();
+        contentsDoc.getElementById('batch-stop').style.display = 'none';
+        contentsDoc.getElementById('batch-compare').style.display = '';
     },
 
     rewriteJSONPath: function(url) {
@@ -668,11 +666,10 @@ var controller = { // eslint-disable-line no-unused-vars
      */
     getJSON: function (url, callback) {
 
-        $.ajax({
-            dataType: 'json',
-            url: controller.rewriteJSONPath(url),
-            success: callback,
-            error: function (xhr, status, e) {
+        fetch(controller.rewriteJSONPath(url))
+            .then(response => response.json())
+            .then(callback)
+            .catch(e => {
                 if (
                     controller.frames().main &&
                     controller.frames().main.contentWindow &&
@@ -681,8 +678,7 @@ var controller = { // eslint-disable-line no-unused-vars
                     controller.frames().main.contentWindow.onDifferent('Err');
                 }
                 throw e;
-            }
-        });
+            });
 
     },
 
