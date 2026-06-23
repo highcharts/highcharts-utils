@@ -1,4 +1,4 @@
-/* global jQuery, Highcharts, Dashboards */
+/* global Highcharts, Dashboards */
 if (window.console) {
 //	console.clear();
 }
@@ -57,16 +57,6 @@ var controller = window.parent?.controller,
 		controller.addResources(document, ['test-utilities.js']);
 	}
 
-	if (typeof jQuery === 'undefined') {
-			window.onload = function () {
-				document.getElementById('container').innerHTML =
-					'<div style="margin-top: 150px; text-align: center"><h3 style="font-size: 2em; color: red">' +
-					'jQuery is missing (no longer required)</h3><p>Check your settings in <code>settings.php</code>.</div>';
-			};
-			return;
-		}
-
-
 	document.addEventListener('DOMContentLoaded', function() {
 
 		if (typeof Highcharts === 'undefined' && !document.getElementById('container')) {
@@ -99,12 +89,6 @@ var controller = window.parent?.controller,
 
 	});
 }());
-
-if (typeof jQuery !== 'undefined') {
-	jQuery.readyException = function (error) {
-		throw error;
-	};
-}
 // Wrappers for recording mouse events in order to write automatic tests
 
 window.setUp = function () {
