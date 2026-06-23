@@ -1,4 +1,4 @@
-/* global $, jQuery, Highcharts, Dashboards */
+/* global jQuery, Highcharts, Dashboards */
 if (window.console) {
 //	console.clear();
 }
@@ -9,7 +9,6 @@ var controller = window.parent?.controller,
 	sample = controller?.samples?.[path];
 
 (function () {
-	var $ = jQuery;
 	if (!controller || !sample) {
 
 		function getQueryParameters (win) {
@@ -27,46 +26,26 @@ var controller = window.parent?.controller,
 	    };
 	    path = getQueryParameters(window).path;
 
-		$.getJSON('/samples/list-samples', function (samples) {
-			var i;
+		fetch('/samples/list-samples')
+			.then(response => response.json())
+			.then(samples => {
+				var i;
 
-			// Activate the next button
-			for (i = 0; i < samples.length; i++) {
-				if (samples[i].path === path && samples[i + 1]) {
-					$('#next').attr({
-						href: window.location.href.replace(
-							path,
-							samples[i + 1].path
-						),
-						disabled: false
-					});
-					break;
+				// Activate the next button
+				for (i = 0; i < samples.length; i++) {
+					if (samples[i].path === path && samples[i + 1]) {
+						const nextButton = document.getElementById('next');
+						if (nextButton) {
+							nextButton.href = window.location.href.replace(
+								path,
+								samples[i + 1].path
+							);
+							nextButton.disabled = false;
+						}
+						break;
+					}
 				}
-			}
-
-			// Populate the sample navigation
-			/*
-			var folder = path.split('/'),
-				$samplesNav = $('#samples-nav'),
-				active;
-
-			folder.pop();
-			folder = folder.join('/');
-
-			for (i = 0; i < samples.length; i++) {
-				if (samples[i].path.indexOf(folder) === 0) {
-					active = samples[i].path === path ? ' active' : ' ';
-					$('<a>' + samples[i].path.replace(folder + '/', '') + '</a>').attr({
-						href: window.location.href.replace(
-							path,
-							samples[i].path
-						),
-						'class': 'button' + active
-					}).appendTo($samplesNav);
-				}
-			}
-			*/
-		});
+			});
 		return;
 	}
 
@@ -78,17 +57,17 @@ var controller = window.parent?.controller,
 		controller.addResources(document, ['test-utilities.js']);
 	}
 
-	if (typeof $ === 'undefined') {
-		window.onload = function () {
-			document.getElementById('container').innerHTML =
-				'<div style="margin-top: 150px; text-align: center"><h3 style="font-size: 2em; color: red">' +
-				'jQuery is missing</h3><p>Check your settings in <code>settings.php</code>.</div>';
-		};
-		return;
-	}
+	if (typeof jQuery === 'undefined') {
+			window.onload = function () {
+				document.getElementById('container').innerHTML =
+					'<div style="margin-top: 150px; text-align: center"><h3 style="font-size: 2em; color: red">' +
+					'jQuery is missing (no longer required)</h3><p>Check your settings in <code>settings.php</code>.</div>';
+			};
+			return;
+		}
 
 
-	$(function() {
+	document.addEventListener('DOMContentLoaded', function() {
 
 		if (typeof Highcharts === 'undefined' && !document.getElementById('container')) {
 			window.onload = function () {
@@ -100,12 +79,10 @@ var controller = window.parent?.controller,
 		}
 
 		if (typeof Highcharts !== 'undefined') {
-			$('#version').html(
-				// 'Version: ' + Highcharts.product + ' ' +
-				// Highcharts.version +
-				// ' / ' +
-				'Branch: ' + controller.server.branch
-			);
+			const versionDiv = document.getElementById('version');
+			if (versionDiv) {
+				versionDiv.textContent = 'Branch: ' + controller.server.branch;
+			}
 		}
 
 		if (window.parent.frames[0]) {
@@ -123,8 +100,8 @@ var controller = window.parent?.controller,
 	});
 }());
 
-if ($) {
-	$.readyException = function (error) {
+if (typeof jQuery !== 'undefined') {
+	jQuery.readyException = function (error) {
 		throw error;
 	};
 }
@@ -132,8 +109,7 @@ if ($) {
 
 window.setUp = function () {
 
-	var $ = jQuery;
-	$(window).bind('keydown', parent.keyDown);
+	window.addEventListener('keydown', parent.keyDown);
 
 	if (typeof Highcharts !== 'undefined') {
 		Highcharts.setOptions({

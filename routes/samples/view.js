@@ -146,7 +146,6 @@ const handler = async (req, res) => {
         applyCSP: details.applyCSP !== false && !isUnitTest,
         scripts: [
             '/javascripts/trusted-types.js',
-            '/javascripts/vendor/jquery-1.11.1.js',
             '/javascripts/view.js',
             '/javascripts/qunit-plugins.js'
         ].concat(resources.scripts),

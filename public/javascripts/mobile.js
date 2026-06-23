@@ -1,38 +1,42 @@
-/* global $ */
+/* global window */
 window.onload = function () {
-	$.getJSON('/samples/list-samples', function (samples) {
-		// Populate the sample navigation
-		var $samplesNav = $('#samples-nav'),
-			folder,
-			lastFolder,
-			sampleName;
+	fetch('/samples/list-samples')
+		.then(response => response.json())
+		.then(samples => {
+			// Populate the sample navigation
+			const samplesNav = document.getElementById('samples-nav');
+			let folder;
+			let lastFolder;
+			let sampleName;
+			let div;
 
-		let $div;
+			samples.forEach(function (sample) {
+				folder = sample.path.split('/');
+				sampleName = folder.pop();
+				folder = folder.join('/');
 
-		samples.forEach(function (sample) {
+				const folderId = folder.replace(/\//g, '-');
 
-			folder = sample.path.split('/');
-			sampleName = folder.pop();
-			folder = folder.join('/');
-
-			var folderId = folder.replace(/\//g, '-');
-
-			if (folder !== lastFolder) {
-				$('<h2>' + folder + '</h2>')
-					.click(function () {
+				if (folder !== lastFolder) {
+					const h2 = document.createElement('h2');
+					h2.textContent = folder;
+					h2.addEventListener('click', function () {
 						document.getElementById(folderId).style.display = 'block';
-					})
-					.appendTo($samplesNav);
-				lastFolder = folder;
+					});
+					samplesNav.appendChild(h2);
+					lastFolder = folder;
 
-				$div = $('<div class="folder-contents" id="' + folderId + '">')
-					.appendTo($samplesNav);
-			}
+					div = document.createElement('div');
+					div.className = 'folder-contents';
+					div.id = folderId;
+					samplesNav.appendChild(div);
+				}
 
-			$('<a>' + sampleName + '</a>').attr({
-				href: '/samples/view?path=' + sample.path + '&mobile=true',
-				'class': 'button'
-			}).appendTo($div);
+				const a = document.createElement('a');
+				a.textContent = sampleName;
+				a.href = '/samples/view?path=' + sample.path + '&mobile=true';
+				a.className = 'button';
+				div.appendChild(a);
+			});
 		});
-	});
 }

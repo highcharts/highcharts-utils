@@ -76,7 +76,6 @@ export const getTestTemplate = async function(req) {
 		css: f.getCSS(req, codePath),
 		js: getJS(req, codePath),
 		scripts: [
-			'/javascripts/vendor/jquery-1.11.1.js',
 			'/javascripts/vendor/lolex.js',
 			'/javascripts/compare-iframe.js',
 			'/javascripts/qunit-plugins.js',

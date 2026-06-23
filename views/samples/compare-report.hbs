@@ -99,26 +99,28 @@ Highcharts.SparkLine = function (renderTo, data) {
 	var controller = window.parent && window.parent.controller;
 	/* eslint-disable */
 	function updateDiff() {
-		var checked = [],
-			browsers = $('#results').data('browsers').split(',');
+		var resultsTable = document.getElementById('results');
+		if (!resultsTable) return;
 
-		$('#results').find('tr').each(function () {
-			var tr = this,
-				range = [],
+		var browsers = resultsTable.dataset.browsers ? resultsTable.dataset.browsers.split(',') : [];
+		var rows = resultsTable.querySelectorAll('tr');
+
+		rows.forEach(function (tr) {
+			var range = [],
 				diff,
 				className,
-				$valueCells = $(this).find('td.value'),
+				valueCells = tr.querySelectorAll('td.value'),
 				nightlyDiff;
 
-			if ($valueCells[0]) {
-				var s = $valueCells[0].innerHTML;
+			if (valueCells[0]) {
+				var s = valueCells[0].innerHTML;
 				if (/^[0-9]+$/.test(s)) {
 					nightlyDiff = parseInt(s, 10);
 				}
 
-				$valueCells[0].style.cursor = 'pointer';
-				$valueCells[0].title = 'View comparison for nightly';
-				$valueCells[0].onclick = function () {
+				valueCells[0].style.cursor = 'pointer';
+				valueCells[0].title = 'View comparison for nightly';
+				valueCells[0].onclick = function () {
 					window.open(
 						'/samples/nightly/single?path=' +
 						tr.querySelector('th.path a').textContent
@@ -126,7 +128,7 @@ Highcharts.SparkLine = function (renderTo, data) {
 				};
 			}
 
-			$valueCells.each(function (i, td) {
+			valueCells.forEach(function (td) {
 				if (td.innerHTML !== '') {
 					var diff = +td.innerHTML;
 
@@ -163,23 +165,26 @@ Highcharts.SparkLine = function (renderTo, data) {
 					diff = Math.round(diff / Math.max.apply(0, range) * 100) + '%';
 				}
 			}
-			$(this).find('td.diff')
-				.attr({
-					'class': className
-				})
-				.html(diff);
+
+			var diffCell = tr.querySelector('td.diff');
+			if (diffCell) {
+				diffCell.setAttribute('class', className);
+				diffCell.textContent = diff;
+			}
 		});
 	}
-	$(function () {
-		var $compareDiv = $('#compare-browsers'),
-			$inputs = $compareDiv.find('input');
 
-		updateDiff();
-		$inputs.each(function () {
-			$(this).bind('change', function () {
-				updateDiff();
+	document.addEventListener('DOMContentLoaded', function () {
+		var compareDiv = document.getElementById('compare-browsers');
+		if (compareDiv) {
+			var inputs = compareDiv.querySelectorAll('input');
+			updateDiff();
+			inputs.forEach(function (input) {
+				input.addEventListener('change', function () {
+					updateDiff();
+				});
 			});
-		})
+		}
 	});
 	var skip = null;
 </script>

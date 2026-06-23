@@ -77,14 +77,16 @@ window.addEventListener('load', function () {
 		*/
 	}
 
-	var $ = window.$ || window.jQuery;
+	var bisectEl = document.getElementById('bisect');
+	var nextEl = document.getElementById('next');
+	var editEl = document.getElementById('edit');
 	if (controller) {
-		$('#bisect', document).click(function () {
+		bisectEl.addEventListener('click', function () {
 			controller.toggleBisect()
 		});
 
 		if (controller.frames().commits) {
-			$('#bisect', document).addClass('active');
+			bisectEl.classList.add('active');
 		}
 
 		// Add the next button
@@ -94,36 +96,32 @@ window.addEventListener('load', function () {
 			contentsDoc.getElementById('i' + (controller.currentSample.index + 1))
 		) {
 
-			$('#next', document).click(function() {
+			nextEl.addEventListener('click', function() {
 				controller.next();
 			});
-			$('#next', document)[0].disabled = false;
+			nextEl.disabled = false;
 		}
 
 	} else {
-		$('#bisect', document).hide();
+		bisectEl.style.display = 'none';
 	}
 
 	if (/#edit/.test(window.parent.location.hash)) {
-		$('#edit', document).addClass('active');
+		editEl.classList.add('active');
 	}
 
 	// Activate edit button
-	$('#edit', document).bind('click', function () {
+	editEl.addEventListener('click', function () {
 		var checked;
 
-		$(this).toggleClass('active');
+		this.classList.toggle('active');
 		document.body.classList.toggle('edit-mode');
 		parent.document.body.classList.toggle('edit-mode');
 
-		checked = $(this).hasClass('active')
+		checked = this.classList.contains('active');
 
-		$('#sidebar', window.parent.document).css({
-			width: checked ? '50%' : '25%'
-		});
-		$('#main-div', window.parent.document).css({
-			width: checked ? '50%' : '75%'
-		});
+		window.parent.document.getElementById('sidebar').style.width = checked ? '50%' : '25%';
+		window.parent.document.getElementById('main-div').style.width = checked ? '50%' : '75%';
 
 		window.parent.location.hash = checked ?
 			`edit/${window.path}`:
@@ -131,8 +129,10 @@ window.addEventListener('load', function () {
 
 		var interval = setInterval(function () {
 			if (typeof Highcharts !== 'undefined') {
-				$.each(Highcharts.charts, function () {
-					this.reflow();
+				Highcharts.charts.forEach(chart => {
+					if (chart) {
+						chart.reflow();
+					}
 				});
 			}
 		}, 25);

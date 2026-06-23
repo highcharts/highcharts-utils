@@ -1,4 +1,4 @@
-/* global Highcharts, $ */
+/* global Highcharts */
 var controller = window.parent && window.parent.controller,
 	query = controller && controller.getQueryParameters(window),
 	path = query && query.path,
@@ -73,7 +73,10 @@ function compareHTML() {
 
 				// Automatically click buttons with classname "autocompare"
 				tryToRun(function () {
-					$('.autocompare', document).click();
+					const buttons = document.querySelectorAll('.autocompare');
+					for (let btn of buttons) {
+						btn.click();
+					}
 				});
 				window.parent.onLoadTest(which, getSVG(chart));
 
@@ -83,13 +86,11 @@ function compareHTML() {
 
 				// Automatically click buttons with classname "autocompare"
 				tryToRun(function () {
-					$('.autocompare', document).click();
+					const buttons = document.querySelectorAll('.autocompare');
+					for (let btn of buttons) {
+						btn.click();
+					}
 				});
-
-				// Create a mock chart object with a getSVG method
-				chart = {
-					container: document.querySelector('svg').parentNode
-				};
 				window.parent.onLoadTest(which, getSVG(chart));
 
 			} else if (new Date() - start > 2000) {
@@ -297,14 +298,20 @@ window.setUpHighcharts = function () {
 	}
 
 	if (window.parent && window.parent.parent) {
-		$(window).bind('keydown', window.parent.parent.keyDown);
+		window.addEventListener('keydown', window.parent.parent.keyDown);
 	}
 
 	// Make sure getJSON content is not cached
-	$.ajaxSetup({
-		type: 'POST',
-		headers: { "cache-control": "no-cache" }
-	});
+	if (window.fetch && !window.fetchInit) {
+		window.fetchInit = true;
+		window.originalFetch = window.fetch;
+		window.fetch = function(url, options = {}) {
+			options.headers = options.headers || {};
+			options.headers['cache-control'] = 'no-cache';
+			options.method = options.method || 'POST';
+			return window.originalFetch.call(window, url, options);
+		};
+	}
 
 	if (window.Highcharts) {
 		if (window.demoError) {
@@ -519,12 +526,20 @@ window.setUpHighcharts = function () {
 }
 
 // Make sure deferred errors are captured by the test runner.
-$.readyException = error;
+if (typeof window.fetch === 'function') {
+	window.fetchException = undefined; // Placeholder for any fetch errors
+}
 
 
 window.isComparing = true;
 window.alert = function () {};
 window.onbeforeunload = function(){
-	$(document).unbind();    //remove listeners on document
-	$(document).find('*').unbind(); //remove listeners on all nodes
+	// Cleanup event listeners
+	document.removeEventListener('click', null, true);
+	document.removeEventListener('change', null, true);
+	document.removeEventListener('input', null, true);
+	const allElements = document.querySelectorAll('*');
+	allElements.forEach(el => {
+		el.replaceWith(el.cloneNode(true)); // Remove all event listeners by replacing with clone
+	});
 }

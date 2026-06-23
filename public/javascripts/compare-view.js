@@ -1,5 +1,4 @@
 var controller,
-	$,
 	query,
 	diff,
 	path,
@@ -41,7 +40,6 @@ function setReport(html, pass) {
 
 function assign(win) {
 	controller = win.controller;
-	$ = win.$;
 	query = controller.getQueryParameters(window);
 	path = query.path;
 	commentHref = '/samples/compare-comment?browser=' + controller.getBrowser() +
@@ -177,29 +175,47 @@ function main () {
 	setUpElements();
 
 	// the reload button
-	$('#reload', document).click(function() {
-		location.reload();
-	});
-
-	$('#comment', document).click(function () {
-		location.href = commentHref;
-	});
-
-	$(window).bind('keydown', parent.keyDown);
-
-	$('#view-frame-row', document).click(function () {
-		$('#frame-row', document).css({
-			visibility: 'visible',
-			position: 'static',
-			height: '400px'
+	const reloadBtn = document.getElementById('reload');
+	if (reloadBtn) {
+		reloadBtn.addEventListener('click', function() {
+			location.reload();
 		});
-	});
-	$('#view-svg', document).click(function () {
-		$('#svg', document).css({
-			display: 'block',
-			height: 'auto'
+	}
+
+	// the comment button
+	const commentBtn = document.getElementById('comment');
+	if (commentBtn) {
+		commentBtn.addEventListener('click', function () {
+			location.href = commentHref;
 		});
-	});
+	}
+
+	window.addEventListener('keydown', parent.keyDown);
+
+	// view frame row button
+	const viewFrameRowBtn = document.getElementById('view-frame-row');
+	if (viewFrameRowBtn) {
+		viewFrameRowBtn.addEventListener('click', function () {
+			const frameRow = document.getElementById('frame-row');
+			if (frameRow) {
+				frameRow.style.visibility = 'visible';
+				frameRow.style.position = 'static';
+				frameRow.style.height = '400px';
+			}
+		});
+	}
+
+	// view svg button
+	const viewSvgBtn = document.getElementById('view-svg');
+	if (viewSvgBtn) {
+		viewSvgBtn.addEventListener('click', function () {
+			const svgDiv = document.getElementById('svg');
+			if (svgDiv) {
+				svgDiv.style.display = 'block';
+				svgDiv.style.height = 'auto';
+			}
+		});
+	}
 
 	if (window !== window.parent) {
 		controller.samples[path].setCurrent();
@@ -324,70 +340,56 @@ function wash(svg) {
 }
 
 function activateOverlayCompare(isCanvas) {
-	var isCanvas = isCanvas || false,
-		// $button = $('button#overlay-compare', document),
-		$previewWhat = $('span#preview-what', document),
-		$leftImage = isCanvas ? $('#cnvLeft', document) : $('#left-image', document),
-		$rightImage = isCanvas ? $('#cnvRight', document) : $('#right-image', document),
-		showingRight,
-		toggle = function () {
+	isCanvas = isCanvas || false;
+	const previewWhatSpan = document.querySelector('span#preview-what');
+	const leftImageEl = isCanvas ? document.getElementById('cnvLeft') : document.getElementById('left-image');
+	const rightImageEl = isCanvas ? document.getElementById('cnvRight') : document.getElementById('right-image');
+	let showingRight;
+	const toggle = function () {
 
-			// Show left
-			if (showingRight) {
-				$rightImage.hide();
-				$leftImage.show();
-				// $button.html('Showing left. Click to show right');
-				document.getElementById('preview-candidate').classList.remove('active');
-				document.getElementById('preview-reference').classList.add('active');
-				showingRight = false;
-			} else {
-				$rightImage.show();
-				$leftImage.hide();
-				// $button.html('Showing right. Click to show left.');
+		// Show left
+		if (showingRight) {
+			rightImageEl.style.display = 'none';
+			leftImageEl.style.display = 'block';
+			document.getElementById('preview-candidate').classList.remove('active');
+			document.getElementById('preview-reference').classList.add('active');
+			showingRight = false;
+		} else {
+			rightImageEl.style.display = 'block';
+			leftImageEl.style.display = 'none';
 
-				document.getElementById('preview-reference').classList.remove('active');
-				document.getElementById('preview-candidate').classList.add('active');
-				showingRight = true;
-			}
-		};
-	$('#preview', document).css({
-		width: chartWidth
-	});
+			document.getElementById('preview-reference').classList.remove('active');
+			document.getElementById('preview-candidate').classList.add('active');
+			showingRight = true;
+		}
+	};
+	const previewDiv = document.getElementById('preview');
+	if (previewDiv) {
+		previewDiv.style.width = chartWidth + 'px';
+	}
 
-	// Initialize
-	/*
-	$('#preview', document).css({
-		height: $('#preview', document).height()
-	});
-	*/
+	rightImageEl.style.left = '0';
+	rightImageEl.style.position = 'absolute';
 
-	$rightImage
-		.css({
-			left: 0,
-			position: 'absolute'
-		});
+	leftImageEl.style.display = 'none';
+	leftImageEl.style.position = 'absolute';
 
-	$leftImage.hide().css('position', 'absolute');
-
-
-	//$button.html('Showing right. Click to show left');
-	$previewWhat.html('Candidate');
+	if (previewWhatSpan) {
+		previewWhatSpan.textContent = 'Candidate';
+	}
 	showingRight = true;
 
-	/*$button
-		.css('display', '')
-		.click(toggle);*/
-
-	var interval = setInterval(toggle, 1000);
+	let interval = setInterval(toggle, 1000);
 	function manualToggle() {
 		clearInterval(interval);
 		toggle();
 	}
-	$leftImage.click(manualToggle);
-	$rightImage.click(manualToggle);
-	document.querySelector('.preview-tabs')
-		.addEventListener('click', manualToggle);
-
+	leftImageEl.addEventListener('click', manualToggle);
+	rightImageEl.addEventListener('click', manualToggle);
+	const previewTabs = document.querySelector('.preview-tabs');
+	if (previewTabs) {
+		previewTabs.addEventListener('click', manualToggle);
+	}
 }
 
 var report = '';
@@ -624,16 +626,14 @@ function onBothLoad() {
 					}
 				}
 
-				$('#preview canvas', document)
-					.attr({
-						width: chartWidth,
-						height: chartHeight
-					})
-					.css({
-						width: chartWidth + 'px',
-						height: chartHeight + 'px',
-						display: ''
-					});
+				const previewCanvas = document.querySelector('#preview canvas');
+				if (previewCanvas) {
+					previewCanvas.width = chartWidth;
+					previewCanvas.height = chartHeight;
+					previewCanvas.style.width = chartWidth + 'px';
+					previewCanvas.style.height = chartHeight + 'px';
+					previewCanvas.style.display = '';
+				}
 
 				// start converting
 				if (/Trident\/|MSIE /.test(navigator.userAgent)) {
@@ -693,8 +693,8 @@ function onBothLoad() {
 			// switch to image mode
 			leftSVG = rightSVG = undefined;
 			mode = 'images';
-			$("#iframe-left", document)[0].contentWindow.compareSVG();
-			$("#iframe-right", document)[0].contentWindow.compareSVG();
+			document.getElementById("iframe-left").contentWindow.compareSVG();
+			document.getElementById("iframe-right").contentWindow.compareSVG();
 		}
 	}
 
@@ -706,9 +706,15 @@ function onBothLoad() {
 				prettifyXml(leftSVG),
 				prettifyXml(rightSVG)
 			);
-			$("#svg", document).html('<h4 style="margin:0 auto 1em 0">Generated SVG</h4>' + wash(out));
+			const svgDiv = document.getElementById('svg');
+			if (svgDiv) {
+				svgDiv.innerHTML = '<h4 style="margin:0 auto 1em 0">Generated SVG</h4>' + wash(out);
+			}
 		} catch (e) {
-			$("#svg", document).html(previewSVG || 'Error diffing SVG');
+			const svgDiv = document.getElementById('svg');
+			if (svgDiv) {
+				svgDiv.innerHTML = previewSVG || 'Error diffing SVG';
+			}
 		}
 	}
 

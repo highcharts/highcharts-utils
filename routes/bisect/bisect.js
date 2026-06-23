@@ -94,10 +94,7 @@ router.get('/', async (req, res, next) => {
 	};
 
 	let tpl = {
-		scripts: [
-			'/javascripts/vendor/jquery-1.11.1.js'
-		],
-  		good: req.session.good,
+		good: req.session.good,
   		bad: req.session.bad,
   		automaticChecked: req.session.automatic !== false ? 'checked' : ''
   	};

@@ -4,72 +4,93 @@
 	var highchartsDir = '{{highchartsDir}}';
 
 	/* eslint-disable */
-	var $ = parent.window.$;
 	var controller = parent.window.controller;
 	var diffThreshold = 0;
 
 	function countFails() {
-		$('#count-fails', document).html(
-			'(' + ($('#main-nav li', document).length -
-			$('#main-nav li.identical, #main-nav li.approved', document).length) + ')');
+		const countFails = document.getElementById('count-fails');
+		if (countFails) {
+			const totalLis = document.querySelectorAll('#main-nav li').length;
+			const passedLis = document.querySelectorAll('#main-nav li.identical, #main-nav li.approved').length;
+			countFails.textContent = '(' + (totalLis - passedLis) + ')';
+		}
 	}
 
-	$(window).load(function () {
+	window.addEventListener('load', function () {
 
-		$(window).bind('keydown', parent.keyDown);
+		window.addEventListener('keydown', parent.keyDown);
 
 		// On clicking anywhere but the batch-compare button
-		$(window).bind('click', function (e) {
+		window.addEventListener('click', function (e) {
 			controller.stopBatch();
 			controller.toggleBisect(false);
 		});
 
-		$("#batch-compare", document).click(function (e) {
-			e.stopPropagation();
-			controller.runBatch();
-		});
-		$("#batch-stop", document).click(controller.stopBatch);
+		const batchCompareBtn = document.getElementById('batch-compare');
+		if (batchCompareBtn) {
+			batchCompareBtn.addEventListener('click', function (e) {
+				e.stopPropagation();
+				controller.runBatch();
+			});
+		}
 
-		$('#reset', document).click(function () {
-			if (
-				confirm(
-					'Do you want to reset the compare history?\n' +
-					'Results from all browsers will be lost.\n\n' +
-					'You may also have to restart the node server to clear cache.'
-				)
-			) {
-				Object.keys(controller.compare).forEach(function (key) {
-					delete controller.compare[key];
-				});
-				$.getScript('/samples/compare-reset');
-			}
-		});
+		const batchStopBtn = document.getElementById('batch-stop');
+		if (batchStopBtn) {
+			batchStopBtn.addEventListener('click', controller.stopBatch);
+		}
 
-		$('#reload', document).click(function () {
-			window.location.reload();
-		});
+		const resetBtn = document.getElementById('reset');
+		if (resetBtn) {
+			resetBtn.addEventListener('click', function () {
+				if (
+					confirm(
+						'Do you want to reset the compare history?\n' +
+						'Results from all browsers will be lost.\n\n' +
+						'You may also have to restart the node server to clear cache.'
+					)
+				) {
+					Object.keys(controller.compare).forEach(function (key) {
+						delete controller.compare[key];
+					});
+					// Load fresh compare reset data
+					fetch('/samples/compare-reset');
+				}
+			});
+		}
+
+		const reloadBtn = document.getElementById('reload');
+		if (reloadBtn) {
+			reloadBtn.addEventListener('click', function () {
+				window.location.reload();
+			});
+		}
 
 		var fails = 0;
-		$('#fails-only', document).click(function () {
+		const failsOnlyBtn = document.getElementById('fails-only');
+		if (failsOnlyBtn) {
+			failsOnlyBtn.addEventListener('click', function () {
 
-			fails = (fails + 1) % 3;
-			if (fails === 1) { // Hide passed tests
-				$('#filtered', document).css('display', 'block');
-				$('#main-nav h2, #main-nav h4, #main-nav li.identical, #main-nav li.approved', document).css('display', 'none');
+				fails = (fails + 1) % 3;
+				const filtered = document.getElementById('filtered');
+				const navItems = document.querySelectorAll('#main-nav h2, #main-nav h4, #main-nav li.identical, #main-nav li.approved, #main-nav li.manual, #main-nav li');
 
-			} else if (fails === 2) { // Hide manual tests
-				$('#main-nav li.manual', document).css('display', 'none');
+				if (fails === 1) { // Hide passed tests
+					if (filtered) filtered.style.display = 'block';
+					document.querySelectorAll('#main-nav h2, #main-nav h4, #main-nav li.identical, #main-nav li.approved').forEach(el => el.style.display = 'none');
 
-			} else if (fails === 0) { // Reset
-				$('#filtered', document).css('display', 'none');
-				$('#main-nav li', document).css('display', '');
-			}
+				} else if (fails === 2) { // Hide manual tests
+					document.querySelectorAll('#main-nav li.manual').forEach(el => el.style.display = 'none');
 
+				} else if (fails === 0) { // Reset
+					if (filtered) filtered.style.display = 'none';
+					document.querySelectorAll('#main-nav li').forEach(el => el.style.display = '');
+				}
+			});
+		}
 
-		});
-
-		$('a.button', document).each(function () {
-			$(this).click(function () {
+		const buttons = document.querySelectorAll('a.button');
+		buttons.forEach(function (btn) {
+			btn.addEventListener('click', function () {
 
 				var route = this.href.split('/samples/')[1];
 				if (route) {
@@ -78,18 +99,26 @@
 			});
 		});
 
-		$('#product-jump', document).change(function (e) {
-			document
-				.getElementById(e.target.value)
-				.scrollIntoView({ behavior: 'smooth' });
-
-		});
+		const productJump = document.getElementById('product-jump');
+		if (productJump) {
+			productJump.addEventListener('change', function (e) {
+				const target = document.getElementById(e.target.value);
+				if (target) {
+					target.scrollIntoView({ behavior: 'smooth' });
+				}
+			});
+		}
 
 		// Jump to top
-		$('#to-top a', document).click(() => {
-			document.getElementById('main-nav')
-				.scrollTo({ top: 0, behavior: 'smooth' });
-		});
+		const toTopLink = document.querySelector('#to-top a');
+		if (toTopLink) {
+			toTopLink.addEventListener('click', () => {
+				const mainNav = document.getElementById('main-nav');
+				if (mainNav) {
+					mainNav.scrollTo({ top: 0, behavior: 'smooth' });
+				}
+			});
+		}
 
 		// Set compare mode
 		/*

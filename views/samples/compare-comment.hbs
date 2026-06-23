@@ -50,20 +50,26 @@ var controller = window.parent && window.parent.controller;
 var query = controller.getQueryParameters(document);
 var path = query.path;
 var sample = controller.samples[path];
-var $ = window.parent.$;
-$(window).load(function () {
+
+window.addEventListener('load', function () {
 
 	sample.setCurrent();
 
-	$('#submit-actual', document).click(function () {
-		$('#diff', document).attr(
-			'value',
-			$(this).data('diff')
-		);
-	});
+	const submitActual = document.getElementById('submit-actual');
+	if (submitActual) {
+		submitActual.addEventListener('click', function () {
+			const diffField = document.getElementById('diff');
+			if (diffField) {
+				diffField.setAttribute('value', this.dataset.diff);
+			}
+		});
+	}
 
 	if (query.focus !== 'false') {
-		$('#title', document)[0].focus();
+		const titleField = document.getElementById('title');
+		if (titleField) {
+			titleField.focus();
+		}
 	}
 
 	document.getElementsByTagName('form')[0].onsubmit = function submit() {
@@ -83,7 +89,7 @@ $(window).load(function () {
 	};
 
 	if (window.parent && window.parent.parent) {
-		$(window).bind('keydown', window.parent.parent.keyDown);
+		window.addEventListener('keydown', window.parent.parent.keyDown);
 	}
 });
 
