@@ -5,7 +5,7 @@
 import express from 'express';
 import * as f from './../../lib/functions.js';
 import fs from 'fs';
-import { highchartsDir } from './../../lib/arguments.js';
+import { getHighchartsDir } from './../../lib/arguments.js';
 import ip from 'ip';
 import { getTestTemplate } from './compare-iframe.js';
 import { join } from 'path';
@@ -28,7 +28,7 @@ const saveFiles = async (req) => {
 
     if (typeof fileName === 'string') {
         const filePath = join(
-            highchartsDir,
+            getHighchartsDir(),
             'samples',
             req.query.path.replace(/^samples\//, ''),
             fileName
@@ -42,7 +42,7 @@ const saveFiles = async (req) => {
 }
 
 const saveAsPath = async (req) => {
-    const root = join(highchartsDir, 'samples'),
+    const root = join(getHighchartsDir(), 'samples'),
         path = req.body['save-as-path'],
         fullPath = join(root, path),
         fileNames = Object.keys(req.body)
@@ -133,7 +133,7 @@ const handler = async (req, res) => {
         css: f.getCSS(req, codePath),
         js,
         es6Context,
-        highchartsDir,
+        highchartsDir: getHighchartsDir(),
         mainFilename: f.getMainFilename(req),
         preJS: req.session.preJS,
         consoleClear: true,

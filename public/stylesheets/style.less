@@ -126,13 +126,33 @@ a {
 }
 
 
-#version {
+#version-area {
 	position: absolute;
 	right: 3rem;
-	color: silver;
-	font-size: 0.6rem;
+	display: flex;
+	align-items: center;
+	gap: 0.5em;
 	line-height: 2.4rem;
 	padding-right: 1em;
+}
+#version {
+	color: silver;
+	font-size: 0.6rem;
+	white-space: nowrap;
+}
+#worktree-select {
+	font-size: 0.7rem;
+	padding: 1px 4px;
+	background: #444;
+	color: silver;
+	border: 1px solid #555;
+	border-radius: 3px;
+	cursor: pointer;
+	max-width: 200px;
+}
+#worktree-select:hover {
+	background: #555;
+	color: white;
 }
 #main-content {
 	float: right;
@@ -530,4 +550,3 @@ body.highcharts-light {
 		display: none;
 	}
 }
-

@@ -13,7 +13,7 @@ import {
   codePort,
   codeSecurePort,
   crtFile,
-  highchartsDir,
+  getHighchartsDir,
   localOnly,
   pemFile,
   proxy as useProxy,
@@ -48,7 +48,7 @@ const log = () => {
     - http://${ipAddress}:${apiPort}
 
   Proxy SSL enabled: ${sslEnabled}
-  Highcharts folder: ${path.relative(process.cwd(), highchartsDir)}
+  Highcharts folder: ${path.relative(process.cwd(), getHighchartsDir())}
 
   Run --help to list parameters
 
@@ -66,9 +66,9 @@ const httpsOptions = {
 };
 
 
-const hcPackage = f.getLocalJSON(path.join(highchartsDir, 'package.json'));
+const hcPackage = f.getLocalJSON(path.join(getHighchartsDir(), 'package.json'));
 
-if (hcPackage.name !== 'highcharts') {
+if (!hcPackage || hcPackage.name !== 'highcharts') {
   throw new Error(`
     Highcharts repo not found, please set "highchartsDir" in config.json or through CLI arguments.
   `);
@@ -216,5 +216,3 @@ if (useProxy) {
 } else {
   log();
 }
-
-

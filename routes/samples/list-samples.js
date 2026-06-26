@@ -3,7 +3,7 @@ import express from 'express';
 import * as f from './../../lib/functions.js';
 import fs from 'fs';
 import { join, relative, sep } from 'path';
-import { samplesDir } from '../../lib/arguments.js';
+import { getSamplesDir } from '../../lib/arguments.js';
 
 
 const router = express.Router();
@@ -27,7 +27,7 @@ const getSample = (path) => {
 	[
 		'demo.ts'
 	].forEach(extraFile => {
-		let filePath = join(samplesDir, path, extraFile);
+		let filePath = join(getSamplesDir(), path, extraFile);
 		if (fs.existsSync(filePath)) {
 			sample.files[extraFile] = true;
 		}
@@ -55,7 +55,7 @@ const orderLikeDemoPages = async (samples) => {
 	};
 
 	const demoConfig = await import(
-		'file:///' + join(samplesDir, 'demo-config.js')
+		'file:///' + join(getSamplesDir(), 'demo-config.js')
 	);
 
 	const demos = [];
@@ -206,7 +206,7 @@ const getSamples = async () => {
 		'grid-lite',
 		'grid-pro'
 	]) {
-		const groupDir = join(samplesDir, group);
+		const groupDir = join(getSamplesDir(), group);
 		if (fs.existsSync(groupDir) && fs.lstatSync(groupDir).isDirectory()) {
 			const subgroups = fs.readdirSync(groupDir);
 
@@ -228,7 +228,7 @@ const getSamples = async () => {
 								fs.existsSync(join(path, 'config.ts'))
 							)
 						) {
-							const relativePath = relative(samplesDir, path)
+							const relativePath = relative(getSamplesDir(), path)
 								.split(sep).join('/');
 
 							samples.push(getSample(relativePath));

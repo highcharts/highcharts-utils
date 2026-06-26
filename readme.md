@@ -51,6 +51,33 @@ folder in your highcharts repository. The folder `/code` is created by running
 `gulp` in the root folder of the Highcharts repo. See [config.json](config.json)
 for pointing to the location of your cloned Highcharts repo.
 
+### Worktree support
+
+Utils can switch between Highcharts Git worktrees at runtime from the sample
+page top bar (`🌲` selector).
+
+How it works:
+
+- `highchartsDir` in [config.json](config.json) remains the default base repo.
+- Available entries come from `git worktree list` for `highchartsDir`.
+- The selected worktree is stored in `temp/config-user.json` as `worktreeDir`.
+- Runtime paths (samples, API and compile-on-demand) are resolved dynamically
+  from the active directory.
+- Worktree selection is constrained to the parent scope of `highchartsDir`
+  (sibling worktrees), and invalid selections are rejected.
+
+Notes:
+
+- `/api/worktree` can include stale entries with `isValid: false`; the UI hides
+  those entries and `/api/worktree/select` rejects them.
+- If no valid alternative worktree is available, the worktree selector is hidden.
+- If `worktreeDir` is missing, invalid, or out of allowed scope, utils falls
+  back to `highchartsDir`.
+- When a previously selected worktree path no longer exists, `worktreeDir` is
+  cleared from `temp/config-user.json`.
+- File watchers are reinitialized on explicit worktree switch
+  (`/api/worktree/select`).
+
 ## Optional: Using with HTTPS
 
 Enabling HTTPS makes it easier to test things on 3rd party pages that use SSL.
