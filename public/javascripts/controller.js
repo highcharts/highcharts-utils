@@ -531,7 +531,7 @@ var controller = { // eslint-disable-line no-unused-vars
         var contentsDoc = controller.frames().contents.contentDocument;
         controller.continueBatch = true;
         contentsDoc.getElementById('batch-compare').style.display = 'none';
-        contentsDoc.getElementById('batch-stop').style.display = '';
+        contentsDoc.getElementById('batch-stop').style.display = 'inline-block';
         controller.docTitle();
     },
 
@@ -629,7 +629,7 @@ var controller = { // eslint-disable-line no-unused-vars
         controller.continueBatch = false;
         controller.docTitle();
         contentsDoc.getElementById('batch-stop').style.display = 'none';
-        contentsDoc.getElementById('batch-compare').style.display = '';
+        contentsDoc.getElementById('batch-compare').style.display = 'inline-block';
     },
 
     rewriteJSONPath: function(url) {
