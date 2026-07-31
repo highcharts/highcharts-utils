@@ -5,12 +5,13 @@ import * as f from '../../lib/functions.js';
 
 const router = express.Router();
 
-router.get('/', function(req, res) {
+router.post('/', function(req, res) {
 	try {
+		const config = req.body || {};
 		let filepath = path.join(
 			f.dirname(import.meta),
 			'../../temp/compare.' +	f.getBranch().replace('/', '-') + '.' +
-			req.query.browser + '.json'
+			config.browser + '.json'
 		);
 		let json = {};
 		let fileExisted = false;
@@ -20,7 +21,7 @@ router.get('/', function(req, res) {
 			fileExisted = true;
 		}
 
-		json[req.query.path] = req.query.compare;
+		json[config.path] = config.compare;
 
 		fs.writeFileSync(
 			filepath,
@@ -34,7 +35,7 @@ router.get('/', function(req, res) {
 
 		res.status(204).send();
 
-	} catch (e) {
+	} catch (e) {
 		res.status(500).send('Error in compare-update-report.js. ' + e);
 	}
 });

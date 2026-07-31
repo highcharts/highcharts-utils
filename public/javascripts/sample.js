@@ -372,8 +372,13 @@ controller.Sample = function (options, index) {
             browser: controller.getBrowser().toLowerCase(),
             compare: options.compare
         };
-        const params = new URLSearchParams(config);
-        fetch('/samples/compare-update-report?' + params.toString());
+        fetch('/samples/compare-update-report', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(config)
+        });
     }
 
     function setOptions(newOptions) {
