@@ -683,7 +683,9 @@ var controller = { // eslint-disable-line no-unused-vars
     },
 
     fetch: async function(url) {
-        return await this.fetchNative(controller.rewriteJSONPath(url));
+        return await this.fetchNative(controller.rewriteJSONPath(url), {
+            method: 'GET' // Because compare-iframe also overrides fetch and sets POST as default
+        });
     },
 
     activateSearch: function () {

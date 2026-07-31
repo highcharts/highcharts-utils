@@ -486,13 +486,16 @@ function onBothLoad() {
 				//		- callback: function to call after conversion
 				//
 				function convert(source, target, callback, which) {
-					var context = document.getElementById(target).getContext('2d'),
+					var canvas = document.getElementById(target),
+						context = canvas.getContext('2d'),
 						image = new Image(),
 						data;
 
 					// This is fired after the image has been created
 					image.onload = function() {
 						try {
+							canvas.width = canvasWidth;
+							canvas.height = canvasHeight;
 							context.drawImage(image, 0, 0, canvasWidth, canvasHeight);
 							data = context.getImageData(0, 0, canvasWidth, canvasHeight);
 							callback(data);

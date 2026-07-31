@@ -12,7 +12,8 @@ const getSavedCompare = (req) => {
 
 	if (fs.existsSync(filepath)) {
 		const allCompare = f.getLocalJSON(filepath);
-		compare = allCompare[req.query.path] || {};
+		compare = typeof allCompare[req.query.path] === 'object' ?
+			allCompare[req.query.path] : {};
 
 		compare.titleDataList = [...new Set(
 			Object.values(allCompare)
