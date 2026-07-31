@@ -230,11 +230,16 @@ function getSVG(chart) {
 				'text, tspan { fill: black; fill-opacity: 1; stroke: none; } ';
 
 			if (cssRule) {
-				cssText = [].map.call(cssRule.styleSheet.cssRules, function (innerCSSRule) {
-					return innerCSSRule.cssText;
-				})
-				.join('\n')
-				.replace('.highcharts-container', '.highcharts-root');
+				const rules = [].map.call(
+					cssRule.styleSheet.cssRules, (innerCSSRule) =>
+						// Remove ampersands as they cause failure when painting
+						// to canvas
+						innerCSSRule.cssText.replace(/&/g, '')
+				);
+
+				cssText = rules
+					.join('\n\n')
+					.replace('.highcharts-container', '.highcharts-root');
 			}
 
             svg = svg.replace(
@@ -256,7 +261,6 @@ function getSVG(chart) {
 }
 
 window.compareSVG = function () {
-	console.log('@compareSVG', which)
 	window.parent.onLoadTest(which, getSVG(chart));
 }
 
