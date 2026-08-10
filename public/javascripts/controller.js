@@ -635,6 +635,9 @@ var controller = { // eslint-disable-line no-unused-vars
     rewriteJSONPath: function(url) {
         var match;
 
+        if (typeof url === 'object') {
+            url = url.href;
+        }
 
         match = url.match(
             /https:\/\/www\.highcharts\.com\/samples\/data\/(.+)\.json/
@@ -683,9 +686,7 @@ var controller = { // eslint-disable-line no-unused-vars
     },
 
     fetch: async function(url) {
-        return await this.fetchNative(controller.rewriteJSONPath(url), {
-            method: 'GET' // Because compare-iframe also overrides fetch and sets POST as default
-        });
+        return await this.fetchNative(controller.rewriteJSONPath(url));
     },
 
     activateSearch: function () {

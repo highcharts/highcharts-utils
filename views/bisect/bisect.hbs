@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', function () {
 	if (isComparing) {
 		document.body.className = 'compare';
 
-		$('#close').click(function () {
+		document.getElementById('close').addEventListener('click', function () {
 			window.parent.parent.controller.toggleBisect();
 		});
 	}

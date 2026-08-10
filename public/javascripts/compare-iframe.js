@@ -306,6 +306,7 @@ window.setUpHighcharts = function () {
 	}
 
 	// Make sure getJSON content is not cached
+	/*
 	if (window.fetch && !window.fetchInit) {
 		window.fetchInit = true;
 		window.originalFetch = window.fetch;
@@ -316,6 +317,7 @@ window.setUpHighcharts = function () {
 			return window.originalFetch.call(window, url, options);
 		};
 	}
+	*/
 
 	if (window.Highcharts) {
 		if (window.demoError) {
