@@ -163,7 +163,7 @@ const handler = async (req, res) => {
 
     if (isUnitTest) {
         req.query.which = 'right';
-        Object.assign(tpl, getTestTemplate(req));
+        Object.assign(tpl, await getTestTemplate(req));
     }
     tpl.scripts.push('/javascripts/nav.js');
     tpl.styles = [
