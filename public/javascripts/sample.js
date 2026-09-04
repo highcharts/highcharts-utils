@@ -143,16 +143,16 @@ controller.Sample = function (options, index) {
         iconDiv.appendChild(anchor);
     }
 
-    function addNightlyAnchor() {
-        var icon = '<i class="fa fa-moon-o" title="Nightly test"></i>';
+    // function addNightlyAnchor() {
+    //     var icon = '<i class="fa fa-moon-o" title="Nightly test"></i>';
 
-        var anchor = contentsDoc.createElement('a');
-        anchor.className = 'nightly-single';
-        anchor.target = 'main';
-        anchor.href = '/samples/nightly/single?path=' + options.path;
-        anchor.innerHTML = icon;
-        iconDiv.appendChild(anchor);
-    }
+    //     var anchor = contentsDoc.createElement('a');
+    //     anchor.className = 'nightly-single';
+    //     anchor.target = 'main';
+    //     anchor.href = '/samples/nightly/single?path=' + options.path;
+    //     anchor.innerHTML = icon;
+    //     iconDiv.appendChild(anchor);
+    // }
 
     function addCommentAnchor() {
         if (options.isDuplicate) {
@@ -314,15 +314,39 @@ controller.Sample = function (options, index) {
             }
         }
 
+        // Is it config driven?
+        if (options.files['config.ts']) {
+            const icon = document.createElement('i');
+            icon.className = 'fa fa-toggle-on';
+            icon.style.marginRight = '1em';
+            icon.style.opacity = 0.4;
+            icon.style.verticalAlign = 'top';
+            icon.style.marginTop = '0.4em';
+            icon.title = 'Config and TypeScript-driven demo';
+            iconDiv.appendChild(icon);
+        } else if (options.files['demo.ts']) {
+            const icon = document.createElement('span');
+            icon.style.marginRight = '1em';
+            icon.style.opacity = 0.4;
+            icon.style.verticalAlign = 'top';
+            icon.style.display = 'inline-block';
+            icon.style.marginTop = '0.6em';
+            icon.style.fontWeight = 'bold';
+            icon.style.fontSize = '0.8em';
+            icon.title = 'TypeScript demo';
+            icon.innerText = 'TS';
+            iconDiv.appendChild(icon);
+        }
+
         // Add comment anchor
         addCommentAnchor();
 
         addStandaloneAnchor();
 
         // Render nightly anchor
-        if (!isUnitTest()) {
-            addNightlyAnchor();
-        }
+        // if (!isUnitTest()) {
+        //     addNightlyAnchor();
+        // }
 
         // Render test anchor
         addTestAnchor();

@@ -25,6 +25,7 @@ const getSample = (path) => {
 
 	// Get extra files
 	[
+		'config.ts',
 		'demo.ts'
 	].forEach(extraFile => {
 		let filePath = join(samplesDir, path, extraFile);
