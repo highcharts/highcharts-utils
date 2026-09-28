@@ -187,11 +187,13 @@ if (useProxy) {
         // Add domains to hosts file
         domains.forEach(domain => {
           hostile.set('127.0.0.1', domain);
+          hostile.set('::1', domain);
         });
         // Remove domains from hosts file on exit
         exitHook(callback => {
           domains.forEach(domain => {
             hostile.remove('127.0.0.1', domain);
+            hostile.remove('::1', domain);
           });
           callback();
         });
