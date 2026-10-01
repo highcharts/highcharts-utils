@@ -1,10 +1,10 @@
 window.addEventListener('bodyload', function () {
 	if (
 		window.parent === window &&
-		window.location.href.indexOf('mobile=true') === -1 &&
-		localStorage.getItem('show-chrome') !== 'true'
+		window.location.href.indexOf('mobile=true') === -1 /*&&
+		localStorage.getItem('show-chrome') !== 'true'*/
 	) {
-		document.body.classList.add('topframe');
+		document.body.classList.add('standalone-page');
 	}
 
 	if (localStorage.getItem('mobile-preview')) {
@@ -18,19 +18,6 @@ window.addEventListener('bodyload', function () {
 
 /* global controller, Highcharts */
 window.addEventListener('load', function () {
-
-	document.querySelector('.top-bar .burger').addEventListener(
-		'click',
-		function() {
-			if (document.body.classList.contains('topframe')) {
-				document.body.classList.remove('topframe');
-				localStorage.setItem('show-chrome', 'true');
-			} else {
-				document.body.classList.add('topframe');
-				localStorage.removeItem('show-chrome');
-			}
-		}
-	);
 
 	for (const dropdown of document.querySelectorAll('.dropdown')) {
 		const anchor = document.getElementById(dropdown.dataset.anchor);

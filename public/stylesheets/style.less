@@ -66,11 +66,12 @@ a {
 .top-bar .sample-name {
 	margin: 0;
 }
+/*
 .top-bar .burger {
 	position: absolute;
 	right: 0.5rem;
 }
-
+*/
 #quick-settings {
     border-top: 1px solid #373648;
     margin: 0.5em 1em;
@@ -115,16 +116,30 @@ a {
 	border: none;
 }
 
-.topframe .topframe-hidden {
-	height: 0;
-	overflow-y: hidden;
-	transition: height 250ms;
-	padding: 0 5px;
-}
-.topframe .top-bar:hover .topframe-hidden {
-	height: 4em;
+.standalone-page .top-bar {
+	background: #141414;
 }
 
+.standalone-page .top-bar h2 {
+	display: inline-block;
+}
+
+.standalone-page .top-bar-menu {
+	display: inline-block;
+	white-space: nowrap;
+	padding: 2px 2px 2px 10px;
+}
+
+.standalone-page .top-bar-menu #reload,
+.standalone-page .top-bar-menu #next,
+.standalone-page .top-bar-menu #compare-button,
+.standalone-page .top-bar-menu #bisect {
+	display: none;
+}
+
+.standalone-page .bottom-bar {
+	display: none;
+}
 
 #version {
 	position: absolute;
