@@ -1,6 +1,6 @@
 import express from 'express';
 import * as f from './../../lib/functions.js';
-import { highchartsDir } from './../../lib/arguments.js';
+import { getHighchartsDir } from './../../lib/arguments.js';
 
 const router = express.Router();
 
@@ -17,7 +17,7 @@ router.get('/', async function(req, res) {
 		bodyClass: `highcharts-${colorScheme}`,
 		compareClass: 'active',
 		consoleClear: true,
-		highchartsDir,
+		highchartsDir: getHighchartsDir(),
 		mainFilename: f.getMainFilename(req),
 		styles: [
 			'/stylesheets/vendor/font-awesome-4.7.0/css/font-awesome.css'

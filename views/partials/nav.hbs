@@ -1,6 +1,12 @@
 <div class="top-bar">
 
-    <div id="version"></div>
+    <div id="version-area">
+        <label for="worktree-select" class="worktree-label">🌲</label>
+        <select id="worktree-select" class="worktree-select" title="Switch worktree">
+            <option value="">Loading worktrees…</option>
+        </select>
+        <span id="version"></span>
+    </div>
 
     <h2 class="sample-name">{{path}}</h2>
 

@@ -12,7 +12,7 @@ import cors from 'cors';
 import lessMiddleware from 'less-middleware';
 import hbs from 'hbs';
 import session from 'express-session';
-import { highchartsDir } from './lib/arguments.js';
+import { getHighchartsDir } from './lib/arguments.js';
 import { dirname, posix } from './lib/functions.js';
 
 import dotenv from 'dotenv';
@@ -60,13 +60,16 @@ app.use('/connectors-morningstar', express.static(
   path.join(__dirname, 'node_modules', '@highcharts', 'connectors-morningstar'),
   { maxAge: '10m' }
 ));
-app.use('/highcharts-controls/', express.static(
-  // Note: No posix here, it failed on the Mac
-  path.join(highchartsDir, '../highcharts-controls/')
-));
-app.use('/samples/graphics', express.static(
-  posix(path.join(highchartsDir, 'samples/graphics'))
-));
+app.use('/highcharts-controls/', (req, res, next) => {
+  express.static(
+    path.join(getHighchartsDir(), '../highcharts-controls/')
+  )(req, res, next);
+});
+app.use('/samples/graphics', (req, res, next) => {
+  express.static(
+    posix(path.join(getHighchartsDir(), 'samples/graphics'))
+  )(req, res, next);
+});
 
 app.use(session({
   secret: 'keyboard cat',
@@ -110,6 +113,7 @@ app.use('/samples/compare-update-report', (await import('./routes/samples/compar
 app.use('/samples/compare-report', (await import('./routes/samples/compare-report.js')).default);
 app.use('/samples/compare-reset', (await import('./routes/samples/compare-reset.js')).default);
 app.use('/samples/compare-view', (await import('./routes/samples/compare-view.js')).default);
+app.use('/api/worktree', (await import('./routes/worktree.js')).default);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

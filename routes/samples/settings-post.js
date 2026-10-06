@@ -2,6 +2,7 @@ import express from 'express';
 import { promises as fs } from 'fs';
 import { join } from 'path';
 import config from '../../config.json' with { type: 'json' };
+import { invalidateSettingsCache } from '../../lib/arguments.js';
 import * as f from '../../lib/functions.js';
 
 const router = express.Router();
@@ -50,6 +51,8 @@ router.post('/', async (req, res) => {
 		res.render('error', { error });
 		return;
 	}
+
+	invalidateSettingsCache();
 
 	req.session.preJS = req.body.preJS;
 	res.redirect(req.header('Referer'));
