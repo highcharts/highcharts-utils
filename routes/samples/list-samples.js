@@ -197,6 +197,7 @@ const getSamples = async () => {
 
 	for (const group of [
 		'highcharts',
+		'react',
 		'stock',
 		'maps',
 		'gantt',
@@ -223,16 +224,13 @@ const getSamples = async () => {
 					fs.readdirSync(subgroupDir).forEach(sample => {
 						let path = join(subgroupDir, sample);
 						if (
-							fs.lstatSync(path).isDirectory() &&
-							(
-								fs.existsSync(join(path, 'demo.html')) ||
-								fs.existsSync(join(path, 'config.ts'))
-							)
+							fs.lstatSync(path).isDirectory()
 						) {
 							const relativePath = relative(samplesDir, path)
 								.split(sep).join('/');
-
-							samples.push(getSample(relativePath));
+							if (f.getSampleEntryInfo(relativePath).canView) {
+								samples.push(getSample(relativePath));
+							}
 						}
 					});
 				}
