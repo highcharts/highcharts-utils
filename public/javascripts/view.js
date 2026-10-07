@@ -101,11 +101,6 @@ window.setUp = function () {
 				// Avoid versioning
 				// libURL: 'https://code.highcharts.com/lib'
 				libURL: '/code/lib'
-			},
-			stockTools: {
-				gui: {
-					iconsURL: '/code/gfx/stock-icons/'
-				}
 			}
 		});
 
