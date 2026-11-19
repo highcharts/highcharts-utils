@@ -12,6 +12,7 @@ import cors from 'cors';
 import lessMiddleware from 'less-middleware';
 import hbs from 'hbs';
 import session from 'express-session';
+import { fileURLToPath } from 'node:url';
 import { highchartsDir } from './lib/arguments.js';
 import { dirname, posix } from './lib/functions.js';
 
@@ -45,15 +46,15 @@ app.use('/temp', express.static( // non-cached temporary json files
   path.join(__dirname, 'temp')
 ));
 app.use('/reference', express.static(
-  posix(path.dirname(
+  posix(path.dirname(fileURLToPath(
     import.meta.resolve('highcharts/package.json')
-  )).replace(/^file:\/\/(?:\/\w:)?/gsu, ''),
+  ))).replace(/^file:\/\/(?:\/\w:)?/gsu, ''),
   { maxAge: '10m' }
 ));
 app.use('/mapdata', express.static(
-  posix(path.dirname(
+  posix(path.dirname(fileURLToPath(
     import.meta.resolve('@highcharts/map-collection/package.json')
-  )).replace(/^file:\/\/(?:\/\w:)?/gsu, ''),
+  ))).replace(/^file:\/\/(?:\/\w:)?/gsu, ''),
   { maxAge: '10m' }
 ));
 app.use('/connectors-morningstar', express.static(
