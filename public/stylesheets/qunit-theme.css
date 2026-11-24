@@ -1,0 +1,92 @@
+/* Follow the viewer's light, dark, and system color settings. */
+#qunit {
+    background-color: var(--card-background);
+    color: var(--text-color);
+    --q-fail-text: light-dark(#710909, #f28a8a);
+    --qunit-muted-assertion-color: light-dark(#366097, #a6c7e5);
+}
+
+#qunit-header {
+    display: none;
+}
+
+#qunit-toolbar,
+#qunit-modulefilter-dropdown,
+.qunit-test.skipped {
+    background-color: light-dark(#eee, #2a2a2a);
+    color: var(--text-color);
+}
+
+#qunit-toolbar,
+#qunit-testresult {
+    border-color: light-dark(#fff, #3a3f42);
+}
+
+#qunit-testresult a,
+.qunit-test a,
+.qunit-test a:hover,
+.qunit-test a:focus {
+    color: var(--link-color);
+}
+
+#qunit-filteredTest,
+#qunit-modulefilter-dropdown .clickable.checked,
+#qunit-modulefilter-dropdown .clickable:hover,
+.qunit-test.pass {
+    background-color: light-dark(#e2f0f7, #233743);
+    color: var(--text-color);
+}
+
+.qunit-test.fail {
+    color: var(--text-color);
+}
+
+.qunit-test.fail a {
+    color: light-dark(#00265f, #bbe5ff);
+}
+
+.qunit-test .counts {
+    color: var(--text-color);
+}
+
+.qunit-assert-list {
+    background-color: var(--card-background);
+    color: var(--text-color);
+}
+
+.qunit-test.pass .test-name,
+.qunit-assert-list .pass,
+.qunit-test .passed {
+    color: light-dark(#375a2a, #b6c79f);
+}
+
+.qunit-test .failed,
+.qunit-assert-list .fail {
+    color: var(--q-fail-text);
+}
+
+.qunit-test.fail .counts :is(.passed, .failed) {
+    color: inherit;
+}
+
+.qunit-test.pass .qunit-assert-list .fail,
+.qunit-test.pass .qunit-assert-list .fail .test-actual,
+.qunit-test.pass .qunit-assert-list .fail .test-expected,
+.qunit-test.pass .qunit-assert-list .fail .test-diff,
+.qunit-test.pass .qunit-assert-list .fail .test-source {
+    color: var(--qunit-muted-assertion-color);
+}
+
+.qunit-assert-list .fail .test-expected,
+.qunit-assert-list del {
+    color: light-dark(#145a28, #9dcb63);
+}
+
+.qunit-assert-list del {
+    background-color: light-dark(#d9f9e3, #2f4223);
+}
+
+.qunit-assert-list ins {
+    color: var(--q-fail-text);
+    background-color: light-dark(#ffd8e1, #4a1f1f);
+}

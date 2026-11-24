@@ -14,6 +14,7 @@ import hbs from 'hbs';
 import session from 'express-session';
 import { highchartsDir } from './lib/arguments.js';
 import { dirname, posix } from './lib/functions.js';
+import { qunitAssets } from './lib/qunit-assets.js';
 
 import dotenv from 'dotenv';
 dotenv.config();
@@ -35,6 +36,17 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(lessMiddleware(path.join(__dirname, 'public')));
+
+// Serve only the two browser assets from the pinned QUnit distribution.
+for (const [url, file] of Object.entries(qunitAssets)) {
+  app.get(url, (req, res, next) => {
+    res.sendFile(file, { maxAge: '10m' }, (error) => {
+      if (error) {
+        next(error);
+      }
+    });
+  });
+}
 
 // Static
 app.use(express.static(
