@@ -6,10 +6,6 @@
     --qunit-muted-assertion-color: light-dark(#366097, #a6c7e5);
 }
 
-#qunit-header {
-    display: none;
-}
-
 #qunit-toolbar,
 #qunit-modulefilter-dropdown,
 .qunit-test.skipped {

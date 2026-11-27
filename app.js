@@ -39,12 +39,8 @@ app.use(lessMiddleware(path.join(__dirname, 'public')));
 
 // Serve only the two browser assets from the pinned QUnit distribution.
 for (const [url, file] of Object.entries(qunitAssets)) {
-  app.get(url, (req, res, next) => {
-    res.sendFile(file, { maxAge: '10m' }, (error) => {
-      if (error) {
-        next(error);
-      }
-    });
+  app.get(url, (req, res) => {
+    res.sendFile(file, { maxAge: '10m' });
   });
 }
 
