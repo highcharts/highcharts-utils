@@ -3,6 +3,13 @@ document.addEventListener('DOMContentLoaded', function () {
     if (typeof QUnit === 'undefined') {
         return;
     }
+    // Older samples use QUnit 1.19, which only provides assert.push.
+    const pushResult = QUnit.assert.pushResult || function ({
+        result, actual, expected, message
+    }) {
+        this.push(result, actual, expected, message);
+    };
+
     /**
      * Compare numbers taking in account an error.
      * http://bumbu.me/comparing-numbers-approximately-in-qunitjs/
@@ -19,7 +26,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         var result = number === expected || (number <= expected + error && number >= expected - error) || false;
 
-        this.push(result, number, expected, message);
+        pushResult.call(this, { result, actual: number, expected, message });
     };
 
     /*
@@ -36,12 +43,7 @@ document.addEventListener('DOMContentLoaded', function () {
             number < expected
         ) || false;
 
-        this.pushResult({
-            result: result,
-            actual: number,
-            expected: expected,
-            message: message
-        });
+        pushResult.call(this, { result, actual: number, expected, message });
     };
 
     /*
@@ -58,11 +60,6 @@ document.addEventListener('DOMContentLoaded', function () {
             number > expected
         ) || false;
 
-        this.pushResult({
-            result: result,
-            actual: number,
-            expected: expected,
-            message: message
-        });
+        pushResult.call(this, { result, actual: number, expected, message });
     };
 });

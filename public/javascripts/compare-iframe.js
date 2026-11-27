@@ -50,7 +50,9 @@ function compareHTML() {
 			if (qunitBox) {
 				qunitBox.style.display = 'block';
 			}
-			if (controller) {
+			const { filter, module, moduleId, testId } = QUnit.config;
+			// Only a full run can replace the saved sample result.
+			if (controller && !filter && !module && !moduleId?.length && !testId?.length) {
 				if (e.passed === e.total) {
 					window.parent.onIdentical?.();
 				} else {
